@@ -1,0 +1,5076 @@
+<html lang="en">
+<head><link rel="icon" type="image/x-icon" href="https://i.ibb.co/YmCwGCB/cd.png">
+  <meta charset="utf-8" />
+  <meta content="width=device-width, initial-scale=1" name="viewport" />
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet" />
+
+  <title>Clidder</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"
+    rel="stylesheet"
+  />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Roboto:wght𝓬𝓹400;700&display=swap"
+    rel="stylesheet"
+  />
+  <style>
+   body {
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+}
+
+
+
+
+
+
+
+
+
+/* Light mode (default) */
+    body.light-mode {
+      background-color: #ffffff;
+      color: #111827;
+    }
+    body.light-mode header,
+    body.light-mode #leftSidebar,
+    body.light-mode #rightSidebar,
+    body.light-mode #tweetBox,
+    body.light-mode #modalAddPost > div,
+    body.light-mode #modalAuth > div,
+    body.light-mode #modalProfile > div,
+    body.light-mode #modalCliddersContent,
+    body.light-mode .bg-white {
+      background-color: white;
+      color: #111827;
+    }
+    body.light-mode .text-gray-700 {
+      color: #374151;
+    }
+    body.light-mode .text-gray-900 {
+      color: #111827;
+    }
+    body.light-mode .text-gray-600 {
+      color: #4b5563;
+    }
+    body.light-mode .text-gray-500 {
+      color: #6b7280;
+    }
+    body.light-mode .bg-blue-500 {
+      background-color: #3b82f6;
+    }
+    body.light-mode .hover\:bg-blue-600:hover {
+      background-color: #2563eb;
+    }
+    body.light-mode .bg-indigo-500 {
+      background-color: #6366f1;
+    }
+    body.light-mode .hover\:bg-indigo-600:hover {
+      background-color: #4f46e5;
+    }
+    body.light-mode .bg-yellow-500 {
+      background-color: #eab308;
+    }
+    body.light-mode .hover\:bg-yellow-600:hover {
+      background-color: #ca8a04;
+    }
+    body.light-mode .bg-purple-500 {
+      background-color: #8b5cf6;
+    }
+    body.light-mode .hover\:bg-purple-600:hover {
+      background-color: #7c3aed;
+    }
+    body.light-mode .bg-red-500 {
+      background-color: #ef4444;
+    }
+    body.light-mode .hover\:bg-red-600:hover {
+      background-color: #dc2626;
+    }
+    body.light-mode .bg-green-500 {
+      background-color: #22c55e;
+    }
+    body.light-mode .hover\:bg-green-600:hover {
+      background-color: #16a34a;
+    }
+    body.light-mode .bg-gray-300 {
+      background-color: #d1d5db;
+    }
+    body.light-mode .hover\:bg-gray-400:hover {
+      background-color: #9ca3af;
+    }
+    body.light-mode .bg-gray-100 {
+      background-color: #f3f4f6;
+    }
+    body.light-mode .ring-blue-400 {
+      --tw-ring-color: #60a5fa;
+    }
+
+    /* Dark mode */
+    body.dark-mode {
+      background-color: #000000;
+      color: #f9fafb;
+    }
+    body.dark-mode header,
+body.dark-mode #centerContent,
+    body.dark-mode #leftSidebar,
+    body.dark-mode #rightSidebar,
+    body.dark-mode #tweetBox,
+    body.dark-mode #modalAddPost > div,
+    body.dark-mode #modalAuth > div,
+    body.dark-mode #modalProfile > div,
+    body.dark-mode #modalCliddersContent,
+    body.dark-mode .bg-white {
+      background-color: #000000;
+      color: #f9fafb;
+    }
+    body.dark-mode .text-gray-700 {
+      color: #d1d5db;
+    }
+    body.dark-mode .text-gray-900 {
+      color: #f9fafb;
+    }
+    body.dark-mode .text-gray-600 {
+      color: #9ca3af;
+    }
+    body.dark-mode .text-gray-500 {
+      color: #6b7280;
+    }
+    body.dark-mode .bg-blue-500 {
+      background-color: #2563eb;
+    }
+    body.dark-mode .hover\:bg-blue-600:hover {
+      background-color: #1d4ed8;
+    }
+    body.dark-mode .bg-indigo-500 {
+      background-color: #4f46e5;
+    }
+    body.dark-mode .hover\:bg-indigo-600:hover {
+      background-color: #4338ca;
+    }
+    body.dark-mode .bg-yellow-500 {
+      background-color: #ca8a04;
+    }
+    body.dark-mode .hover\:bg-yellow-600:hover {
+      background-color: #a16207;
+    }
+    body.dark-mode .bg-purple-500 {
+      background-color: #7c3aed;
+    }
+    body.dark-mode .hover\:bg-purple-600:hover {
+      background-color: #6d28d9;
+    }
+    body.dark-mode .bg-red-500 {
+      background-color: #dc2626;
+    }
+    body.dark-mode .hover\:bg-red-600:hover {
+      background-color: #b91c1c;
+    }
+    body.dark-mode .bg-green-500 {
+      background-color: #16a34a;
+    }
+    body.dark-mode .hover\:bg-green-600:hover {
+      background-color: #15803d;
+    }
+    body.dark-mode .bg-gray-300 {
+      background-color: #4b5563;
+    }
+    body.dark-mode .hover\:bg-gray-400:hover {
+      background-color: #6b7280;
+    }
+    body.dark-mode .bg-gray-100 {
+      background-color: #374151;
+    }
+    body.dark-mode .ring-blue-400 {
+      --tw-ring-color: #3b82f6;
+    }
+
+    /* Dark/Light mode toggle button styles */
+    .mode-toggle-btn {
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.5rem;
+      padding: 0.5rem 1rem;
+      border-radius: 9999px;
+      font-weight: 600;
+      user-select: none;
+      transition: background-color 0.3s, color 0.3s;
+    }
+    body.light-mode .mode-toggle-btn {
+      background-color: #1d4ed8;
+      color: white;
+    }
+    body.light-mode .mode-toggle-btn:hover {
+      background-color: #2563eb;
+    }
+    body.dark-mode .mode-toggle-btn {
+      background-color: #93c5fd;
+      color: #1e293b;
+    }
+    body.dark-mode .mode-toggle-btn:hover {
+      background-color: #60a5fa;
+    }
+
+    /* Position dark mode toggle in leftSidebar bottom */
+    #leftSidebar {
+      position: fixed;
+      bottom: 1rem;
+      left: 0rem;
+      width: 16rem;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+      height:height: 100vh;
+      padding-bottom: 1rem;
+      box-sizing: border-box;
+    }
+    #leftSidebar .mode-toggle-container {
+      margin-top: auto;
+      padding-top: 1rem;
+      border-top: 1px solid #d1d5db;
+    }
+    body.dark-mode #leftSidebar .mode-toggle-container {
+      border-top-color: #4b5563;
+    }
+
+    /* Position dark mode toggle in header top right */
+    #headerModeToggle {
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.25rem 0.5rem;
+      border-radius: 0.375rem;
+      font-weight: 600;
+      user-select: none;
+      transition: background-color 0.3s, color 0.3s;
+      border: 1px solid transparent;
+    }
+    #headerModeToggle:hover {
+      background-color: #e0e7ff;
+    }
+    body.dark-mode #headerModeToggle:hover {
+      background-color: #4338ca;
+      color: white;
+    }
+    body.dark-mode #headerModeToggle {
+      color: #f9fafb;
+      border-color: #a5b4fc;
+    }
+
+
+    #contextMenu {
+      position: absolute;
+      background: white;
+      border: 1px solid #d1d5db;
+      border-radius: 0.375rem;
+      box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1),
+        0 4px 6px -2px rgba(0, 0, 0, 0.05);
+      z-index: 10000;
+      width: 150px;
+      display: none;
+    }
+    #contextMenu button {
+      width: 100%;
+      padding: 0.5rem 1rem;
+      text-align: left;
+      font-size: 0.875rem;
+      color: #374151;
+      background: transparent;
+      border: none;
+      cursor: pointer;
+    }
+    #contextMenu button:hover {
+      background-color: #e5e7eb;
+      color: #111827;
+    }
+    #centerContent {
+  flex: 1;
+  max-width: 610px;
+  margin: 0 auto;
+  padding: 1rem;
+  width: 100%;
+  box-sizing: border-box;
+  overflow-y: auto;
+  height: calc: 100vh;
+  display: flex;
+  flex-direction: column;
+  gap: 0rem;
+  scroll-behavior: smooth;
+  border-left: none;
+}
+
+    #tweetBox {
+      background: white;
+      border-radius: 0rem;
+      box-shadow: 0 1px 3px rgb(0 0 0 / 0.1);
+      padding: 1rem 1.5rem;
+      z-index: 20;
+      flex-shrink: 0;
+      position: relative !important;
+        transition: all 0.3s ease-in-out;
+      top: auto !important;
+    }
+    #tweetBox textarea {
+      resize: none;
+    }
+    .tweet-action-btn {
+      cursor: pointer;
+      color: #6b7280;
+      transition: color 0.2s ease;
+      display: flex;
+      align-items: center;
+    }
+    .tweet-action-btn:hover {
+      color: #1d9bf0;
+    }
+    .liked {
+      color: #e0245e !important;
+    }
+    #feed {
+      display: flex;
+      flex-direction: column;
+      gap: 0rem;
+    }
+    .reply-list {
+      margin-top: 0.75rem;
+      border-top: 1px solid #e5e7eb;
+      padding-top: 0.75rem;
+      font-size: 0.875rem;
+      color: #4b5563;
+    }
+    .reply-item {
+      margin-bottom: 0.5rem;
+    }
+    .reply-item strong {
+      color: #111827;
+    }
+    main.flex-grow {
+      max-width: 100vw;
+      padding-left: 0;
+      padding-right: 0;
+      overflow: hidden;
+    }
+    #leftSidebar {
+
+      position: fixed;
+      top: 0px;
+      bottom: 0;
+      overflow-y: auto;
+      background: white;
+      border-right: 1px ;
+      padding: 1rem;
+      width: 18rem;
+      z-index: 25;
+    }
+    #rightSidebar {
+      position: fixed;
+      top: 0px;
+      bottom: 0;
+      overflow-y: auto;
+      background: white;
+      border-right: 1px ;
+      padding: 1rem;
+      width: 22rem;
+      z-index: 10;
+    }
+    #rightSidebar {
+      right: 318.7;
+      border-right: none;
+      border-left:1px solid #374151 ;
+    }
+    #leftSidebar {
+      left: 383;
+      border-right: 1px solid #374151;
+      border-left: none;
+    }
+
+
+#sidebarMessages,
+#sidebarExplore {
+  display: none !important;
+}
+
+
+
+#leftSidebar button {
+  padding: 0.4rem 0.6rem;
+  border-radius: 9999px;
+  display: flex;
+  align-items: center;
+  gap: 0.3rem;
+  font-size: 1.25rem;
+  font-weight: 500;
+  white-space: nowrap;
+}
+
+
+#leftSidebar button i {
+  font-size: 1.25rem;
+  min-width: 24px;
+  text-align: center;
+}
+
+#leftSidebar button:hover {
+  background-color: rgba(59, 130, 246, 0.1); /* Tailwind blue-500 light */
+  color: #3b82f6;
+}
+
+body.dark-mode #leftSidebar button:hover {
+  background-color: #1e40af33;
+  color: #3b82f6;
+}
+
+
+
+
+
+/* Light Mode Sidebar Borders */
+body.light-mode #leftSidebar {
+  border-right: 1px solid #DADEDD;
+}
+
+body.light-mode #rightSidebar {
+  border-left: 1px solid #DADEDD;
+}
+
+/* Dark Mode Sidebar Borders */
+body.dark-mode #leftSidebar {
+  border-right: 1px solid #374151; /* Tailwind gray-700 */
+}
+
+body.dark-mode #rightSidebar {
+  border-left: 1px solid #374151;
+}
+
+
+    𝓬𝓹media (max-width: 1023px) {
+      #leftSidebar,
+      #rightSidebar {
+        display: none;
+      }
+      #centerContent {
+        margin-left: 0;
+        margin-right: 0;
+        height: auto;
+        overflow-y: visible;
+        padding: 1rem;
+        max-width: 100%;
+        width: 100%;
+
+      }
+      #tweetBox {
+        position: relative !important;
+        top: auto !important;
+        box-shadow: none;
+        padding: 1rem 0 0 0;
+      }
+    }
+
+#notificationBadgeLeft {
+  background-color: #3b82f6; /* Tailwind blue-500 */
+  color: white;
+  font-size: 0.75rem;
+  font-weight: 700;
+  line-height: 1;
+  padding: 0 6px;
+  border-radius: 9999px;
+  min-width: 18px;
+  height: 18px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+
+
+
+    #sidebarNotifications {
+      position: relative;
+    }
+    /* Notifications dropdown */
+    #notificationsDropdown {
+      position: absolute;
+      top: 100%;
+      right: 0;
+      width: 320px;
+      max-height: 400px;
+      overflow-y: auto;
+      background: white;
+      border: 1px solid #d1d5db;
+      border-radius: 0.375rem;
+      box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1),
+        0 4px 6px -2px rgba(0, 0, 0, 0.05);
+      z-index: 10000;
+      display: none;
+    }
+    #notificationsDropdown h3 {
+      font-weight: 700;
+      font-size: 1.125rem;
+      padding: 0.75rem 1rem;
+      border-bottom: 1px solid #e5e7eb;
+    }
+    #notificationsDropdown ul {
+      list-style: none;
+      margin: 0;
+      padding: 0;
+    }
+    #notificationsDropdown li {
+      border-bottom: 1px solid #e5e7eb;
+      padding: 0.75rem 1rem;
+      cursor: pointer;
+      display: flex;
+      gap: 0.75rem;
+      align-items: flex-start;
+    }
+    #notificationsDropdown li:last-child {
+      border-bottom: none;
+    }
+    #notificationsDropdown li:hover {
+      background-color: #f3f4f6;
+    }
+    #notificationsDropdown img {
+      width: 40px;
+      height: 40px;
+      border-radius: 9999px;
+      object-fit: cover;
+      flex-shrink: 0;
+    }
+    #notificationsDropdown .notification-content {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+    }
+    #notificationsDropdown .notification-user {
+      font-weight: 700;
+      color: #111827;
+      margin-bottom: 0.25rem;
+    }
+    #notificationsDropdown .notification-caption {
+      color: #374151;
+      white-space: pre-wrap;
+      word-break: break-word;
+      margin-bottom: 0.25rem;
+    }
+    #notificationsDropdown .notification-time {
+      font-size: 0.75rem;
+      color: #6b7280;
+      user-select: none;
+    }
+
+/* Hide all scrollbars */
+::-webkit-scrollbar {
+  width: 0px;
+  height: 0px;
+  display: none;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: transparent;
+}
+
+/* For Firefox */
+body {
+  scrollbar-width: none; /* Firefox */
+  -ms-overflow-style: none; /* IE and Edge */
+}
+
+body::-webkit-scrollbar {
+  display: none; /* Chrome, Safari, Opera */
+}
+
+
+/* Clidders Modal */
+#modalClidders {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.5);
+  z-index: 11000;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  padding: 1rem;
+  overflow-y: auto;
+}
+#modalCliddersContent {
+  background: white;
+  border-radius: 0.5rem;
+  max-width: 28rem;
+  width: 100%;
+  max-height: 80vh;
+  overflow-y: auto;
+  padding: 1rem 1.5rem 1.5rem 1.5rem;
+  box-shadow: 0 10px 15px -3px rgba(0,0,0,0.1), 0 4px 6px -2px rgba(0,0,0,0.05);
+}
+#modalCliddersContent h2 {
+  font-weight: 700;
+  font-size: 1.25rem;
+  margin-bottom: 1rem;
+  text-align: center;
+}
+#modalCliddersContent ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+#modalCliddersContent li {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.5rem 0;
+  border-bottom: 1px solid #e5e7eb;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+#modalCliddersContent li:last-child {
+  border-bottom: none;
+}
+#modalCliddersContent li:hover {
+  background-color: #f3f4f6;
+}
+#modalCliddersContent img {
+  width: 40px;
+  height: 40px;
+  border-radius: 9999px;
+  object-fit: cover;
+  flex-shrink: 0;
+}
+#modalCliddersContent .user-info {
+  display: flex;
+  flex-direction: column;
+}
+#modalCliddersContent .user-name {
+  font-weight: 700;
+  color: #111827;
+}
+#modalCliddersContent .user-handle {
+  font-size: 0.875rem;
+  color: #6b7280;
+}
+#modalCliddersCloseBtn {
+  position: absolute;
+  top: 0.5rem;
+  right: 0.75rem;
+  background: transparent;
+  border: none;
+  font-size: 1.25rem;
+  color: #6b7280;
+  cursor: pointer;
+  transition: color 0.2s ease;
+}
+#modalCliddersCloseBtn:hover {
+  color: #111827;
+}
+
+
+
+
+
+body.light-mode #centerContent .bg-white{
+  border: 2px #F3FFFF;
+}
+
+body.dark-mode #centerContent .bg-white{
+  border: 1px solid #374151; /* Tailwind gray-700 */
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.5);
+}
+
+
+
+
+
+
+body.light-mode #rightSidebar .bg-white.rounded-lg {
+  border: 2px #F3FFFF;
+}
+
+body.dark-mode #rightSidebar .bg-white {
+  border: 1px solid #374151;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.5);
+}
+
+
+
+
+body.light-mode #tweetBox,
+body.dark-mode #tweetBox {
+  border: none !important;
+  box-shadow: none !important;
+}
+
+
+
+body.dark-mode #tweetInput {
+  background-color: transparent;
+  color: #f9fafb;
+  border: none;
+}
+
+
+body.dark-mode #searchInput {
+  background-color: #1f2937;
+  color: #f9fafb;
+  border-color: #374151;
+}
+
+
+.hashtag {
+  color: purple;
+  cursor: pointer;
+  text-decoration: none;
+}
+
+.hashtag:hover {
+  text-decoration: underline;
+}
+
+
+.post-content {
+  display: -webkit-box;
+  -webkit-line-clamp: 5;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  position: relative;
+  transition: max-height 0.3s ease;
+}
+
+.post-content.expanded {
+  -webkit-line-clamp: unset;
+  max-height: none;
+}
+
+.read-more {
+  color: #3b82f6; /* Tailwind's blue-500 */
+  cursor: pointer;
+  display: inline-block;
+  margin-top: 4px;
+  font-size: 0.875rem; /* text-sm */
+}
+
+
+#scrollTopBtn {
+  transition: opacity 0.3s ease;
+}
+
+.text-unique-user {
+color: gray;
+font-weight: 600;
+}
+.text-unique-user:hover {
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+@media (max-width: 767px) {
+  #leftSidebar {
+    display: none;
+  }
+}
+
+
+@media (max-width: 768px) {
+  .post-actions {
+    display: flex;
+    justify-content: space-around;
+    flex-wrap: wrap;
+    width: 100%;
+    gap: 10px;
+    font-size: 0.9rem;
+  }
+  .post-actions button {
+    flex: 1 1 22%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 8px 0;
+    font-size: 0.95rem;
+  }
+}
+
+/* Styling select boxes in both light and dark modes */
+select {
+  padding: 4px 8px;
+  border-radius: 0.375rem;
+  border: 1px solid #ccc;
+}
+
+/* Light Mode */
+body.light-mode select {
+  background-color: white;
+  color: black;
+  border-color: #ccc;
+}
+
+/* Dark Mode */
+body.dark-mode select {
+  background-color: #1f2937;  /* Tailwind gray-800 */
+  color: #f9fafb;             /* light text */
+  border-color: #374151;      /* Tailwind gray-700 */
+}
+#editorToolbar select {
+  margin-right: 6px;
+}
+
+@media (max-width: 768px) {
+  header nav,
+  #btnMenu {
+    display: none !important;
+  }
+}
+
+#tweetInput {
+  line-height: 1.4;
+  font-size: 1rem;
+  padding: 0.5rem 0;
+}
+
+body.dark-mode .reply-list {
+  border-top: 1px solid #4b5563; /* gray-600 */
+  color: #d1d5db; /* light gray text */
+}
+
+body.dark-mode .reply-item strong {
+  color: #f9fafb; /* near white for dark mode */
+}
+
+body.dark-mode .reply-item {
+  background-color: transparent !important;
+  padding: 0 !important;
+  border-radius: 0 !important;
+}
+
+
+
+
+@keyframes gradientMove {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+.animate-gradient {
+  animation: gradientMove 4s ease infinite;
+}
+
+
+.animated-gradient {
+  background: linear-gradient(270deg, #6366f1, #3b82f6, #ec4899, #f59e0b, #10b981);
+  background-size: 800% 800%;
+  animation: gradientShift 6s ease infinite;
+}
+
+@keyframes gradientShift {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+
+/* Optional: toggle moon/sun icon */
+body.light-mode #mobileModeToggle i::before {
+  content: '\f186'; /* fa-moon */
+}
+body.dark-mode #mobileModeToggle i::before {
+  content: '\f185'; /* fa-sun */
+}
+
+.animated-gradient {
+  background: linear-gradient(270deg, #1e3a8a, #3b82f6, #8b5cf6);
+  background-size: 800% 800%;
+  animation: gradientShift 6s ease infinite;
+}
+
+@keyframes gradientShift {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+
+/* Hide popup toggle on desktop */
+.mobile-menu-toggle {
+  font-size: 24px;
+  cursor: pointer;
+  padding: 8px;
+}
+
+/* Style the popup menu */
+.mobile-popup-menu {
+  position: fixed;
+  top: 60px;
+  right: 20px;
+  background: #222;
+  border: 1px solid #555;
+  padding: 10px;
+  border-radius: 8px;
+  z-index: 9999;
+}
+
+.mobile-popup-menu button {
+  display: block;
+  width: 100%;
+  margin: 5px 0;
+  padding: 10px;
+  background: #333;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+}
+
+/* Show hamburger menu only on screens less than 768px */
+@media (max-width: 768px) {
+  .mobile-menu-toggle {
+    display: inline-block !important;
+  }
+
+  .sidebar-button, .some-sidebar-class-for-those-buttons {
+    display: none !important; /* Adjust class as needed */
+  }
+}
+
+  html, body, *, *::before, *::after {
+    -webkit-user-select: none !important; /* Safari/Chrome */
+    -moz-user-select: none !important;    /* Firefox */
+    -ms-user-select: none !important;     /* IE10+ */
+    user-select: none !important;         /* Standard */
+  }
+
+/* ⋮⋮⋮ “More” dropdown */
+#moreOptionsDropdown {
+  position: absolute;
+  top: 100%;
+  right: 3rem;            /* adjust to sit under the ⋮ button */
+  width: 150px;
+  background: white;
+  border: 1px solid #d1d5db;
+  border-radius: 0.375rem;
+  box-shadow: 0 10px 15px rgba(0,0,0,0.1);
+  z-index: 10000;
+  display: none;
+}
+#moreOptionsDropdown button {
+  width: 100%;
+  padding: 0.5rem 1rem;
+  text-align: left;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  font-size: 0.9rem;
+  color: #374151;
+}
+#moreOptionsDropdown button:hover {
+  background-color: #f3f4f6;
+  color: #111827;
+}
+
+body.dark-mode .reply-item {
+  background-color: transparent !important;
+  border: none !important;
+  box-shadow: none !important;
+  padding: 0 !important;
+  margin: 0 !important;
+}
+
+
+.reply-item {
+  margin-bottom: 0.25rem;
+  font-size: 0.875rem;
+}
+
+.more-comments.hidden {
+  display: none;
+}
+
+.notification-caption {
+  color: #f59e0b; /* Tailwind amber-500 */
+  font-weight: 600;
+}
+
+#birthdayBanner {
+  background: linear-gradient(to right, #7c3aed, #3b82f6, #06b6d4, #10b981);
+  color: #ffffff;
+  font-weight: 700;
+  padding: 0.75rem;
+  text-align: center;
+  display: none;
+  font-size: 1.1rem;
+  border-bottom: 2px solid #a855f7;
+}
+
+.birthday-banner-container {
+  background: linear-gradient(to right, #7c3aed, #3b82f6, #06b6d4, #10b981);
+  border-bottom: 2px solid #a855f7;
+  padding: 1rem;
+  display: none;
+  flex-direction: column;
+  gap: 0.75rem;
+  color: #ffffff;
+  font-weight: 600;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.birthday-banner-title {
+  font-size: 1.25rem;
+  margin-bottom: 0.5rem;
+  color: #ffffff;
+}
+
+.birthday-users-list {
+  display: flex;
+  gap: 1rem;
+  flex-wrap: wrap;
+  justify-content: center; /* Center content horizontally */
+  align-items: center;     /* Optional: center vertically if needed */
+  overflow-x: auto;
+  padding-bottom: 0.25rem;
+}
+
+
+.birthday-user-card {
+  background: linear-gradient(to right, #6d28d9, #3b82f6); /* Purple to blue gradient */
+  border-radius: 12px;
+  padding: 0.5rem 0.75rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.15);
+  white-space: nowrap;
+  color: #ffffff;
+  transition: transform 0.2s ease;
+}
+
+.birthday-user-card:hover {
+  transform: translateY(-2px);
+}
+
+.birthday-user-card img {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 2px solid #a855f7; /* Optional: highlight the photo */
+}
+
+.birthday-user-card span {
+  font-size: 0.95rem;
+  font-weight: 500;
+  color: #ffffff;
+}
+
+body.dark-mode img {
+  border: none !important;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.4); /* optional: soft shadow */
+  background-color: transparent !important;
+}
+
+body.dark-mode .bg-white.rounded-lg img {
+  border: none !important;
+  background: transparent !important;
+}
+
+
+body.dark-mode .reply-item {
+  background-color: transparent !important;
+  padding: 0 !important;
+  border-radius: 0 !important;
+  border: none !important;
+  box-shadow: none !important;
+}
+body.dark-mode .reply-item {
+  all: unset !important;
+  color: #d1d5db !important; /* keep the text readable in dark mode */
+  display: block;
+  margin-top: 0.5rem;
+}
+
+.verified-badge {
+  width: 16px;
+  height: 16px;
+  margin-left: 4px;
+  vertical-align: middle;
+}
+
+body.light-mode #centerContent .bg-white {
+  border-top: 1px solid #EDEDED;    /* Light gray like Twitter */
+  border-bottom: 1px solid #EDEDED;
+  border-left: none;
+  border-right: none;
+  box-shadow: none; /* No extra glow */
+  border-radius: 0;
+}
+
+body.dark-mode #centerContent .bg-white {
+  border-top: 1px solid #2d2f34;    /* Slightly lighter than black */
+  border-bottom: 1px solid #2d2f34;
+  border-left: none;
+  border-right: none;
+  box-shadow: none; /* Remove heavy glow */
+  border-radius: 0;
+}
+
+
+
+body.dark-mode .post-options-menu {
+  background-color: #1f2937;
+  border-color: #374151;
+  color: #f9fafb;
+}
+body.dark-mode .post-options-menu button:hover {
+  background-color: #374151;
+}
+
+
+
+#centerContent {
+  overflow-y: auto;
+  height: 100vh; /* or calc(100vh - height of header if it's back */
+  display: flex;
+  flex-direction: column;
+}
+
+
+
+/* Compact action buttons like Twitter */
+.post-actions {
+  display: flex;
+  justify-content: space-between;
+  padding: 0 12px;
+  font-size: 0.8rem;
+  gap: 0.5rem;
+}
+
+.post-actions button {
+  padding: 2px 6px;
+  font-size: 0.8rem;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  color: #6b7280; /* Tailwind gray-500 */
+  transition: color 0.2s ease;
+  background: transparent;
+  border: none;
+}
+
+.post-actions button i {
+  font-size: 0.95rem; /* smaller icon size */
+}
+
+.post-actions button:hover {
+  color: #1d9bf0; /* Twitter blue on hover */
+}
+
+
+
+  </style>
+
+
+<!-- Facebook SDK root -->
+<div id="fb-root"></div>
+
+<!-- Instagram, Twitter and TikTok SDKs auto-load as needed -->
+
+<link rel="manifest" href="/manifest.json" />
+<meta name="theme-color" content="#2563eb" />
+
+
+</head>
+<body class="bg-gray-50 min-h-screen flex flex-col">
+
+<div id="splashScreen" style="position:fixed; top:0; left:0; width:100%; height:100vh; display:flex; align-items:center; justify-content:center; z-index:99999; background:#fff;">
+  <img id="splashImage" src="https://i.ibb.co/23QP3LzG/clidder-new-s.png" alt="Clidder Splash" style="width: 100px; height: 100px;" />
+</div>
+
+
+
+ <header class="bg-white border-b border-gray-300 sticky top-0 z-50">
+<!-- ✅ MOBILE HEADER — updated -->
+<!-- ✅ MOBILE HEADER with inline search -->
+<div class="flex items-center justify-between p-4 md:hidden relative w-full">
+  <!-- Left: Logo and Search -->
+  <div class="flex items-center space-x-2 w-full">
+    <!-- Logo -->
+    <h1 class="text-xl font-extrabold select-none text-transparent bg-clip-text animated-gradient">
+      𝓬𝓵𝓲𝓭𝓭𝓮𝓻
+    </h1>
+
+    <!-- Search Bar (Hidden by Default) -->
+    <div id="mobileSearchContainer" class="flex-grow hidden">
+      <input type="search" id="mobileSearchInput"
+        placeholder="Search Clidder..."
+        class="w-full rounded-md border border-gray-300 px-3 py-1 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 dark:bg-gray-800 dark:text-white" />
+    </div>
+  </div>
+
+  <!-- Right: Controls -->
+  <div class="flex items-center space-x-3 ml-2 flex-shrink-0">
+    
+
+    <!-- Dark Mode -->
+  
+
+    <!-- Clidders -->
+ 
+<!-- Search Icon -->
+ 
+    <!-- Menu -->
+    <button onclick="toggleMobileSidebarMenu()" class="text-gray-700 dark:text-white text-xl focus:outline-none">
+      ☰
+    </button>
+  </div>
+</div>
+
+
+
+
+
+
+
+  <!-- ✅ DESKTOP HEADER -->
+  <div class="max-w-5xl mx-auto hidden md:flex items-center justify-between p-4 space-x-6">
+    <!-- Left: Clidder Logo -->
+    <div class="flex items-center flex-shrink-0">
+      <h1 class="text-2xl font-bold select-none bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 text-transparent bg-clip-text animate-gradient bg-[length:200%_200%]">
+        𝓬𝓵𝓲𝓭𝓭𝓮𝓻
+      </h1>
+    </div>
+
+      <div class="w-full max-w-md">
+        <input aria-label="Search hats by caption" class="w-full rounded-md border border-gray-300 px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500" id="searchInput" placeholder="Discover in Clidder ..." type="search" />
+      </div>
+      <nav class="hidden md:flex space-x-6 text-gray-700 relative">
+        <button aria-label="Home" class="hover:text-gray-900 focus:outline-none focus:text-gray-900" id="btnHome">
+          <i class="fas fa-home fa-lg"></i>
+        </button>
+        <button aria-label="Add new hat post" class="hover:text-gray-900 focus:outline-none focus:text-gray-900" id="btnAddPost">
+          <i class="fas fa-plus-square fa-lg"></i>
+        </button>
+        
+        <button aria-label="Favorites" class="hover:text-gray-900 focus:outline-none focus:text-gray-900" id="btnFavorites">
+          <i class="fas fa-star fa-lg"></i>
+        </button>
+        <button class="flex items-center space-x-1 hover:text-blue-500 focus:outline-none focus:text-blue-500 relative" id="sidebarNotifications" style="position: relative;">
+          <i class="fas fa-bell fa-lg"></i>
+        
+          <span id="notificationBadge" style="display:none;">0</span>
+        </button>
+
+<button aria-label="User profile" class="hover:text-gray-900 focus:outline-none focus:text-gray-900" id="btnProfileTop">
+          <i class="fas fa-user-circle fa-lg"></i>
+        </button>
+
+<!-- ⋮⋮⋮ More Options -->
+<button id="btnMoreOptions" aria-label="More options" class="hover:text-gray-900 focus:outline-none focus:text-gray-900 relative">
+  <i class="fas fa-ellipsis-v fa-lg"></i>
+</button>
+<div id="moreOptionsDropdown" role="menu" aria-hidden="true">
+  <button id="moreAccount"    role="menuitem">Account</button>
+  <button id="morePages"      role="menuitem">Pages</button>
+  <button id="moreSettings"   role="menuitem">Settings</button>
+  <button id="moreLogout"     role="menuitem">Logout</button>
+</div>
+
+
+
+<!-- Dark/Light mode toggle in header -->
+        <button id="headerModeToggle" aria-label="Toggle dark/light mode" title="Toggle dark/light mode" type="button" class="ml-4">
+          <i class="fas fa-moon"></i>
+        </button>
+
+        <div id="notificationsDropdown" role="region" aria-label="Notifications list" tabindex="-1">
+          <h3>Notifications</h3>
+          <ul id="notificationsList"></ul>
+        </div>
+      </nav>
+      <button aria-label="Open menu" class="md:hidden text-gray-700 focus:outline-none" id="btnMenu">
+        <i class="fas fa-bars fa-lg"></i>
+      </button>
+    </div>
+
+
+
+</header>
+
+
+  <main class="flex-grow max-w-full mx-auto w-full p-0 flex flex-row gap-0 relative">
+    <aside id="leftSidebar" aria-label="Sidebar" class="hidden md:flex flex-col space-y-3 text-gray-700 text-lg" style="">
+
+
+
+<!-- Left-aligned clickable logo, aligned with sidebar buttons -->
+<div class="mb-2 pl-[0rem]">
+  <button class="hover:bg-blue-100 dark:hover:bg-gray-700 p-2 rounded-full">
+    <img src="https://i.ibb.co/YmCwGCB/cd.png" alt="Clidder Logo" class="w-8 h-8" />
+  </button>
+</div>
+
+
+
+
+
+      <nav class="flex flex-col space-y-4">
+        <button class="flex items-center space-x-3 hover:text-blue-500 focus:outline-none focus:text-blue-500" id="sidebarHome">
+          <i class="fas fa-home text-white dark:text-black" 
+   style="text-shadow: -1px -1px 0 black, 1px -1px 0 black, -1px 1px 0 black, 1px 1px 0 black;"></i>
+           <span>Home</span>
+        </button>
+
+        <button class="flex items-center space-x-3 hover:text-blue-500 focus:outline-none focus:text-blue-500" id="sidebarExplore" style="">
+          <i class="fas fa-hashtag text-white dark:text-black" 
+   style="text-shadow: -1px -1px 0 black, 1px -1px 0 black, -1px 1px 0 black, 1px 1px 0 black;"></i>
+          <span>Discover</span>
+        </button>
+
+        <button class="flex items-center space-x-3 hover:text-blue-500 focus:outline-none focus:text-blue-500" id="sidebarNotificationsLeft">
+          <i class="fas fa-bell text-white dark:text-black" 
+   style="text-shadow: -1px -1px 0 black, 1px -1px 0 black, -1px 1px 0 black, 1px 1px 0 black;"></i>
+          <span>Notifications</span>
+          <span id="notificationBadgeLeft" class="ml-1 bg-red-500 text-white rounded-full px-2 text-xs font-semibold" style="display:none;"></span>
+        </button>
+
+<button class="flex items-center space-x-3 hover:text-blue-500 focus:outline-none focus:text-blue-500" id="sidebarClips">
+  <i class="fas fa-play-circle text-white dark:text-black" 
+   style="text-shadow: -1px -1px 0 black, 1px -1px 0 black, -1px 1px 0 black, 1px 1px 0 black;"></i>
+  <span>Clips</span>
+</button>
+
+        <button class="flex items-center space-x-3 hover:text-blue-500 focus:outline-none focus:text-blue-500" id="sidebarMessages">
+          <i class="fas fa-envelope text-white dark:text-black" 
+   style="text-shadow: -1px -1px 0 black, 1px -1px 0 black, -1px 1px 0 black, 1px 1px 0 black;"></i>
+          <span>Messages</span>
+        </button>
+
+        <button class="flex items-center space-x-3 hover:text-blue-500 focus:outline-none focus:text-blue-500" id="sidebarBookmarks">
+          <i class="fas fa-bookmark text-white dark:text-black" 
+   style="text-shadow: -1px -1px 0 black, 1px -1px 0 black, -1px 1px 0 black, 1px 1px 0 black;"></i>
+          <span>Saved</span>
+        </button>
+
+        <button class="flex items-center space-x-3 hover:text-blue-500 focus:outline-none focus:text-blue-500" id="sidebarLists">
+         <i class="fas fa-bolt text-white dark:text-black" style="text-shadow: -1px -1px 0 black, 1px -1px 0 black, -1px 1px 0 black, 1px 1px 0 black;"></i>
+          <span>Verified Clidders</span>
+        </button>
+
+        <button class="flex items-center space-x-3 hover:text-blue-500 focus:outline-none focus:text-blue-500" id="sidebarFavorites">
+          <i class="fas fa-star text-white dark:text-black" 
+   style="text-shadow: -1px -1px 0 black, 1px -1px 0 black, -1px 1px 0 black, 1px 1px 0 black;"></i>
+          <span>Favorites</span>
+        </button>
+
+        <button class="flex items-center space-x-3 hover:text-blue-500 focus:outline-none focus:text-blue-500" id="sidebarFromMe">
+          	<i class="fas fa-share-square text-white dark:text-black" 
+   style="text-shadow: -1px -1px 0 black, 1px -1px 0 black, -1px 1px 0 black, 1px 1px 0 black;"></i>
+          <span>From Me</span>
+        </button>
+        
+        <button class="flex items-center space-x-3 hover:text-blue-500 focus:outline-none focus:text-blue-500" id="sidebarProfile" style="">
+          <i class="fas fa-user text-white dark:text-black" 
+   style="text-shadow: -1px -1px 0 black, 1px -1px 0 black, -1px 1px 0 black, 1px 1px 0 black;"></i>
+          <span>Profile</span>
+        </button>
+
+        <button class="flex items-center space-x-3 hover:text-blue-500 focus:outline-none focus:text-blue-500" id="sidebarMore" style="">
+          <i class="fas fa-users text-white dark:text-black" 
+   style="text-shadow: -1px -1px 0 black, 1px -1px 0 black, -1px 1px 0 black, 1px 1px 0 black;"></i>
+          <span>Clidders</span>
+        </button>
+
+<button id="sidebarTheme" class="flex items-center space-x-3 hover:text-blue-500 focus:outline-none focus:text-blue-500">
+  <i class="fas fa-palette text-white dark:text-black" 
+   style="text-shadow: -1px -1px 0 black, 1px -1px 0 black, -1px 1px 0 black, 1px 1px 0 black;"></i>
+  <span>Theme</span>
+</button>
+
+
+
+<!-- Add this in the left sidebar navigation -->
+<button id="sidebarSettings" class="flex items-center space-x-3 hover:text-blue-500 focus:outline-none focus:text-blue-500">
+  <i class="fas fa-cog text-white dark:text-black" 
+   style="text-shadow: -1px -1px 0 black, 1px -1px 0 black, -1px 1px 0 black, 1px 1px 0 black;"></i>
+  <span>Settings</span>
+</button>
+
+
+
+
+
+
+      </nav>
+      <button id="btnTweet" class="bg-blue-500 text-white rounded-full py-3 px-5 font-bold text-lg hover:bg-blue-600 transition flex items-center gap-2">
+  <i class="fas fa-feather fa-lg"></i>
+  Clidde
+</button>
+
+<div class="mode-toggle-container">
+        <button id="sidebarModeToggle" aria-label="Toggle dark/light mode" title="Toggle dark/light mode" type="button" class="mode-toggle-btn w-full">
+          <i class="fas fa-moon"></i><span>Dark Mode</span>
+        </button>
+      </div>
+
+<a href="https://blackhataccountcenter.netlify.app/" target="_blank" rel="noopener noreferrer"
+   id="sidebarUserSummary" class="flex items-center space-x-3 mt-4 hidden hover:bg-gray-100 dark:hover:bg-gray-800 p-2 rounded cursor-pointer transition">
+  <img id="sidebarUserPic" src="" alt="Profile" class="w-10 h-10 rounded-full" />
+  <div>
+    <div id="sidebarUserName" class="font-semibold text-sm"></div>
+    <div id="sidebarUserHandle" class="text-gray-500 text-xs"></div>
+  </div>
+</a>
+
+
+
+
+    </aside>
+
+    <section id="centerContent" aria-live="polite" aria-relevant="additions" class="flex flex-col">
+
+
+<!-- Transparent For You / Following Tabs like Twitter -->
+<div id="topFeedTabs" class="fixed top-0 left-1/2 transform -translate-x-1/2 w-full max-w-xl z-40 border-b border-gray-200 dark:border-gray-700 backdrop-blur bg-transparent">
+  <div class="flex justify-around text-sm font-semibold text-gray-500 dark:text-gray-300">
+    <button id="tabForYou" class="flex-1 py-3 text-center transition-colors border-b-2 border-transparent hover:text-blue-500">For You</button>
+    <button id="tabFollowing" class="flex-1 py-3 text-center transition-colors border-b-2 border-transparent hover:text-blue-500">From Verified</button>
+  </div>
+</div>
+
+
+<br>
+      
+<div id="tweetBox" class="bg-white dark:bg-black border border-gray-300 dark:border-gray-700 rounded-2xl p-4 shadow-sm">
+  <div class="flex items-start space-x-4">
+    <img id="currentUserPic" src="https://i.ibb.co/0VqN92C4/clidder-off-dark.png" alt="User" class="w-12 h-12 rounded-full object-cover" />
+    <div class="flex flex-col w-full">
+      <textarea
+        id="tweetInput"
+        rows="1"
+        placeholder="What's buzzing now?"
+        class="w-full bg-transparent text-gray-900 dark:text-white placeholder-gray-500 dark:placeholder-gray-400 text-lg border-none focus:outline-none resize-none"
+      ></textarea>
+
+      <div class="flex justify-between items-center mt-3">
+        <div class="flex flex-wrap gap-4 text-blue-400 text-lg">
+          <i class="fas fa-image cursor-pointer hover:text-blue-500" title="Image"></i>
+          <i class="fas fa-gift cursor-pointer hover:text-blue-500" title="Gift"></i>
+          <i class="fas fa-chart-bar cursor-pointer hover:text-blue-500" title="Poll"></i>
+          <i class="fas fa-smile cursor-pointer hover:text-blue-500" title="Emoji"></i>
+          <i class="fas fa-map-marker-alt cursor-pointer hover:text-blue-500" title="Location"></i>
+          <i class="fas fa-music cursor-pointer hover:text-blue-500" title="Audio Clip"></i>
+          <i class="fas fa-video cursor-pointer hover:text-blue-500" title="Video"></i>
+          <i class="fas fa-paperclip cursor-pointer hover:text-blue-500" title="Attach File"></i>
+        </div>
+        <button
+          id="btnSubmitTweet"
+          class="bg-blue-500 hover:bg-blue-600 text-white font-semibold px-5 py-2 rounded-full disabled:opacity-50"
+          disabled
+        >
+          Clidde
+        </button>
+      </div>
+
+      <div class="text-right text-sm text-gray-500 mt-2">
+        <span id="charCount">0 / 100000</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+<div id="birthdayBanner" style="display:none;" class="birthday-banner-container">
+  <div class="birthday-banner-title">It's Their Big Day – Say Happy Birthday!</div>
+  <div id="birthdayBannerUsers" class="birthday-users-list"></div>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+<section id="clipsSection" class="hidden flex flex-col space-y-4">
+  <h2 class="text-2xl font-bold text- mt-4"><p align ="left">𝒞𝓁𝒾𝓅𝓈 𝒻𝑜𝓇 𝒴𝑜𝓊</h2></p>
+  <div id="clipsDisplay" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 p-4">
+    <!-- Video clips will be cloned here -->
+  </div>
+</section>
+
+
+
+
+      <section id="feed" class="flex flex-col mt-0"></section>
+
+    </section>
+
+    <aside id="rightSidebar" class="hidden lg:flex flex-col w-80 space-y-6 text-gray-700 text-sm" aria-label="Right Sidebar">
+
+<div class="sticky top-0 z-10 rounded-[20px] shadow p-6 flex flex-col items-center space-y-4 text-white text-center"
+     style="background: linear-gradient(135deg, #6366f1, #7c3aed, #4f46e5, #06b6d4); background-size: 400% 400%; animation: gradientShift 8s ease infinite;">
+  <h2 class="text-2xl font-bold">Clidder</h2>
+
+  <img src="https://i.ibb.co/YmCwGCB/cd.png" width="100" alt="Security Shield Icon" class="mx-auto" />
+
+  <p class="text-white/90 text-lg font-medium">from Jayasinghe Brothers</p>
+</div>
+
+
+
+<div class="relative w-full">
+  <input 
+    type="text" 
+    id="userSearchInput" 
+    placeholder="Search anything in Clidder..."
+    class="w-full px-4 py-2 pl-10 border border-gray-300 rounded-[10px] shadow-[inset_2px_2px_5px_rgba(0,0,0,0.1),inset_-2px_-2px_5px_rgba(255,255,255,0.2)] focus:outline-none focus:ring-2 focus:ring-blue-500 dark:bg-gray-800 dark:text-white transition"
+  />
+  <i class="fas fa-search absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 dark:text-gray-300"></i>
+</div>
+
+
+
+
+
+<div class="bg-white rounded-[20px] shadow p-4 flex flex-col items-center space-y-4">
+        <h2 class="text-xl font-bold mb-2">Subscribe to Premium</h2>
+        <p class="text-gray-600 text-center">Get exclusive access to premium content and features by subscribing to our premium plan.</p>
+        <a href="https://blackhatai.nicepage.io" target="_blank" rel="noopener noreferrer" class="mt-4 bg-yellow-500 text-white font-semibold rounded-full px-6 py-3 hover:bg-yellow-600 transition text-center w-full">Subscribe to Premium</a>
+      </div>
+
+<div class="bg-white rounded-[20px] shadow p-4">
+        <h2 class="text-xl font-bold mb-4">Trends for you</h2>
+        <ul id="trendsList" class="space-y-3"></ul>
+      </div>
+
+
+<div class="bg-white rounded-[20px] shadow p-4 flex flex-col items-center space-y-4">
+        <h2 class="text-xl font-bold mb-2">Account Center</h2>
+        <p class="text-gray-600 text-center">Recover Your Account from Black Hat Account Center</p>
+        <a href="https://blackhataccountcenter.netlify.app/" target="_blank" rel="noopener noreferrer" class="mt-4 bg-purple-500 text-white font-semibold rounded-full px-6 py-3 hover:bg-purple-600 transition text-center w-full">Recover Now</a>
+      </div>
+
+<div class="bg-white rounded-[20px] shadow p-4">
+        <h2 class="text-xl font-bold mb-4">Friends for You</h2>
+        <ul id="whoToFollowList" class="space-y-4"></ul>
+      </div>
+
+<div class="bg-white  rounded-[20px] shadow p-4 flex flex-col items-center space-y-4">
+        <h2 class="text-xl font-bold mb-2">Verify My Account</h2>
+        <p class="text-gray-600 text-center">Verify Your Clidder Account to Get More features</p>
+        <a href="https://blackhatsupport.wordpress.com/" target="_blank" rel="noopener noreferrer" class="mt-4 bg-red-500 text-white font-semibold rounded-full px-6 py-3 hover:bg-red-600 transition text-center w-full">Verify My Account</a>
+      </div>
+
+      
+      
+<div class="bg-white rounded-[20px] shadow p-4 flex flex-col items-center space-y-4">
+        <h2 class="text-xl font-bold mb-2">Follow Us on Web</h2>
+        <p class="text-gray-600 text-center">Follow our official Website !</p>
+        <a href="https://blackhatai.nicepage.io" target="_blank" rel="noopener noreferrer" class="mt-4 bg-green-500 text-white font-semibold rounded-full px-6 py-3 hover:bg-green-600 transition text-center w-full">Follow</a>
+      </div>
+<div class="bg-white rounded-[20px] shadow p-4 flex flex-col items-center space-y-4">
+        <h2 class="text-xl font-bold mb-2">Support Center</h2>
+        <p class="text-gray-600 text-center">Call to Support Center to Help</p>
+        <a href="https://blackhatai.wordpress.com" target="_blank" rel="noopener noreferrer" class="mt-4 bg-blue-500 text-white font-semibold rounded-full px-6 py-3 hover:bg-blue-600 transition text-center w-full">Support Center</a>
+      </div>
+
+<div class="text-xs text-gray-500 mt-6 space-y-1 text-center leading-relaxed">
+  <div class="space-x-2">
+    <a href="terms.html" class="hover:underline">Terms of Service</a> |
+    <a href="privacy.html" class="hover:underline">Privacy Policy</a> |
+    <a href="cookies.html" class="hover:underline">Cookie Policy</a> |
+    <a href="accessibility.html" class="hover:underline">Accessibility</a> |
+    <a href="ads-info.html" class="hover:underline">Ads info</a> |
+    <a href="#" class="hover:underline">More</a>
+  </div>
+  <div>© 2025 Clidder Corp.</div>
+</div>
+
+
+
+    </aside>
+  </main>
+
+  <div aria-labelledby="modalTitle" aria-modal="true" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4 z-50 hidden" id="modalAddPost" role="dialog">
+    <div class="bg-white shadow-lg max-w-md w-full p-6 relative" style="">
+      <h2 class="text-xl font-semibold mb-4 text-center" id="modalTitle">Add New Hat Post</h2>
+      <form class="flex flex-col space-y-4" id="formAddPost">
+        <label class="flex flex-col text-gray-700 font-medium">
+          Image URL
+          <input id="postImageUrl" placeholder="Paste Your Media URL" required="" type="url" class="mt-1 p-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-500">
+        </label>
+        <label class="flex flex-col text-gray-700 font-medium">
+          Caption
+          <textarea id="postCaption" placeholder="What’s buzzing now ? " rows="3" class="mt-1 p-2 border border-gray-300 rounded resize-none focus:outline-none focus:ring-2 focus:ring-blue-500"></textarea>
+        </label>
+        <button type="submit" class="bg-blue-600 text-white py-2 rounded font-semibold hover:bg-blue-700 transition">Clide Post</button>
+      </form>
+      <button aria-label="Close modal" id="btnCloseModal" class="absolute top-3 right-3 text-gray-500 hover:text-gray-700 focus:outline-none">
+        <i class="fas fa-times fa-lg"></i>
+      </button>
+    </div>
+  </div>
+
+
+
+
+
+
+
+
+
+  <div aria-modal="true" id="mobileMenu" role="dialog" class="fixed inset-0 bg-black bg-opacity-50 flex items-start justify-end p-4 hidden z-50">
+    <div class="bg-white shadow-lg w-64 p-6 relative">
+      <button aria-label="Close menu" id="btnCloseMenu" class="absolute top-3 right-3 text-gray-500 hover:text-gray-700 focus:outline-none">
+        <i class="fas fa-times fa-lg"></i>
+      </button>
+      <nav class="flex flex-col space-y-4 text-gray-700 text-lg">
+        <button id="mobileBtnHome" class="flex items-center space-x-3 hover:text-blue-500 focus:outline-none focus:text-blue-500">
+          <i class="fas fa-home fa-lg"></i>
+          <span>Home</span>
+        </button>
+        <button id="mobileBtnAddPost" class="flex items-center space-x-3 hover:text-blue-500 focus:outline-none focus:text-blue-500">
+          <i class="fas fa-plus-square fa-lg"></i>
+          <span>Add Hat</span>
+        </button>
+        <button id="mobileBtnProfile" class="flex items-center space-x-3 hover:text-blue-500 focus:outline-none focus:text-blue-500">
+          <i class="fas fa-user-circle fa-lg"></i>
+          <span>Profile</span>
+        </button>
+        <button id="mobileBtnFavorites" class="flex items-center space-x-3 hover:text-blue-500 focus:outline-none focus:text-blue-500">
+          <i class="fas fa-star fa-lg"></i>
+          <span>Favorites</span>
+        </button>
+      </nav>
+    </div>
+  </div>
+
+  <div id="contextMenu" role="menu" aria-hidden="true" style="display: none;">
+    <button id="contextFavorite" type="button" role="menuitem" tabindex="-1" class="flex items-center px-4 py-2 hover:bg-gray-100">
+      <i class="fas fa-star mr-2"></i>Favorite
+    </button>
+    <button id="contextSave" type="button" role="menuitem" tabindex="-1" class="flex items-center px-4 py-2 hover:bg-gray-100">
+      <i class="fas fa-bookmark mr-2"></i>Save
+    </button>
+    <button id="contextDelete" type="button" role="menuitem" tabindex="-1" class="flex items-center px-4 py-2 hover:bg-red-100 text-red-600">
+      <i class="fas fa-trash-alt mr-2"></i>Delete
+    </button>
+  </div>
+
+  <div id="modalAuth" aria-modal="true" role="dialog" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4 z-50 hidden overflow-auto"><div class="bg-white shadow-lg w-full max-w-lg max-h-[90vh] overflow-y-auto p-4 sm:p-6 relative">
+
+      <h2 class="text-xl font-semibold mb-4 text-center" id="modalAuthTitle">Welcome to Clidder</h2>
+      <div id="authForms" class="space-y-6">
+        <div id="signInForm" class="flex flex-col space-y-4">
+          <h3 class="text-lg font-bold text-center">Sign In</h3>
+          <input id="signInUserInput" type="text" placeholder="Username or Email" maxlength="100" class="w-full border border-gray-300 rounded-md p-3 focus:outline-none focus:ring-2 focus:ring-blue-500 text-lg" />
+          <input id="signInPassword" type="password" placeholder="Password" maxlength="100" class="w-full border border-gray-300 rounded-md p-3 focus:outline-none focus:ring-2 focus:ring-blue-500 text-lg" />
+          <button id="btnSignIn" class="bg-blue-600 text-white py-3 rounded font-semibold hover:bg-blue-700 transition">Sign In</button>
+          <p class="text-center text-gray-600">Don't have an account? <button id="showSignUp" class="text-blue-600 hover:underline focus:outline-none">Create one</button></p>
+        </div>
+<div id="signUpForm" class="flex flex-col space-y-4 hidden w-full">
+
+          <h3 class="text-lg font-bold text-center">Create Account</h3>
+          <input id="signUpFullName" type="text" placeholder="Full Name" maxlength="100" class="w-full border border-gray-300 rounded-md p-3 focus:outline-none focus:ring-2 focus:ring-blue-500 text-lg" />
+          <input id="signUpEmail" type="email" placeholder="Email" maxlength="100" class="w-full border border-gray-300 rounded-md p-3 focus:outline-none focus:ring-2 focus:ring-blue-500 text-lg" />
+          <input id="signUpUserName" type="text" placeholder="Username Without @" maxlength="50" class="w-full border border-gray-300 rounded-md p-3 focus:outline-none focus:ring-2 focus:ring-blue-500 text-lg" />
+          <input id="signUpPassword" type="password" placeholder="Password" maxlength="100" class="w-full border border-gray-300 rounded-md p-3 focus:outline-none focus:ring-2 focus:ring-blue-500 text-lg" />
+          <input id="signUpPasswordConfirm" type="password" placeholder="Confirm Password" maxlength="100" class="w-full border border-gray-300 rounded-md p-3 focus:outline-none focus:ring-2 focus:ring-blue-500 text-lg" />
+          <textarea id="signUpBio" placeholder="Bio" rows="3" maxlength="280" class="w-full border border-gray-300 rounded-md p-3 resize-none focus:outline-none focus:ring-2 focus:ring-blue-500 text-lg"></textarea>
+          <input id="signUpBirthday" type="date" class="w-full border border-gray-300 rounded-md p-3 focus:outline-none focus:ring-2 focus:ring-blue-500 text-lg" />
+          <select id="signUpGender" class="w-full border border-gray-300 rounded-md p-3 focus:outline-none focus:ring-2 focus:ring-blue-500 text-lg">
+            <option value="" disabled selected>Select Gender</option>
+            <option value="Male">Male</option>
+            <option value="Female">Female</option>
+            <option value="Non-binary">Non-binary</option>
+            <option value="Other">Other</option>
+            <option value="Prefer not to say">Prefer not to say</option>
+          </select>
+          <input id="signUpAddress" type="text" placeholder="Address" maxlength="200" class="w-full border border-gray-300 rounded-md p-3 focus:outline-none focus:ring-2 focus:ring-blue-500 text-lg" />
+          <input id="signUpCountry" type="text" placeholder="Country" maxlength="100" class="w-full border border-gray-300 rounded-md p-3 focus:outline-none focus:ring-2 focus:ring-blue-500 text-lg" />
+          <input id="signUpProfilePic" type="url" placeholder="Profile Picture URL" maxlength="300" class="w-full border border-gray-300 rounded-md p-3 focus:outline-none focus:ring-2 focus:ring-blue-500 text-lg" />
+          <input id="signUpCoverPic" type="url" placeholder="Cover Picture URL" maxlength="300" class="w-full border border-gray-300 rounded-md p-3 focus:outline-none focus:ring-2 focus:ring-blue-500 text-lg" />
+          <button id="btnSignUp" class="bg-green-600 text-white py-3 rounded font-semibold hover:bg-green-700 transition">Create Account</button>
+          <p class="text-center text-gray-600">Already have an account? <button id="showSignIn" class="text-blue-600 hover:underline focus:outline-none">Sign in</button></p>
+        </div>
+      </div>
+      <button aria-label="Close modal" id="btnCloseAuthModal" class="absolute top-3 right-3 text-gray-500 hover:text-gray-700 focus:outline-none">
+        <i class="fas fa-times fa-lg"></i>
+      </button>
+    </div>
+  </div>
+
+  <div id="modalProfile" aria-modal="true" role="dialog" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4 z-50 hidden overflow-auto">
+    <div class="bg-white shadow-lg max-w-lg w-full p-6 relative max-h-[90vh] overflow-y-auto">
+      <button aria-label="Close profile modal" id="btnCloseProfileModal" class="absolute top-3 right-3 text-gray-500 hover:text-gray-700 focus:outline-none z-10">
+        <i class="fas fa-times fa-lg"></i>
+      </button>
+      <div id="profileContent" class="space-y-4"></div>
+    </div>
+  </div>
+
+  <!-- Clidders Modal -->
+  <div id="modalClidders" role="dialog" aria-modal="true" aria-labelledby="modalCliddersTitle" tabindex="-1">
+    <div id="modalCliddersContent" class="relative">
+      <button id="modalCliddersCloseBtn" aria-label="Close Clidders modal">&times;</button>
+      <h2 id="modalCliddersTitle">Clidders</h2>
+      <ul id="cliddersList"></ul>
+    </div>
+  </div>
+
+  <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.1.0/firebase-app.js";
+    import {
+      getFirestore,
+      collection,
+      addDoc,
+      query,
+      orderBy,
+      onSnapshot,
+      serverTimestamp,
+      deleteDoc,
+      doc,
+      updateDoc,
+      arrayUnion,
+      arrayRemove,
+      getDocs,
+      where,
+      query as firestoreQuery,
+    } from "https://www.gstatic.com/firebasejs/10.1.0/firebase-firestore.js";
+
+    const firebaseConfig = {
+      apiKey: "AIzaSyDrFdwYhlj84GQ3eLzPctLgxZ572PHu7Tg",
+      authDomain: "x-clone-d4697.firebaseapp.com",
+      projectId: "x-clone-d4697",
+      storageBucket: "x-clone-d4697.appspot.com",
+      messagingSenderId: "438425139174",
+      appId: "1:438425139174:web:b1ebea6f124a245cf9c827",
+      measurementId: "G-PLQBYNDKQM",
+    };
+
+    const app = initializeApp(firebaseConfig);
+    const db = getFirestore(app);
+
+async function loadAllPosts() {
+  const feed = document.getElementById("feed");
+  feed.innerHTML = ""; // Clear old posts
+
+  const postsRef = collection(db, "posts");
+  const q = query(postsRef, orderBy("createdAt", "desc"));
+  const querySnapshot = await getDocs(q);
+
+  querySnapshot.forEach((doc) => {
+    const post = doc.data();
+    post.id = doc.id; // add ID if your renderer needs it
+    const postEl = renderPost(post);
+    feed.appendChild(postEl);
+  });
+}
+
+
+document.getElementById("tabForYou").addEventListener("click", () => {
+  loadAllPosts();
+
+  // Update tab styling
+  document.getElementById("tabForYou").classList.add("border-blue-500", "text-blue-500");
+  document.getElementById("tabFollowing").classList.remove("border-blue-500", "text-blue-500");
+});
+
+document.getElementById("tabFollowing").addEventListener("click", async () => {
+  const feed = document.getElementById("feed");
+  feed.innerHTML = "";
+
+  const postsRef = collection(db, "posts");
+  const q = query(postsRef, orderBy("createdAt", "desc"));
+  const querySnapshot = await getDocs(q);
+
+  querySnapshot.forEach((doc) => {
+    const post = doc.data();
+    if (post.verified) {
+      const postEl = renderPost(post);
+      feed.appendChild(postEl);
+    }
+  });
+
+  // Update tab styling
+  document.getElementById("tabForYou").classList.remove("border-blue-500", "text-blue-500");
+  document.getElementById("tabFollowing").classList.add("border-blue-500", "text-blue-500");
+});
+
+
+
+if ("Notification" in window && Notification.permission === "default") {
+  Notification.requestPermission().then(permission => {
+    console.log("🛑 Notification permission:", permission);
+  });
+}
+
+async function checkTodaysBirthdays() {
+  const usersRef = collection(db, "users");
+  const snapshot = await getDocs(usersRef);
+
+  const today = new Date().toISOString().slice(5, 10); // "MM-DD"
+  const birthdayUsers = [];
+
+  snapshot.forEach(doc => {
+    const user = doc.data();
+    if (user.birthday && user.birthday.slice(5) === today) {
+      birthdayUsers.push(user);
+    }
+  });
+
+ if (birthdayUsers.length > 0) {
+const bannerContainer = document.getElementById("birthdayBanner");
+const usersListEl = document.getElementById("birthdayBannerUsers");
+usersListEl.innerHTML = ""; // Clear previous
+
+birthdayUsers.forEach(user => {
+  const card = document.createElement("div");
+  card.className = "birthday-user-card";
+  card.innerHTML = `
+    <img src="${user.profilePic || 'https://i.ibb.co/0VqN92C4/clidder-off-dark.png'}" alt="${user.fullName}" />
+    <span class="inline-flex items-center">
+    ${user.fullName}
+    ${getVerifiedHTML(user.verified)}
+  </span>
+  `;
+  usersListEl.appendChild(card);
+});
+
+bannerContainer.style.display = "flex";
+
+  birthdayUsers.forEach(user => {
+    addBirthdayNotification(user);
+  });
+
+
+    // Show red badge
+    notificationBadge.style.display = "flex";
+    notificationBadge.innerText = birthdayUsers.length;
+    notificationBadgeLeft.style.display = "flex";
+    notificationBadgeLeft.innerText = birthdayUsers.length;
+  }
+}
+
+function addBirthdayNotification(user) {
+  const li = document.createElement("li");
+  li.innerHTML = `
+    <img src="${user.profilePic || 'https://i.ibb.co/0VqN92C4/clidder-off-dark.png'}" alt="${user.fullName}">
+    <div class="notification-content">
+      <div class="notification-user">${user.fullName}</div>
+      <div class="notification-caption">🎂 It's their birthday today! Send your wishes 🎉</div>
+      <div class="notification-time">${new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}</div>
+    </div>
+  `;
+  notificationsList.appendChild(li);
+}
+
+
+function showNewPostNotification(postCaption) {
+  console.log("🔔 Trying to show notification:", postCaption);
+  if (Notification.permission === "granted") {
+    new Notification("Clidder by Jayasinghe", {
+      body: postCaption || "Someone just posted!",
+      icon: "https://i.ibb.co/0VqN92C4/clidder-off-dark.png",
+    });
+  } else {
+    console.log("Notification permission not granted");
+  }
+}
+
+const postsRefForNotify = collection(db, "posts");
+const postsQueryForNotify = query(postsRefForNotify, orderBy("createdAt", "desc"));
+
+onSnapshot(postsQueryForNotify, (snapshot) => {
+  snapshot.docChanges().forEach((change) => {
+    if (change.type === "added") {
+      const newPost = change.doc.data();
+      console.log("📥 New post detected:", newPost.caption);
+      showNewPostNotification(newPost.caption);
+
+
+const sidebarNotifBadgeLeft = document.getElementById("notificationBadgeLeft");
+const notifDisplaySection = document.getElementById("newPostNotificationsDisplay");
+const notifList = document.getElementById("newPostNotificationsList");
+const feedSection = document.getElementById("feed");
+
+let newPostNotifications = [];
+
+// Detect new posts
+onSnapshot(postsQueryForNotify, (snapshot) => {
+  snapshot.docChanges().forEach((change) => {
+    if (change.type === "added") {
+      const post = change.doc.data();
+      showNewPostNotification(post.caption);
+
+      // Add to memory list
+      newPostNotifications.unshift(post);
+
+      // Show badge count
+      sidebarNotifBadgeLeft.style.display = "inline-block";
+      sidebarNotifBadgeLeft.innerText = newPostNotifications.length;
+    }
+  });
+});
+
+// When user clicks Notifications on left sidebar
+document.getElementById("sidebarNotificationsLeft").addEventListener("click", () => {
+  notifList.innerHTML = "";
+
+  if (newPostNotifications.length === 0) {
+    notifList.innerHTML = `<li class="text-gray-500">No new posts yet.</li>`;
+  } else {
+    newPostNotifications.forEach(post => {
+      const li = document.createElement("li");
+      li.className = "bg-white dark:bg-gray-800 p-4 rounded shadow";
+      li.innerHTML = `
+        <div class="font-semibold text-blue-600 dark:text-blue-300">${post.fullName || "Someone"}</div>
+        <div class="text-sm text-gray-700 dark:text-gray-300">${post.caption}</div>
+      `;
+      notifList.appendChild(li);
+    });
+  }
+
+  // Show notification list, hide feed
+  notifDisplaySection.classList.remove("hidden");
+  feedSection.classList.add("hidden");
+});
+
+// When user clicks Home on left sidebar
+document.getElementById("sidebarHome").addEventListener("click", () => {
+  notifDisplaySection.classList.add("hidden");
+  feedSection.classList.remove("hidden");
+
+  // Optionally reset notifications
+  sidebarNotifBadgeLeft.innerText = "";
+  sidebarNotifBadgeLeft.style.display = "none";
+  newPostNotifications = [];
+});
+
+    }
+  });
+});
+
+    // Elements
+    const feedEl = document.getElementById("feed");
+    const modalAddPost = document.getElementById("modalAddPost");
+    const btnAddPost = document.getElementById("btnAddPost");
+    const btnCloseModal = document.getElementById("btnCloseModal");
+    const formAddPost = document.getElementById("formAddPost");
+    const postImageUrlInput = document.getElementById("postImageUrl");
+    const postCaptionInput = document.getElementById("postCaption");
+    const btnMenu = document.getElementById("btnMenu");
+    const mobileMenu = document.getElementById("mobileMenu");
+    const btnCloseMenu = document.getElementById("btnCloseMenu");
+    const btnProfileLeft = document.getElementById("sidebarProfile");
+    const btnProfileTop = document.getElementById("btnProfileTop");
+    const btnFavorites = document.getElementById("btnFavorites");
+    const searchInput = document.getElementById("searchInput");
+    const contextMenu = document.getElementById("contextMenu");
+    const contextFavorite = document.getElementById("contextFavorite");
+    const contextSave = document.getElementById("contextSave");
+    const contextDelete = document.getElementById("contextDelete");
+    const btnTweet = document.getElementById("btnTweet");
+    const tweetInput = document.getElementById("tweetInput");
+// Auto-expand the textarea as you type
+tweetInput.addEventListener("input", () => {
+  tweetInput.style.height = "auto"; // reset
+  tweetInput.style.height = tweetInput.scrollHeight + "px"; // grow
+});
+
+
+// ⋮⋮⋮ More-options dropdown toggle
+const btnMoreOptions     = document.getElementById("btnMoreOptions");
+const moreOptionsDropdown = document.getElementById("moreOptionsDropdown");
+
+btnMoreOptions.addEventListener("click", (e) => {
+  e.stopPropagation();
+  moreOptionsDropdown.style.display = 
+    moreOptionsDropdown.style.display === "block" ? "none" : "block";
+});
+
+// Close when clicking elsewhere
+document.addEventListener("click", () => {
+  moreOptionsDropdown.style.display = "none";
+});
+
+// — Facilities for each menu item —
+// 1) Account → open profile modal (or redirect)
+document.getElementById("moreAccount")
+  .addEventListener("click", () => {
+    moreOptionsDropdown.style.display = "none";
+    if (!currentUser) {
+      showAuthModal();
+    } else {
+      showProfileModal();
+    }
+  });
+
+// 2) Pages → open center modal
+document.getElementById("morePages")
+  .addEventListener("click", () => {
+    moreOptionsDropdown.style.display = "none";
+    document.getElementById("pagesModal").classList.remove("hidden");
+  });
+
+// 3) Settings → open center modal
+document.getElementById("moreSettings")
+  .addEventListener("click", () => {
+    moreOptionsDropdown.style.display = "none";
+    document.getElementById("settingsModal").classList.remove("hidden");
+  });
+
+// 4) Logout → clear session & refresh UI
+document.getElementById("moreLogout")
+  .addEventListener("click", () => {
+    moreOptionsDropdown.style.display = "none";
+clearCurrentUser();
+alert("You have been logged out.");
+location.reload(); // reloads the page
+
+  });
+
+
+    const btnSubmitTweet = document.getElementById("btnSubmitTweet");
+    const modalAuth = document.getElementById("modalAuth");
+    const btnCloseAuthModal = document.getElementById("btnCloseAuthModal");
+    const signInForm = document.getElementById("signInForm");
+    const signUpForm = document.getElementById("signUpForm");
+    const showSignUpBtn = document.getElementById("showSignUp");
+    const showSignInBtn = document.getElementById("showSignIn");
+    const signInUserInput = document.getElementById("signInUserInput");
+    const signInPassword = document.getElementById("signInPassword");
+    const btnSignIn = document.getElementById("btnSignIn");
+    const signUpFullName = document.getElementById("signUpFullName");
+    const signUpEmail = document.getElementById("signUpEmail");
+    const signUpUserName = document.getElementById("signUpUserName");
+    const signUpPassword = document.getElementById("signUpPassword");
+    const signUpPasswordConfirm = document.getElementById("signUpPasswordConfirm");
+    const signUpBio = document.getElementById("signUpBio");
+    const signUpBirthday = document.getElementById("signUpBirthday");
+    const signUpGender = document.getElementById("signUpGender");
+    const signUpAddress = document.getElementById("signUpAddress");
+    const signUpCountry = document.getElementById("signUpCountry");
+    const signUpProfilePic = document.getElementById("signUpProfilePic");
+    const signUpCoverPic = document.getElementById("signUpCoverPic");
+    const btnSignUp = document.getElementById("btnSignUp");
+    const modalProfile = document.getElementById("modalProfile");
+    const btnCloseProfileModal = document.getElementById("btnCloseProfileModal");
+    const profileContent = document.getElementById("profileContent");
+    const notificationsDropdown = document.getElementById("notificationsDropdown");
+    const notificationsList = document.getElementById("notificationsList");
+    const sidebarNotificationsBtn = document.getElementById("sidebarNotifications");
+    const notificationBadge = document.getElementById("notificationBadge");
+    const notificationBadgeLeft = document.getElementById("notificationBadgeLeft");
+    const sidebarExploreBtn = document.getElementById("sidebarExplore");
+    const sidebarFavoritesBtn = document.getElementById("sidebarFavorites");
+    const sidebarFromMeBtn = document.getElementById("sidebarFromMe");
+    const sidebarMoreBtn = document.getElementById("sidebarMore");
+
+    const modalClidders = document.getElementById("modalClidders");
+    const modalCliddersCloseBtn = document.getElementById("modalCliddersCloseBtn");
+    const cliddersList = document.getElementById("cliddersList");
+
+    let posts = [];
+    let filteredPosts = [];
+    let savedPosts = JSON.parse(localStorage.getItem("savedPosts") || "[]");
+    let favoritePosts = new Set(
+      JSON.parse(localStorage.getItem("favoritePosts") || "[]")
+    );
+    let currentContextPostId = null;
+    let currentContextPostData = null;
+
+    // Track read notifications in localStorage by post IDs
+    let readNotifications = new Set(JSON.parse(localStorage.getItem("readNotifications") || "[]"));
+
+    // User session management
+    let currentUser = JSON.parse(localStorage.getItem("clidderUser") || "null");
+
+    function setCurrentUser(user) {
+      currentUser = user;
+      localStorage.setItem("clidderUser", JSON.stringify(user));
+      updateUIForUser();
+    }
+
+if (currentUser) {
+  checkTodaysBirthdays();
+}
+
+
+    function clearCurrentUser() {
+      currentUser = null;
+      localStorage.removeItem("clidderUser");
+      updateUIForUser();
+    }
+
+    function updateUIForUser() {
+      if (currentUser) {
+        tweetInput.disabled = false;
+        btnSubmitTweet.disabled = tweetInput.value.trim().length === 0;
+        btnAddPost.disabled = false;
+        btnTweet.disabled = false;
+      } else {
+        tweetInput.disabled = true;
+        btnSubmitTweet.disabled = true;
+        btnAddPost.disabled = true;
+        btnTweet.disabled = true;
+      }
+    }
+
+const mobileProfilePic = document.getElementById("mobileProfilePicIcon");
+const mobileProfileFallback = document.getElementById("mobileProfileIconFallback");
+
+if (currentUser && currentUser.profilePic) {
+  mobileProfilePic.src = currentUser.profilePic;
+  mobileProfilePic.classList.remove("hidden");
+  mobileProfileFallback.classList.add("hidden");
+} else {
+  mobileProfilePic.classList.add("hidden");
+  mobileProfileFallback.classList.remove("hidden");
+}
+
+const sidebarSummary = document.getElementById("sidebarUserSummary");
+const sidebarUserName = document.getElementById("sidebarUserName");
+const sidebarUserHandle = document.getElementById("sidebarUserHandle");
+const sidebarUserPic = document.getElementById("sidebarUserPic");
+
+if (currentUser) {
+  sidebarSummary.classList.remove("hidden");
+  sidebarUserName.innerHTML = `
+  <span class="inline-flex items-center">
+    ${currentUser.fullName}
+    ${getVerifiedHTML(currentUser.verified)}
+  </span>
+`;
+
+  sidebarUserHandle.textContent = "𝓬𝓹" + currentUser.username.toLowerCase();
+  sidebarUserPic.src = currentUser.profilePic || "https://via.placeholder.com/40?text=U";
+} else {
+  sidebarSummary.classList.add("hidden");
+}
+
+
+    // Show auth modal
+    function showAuthModal() {
+      modalAuth.classList.remove("hidden");
+      signInForm.classList.remove("hidden");
+      signUpForm.classList.add("hidden");
+      signInUserInput.value = "";
+      signInPassword.value = "";
+      signUpFullName.value = "";
+      signUpEmail.value = "";
+      signUpUserName.value = "";
+      signUpPassword.value = "";
+      signUpPasswordConfirm.value = "";
+      signUpBio.value = "";
+      signUpBirthday.value = "";
+      signUpGender.value = "";
+      signUpAddress.value = "";
+      signUpCountry.value = "";
+      signUpProfilePic.value = "";
+      signUpCoverPic.value = "";
+      signInUserInput.focus();
+    }
+
+    // Hide auth modal
+    function hideAuthModal() {
+      modalAuth.classList.add("hidden");
+    }
+
+    // Show profile modal
+    function showProfileModal() {
+      if (!currentUser) {
+        alert("Please sign in to view your profile.");
+        showAuthModal();
+        return;
+      }
+      modalProfile.classList.remove("hidden");
+      renderProfile();
+    }
+
+    // Hide profile modal
+    function hideProfileModal() {
+      modalProfile.classList.add("hidden");
+      profileContent.innerHTML = "";
+    }
+
+    // Check if username or email exists in Firestore users collection
+    async function getUserByUsernameOrEmail(identifier) {
+      const usersRef = collection(db, "users");
+      let q = firestoreQuery(usersRef, where("username", "==", identifier));
+      let querySnapshot = await getDocs(q);
+      if (!querySnapshot.empty) {
+        return querySnapshot.docs[0];
+      }
+      q = firestoreQuery(usersRef, where("email", "==", identifier));
+      querySnapshot = await getDocs(q);
+      if (!querySnapshot.empty) {
+        return querySnapshot.docs[0];
+      }
+      return null;
+    }
+
+    // Create new user in Firestore users collection
+    async function createUser(userData) {
+      const usersRef = collection(db, "users");
+      await addDoc(usersRef, userData);
+    }
+
+    // Validate email format
+    function validateEmail(email) {
+      const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+      return re.test(email.toLowerCase());
+    }
+
+    // Event listeners for auth modal
+    showSignUpBtn.addEventListener("click", () => {
+      signInForm.classList.add("hidden");
+      signUpForm.classList.remove("hidden");
+      signUpFullName.focus();
+    });
+
+    showSignInBtn.addEventListener("click", () => {
+      signUpForm.classList.add("hidden");
+      signInForm.classList.remove("hidden");
+      signInUserInput.focus();
+    });
+
+    btnCloseAuthModal.addEventListener("click", () => {
+      hideAuthModal();
+    });
+
+    btnCloseProfileModal.addEventListener("click", () => {
+      hideProfileModal();
+    });
+
+    // Sign In handler
+    btnSignIn.addEventListener("click", async () => {
+      const identifier = signInUserInput.value.trim();
+      const password = signInPassword.value;
+      if (!identifier || !password) {
+        alert("Please enter your username/email and password.");
+        return;
+      }
+      try {
+        const userDoc = await getUserByUsernameOrEmail(identifier);
+        if (!userDoc) {
+          alert("User not found.");
+          return;
+        }
+        const userData = userDoc.data();
+        if (userData.password !== password) {
+          alert("Incorrect password.");
+          return;
+        }
+       setCurrentUser({ id: userDoc.id, ...userData });
+  hideAuthModal();
+  alert(`Welcome back, ${userData.fullName}!`);
+  location.reload(); // Reload page after login
+} catch (error) {
+  alert("Error signing in: " + error.message);
+}
+    });
+
+    // Sign Up handler
+    btnSignUp.addEventListener("click", async () => {
+      const fullName = signUpFullName.value.trim();
+      const email = signUpEmail.value.trim().toLowerCase();
+      const username = signUpUserName.value.trim();
+const usernameRegex = /^[a-zA-Z]+$/;
+if (!usernameRegex.test(username)) {
+  alert("Username can only contain letters. No numbers, spaces, or symbols allowed.");
+  return;
+}
+
+      const password = signUpPassword.value;
+      const passwordConfirm = signUpPasswordConfirm.value;
+      const bio = signUpBio.value.trim();
+      const birthday = signUpBirthday.value;
+      const gender = signUpGender.value;
+      const address = signUpAddress.value.trim();
+      const country = signUpCountry.value.trim();
+      const profilePic = signUpProfilePic.value.trim();
+      const coverPic = signUpCoverPic.value.trim();
+
+      if (!fullName || !email || !username || !password || !passwordConfirm) {
+        alert("Please fill in all required fields.");
+        return;
+      }
+      if (!validateEmail(email)) {
+        alert("Please enter a valid email address.");
+        return;
+      }
+      if (password !== passwordConfirm) {
+        alert("Passwords do not match.");
+        return;
+      }
+      try {
+        // Check if username or email already exists
+        const usersRef = collection(db, "users");
+        let q = firestoreQuery(usersRef, where("username", "==", username));
+        let querySnapshot = await getDocs(q);
+        if (!querySnapshot.empty) {
+          alert("Username already exists. Please choose another.");
+          return;
+        }
+        q = firestoreQuery(usersRef, where("email", "==", email));
+        querySnapshot = await getDocs(q);
+        if (!querySnapshot.empty) {
+          alert("Email already registered. Please sign in.");
+          return;
+        }
+        // Create user
+        await createUser({
+          fullName,
+          email,
+          username,
+          password,
+          bio,
+          birthday,
+          gender,
+          address,
+          country,
+          profilePic,
+          coverPic,
+          createdAt: serverTimestamp(),
+        });
+        alert("Account created! Please sign in.");
+        signUpForm.classList.add("hidden");
+        signInForm.classList.remove("hidden");
+        signInUserInput.value = username;
+        signInPassword.value = "";
+        signInUserInput.focus();
+      } catch (error) {
+        alert("Error creating account: " + error.message);
+      }
+    });
+
+    // Override Profile buttons to show profile modal or auth modal
+    btnProfileLeft.addEventListener("click", () => {
+      if (!currentUser) {
+        showAuthModal();
+      } else {
+        showProfileModal();
+      }
+    });
+    btnProfileTop.addEventListener("click", () => {
+      if (!currentUser) {
+        showAuthModal();
+      } else {
+        showProfileModal();
+      }
+    });
+
+    // Disable adding posts and tweeting if not signed in
+    btnAddPost.addEventListener("click", () => {
+      if (!currentUser) {
+        alert("Please sign in or create an account to add posts.");
+        showAuthModal();
+        return;
+      }
+      modalAddPost.classList.remove("hidden");
+      postImageUrlInput.focus();
+      closeMobileMenu();
+    });
+
+    btnTweet.addEventListener("click", () => {
+      if (!currentUser) {
+        alert("Please sign in or create an account to post.");
+        showAuthModal();
+        return;
+      }
+      modalAddPost.classList.remove("hidden");
+      postImageUrlInput.focus();
+    });
+
+    btnSubmitTweet.addEventListener("click", async () => {
+      if (!currentUser) {
+        alert("Please sign in or create an account to post.");
+        showAuthModal();
+        return;
+      }
+      const text = tweetInput.value.trim();
+      if (!text) {
+        alert("Please enter your tweet content.");
+        return;
+      }
+      try {
+        await addDoc(collection(db, "posts"), {
+          imageUrl: "",
+          caption: text,
+          createdAt: serverTimestamp(),
+          userId: currentUser.id,
+          userName: currentUser.fullName,
+verified: currentUser.verified || false,
+
+          userHandle: "𝓬𝓹" + currentUser.username.toLowerCase(),
+          profilePic: currentUser.profilePic || "",
+          likes: [],
+          retweets: [],
+          replies: [],
+        });
+        tweetInput.value = "";
+        btnSubmitTweet.disabled = true;
+      } catch (error) {
+        alert("Error posting tweet: " + error.message);
+      }
+    });
+
+    // Update tweet button state based on input and user
+    function updateTweetButtonState() {
+      btnSubmitTweet.disabled =
+        tweetInput.value.trim().length === 0 || !currentUser;
+    }
+    tweetInput.addEventListener("input", updateTweetButtonState);
+
+    // Initialize UI state on load
+    updateUIForUser();
+
+    // Helper function to format time difference
+    function timeAgo(date) {
+      if (!date) return "";
+      const now = new Date();
+      const seconds = Math.floor((now - date) / 1000);
+      if (seconds < 5) return "just now";
+      if (seconds < 60) return `${seconds}s ago`;
+      const minutes = Math.floor(seconds / 60);
+      if (minutes < 60) return `${minutes}m ago`;
+      const hours = Math.floor(minutes / 60);
+      if (hours < 24) return `${hours}h ago`;
+      const days = Math.floor(hours / 24);
+      if (days < 7) return `${days}d ago`;
+      const weeks = Math.floor(days / 7);
+      if (weeks < 4) return `${weeks}w ago`;
+      const months = Math.floor(days / 30);
+      if (months < 12) return `${months}mo ago`;
+      const years = Math.floor(days / 365);
+      return `${years}y ago`;
+    }
+
+    function renderPost(post, id) {
+      const div = document.createElement("article");
+
+// ⋮ Button
+const menuButton = document.createElement("button");
+menuButton.className = "post-options-btn absolute top-2 right-2 text-gray-500 hover:text-gray-700 text-xl focus:outline-none";
+menuButton.innerHTML = "...";
+
+// Dropdown menu
+const menu = document.createElement("div");
+menu.className = "post-options-menu hidden absolute top-10 right-2 bg-white border border-gray-200 shadow-md rounded-md z-50 w-64 text-sm";
+menu.innerHTML = `
+  <ul class="divide-y divide-gray-100">
+    <li><button class="w-full text-left px-4 py-2 hover:bg-gray-100">Not interested in this post</button></li>
+    <li><button class="w-full text-left px-4 py-2 hover:bg-gray-100">Follow @${post.userName}</button></li>
+    <li><button class="w-full text-left px-4 py-2 hover:bg-gray-100">Add/remove @${post.userName} from Lists</button></li>
+    <li><button class="w-full text-left px-4 py-2 hover:bg-gray-100">Mute @${post.userName}</button></li>
+    <li><button class="w-full text-left px-4 py-2 hover:bg-gray-100">Block @${post.userName}</button></li>
+    <li><button class="w-full text-left px-4 py-2 hover:bg-gray-100">View post engagements</button></li>
+    <li><button class="w-full text-left px-4 py-2 hover:bg-gray-100">Embed post</button></li>
+    <li><button class="w-full text-left px-4 py-2 hover:bg-gray-100">Report post</button></li>
+    <li><button class="w-full text-left px-4 py-2 hover:bg-gray-100">Request Community Note</button></li>
+  </ul>
+`;
+
+// Add to the post div
+div.appendChild(menuButton);
+div.appendChild(menu);
+
+
+      div.className =
+        "bg-white shadow-md p-6 flex flex-col space-y-3 cursor-pointer select-none relative";
+
+      const header = document.createElement("header");
+      header.className = "flex items-center space-x-4";
+
+      const avatar = document.createElement("img");
+      avatar.src = post.profilePic && post.profilePic.trim() !== "" ? post.profilePic : "https://placehold.co/40x40/png?text=" + (post.userName ? post.userName[0].toUpperCase() : "U") + "&font=roboto&font-weight=700&bg=ddd&fg=555";
+      avatar.alt = post.userName
+        ? `${post.userName} avatar`
+        : "User avatar placeholder";
+      avatar.className = "w-12 h-12 rounded-full object-cover";
+
+      const userInfo = document.createElement("div");
+      userInfo.className = "flex flex-col";
+
+
+
+      const userName = document.createElement("span");
+     userName.className = "font-bold text-gray-900 text-lg flex items-center space-x-2";
+
+
+      // Put avatar inside userName span to appear aside user name
+      const avatarSmall = document.createElement("img");
+      avatarSmall.src = avatar.src;
+      avatarSmall.alt = avatar.alt;
+      avatarSmall.className = "w-8 h-8 rounded-full object-cover";
+      userName.appendChild(avatarSmall);
+const nameText = document.createElement("span");
+nameText.className = "inline-flex items-center";
+nameText.innerHTML = `
+  ${post.userName || "HatUser"}
+  ${getVerifiedHTML(post.verified)}
+`;
+userName.appendChild(nameText);
+
+
+ const userHandle = document.createElement("span");
+userHandle.className = "text-unique-user user-handle text-sm";
+userHandle.textContent = post.userHandle.replace(/^@/, "𝓬𝓹");
+userHandle.addEventListener("click", () => {
+  showUserProfile(post.userHandle.replace(/^@/, ""));
+});
+
+
+      userInfo.appendChild(userName);
+      userInfo.appendChild(userHandle);
+
+      header.appendChild(userInfo);
+
+      // Add time element
+      const timeSpan = document.createElement("span");
+      timeSpan.className = "text-gray-400 text-xs ml-auto select-none";
+      let createdAtDate = null;
+      if (post.createdAt && post.createdAt.toDate) {
+        createdAtDate = post.createdAt.toDate();
+      } else if (post.createdAt instanceof Date) {
+        createdAtDate = post.createdAt;
+      } else if (typeof post.createdAt === "string") {
+        createdAtDate = new Date(post.createdAt);
+      }
+      timeSpan.textContent = timeAgo(createdAtDate);
+      header.appendChild(timeSpan);
+
+      div.appendChild(header);
+
+      const content = document.createElement("div");
+content.className = "post-content text-gray-900 text-lg whitespace-pre-wrap break-words";
+
+
+// Convert URLs in the caption into clickable links
+const urlRegex = /(https?:\/\/[^\s]+)/g;
+const hashtagRegex = /#(\w+)/g;
+
+let linkedText = post.caption
+  .replace(urlRegex, (url) => {
+    return `<a href="${url}" target="_blank" rel="noopener noreferrer" class="text-blue-600 hover:underline">${url}</a>`;
+  })
+  .replace(hashtagRegex, (tag, word) => {
+    return `<span class="hashtag text-purple-500 cursor-pointer hover:underline" data-tag="${word}">#${word}</span>`;
+  });
+
+content.innerHTML = linkedText;
+
+div.appendChild(content);
+
+// Add "Read more" button if caption is long
+if (post.caption && post.caption.split(/\s+/).length > 30) {
+  const readMore = document.createElement("span");
+  readMore.className = "read-more text-blue-500 hover:underline";
+  readMore.textContent = "Read more";
+  readMore.addEventListener("click", () => {
+    content.classList.toggle("expanded");
+    readMore.textContent = content.classList.contains("expanded") ? "Read less" : "Read more";
+  });
+  div.appendChild(readMore);
+}
+
+
+// Enable hashtag click to auto-fill search bar
+content.querySelectorAll('.hashtag').forEach(tagEl => {
+  tagEl.addEventListener('click', () => {
+    const keyword = tagEl.getAttribute('data-tag');
+    const searchInput = document.getElementById("searchInput");
+    if (searchInput) {
+      searchInput.value = `#${keyword}`;
+      searchInput.focus();
+    }
+  });
+});
+
+div.appendChild(content);
+
+content.querySelectorAll('.hashtag').forEach(tagEl => {
+  tagEl.addEventListener('click', () => {
+    const keyword = tagEl.getAttribute('data-tag');
+    document.getElementById("searchInput").value = `#${keyword}`;
+    document.getElementById("searchInput").focus();
+    // Optional: trigger any search/filter function
+    // triggerSearch(keyword); // if you have a function like this
+  });
+});
+
+
+if (post.imageUrl && post.imageUrl.trim() !== "") {
+  const url = post.imageUrl.trim();
+  const isVideoFile = /\.(mp4|webm|ogg)$/i.test(url);
+  const isYouTube   = /^(https?:\/\/)?(www\.)?(youtube\.com|youtu\.be)\//.test(url);
+  const isFacebook  = /^(https?:\/\/)?(www\.)?facebook\.com/.test(url);
+  const isTikTok    = /^(https?:\/\/)?(www\.)?tiktok\.com/.test(url);
+  const isInstagram = /^(https?:\/\/)?(www\.)?instagram\.com/.test(url);
+  const isTwitter   = /^(https?:\/\/)?(www\.)?twitter\.com/.test(url);
+
+  // create the outer wrapper
+  const wrapper = document.createElement("div");
+  wrapper.className = "relative w-full mt-4 rounded-lg border border-gray-200 overflow-hidden";
+  // we'll set padding-top later
+
+  // inner absolutely positioned container
+  const inner = document.createElement("div");
+  inner.className = "absolute top-0 left-0 w-full h-full";
+  wrapper.appendChild(inner);
+  div.appendChild(wrapper);
+
+  // helper to set padding-top percentage on wrapper
+  const setAspect = (ratioPercent) => {
+    wrapper.style.paddingTop = ratioPercent + "%";
+  };
+
+  // 1) KNOWN EMBEDS → force 16:9
+  const isDrive = url.includes("drive.google.com/file");
+
+if (isYouTube || isFacebook || isTikTok || isInstagram || isTwitter || isDrive) {
+
+    setAspect(56.25);
+
+    // --- YouTube ---
+    if (isYouTube) {
+      const vidMatch = url.match(/(?:youtube\.com\/(?:.*v=|embed\/)|youtu\.be\/)([\w-]{11})/);
+      if (vidMatch) {
+        const iframe = document.createElement("iframe");
+        iframe.src = `https://www.youtube.com/embed/${vidMatch[1]}?controls=1&rel=0&modestbranding=1`;
+        iframe.allow = "accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture";
+        iframe.allowFullscreen = true;
+        iframe.className = "w-full h-full";
+        inner.appendChild(iframe);
+      }
+    }
+
+    // --- Facebook ---
+    else if (isFacebook) {
+      const fbDiv = document.createElement("div");
+      fbDiv.className = "fb-video w-full h-full";
+      fbDiv.setAttribute("data-href", url);
+      fbDiv.setAttribute("data-width", "auto");
+      fbDiv.setAttribute("data-allowfullscreen", "true");
+      inner.appendChild(fbDiv);
+
+      if (!document.getElementById("facebook-jssdk")) {
+        const fbScript = document.createElement("script");
+        fbScript.id = "facebook-jssdk";
+        fbScript.src = "https://connect.facebook.net/en_US/sdk.js#xfbml=1&version=v12.0";
+        document.body.appendChild(fbScript);
+      }
+    }
+
+    // --- TikTok ---
+    else if (isTikTok) {
+      const block = document.createElement("blockquote");
+      block.className = "tiktok-embed w-full h-full";
+      block.setAttribute("cite", url);
+      block.setAttribute("style", "max-width:100%; margin:0; height:100%");
+      block.appendChild(document.createElement("section"));
+      inner.appendChild(block);
+
+      if (!document.querySelector('script[src*="tiktok.com/embed.js"]')) {
+        const s = document.createElement("script");
+        s.src = "https://www.tiktok.com/embed.js";
+        document.body.appendChild(s);
+      }
+    }
+
+    // --- Instagram ---
+    else if (isInstagram) {
+      const block = document.createElement("blockquote");
+      block.className = "instagram-media w-full h-full";
+      block.setAttribute("data-instgrm-permalink", url);
+      block.setAttribute("data-instgrm-version", "14");
+      inner.appendChild(block);
+
+      if (!document.querySelector('script[src*="instagram.com/embed.js"]')) {
+        const s = document.createElement("script");
+        s.src = "https://www.instagram.com/embed.js";
+        document.body.appendChild(s);
+      } else {
+        window.instgrm?.Embeds.process();
+      }
+    }
+
+
+ 
+    // --- Twitter ---
+    else if (isTwitter) {
+      const block = document.createElement("blockquote");
+      block.className = "twitter-tweet w-full h-full";
+      const a = document.createElement("a");
+      a.href = url;
+      block.appendChild(a);
+      inner.appendChild(block);
+
+      if (!document.querySelector('script[src*="platform.twitter.com/widgets.js"]')) {
+        const s = document.createElement("script");
+        s.src = "https://platform.twitter.com/widgets.js";
+        document.body.appendChild(s);
+      } else {
+        window.twttr?.widgets?.load();
+      }
+    }
+  }
+
+  // 2) LOCAL VIDEO FILE → dynamic aspect
+  else if (isVideoFile) {
+    const video = document.createElement("video");
+    video.src = url;
+    video.muted = false;
+    video.autoplay = true;
+    video.loop = true;
+    video.playsInline = true;
+    video.controls = false;
+    video.className = "w-full h-full object-cover";
+    inner.appendChild(video);
+
+    video.addEventListener("loadedmetadata", () => {
+      const { videoWidth: w, videoHeight: h } = video;
+      const ratio = (h / w) * 100;
+      setAspect(ratio);
+    });
+  }
+
+  // 3) IMAGE → dynamic aspect
+  else {
+    const img = document.createElement("img");
+    img.src = url;
+    img.alt = post.caption
+      ? `Hat photo post: ${post.caption}`
+      : "Hat photo post with no caption";
+    img.className = "w-full h-full object-cover";
+    inner.appendChild(img);
+
+    img.addEventListener("load", () => {
+      const { naturalWidth: w, naturalHeight: h } = img;
+      const ratio = (h / w) * 100;
+      setAspect(ratio);
+    });
+  }
+}
+
+
+
+      if (post.replies && post.replies.length > 0) {
+  const repliesDiv = document.createElement("div");
+  repliesDiv.className = "reply-list";
+
+  // First comment
+  const firstReply = document.createElement("div");
+  firstReply.className = "reply-item";
+  firstReply.innerHTML = `
+  <span class="inline-flex items-center font-semibold">
+    ${post.replies[0].userName}
+    ${getVerifiedHTML(post.replies[0].verified)}
+  </span> ${post.replies[0].text}
+`;
+
+  repliesDiv.appendChild(firstReply);
+
+  // "View more" button
+  if (post.replies.length > 1) {
+    const viewMoreBtn = document.createElement("button");
+    viewMoreBtn.className = "text-blue-500 text-sm mt-2 view-more-btn";
+    viewMoreBtn.textContent = "View more Commentary";
+    repliesDiv.appendChild(viewMoreBtn);
+
+    // More comments (hidden initially)
+    const moreComments = document.createElement("div");
+    moreComments.className = "more-comments hidden";
+    post.replies.slice(1).forEach((reply) => {
+      const replyDiv = document.createElement("div");
+      replyDiv.className = "reply-item";
+      replyDiv.innerHTML = `
+  <span class="inline-flex items-center font-semibold">
+    ${reply.userName}
+    ${getVerifiedHTML(reply.verified)}
+  </span> ${reply.text}
+`;
+
+      moreComments.appendChild(replyDiv);
+    });
+    repliesDiv.appendChild(moreComments);
+
+    // Show on click
+    viewMoreBtn.addEventListener("click", () => {
+      moreComments.classList.remove("hidden");
+      viewMoreBtn.style.display = "none";
+    });
+  }
+
+  div.appendChild(repliesDiv);
+}
+
+
+const replyBox = document.createElement("div");
+replyBox.className = "flex items-center border-t border-gray-300 dark:border-gray-600 mt-2 pt-2";
+
+replyBox.innerHTML = `
+  <input type="text" placeholder="Leave a Commentary..." class="reply-input flex-1 px-4 py-2 text-sm bg-transparent focus:outline-none" />
+  <button class="text-blue-500 font-semibold text-sm px-3" disabled>Commentary</button>
+`;
+
+// Enable Post button only when typing
+const replyInput = replyBox.querySelector("input");
+const postBtn = replyBox.querySelector("button");
+
+replyInput.addEventListener("input", () => {
+  postBtn.disabled = replyInput.value.trim() === "";
+});
+
+// Handle Post click
+postBtn.addEventListener("click", () => {
+  const text = replyInput.value.trim();
+  if (!text) return;
+  if (!currentUser) {
+    alert("Please sign in or create an account before Commentary.");
+    showAuthModal();
+    return;
+  }
+
+  const reply = {
+    userName: currentUser.fullName,
+    userHandle: "𝓬𝓹" + currentUser.username.toLowerCase(),
+    text,verified: currentUser.verified || false,
+
+    createdAt: new Date().toISOString(),
+  };
+
+  const postRef = doc(db, "posts", id);
+  updateDoc(postRef, {
+    replies: arrayUnion(reply),
+  }).catch((err) => alert("Error adding comment: " + err.message));
+
+  replyInput.value = "";
+  postBtn.disabled = true;
+});
+
+div.appendChild(replyBox);
+
+
+
+      const actions = document.createElement("div");
+actions.className = "post-actions flex justify-around flex-wrap text-gray-500 mt-4 w-full max-w-md mx-auto gap-2";
+
+
+      const replyBtn = document.createElement("button");
+      replyBtn.className = "flex items-center space-x-3 tweet-action-btn";
+      replyBtn.innerHTML = `<i class="far fa-comment fa-lg"></i><span></span>`;
+      replyBtn.addEventListener("click", () => {
+        if (!currentUser) {
+          alert("Please sign in or create an account before commentinng.");
+          showAuthModal();
+          return;
+        }
+        const userName = currentUser.fullName;
+        const replyText = prompt("Enter your comment:");
+        if (replyText && replyText.trim() !== "") {
+          const reply = {
+            userName,
+            userHandle: "𝓬𝓹" + currentUser.username.toLowerCase(),
+            text: replyText.trim(),
+            createdAt: new Date().toISOString(),
+          };
+          const postRef = doc(db, "posts", id);
+          updateDoc(postRef, {
+            replies: arrayUnion(reply),
+          }).catch((err) => alert("Error adding comment: " + err.message));
+        }
+      });
+
+      const retweetBtn = document.createElement("button");
+      retweetBtn.className = "flex items-center space-x-3 tweet-action-btn";
+      retweetBtn.innerHTML = `<i class="fas fa-retweet fa-lg"></i><span></span>`;
+      retweetBtn.addEventListener("click", async () => {
+        if (!currentUser) {
+          alert("Please sign in or create an account before reclidding.");
+          showAuthModal();
+          return;
+        }
+        const userName = currentUser.username;
+        const postRef = doc(db, "posts", id);
+        const hasRetweeted = post.retweets?.includes(userName);
+        try {
+          if (hasRetweeted) {
+            await updateDoc(postRef, {
+              retweets: arrayRemove(userName),
+            });
+            alert("Reclidde removed");
+          } else {
+            await updateDoc(postRef, {
+              retweets: arrayUnion(userName),
+            });
+            alert("Reclidded!");
+          }
+        } catch (err) {
+          alert("Error updating retweet: " + err.message);
+        }
+      });
+
+      const likeBtn = document.createElement("button");
+      likeBtn.className = "flex items-center space-x-3 tweet-action-btn";
+      likeBtn.innerHTML = `<i class="far fa-heart fa-lg"></i><span></span>`;
+      let liked = false;
+      if (currentUser && post.likes?.includes(currentUser.username)) {
+        liked = true;
+        likeBtn.classList.add("liked");
+        likeBtn.querySelector("i").className = "fas fa-heart fa-lg";
+      }
+      likeBtn.addEventListener("click", async () => {
+        if (!currentUser) {
+          alert("Please sign in or create an account before liking.");
+          showAuthModal();
+          return;
+        }
+        const userName = currentUser.username;
+        const postRef = doc(db, "posts", id);
+        try {
+          if (liked) {
+            await updateDoc(postRef, {
+              likes: arrayRemove(userName),
+            });
+            liked = false;
+            likeBtn.classList.remove("liked");
+            likeBtn.querySelector("i").className = "far fa-heart fa-lg";
+          } else {
+            await updateDoc(postRef, {
+              likes: arrayUnion(userName),
+            });
+            liked = true;
+            likeBtn.classList.add("liked");
+            likeBtn.querySelector("i").className = "fas fa-heart fa-lg";
+          }
+        } catch (err) {
+          alert("Error updating like: " + err.message);
+        }
+      });
+
+      const likeCountSpan = document.createElement("span");
+      likeCountSpan.className = "text-sm text-gray-600 ml-1";
+      likeCountSpan.textContent = post.likes ? post.likes.length : 0;
+      likeBtn.appendChild(likeCountSpan);
+
+      const retweetCountSpan = document.createElement("span");
+      retweetCountSpan.className = "text-sm text-gray-600 ml-1";
+      retweetCountSpan.textContent = post.retweets ? post.retweets.length : 0;
+      retweetBtn.appendChild(retweetCountSpan);
+
+      const shareBtn = document.createElement("button");
+      shareBtn.className = "flex items-center space-x-3 tweet-action-btn";
+      shareBtn.innerHTML = `<i class="fas fa-share-square fa-lg"></i><span></span>`;
+      shareBtn.addEventListener("click", () => {
+        const url = `${window.location.origin}${window.location.pathname}#post-${id}`;
+        if (navigator.share) {
+          navigator.share({
+            title: `Tweet by ${post.userName}`,
+            text: post.caption,
+            url,
+          }).catch(() => alert("Share cancelled or failed"));
+        } else {
+          navigator.clipboard.writeText(url).then(() => {
+            alert("Post link copied to clipboard!");
+          });
+        }
+      });
+
+      actions.appendChild(replyBtn);
+      actions.appendChild(retweetBtn);
+      actions.appendChild(likeBtn);
+      actions.appendChild(shareBtn);
+
+      div.appendChild(actions);
+
+      div.id = `post-${id}`;
+
+      const heartIcon = document.createElement("i");
+      heartIcon.className =
+        "fas fa-heart text-red-500 absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 text-8xl opacity-0 pointer-events-none transition-opacity duration-500";
+      div.appendChild(heartIcon);
+
+      div.addEventListener("dblclick", () => {
+        showHeart(heartIcon);
+        if (!liked) {
+          liked = true;
+          likeBtn.classList.add("liked");
+          likeBtn.querySelector("i").className = "fas fa-heart fa-lg";
+          if (currentUser) {
+            const postRef = doc(db, "posts", id);
+            updateDoc(postRef, {
+              likes: arrayUnion(currentUser.username),
+            }).catch(() => {});
+          }
+        }
+      });
+
+      div.addEventListener("contextmenu", (e) => {
+        e.preventDefault();
+        currentContextPostId = id;
+        currentContextPostData = post;
+        showContextMenu(e.pageX, e.pageY);
+      });
+
+      let pressTimer = null;
+      div.addEventListener("touchstart", (e) => {
+        pressTimer = setTimeout(() => {
+          currentContextPostId = id;
+          currentContextPostData = post;
+          const touch = e.touches[0];
+          showContextMenu(touch.pageX, touch.pageY);
+        }, 600);
+      });
+      div.addEventListener("touchend", () => {
+        if (pressTimer !== null) {
+          clearTimeout(pressTimer);
+          pressTimer = null;
+        }
+      });
+      div.addEventListener("touchmove", () => {
+        if (pressTimer !== null) {
+          clearTimeout(pressTimer);
+          pressTimer = null;
+        }
+      });
+
+      return div;
+    }
+
+    function showHeart(icon) {
+      icon.style.opacity = "1";
+      setTimeout(() => {
+        icon.style.opacity = "0";
+      }, 800);
+    }
+
+    function showContextMenu(x, y) {
+      contextMenu.style.display = "block";
+      const menuWidth = contextMenu.offsetWidth;
+      const menuHeight = contextMenu.offsetHeight;
+      const windowWidth = window.innerWidth;
+      const windowHeight = window.innerHeight;
+
+      if (x + menuWidth > windowWidth) {
+        x = windowWidth - menuWidth - 10;
+      }
+      if (y + menuHeight > windowHeight) {
+        y = windowHeight - menuHeight - 10;
+      }
+
+      contextMenu.style.left = x + "px";
+      contextMenu.style.top = y + "px";
+      contextMenu.setAttribute("aria-hidden", "false");
+
+      // Show or hide delete button based on ownership
+      if (currentUser && currentContextPostData && currentContextPostData.userId === currentUser.id) {
+        contextDelete.style.display = "flex";
+      } else {
+        contextDelete.style.display = "none";
+      }
+    }
+
+    function hideContextMenu() {
+      contextMenu.style.display = "none";
+      contextMenu.setAttribute("aria-hidden", "true");
+      currentContextPostId = null;
+      currentContextPostData = null;
+    }
+
+    function savePost(post) {
+      if (
+        !savedPosts.find(
+          (p) => p.imageUrl === post.imageUrl && p.caption === post.caption
+        )
+      ) {
+        savedPosts.push(post);
+        localStorage.setItem("savedPosts", JSON.stringify(savedPosts));
+        alert("Post saved!");
+      } else {
+        alert("Post already saved.");
+      }
+    }
+
+    function favoritePost(postId) {
+      if (!favoritePosts.has(postId)) {
+        favoritePosts.add(postId);
+        localStorage.setItem(
+          "favoritePosts",
+          JSON.stringify(Array.from(favoritePosts))
+        );
+        alert("Post favorited!");
+      } else {
+        alert("Post already favorited.");
+      }
+    }
+
+    async function deletePost(postId) {
+      if (!postId) return;
+      const confirmDelete = confirm("Are you sure you want to delete this post?");
+      if (!confirmDelete) return;
+      try {
+        await deleteDoc(doc(db, "posts", postId));
+        alert("Post deleted.");
+      } catch (error) {
+        alert("Error deleting post: " + error.message);
+      }
+    }
+
+    function showSavedPosts() {
+      if (savedPosts.length === 0) {
+        alert("No saved posts.");
+        return;
+      }
+      feedEl.innerHTML = "";
+      savedPosts.forEach((post) => {
+        feedEl.appendChild(renderPost(post, post.imageUrl + post.caption));
+      });
+    }
+
+    function showFavoritePosts() {
+      if (favoritePosts.size === 0) {
+        alert("No favorite posts.");
+        return;
+      }
+      feedEl.innerHTML = "";
+      // Filter posts that are favorited by id
+      const favoritePostsArray = posts.filter(post => favoritePosts.has(post.id));
+      favoritePostsArray.forEach(post => {
+        feedEl.appendChild(renderPost(post, post.id));
+      });
+    }
+
+    function showFromMePosts() {
+      if (!currentUser) {
+        alert("Please sign in to view your posts.");
+        showAuthModal();
+        return;
+      }
+      const fromMePosts = posts.filter(post => post.userId === currentUser.id);
+      if (fromMePosts.length === 0) {
+        alert("You have not published any posts yet.");
+        return;
+      }
+      feedEl.innerHTML = "";
+      fromMePosts.forEach(post => {
+        feedEl.appendChild(renderPost(post, post.id));
+      });
+    }
+
+    // Update notifications badge and list
+    function updateNotifications() {
+      if (!currentUser) {
+        notificationBadge.style.display = "none";
+        notificationBadgeLeft.style.display = "none";
+        notificationsList.innerHTML = '<li class="p-4 text-center text-gray-500">Sign in to see notifications.</li>';
+        return;
+      }
+      // Filter posts published by others and unread by user
+      const unreadPosts = posts.filter(post => post.userId !== currentUser.id && !readNotifications.has(post.id));
+      if (unreadPosts.length === 0) {
+        notificationBadge.style.display = "none";
+        notificationBadgeLeft.style.display = "none";
+        notificationsList.innerHTML = '<li class="p-4 text-center text-gray-500">No new notifications.</li>';
+        return;
+      }
+      notificationBadge.style.display = "flex";
+      notificationBadge.textContent = unreadPosts.length;
+      notificationBadgeLeft.style.display = "inline-block";
+      notificationBadgeLeft.textContent = unreadPosts.length;
+
+      notificationsList.innerHTML = "";
+      unreadPosts.forEach(post => {
+        const li = document.createElement("li");
+        li.tabIndex = 0;
+        li.setAttribute("role", "button");
+        li.setAttribute("aria-label", `Notification from ${post.userName}: ${post.caption}`);
+        const avatar = document.createElement("img");
+        avatar.src = post.profilePic && post.profilePic.trim() !== "" ? post.profilePic : "https://placehold.co/40x40/png?text=" + (post.userName ? post.userName[0].toUpperCase() : "U") + "&font=roboto&font-weight=700&bg=ddd&fg=555";
+        avatar.alt = post.userName ? `${post.userName} avatar` : "User avatar placeholder";
+
+        const contentDiv = document.createElement("div");
+        contentDiv.className = "notification-content";
+
+        const userSpan = document.createElement("span");
+        userSpan.className = "notification-user";
+        userSpan.textContent = post.userName;
+
+        const captionSpan = document.createElement("span");
+        captionSpan.className = "notification-caption";
+        captionSpan.textContent = post.caption;
+
+        const timeSpan = document.createElement("span");
+        timeSpan.className = "notification-time";
+        let createdAtDate = null;
+        if (post.createdAt && post.createdAt.toDate) {
+          createdAtDate = post.createdAt.toDate();
+        } else if (post.createdAt instanceof Date) {
+          createdAtDate = post.createdAt;
+        } else if (typeof post.createdAt === "string") {
+          createdAtDate = new Date(post.createdAt);
+        }
+        timeSpan.textContent = timeAgo(createdAtDate);
+
+        contentDiv.appendChild(userSpan);
+        contentDiv.appendChild(captionSpan);
+        contentDiv.appendChild(timeSpan);
+
+        li.appendChild(avatar);
+        li.appendChild(contentDiv);
+
+        li.addEventListener("click", () => {
+          // Mark notification as read
+          readNotifications.add(post.id);
+          localStorage.setItem("readNotifications", JSON.stringify(Array.from(readNotifications)));
+          updateNotifications();
+          // Scroll to post in feed
+          const postEl = document.getElementById(`post-${post.id}`);
+          if (postEl) {
+            postEl.scrollIntoView({ behavior: "smooth", block: "center" });
+            postEl.classList.add("ring-4", "ring-blue-400");
+            setTimeout(() => {
+              postEl.classList.remove("ring-4", "ring-blue-400");
+            }, 2000);
+          }
+          notificationsDropdown.style.display = "none";
+        });
+
+        notificationsList.appendChild(li);
+      });
+    }
+
+    const postsQuery = query(
+      collection(db, "posts"),
+      orderBy("createdAt", "desc")
+    );
+    onSnapshot(postsQuery, (snapshot) => {
+      posts = [];
+      snapshot.forEach((doc) => {
+        const postData = doc.data();
+        posts.push({ ...postData, id: doc.id });
+      });
+      filteredPosts = posts;
+      renderFeed(filteredPosts);
+      updateNotifications();
+    });
+
+// Global click listener for ⋮ post menu
+document.addEventListener('click', function (e) {
+  const isBtn = e.target.closest('.post-options-btn');
+  const allMenus = document.querySelectorAll('.post-options-menu');
+  allMenus.forEach(menu => menu.classList.add('hidden'));
+
+  if (isBtn) {
+    const menu = isBtn.parentElement.querySelector('.post-options-menu');
+    if (menu) {
+      menu.classList.toggle('hidden');
+      e.stopPropagation();
+    }
+  }
+});
+
+
+
+    function renderFeed(postsToRender) {
+      feedEl.innerHTML = "";
+      postsToRender.forEach((post) => {
+        feedEl.appendChild(renderPost(post, post.id));
+      });
+    }
+
+    searchInput.addEventListener("input", () => {
+      const query = searchInput.value.trim().toLowerCase();
+      if (query === "") {
+        filteredPosts = posts;
+      } else {
+        filteredPosts = posts.filter((post) =>
+          post.caption.toLowerCase().includes(query)
+        );
+      }
+      renderFeed(filteredPosts);
+    });
+
+    contextFavorite.addEventListener("click", () => {
+      if (currentContextPostId) {
+        favoritePost(currentContextPostId);
+      }
+      hideContextMenu();
+    });
+    contextSave.addEventListener("click", () => {
+      if (currentContextPostData) {
+        savePost(currentContextPostData);
+      }
+      hideContextMenu();
+    });
+    contextDelete.addEventListener("click", () => {
+      if (!currentUser) {
+        alert("Please sign in or create an account to delete posts.");
+        showAuthModal();
+        hideContextMenu();
+        return;
+      }
+      if (currentContextPostId && currentContextPostData && currentContextPostData.userId === currentUser.id) {
+        deletePost(currentContextPostId);
+      } else {
+        alert("You can only delete your own posts.");
+      }
+      hideContextMenu();
+    });
+
+    document.addEventListener("click", (e) => {
+      if (!contextMenu.contains(e.target)) {
+        hideContextMenu();
+      }
+      if (!sidebarNotificationsBtn.contains(e.target) && !notificationsDropdown.contains(e.target)) {
+        notificationsDropdown.style.display = "none";
+      }
+    });
+    document.addEventListener("keydown", (e) => {
+      if (e.key === "Escape") {
+        hideContextMenu();
+        notificationsDropdown.style.display = "none";
+        closeCliddersModal();
+      }
+    });
+
+    sidebarNotificationsBtn.addEventListener("click", () => {
+      if (notificationsDropdown.style.display === "block") {
+        notificationsDropdown.style.display = "none";
+      } else {
+        updateNotifications();
+        notificationsDropdown.style.display = "block";
+        notificationsDropdown.focus();
+      }
+    });
+
+    document.getElementById("sidebarHome").addEventListener("click", () => {
+      renderFeed(posts);
+    });
+    document.getElementById("sidebarExplore").addEventListener("click", () => {
+      openSearchBar();
+    });
+    document
+      .getElementById("sidebarNotificationsLeft")
+      .addEventListener("click", () => {
+        sidebarNotificationsBtn.click();
+      });
+    document.getElementById("sidebarMessages").addEventListener("click", () => {
+      alert("Messages feature coming soon!");
+    });
+    document.getElementById("sidebarBookmarks").addEventListener("click", () => {
+      showSavedPosts();
+    });
+    document.getElementById("sidebarLists").addEventListener("click", async () => {
+  const feedEl = document.getElementById("feed");
+  feedEl.innerHTML = "";
+
+  const usersRef = collection(db, "users");
+  const postsRef = collection(db, "posts");
+  const usersSnapshot = await getDocs(usersRef);
+  const postsSnapshot = await getDocs(postsRef);
+
+  const allUsers = [];
+  let induwaraUser = null;
+
+  usersSnapshot.forEach((doc) => {
+    const user = { id: doc.id, ...doc.data() };
+    if (user.fullName && user.fullName.trim().endsWith("🌟")) {
+      if (user.fullName.trim().toUpperCase() === "INDUWARA JAYASINGHE") {
+        induwaraUser = user;
+      } else {
+        allUsers.push(user);
+      }
+    }
+  });
+
+  // Sort remaining users A-Z
+  allUsers.sort((a, b) =>
+    a.fullName.localeCompare(b.fullName, "en", { sensitivity: "base" })
+  );
+
+  const starredUsers = [];
+  if (induwaraUser) starredUsers.push(induwaraUser);
+  starredUsers.push(...allUsers);
+
+  if (starredUsers.length === 0) {
+    feedEl.innerHTML = `<p class="text-center text-gray-500 mt-6 text-lg">No verified users found.</p>`;
+    return;
+  }
+
+  starredUsers.forEach((user) => {
+    const userPosts = [];
+    let followers = user.followers || [];
+    let isFollowing = currentUser && followers.includes(currentUser.username);
+
+    postsSnapshot.forEach((postDoc) => {
+      const post = postDoc.data();
+      if (post.userId === user.id) userPosts.push(post);
+    });
+
+    const card = document.createElement("div");
+    card.className = `
+      bg-gradient-to-br from-black-50 to-white dark:from-black-900 dark:to-gray-900
+      border border-purple-400 dark:border-purple-500
+      shadow-lg rounded-xl p-5 mb-6 transition transform hover:scale-105
+    `;
+
+    card.innerHTML = `
+      <div class="flex items-center justify-between">
+        <div class="flex items-center space-x-4">
+          <img src="${user.profilePic || 'https://placehold.co/64x64'}"
+               alt="${user.fullName}"
+               class="w-16 h-16 rounded-full border-2 border-yellow-400 dark:border-yellow-300 object-cover shadow-md" />
+          <div class="flex flex-col">
+            <div class="flex items-center space-x-2">
+              <h3>
+  <span class="inline-flex items-center">
+    ${user.fullName}
+    ${getVerifiedHTML(user.verified)}
+  </span>
+</h3>
+
+              <span class="text-yellow-400 text-lg animate-bounce">Verified</span>
+            </div>
+            <p class="text-gray-500 dark:text-gray-400">𝓬𝓹${user.username}</p>
+          </div>
+        </div>
+        <button class="follow-btn px-4 py-2 text-sm font-semibold rounded-full border border-yellow-400 dark:border-yellow-300 ${
+          isFollowing ? "bg-yellow-400 text-white" : "bg-white text-yellow-500 dark:bg-yellow-800"
+        } hover:shadow-md transition">
+          ${isFollowing ? "Following" : "Follow"}
+        </button>
+      </div>
+      <div class="mt-3 flex justify-between items-center text-sm text-gray-600 dark:text-gray-300">
+        <span><i>This Clidder account has been verified by Black Hat.</i></span>
+        <span class="text-right font-medium">${userPosts.length} Posts • ${followers.length} Followers</span>
+      </div>
+    `;
+
+    const followBtn = card.querySelector(".follow-btn");
+    followBtn.addEventListener("click", async () => {
+      if (!currentUser) {
+        alert("Please sign in to follow users.");
+        return;
+      }
+
+      const userRef = doc(db, "users", user.id);
+      if (isFollowing) {
+        await updateDoc(userRef, {
+          followers: arrayRemove(currentUser.username),
+        });
+        followBtn.textContent = "Follow";
+        followBtn.classList.remove("bg-yellow-400", "text-white");
+        followBtn.classList.add("bg-white", "text-yellow-500");
+      } else {
+        await updateDoc(userRef, {
+          followers: arrayUnion(currentUser.username),
+        });
+        followBtn.textContent = "Following";
+        followBtn.classList.add("bg-yellow-400", "text-white");
+        followBtn.classList.remove("bg-white", "text-yellow-500");
+      }
+      isFollowing = !isFollowing;
+    });
+
+    feedEl.appendChild(card);
+  });
+});
+
+    sidebarFavoritesBtn.addEventListener("click", () => {
+      showFavoritePosts();
+    });
+    sidebarFromMeBtn.addEventListener("click", () => {
+      showFromMePosts();
+    });
+
+    // Clidders modal open/close handlers
+    document.getElementById("sidebarMore").addEventListener("click", async () => {
+  const feedEl = document.getElementById("feed");
+  feedEl.innerHTML = "";
+
+  const usersRef = collection(db, "users");
+  const postsRef = collection(db, "posts");
+  const usersSnapshot = await getDocs(usersRef);
+  const postsSnapshot = await getDocs(postsRef);
+
+  const allUsers = [];
+  let induwaraUser = null;
+
+  usersSnapshot.forEach((doc) => {
+    const user = { id: doc.id, ...doc.data() };
+    if (user.fullName && user.fullName.trim()) {
+      if (user.fullName.trim().toUpperCase() === "INDUWARA JAYASINGHE") {
+        induwaraUser = user;
+      } else {
+        allUsers.push(user);
+      }
+    }
+  });
+
+  // Sort remaining users A-Z
+  allUsers.sort((a, b) =>
+    a.fullName.localeCompare(b.fullName, "en", { sensitivity: "base" })
+  );
+
+  const starredUsers = [];
+  if (induwaraUser) starredUsers.push(induwaraUser);
+  starredUsers.push(...allUsers);
+
+  if (starredUsers.length === 0) {
+    feedEl.innerHTML = `<p class="text-center text-gray-500 mt-6 text-lg">No  users found.</p>`;
+    return;
+  }
+
+  starredUsers.forEach((user) => {
+    const userPosts = [];
+    let followers = user.followers || [];
+    let isFollowing = currentUser && followers.includes(currentUser.username);
+
+    postsSnapshot.forEach((postDoc) => {
+      const post = postDoc.data();
+      if (post.userId === user.id) userPosts.push(post);
+    });
+
+    const card = document.createElement("div");
+    card.className = `
+      bg-white
+      border border-purple-400 dark:border-purple-500
+      shadow-lg  p-5 mb-6 transition transform hover:scale-105
+    `;
+
+    card.innerHTML = `
+      <div class="flex items-center justify-between">
+        <div class="flex items-center space-x-4">
+          <img src="${user.profilePic || 'https://placehold.co/64x64'}"
+               alt="${user.fullName}"
+               class="w-16 h-16 rounded-full border-2 border-yellow-400 dark:border-yellow-300 object-cover shadow-md" />
+          <div class="flex flex-col">
+            <div class="flex items-center space-x-2">
+              <h3>
+  <span class="inline-flex items-center">
+    ${user.fullName}
+    ${getVerifiedHTML(user.verified)}
+  </span>
+</h3>
+
+              <span class="text-yellow-400 text-lg animate-bounce"></span>
+            </div>
+            <p class="text-gray-500 dark:text-gray-400">𝓬𝓹${user.username}</p>
+          </div>
+        </div>
+        <button class="follow-btn px-4 py-2 text-sm font-semibold rounded-full border border-yellow-400 dark:border-yellow-300 ${
+          isFollowing ? "bg-yellow-400 text-white" : "bg-white text-yellow-500 dark:bg-yellow-800"
+        } hover:shadow-md transition">
+          ${isFollowing ? "Following" : "Follow"}
+        </button>
+      </div>
+      <div class="mt-3 flex justify-between items-center text-sm text-gray-600 dark:text-gray-300">
+        <span><i><b>𝓒𝓵𝓲𝓭𝓭𝓮𝓻 | 𝓐 𝓙𝓪𝔂𝓪𝓼𝓲𝓷𝓰𝓱𝓮 𝓑𝓻𝓸𝓽𝓱𝓮𝓻𝓼 𝓗𝓸𝓵𝓭𝓲𝓷𝓰𝓼 𝓒𝓸𝓶𝓹𝓪𝓷𝔂 𝓛𝓲𝓶𝓲𝓽𝓮𝓭.</b></i></span>
+        <span class="text-right font-medium">${userPosts.length} Posts • ${followers.length} Followers</span>
+      </div>
+    `;
+
+    const followBtn = card.querySelector(".follow-btn");
+    followBtn.addEventListener("click", async () => {
+      if (!currentUser) {
+        alert("Please sign in to follow users.");
+        return;
+      }
+
+      const userRef = doc(db, "users", user.id);
+      if (isFollowing) {
+        await updateDoc(userRef, {
+          followers: arrayRemove(currentUser.username),
+        });
+        followBtn.textContent = "Follow";
+        followBtn.classList.remove("bg-yellow-400", "text-white");
+        followBtn.classList.add("bg-white", "text-yellow-500");
+      } else {
+        await updateDoc(userRef, {
+          followers: arrayUnion(currentUser.username),
+        });
+        followBtn.textContent = "Following";
+        followBtn.classList.add("bg-yellow-400", "text-white");
+        followBtn.classList.remove("bg-white", "text-yellow-500");
+      }
+      isFollowing = !isFollowing;
+    });
+
+    feedEl.appendChild(card);
+  });
+});
+
+
+
+    function closeCliddersModal() {
+      modalClidders.style.display = "none";
+      cliddersList.innerHTML = "";
+    }
+
+    btnAddPost.disabled = !currentUser;
+    btnTweet.disabled = !currentUser;
+    tweetInput.disabled = !currentUser;
+
+    btnTweet.addEventListener("click", () => {
+      if (!currentUser) {
+        alert("Please sign in or create an account to post.");
+        showAuthModal();
+        return;
+      }
+      modalAddPost.classList.remove("hidden");
+      postImageUrlInput.focus();
+    });
+
+    // Render profile modal content with edit facility
+    function renderProfile() {
+      if (!currentUser) return;
+
+      // Create editable form for profile
+      profileContent.innerHTML = `
+        <form id="profileEditForm" class="flex flex-col items-center space-y-4">
+          <div class="w-full relative">
+            <img id="coverPicPreview" src="${currentUser.coverPic || 'https://placehold.co/600x200/png?text=Cover+Photo'}" alt="Cover photo" class="w-full h-48 object-cover rounded-lg" />
+            <input id="coverPicInput" type="url" placeholder="Cover Picture URL" class="mt-2 w-full border border-gray-300 rounded-md p-2 focus:outline-none focus:ring-2 focus:ring-blue-500 text-sm" value="${currentUser.coverPic || ''}" />
+          </div>
+          <div class="relative -mt-16">
+            <img id="profilePicPreview" src="${currentUser.profilePic || 'https://placehold.co/100x100/png?text=Profile'}" alt="Profile photo" class="w-24 h-24 rounded-full object-cover border-4 border-white shadow-lg" />
+            <input id="profilePicInput" type="url" placeholder="Profile Picture URL" class="mt-2 w-64 border border-gray-300 rounded-md p-2 focus:outline-none focus:ring-2 focus:ring-blue-500 text-sm" value="${currentUser.profilePic || ''}" />
+          </div>
+          <input id="fullNameInput" type="text" maxlength="100" class="w-full border border-gray-300 rounded-md p-3 focus:outline-none focus:ring-2 focus:ring-blue-500 text-lg text-center font-bold" value="${currentUser.fullName || ''}" placeholder="Full Name" required />
+          <input id="usernameInput" type="text" maxlength="50" class="w-full border border-gray-300 rounded-md p-3 focus:outline-none focus:ring-2 focus:ring-blue-500 text-gray-500 text-center" value="${currentUser.username || ''}" placeholder="Username" disabled />
+          <textarea id="bioInput" rows="3" maxlength="280" class="w-full border border-gray-300 rounded-md p-3 resize-none focus:outline-none focus:ring-2 focus:ring-blue-500 text-center text-gray-700" placeholder="Bio">${currentUser.bio || ''}</textarea>
+          <div class="flex flex-wrap justify-center gap-4 text-sm text-gray-600 w-full">
+            <label class="flex flex-col w-40">
+              <span class="font-semibold">Birthday:</span>
+              <input id="birthdayInput" type="date" class="border border-gray-300 rounded-md p-2 focus:outline-none focus:ring-2 focus:ring-blue-500" value="${currentUser.birthday || ''}" />
+            </label>
+            <label class="flex flex-col w-40">
+              <span class="font-semibold">Gender:</span>
+              <select id="genderInput" class="border border-gray-300 rounded-md p-2 focus:outline-none focus:ring-2 focus:ring-blue-500">
+                <option value="" ${!currentUser.gender ? 'selected' : ''}>Select Gender</option>
+                <option value="Male" ${currentUser.gender === 'Male' ? 'selected' : ''}>Male</option>
+                <option value="Female" ${currentUser.gender === 'Female' ? 'selected' : ''}>Female</option>
+                <option value="Non-binary" ${currentUser.gender === 'Non-binary' ? 'selected' : ''}>Non-binary</option>
+                <option value="Other" ${currentUser.gender === 'Other' ? 'selected' : ''}>Other</option>
+                <option value="Prefer not to say" ${currentUser.gender === 'Prefer not to say' ? 'selected' : ''}>Prefer not to say</option>
+              </select>
+            </label>
+            <label class="flex flex-col w-40">
+              <span class="font-semibold">Address:</span>
+              <input id="addressInput" type="text" maxlength="200" class="border border-gray-300 rounded-md p-2 focus:outline-none focus:ring-2 focus:ring-blue-500" value="${currentUser.address || ''}" />
+            </label>
+            <label class="flex flex-col w-40">
+              <span class="font-semibold">Country:</span>
+              <input id="countryInput" type="text" maxlength="100" class="border border-gray-300 rounded-md p-2 focus:outline-none focus:ring-2 focus:ring-blue-500" value="${currentUser.country || ''}" />
+            </label>
+            <label class="flex flex-col w-40">
+              <span class="font-semibold">Email:</span>
+              <input id="emailInput" type="email" maxlength="100" class="border border-gray-300 rounded-md p-2 focus:outline-none focus:ring-2 focus:ring-blue-500" value="${currentUser.email || ''}" required />
+            </label>
+          </div>
+          <div class="flex space-x-4 mt-4">
+            <button type="submit" id="btnSaveProfile" class="bg-green-600 text-white px-6 py-2 rounded hover:bg-green-700 transition font-semibold">Save</button>
+            <button type="button" id="btnCancelEdit" class="bg-gray-300 text-gray-700 px-6 py-2 rounded hover:bg-gray-400 transition font-semibold">Cancel</button>
+          </div>
+          <button id="btnSignOut" type="button" class="mt-6 bg-red-600 text-white px-6 py-2 rounded hover:bg-red-700 transition font-semibold">Sign Out</button>
+        </form>
+      `;
+
+      // Update image previews on URL input change
+      const coverPicInput = document.getElementById("coverPicInput");
+      const coverPicPreview = document.getElementById("coverPicPreview");
+      coverPicInput.addEventListener("input", () => {
+        coverPicPreview.src = coverPicInput.value.trim() || 'https://placehold.co/600x200/png?text=Cover+Photo';
+      });
+
+      const profilePicInput = document.getElementById("profilePicInput");
+      const profilePicPreview = document.getElementById("profilePicPreview");
+      profilePicInput.addEventListener("input", () => {
+        profilePicPreview.src = profilePicInput.value.trim() || 'https://placehold.co/100x100/png?text=Profile';
+      });
+
+      // Cancel edit button
+      document.getElementById("btnCancelEdit").addEventListener("click", () => {
+        renderProfile(); // Re-render to reset form
+      });
+
+      // Sign out button
+      document.getElementById("btnSignOut").addEventListener("click", () => {
+        if (confirm("Are you sure you want to sign out?")) {
+  clearCurrentUser();
+  hideProfileModal();
+  alert("Signed out successfully.");
+  location.reload(); // Reload the page after sign-out
+}
+
+      });
+
+      // Save profile button
+      document.getElementById("profileEditForm").addEventListener("submit", async (e) => {
+        e.preventDefault();
+        const fullName = document.getElementById("fullNameInput").value.trim();
+        const bio = document.getElementById("bioInput").value.trim();
+        const birthday = document.getElementById("birthdayInput").value;
+        const gender = document.getElementById("genderInput").value;
+        const address = document.getElementById("addressInput").value.trim();
+        const country = document.getElementById("countryInput").value.trim();
+        const email = document.getElementById("emailInput").value.trim();
+        const profilePic = document.getElementById("profilePicInput").value.trim();
+        const coverPic = document.getElementById("coverPicInput").value.trim();
+
+        if (!fullName) {
+          alert("Full Name is required.");
+          return;
+        }
+        if (!email) {
+          alert("Email is required.");
+          return;
+        }
+        if (!validateEmail(email)) {
+          alert("Please enter a valid email address.");
+          return;
+        }
+
+        try {
+          // Update user in Firestore
+          const userRef = doc(db, "users", currentUser.id);
+          await updateDoc(userRef, {
+            fullName,
+            bio,
+            birthday,
+            gender,
+            address,
+            country,
+            email,
+            profilePic,
+            coverPic,
+          });
+
+          // Update currentUser and localStorage
+          currentUser = {
+            ...currentUser,
+            fullName,
+            bio,
+            birthday,
+            gender,
+            address,
+            country,
+            email,
+            profilePic,
+            coverPic,
+          };
+          localStorage.setItem("clidderUser", JSON.stringify(currentUser));
+
+          alert("Profile updated successfully.");
+          renderProfile();
+        } catch (error) {
+          alert("Error updating profile: " + error.message);
+        }
+      });
+    }
+
+    // Initialize UI state on load
+    updateUIForUser();
+
+    // Render who to follow and trends (unchanged)
+    const whoToFollow = [
+      {
+        name: "Clidder",
+        handle: "𝓬𝓹clidder",
+        avatar:
+          "https://i.ibb.co/0VqN92C4/clidder-off-dark.png",
+      },
+      {
+        name: "Apple𝓬𝓹",
+        handle: "𝓬𝓹appleinc",
+        avatar:
+          "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQUdOAh9FKCC6CszRyOE_tODjH_U_blkP5SwQ&s?text=B&font=roboto&font-weight=700&bg=ddd&fg=555",
+      },
+      {
+        name: "Tesla𝓬𝓹",
+        handle: "𝓬𝓹tesla",
+        avatar:
+          "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTFJP7X_crOPPYfdGyvHw8KhkxswWPubv8P4w&s?text=C&font=roboto&font-weight=700&bg=ddd&fg=555",
+      },
+    ];
+
+    const trends = [
+      { topic: "#InduwaraJayasinghe", tweets: "12.3K Tweets" },
+      { topic: "#Kavindu_Darshana", tweets: "8.7K Tweets" },
+      { topic: "#BlackHatInc", tweets: "5.1K Tweets" },
+      { topic: "#Windows", tweets: "3.4K Tweets" },
+      { topic: "#ClidderMarkets", tweets: "2.9K Tweets" },
+    ];
+
+    function renderWhoToFollow() {
+      const whoToFollowList = document.getElementById("whoToFollowList");
+      whoToFollowList.innerHTML = "";
+      whoToFollow.forEach((user) => {
+        const li = document.createElement("li");
+        li.className = "flex items-center space-x-3";
+
+        const avatar = document.createElement("img");
+        avatar.src = user.avatar;
+        avatar.alt = `${user.name} avatar`;
+        avatar.className = "w-10 h-10 rounded-full object-cover";
+
+        const info = document.createElement("div");
+        info.className = "flex flex-col";
+
+        const name = document.createElement("span");
+        name.className = "font-bold text-gray-900";
+        name.textContent = user.name;
+
+        const handle = document.createElement("span");
+        handle.className = "text-gray-500 text-sm";
+        handle.textContent = user.handle;
+
+        info.appendChild(name);
+        info.appendChild(handle);
+
+        const followBtn = document.createElement("button");
+        followBtn.className =
+          "ml-auto bg-blue-500 text-white rounded-full px-3 py-1 text-sm font-semibold hover:bg-blue-600 transition";
+        followBtn.textContent = "Follow";
+        followBtn.addEventListener("click", () => {
+          alert(`Followed ${user.name}`);
+        });
+
+        li.appendChild(avatar);
+        li.appendChild(info);
+        li.appendChild(followBtn);
+
+        whoToFollowList.appendChild(li);
+      });
+    }
+
+    function renderTrends() {
+      const trendsList = document.getElementById("trendsList");
+      trendsList.innerHTML = "";
+      trends.forEach((trend) => {
+        const li = document.createElement("li");
+        li.className =
+          "hover:bg-gray-100 rounded-md p-2 cursor-pointer transition flex flex-col";
+
+        const topic = document.createElement("span");
+        topic.className = "font-semibold text-gray-900";
+        topic.textContent = trend.topic;
+
+        const tweets = document.createElement("span");
+        tweets.className = "text-gray-500 text-xs";
+        tweets.textContent = trend.tweets;
+
+        li.appendChild(topic);
+        li.appendChild(tweets);
+
+        li.addEventListener("click", () => {
+          searchInput.value = trend.topic;
+          searchInput.dispatchEvent(new Event("input"));
+        });
+
+        trendsList.appendChild(li);
+      });
+    }
+
+    renderWhoToFollow();
+    renderTrends();
+
+    // Utility to close mobile menu
+    function closeMobileMenu() {
+      mobileMenu.classList.add("hidden");
+    }
+
+    // Mobile menu buttons
+    document.getElementById("mobileBtnHome").addEventListener("click", () => {
+      closeMobileMenu();
+      renderFeed(posts);
+    });
+    document.getElementById("mobileBtnAddPost").addEventListener("click", () => {
+      closeMobileMenu();
+      if (!currentUser) {
+        alert("Please sign in or create an account to add posts.");
+        showAuthModal();
+        return;
+      }
+      modalAddPost.classList.remove("hidden");
+      postImageUrlInput.focus();
+    });
+    document.getElementById("mobileBtnProfile").addEventListener("click", () => {
+      closeMobileMenu();
+      if (!currentUser) {
+        showAuthModal();
+      } else {
+        showProfileModal();
+      }
+    });
+    document.getElementById("mobileBtnFavorites").addEventListener("click", () => {
+      closeMobileMenu();
+      showFavoritePosts();
+    });
+
+    // Other event listeners (home, favorites, profile, etc.)
+    document.getElementById("btnHome").addEventListener("click", () => {
+      renderFeed(posts);
+    });
+    btnFavorites.addEventListener("click", () => {
+      showFavoritePosts();
+    });
+
+    // Modal close buttons
+    btnCloseModal.addEventListener("click", () => {
+      modalAddPost.classList.add("hidden");
+      formAddPost.reset();
+    });
+    modalAddPost.addEventListener("click", (e) => {
+      if (e.target === modalAddPost) {
+        modalAddPost.classList.add("hidden");
+        formAddPost.reset();
+      }
+    });
+    btnMenu.addEventListener("click", () => {
+      mobileMenu.classList.remove("hidden");
+    });
+    btnCloseMenu.addEventListener("click", () => {
+      mobileMenu.classList.add("hidden");
+    });
+
+    // Form submit for adding post
+    formAddPost.addEventListener("submit", async (e) => {
+      e.preventDefault();
+      if (!currentUser) {
+        alert("Please sign in or create an account to add posts.");
+        showAuthModal();
+        return;
+      }
+      const imageUrl = postImageUrlInput.value.trim();
+      const caption = postCaptionInput.value.trim();
+
+      if (!imageUrl) {
+        alert("Please enter an image URL.");
+        return;
+      }
+
+      try {
+        await addDoc(collection(db, "posts"), {
+          imageUrl,
+          caption,
+          createdAt: serverTimestamp(),
+          userId: currentUser.id,
+          userName: currentUser.fullName,
+          userHandle: "𝓬𝓹" + currentUser.username.toLowerCase(),
+          profilePic: currentUser.profilePic || "",
+verified: currentUser.verified || false,
+
+          likes: [],
+          retweets: [],
+          replies: [],
+        });
+        formAddPost.reset();
+        modalAddPost.classList.add("hidden");
+      } catch (error) {
+        alert("Error adding post: " + error.message);
+      }
+    });
+
+    // New: Open search bar and focus input
+    function openSearchBar() {
+      // Scroll to top so header is visible on mobile
+      window.scrollTo({ top: 0, behavior: "smooth" });
+      searchInput.focus();
+    }
+
+    // Click on Explore button opens search bar
+    sidebarExploreBtn.addEventListener("click", (e) => {
+      e.preventDefault();
+      openSearchBar();
+    });
+
+    // Keyboard shortcut: typing '/' focuses search input
+    document.addEventListener("keydown", (e) => {
+      // Ignore if input or textarea or contenteditable is focused
+      const active = document.activeElement;
+      if (
+        active &&
+        (active.tagName === "INPUT" ||
+          active.tagName === "TEXTAREA" ||
+          active.isContentEditable)
+      ) {
+        return;
+      }
+      if (e.key === "/") {
+        e.preventDefault();
+        openSearchBar();
+      }
+    });
+
+
+
+
+
+// Dark/Light mode toggle logic
+    const body = document.body;
+    const sidebarToggleBtn = document.getElementById("sidebarModeToggle");
+    const headerToggleBtn = document.getElementById("headerModeToggle");
+
+    // Initialize mode from localStorage or default to light
+    function initMode() {
+      const savedMode = localStorage.getItem("clidderMode");
+      if (savedMode === "dark") {
+        enableDarkMode();
+      } else {
+        enableLightMode();
+      }
+    }
+
+    function enableDarkMode() {
+      body.classList.add("dark-mode");
+      body.classList.remove("light-mode");
+      updateToggleButtons(true);
+      localStorage.setItem("clidderMode", "dark");
+    }
+
+    function enableLightMode() {
+      body.classList.add("light-mode");
+      body.classList.remove("dark-mode");
+      updateToggleButtons(false);
+      localStorage.setItem("clidderMode", "light");
+    }
+
+    function toggleMode() {
+      if (body.classList.contains("dark-mode")) {
+        enableLightMode();
+      } else {
+        enableDarkMode();
+      }
+    }
+
+    function updateToggleButtons(isDark) {
+      // Update sidebar button
+      if (isDark) {
+        sidebarToggleBtn.innerHTML = '<i class="fas fa-sun"></i><span>Light Mode</span>';
+        headerToggleBtn.innerHTML = '<i class="fas fa-sun"></i><span class="hidden md:inline">Light Mode</span>';
+      } else {
+        sidebarToggleBtn.innerHTML = '<i class="fas fa-moon"></i><span>Dark Mode</span>';
+        headerToggleBtn.innerHTML = '<i class="fas fa-moon"></i><span class="hidden md:inline">Dark Mode</span>';
+      }
+    }
+
+    sidebarToggleBtn.addEventListener("click", toggleMode);
+    headerToggleBtn.addEventListener("click", toggleMode);
+
+    // Initialize mode on page load
+    initMode();
+
+
+
+const scrollTopBtn = document.getElementById("scrollTopBtn");
+  const centerContent = document.getElementById("centerContent");
+
+  centerContent.addEventListener("scroll", () => {
+    if (centerContent.scrollTop > 300) {
+      scrollTopBtn.classList.remove("hidden");
+    } else {
+      scrollTopBtn.classList.add("hidden");
+    }
+  });
+
+  scrollTopBtn.addEventListener("click", () => {
+    centerContent.scrollTo({ top: 0, behavior: "smooth" });
+  });
+
+ window.addEventListener('DOMContentLoaded', () => {
+    const usernames = document.querySelectorAll('.user-handle');
+    usernames.forEach(el => {
+      if (el.textContent.startsWith('𝓬𝓹')) {
+        el.textContent = el.textContent.replace(/^𝓬𝓹/, '𝓬𝓹');
+      }
+    });
+  });
+
+
+    // The rest of your existing script code below...
+
+    // ... (rest of your existing code remains unchanged)
+  </script>
+<button id="scrollTopBtn" title="Go to top" aria-label="Scroll to top"
+  class="hidden fixed bottom-6 left-1/2 transform -translate-x-1/2 z-50 p-3 bg-purple-600 text-white rounded-full shadow-lg hover:bg-purple-600 transition">
+  <i class="fas fa-arrow-up"></i>
+</button>
+
+<script>
+function wrapText(type, value = null) {
+  const ta = document.getElementById("tweetInput");
+  const start = ta.selectionStart;
+  const end = ta.selectionEnd;
+  const text = ta.value;
+  const selected = text.substring(start, end);
+  const before = text.substring(0, start);
+  const after = text.substring(end);
+
+  let wrapped = selected;
+
+  switch (type) {
+    case 'b': wrapped = `<b>${selected}</b>`; break;
+    case 'i': wrapped = `<i>${selected}</i>`; break;
+    case 'u': wrapped = `<u>${selected}</u>`; break;
+    case 's': wrapped = `<s>${selected}</s>`; break;
+    case 'mark': wrapped = `<mark>${selected}</mark>`; break;
+    case 'color': wrapped = `<span style="color:${value}">${selected}</span>`; break;
+    case 'size': wrapped = `<span style="font-size:${value}">${selected}</span>`; break;
+    case 'font': wrapped = `<span style="font-family:'${value}'">${selected}</span>`; break;
+    case 'align': wrapped = `<div style="text-align:${value}">${selected}</div>`; break;
+    case 'sup': wrapped = `<sup>${selected}</sup>`; break;
+    case 'sub': wrapped = `<sub>${selected}</sub>`; break;
+    case 'line': wrapped = `<div style="line-height:${value}">${selected}</div>`; break;
+    case 'code': wrapped = `<pre><code>${selected}</code></pre>`; break;
+  }
+
+  ta.value = before + wrapped + after;
+  ta.focus();
+  ta.selectionStart = ta.selectionEnd = before.length + wrapped.length;
+}
+
+function convertCase(type) {
+  const ta = document.getElementById("tweetInput");
+  const start = ta.selectionStart;
+  const end = ta.selectionEnd;
+  const selected = ta.value.substring(start, end);
+  const converted = type === 'upper' ? selected.toUpperCase() : selected.toLowerCase();
+  ta.setRangeText(converted, start, end, "end");
+}
+
+function insertList(style) {
+  const ta = document.getElementById("tweetInput");
+  const selected = ta.value.substring(ta.selectionStart, ta.selectionEnd);
+  const lines = selected.split("\n").map(line => style === "bullet" ? `<li>${line}</li>` : `<li>${line}</li>`);
+  const listTag = style === "bullet" ? "ul" : "ol";
+  const result = `<${listTag}>\n${lines.join('\n')}\n</${listTag}>`;
+  ta.setRangeText(result, ta.selectionStart, ta.selectionEnd, "end");
+}
+
+function clearFormat() {
+  const ta = document.getElementById("tweetInput");
+  const start = ta.selectionStart;
+  const end = ta.selectionEnd;
+  const selected = ta.value.substring(start, end);
+  const stripped = selected.replace(/<\/?[^>]+(>|$)/g, "");
+  ta.setRangeText(stripped, start, end, "end");
+}
+
+document.addEventListener("DOMContentLoaded", () => {
+  const clickOrWarn = (id, actionName) => {
+    const el = document.getElementById(id);
+    if (el) el.click();
+    else alert(`${actionName} not available or you're not signed in.`);
+  };
+
+  document.getElementById("mobileNavHome")?.addEventListener("click", () => {
+    clickOrWarn("sidebarHome", "Home");
+  });
+
+  document.getElementById("mobileNavAdd")?.addEventListener("click", () => {
+    clickOrWarn("btnAddPost", "Add Post");
+  });
+
+  document.getElementById("mobileNavFavs")?.addEventListener("click", () => {
+    clickOrWarn("sidebarFavorites", "Favorites");
+  });
+
+  document.getElementById("mobileNavProfile")?.addEventListener("click", () => {
+    clickOrWarn("btnProfileTop", "Profile");
+  });
+
+ document.getElementById("mobileNavClidders")?.addEventListener("click", () => {
+    clickOrWarn("sidebarMore", "Clidders");
+  });
+
+  
+ document.getElementById("mobileclips")?.addEventListener("click", () => {
+    clickOrWarn("sidebarClips", "Clips");
+  });
+
+});
+
+if ('serviceWorker' in navigator) {
+  window.addEventListener('load', () => {
+    navigator.serviceWorker.register('/service-worker.js')
+      .then(registration => {
+        console.log('Service Worker registered with scope:', registration.scope);
+      })
+      .catch(error => {
+        console.error('Service Worker registration failed:', error);
+      });
+  });
+}
+
+
+
+let deferredPrompt = null;
+
+// Listen for beforeinstallprompt and save the event
+window.addEventListener('beforeinstallprompt', (e) => {
+  e.preventDefault();
+  deferredPrompt = e;
+});
+
+// Handle install button click
+document.getElementById('btnInstallPWA').addEventListener('click', async () => {
+  if (deferredPrompt) {
+    deferredPrompt.prompt();
+    const choiceResult = await deferredPrompt.userChoice;
+    console.log(`User response to install prompt: ${choiceResult.outcome}`);
+    deferredPrompt = null;
+  } else {
+    alert("Install prompt is not ready yet. Please try again later.");
+  }
+});
+
+
+
+
+
+</script>
+
+<!-- 📱 Mobile Bottom Navigation Bar -->
+<nav id="mobileBottomNav" class="fixed bottom-0 left-0 right-0 bg-white border-t border-gray-200 flex justify-around items-center h-16 z-50 md:hidden">
+  <button id="mobileNavHome" class="flex flex-col items-center text-gray-600 hover:text-blue-500">
+    <i class="fas fa-home text-xl"></i><span class="text-xs"></span>
+  </button>
+  
+
+
+
+  <button id="mobileNavFavs" class="flex flex-col items-center text-gray-600 hover:text-blue-500">
+    <i class="fas fa-star text-xl"></i><span class="text-xs"></span>
+  </button>
+
+<button id="mobileclips" class="flex flex-col items-center text-gray-600 hover:text-blue-500">
+    <i class="fas fa-play-circle fa-lg"></i><span class="text-xs"></span>
+  </button>
+
+   <button id="mobileNavClidders" class="flex flex-col items-center text-gray-600 hover:text-blue-500">
+      <i class="fas fa-users text-lg"></i>
+    </button>
+
+  <button id="mobileNavProfile" class="flex flex-col items-center text-gray-600 hover:text-blue-500">
+    <img id="mobileProfilePicIcon" src="" alt="Profile" class="w-6 h-6 rounded-full hidden" />
+<i id="mobileProfileIconFallback" class="fas fa-user-circle fa-lg"></i>
+<span class="text-xs"></span>
+  </button>
+  
+  <button id="mobileModeToggle" class="text-gray-700 dark:text-white text-xl focus:outline-none">
+      <i class="fas fa-moon"></i>
+    </button>
+
+
+
+</nav>
+
+
+
+
+<!-- Firebase SDKs -->
+<script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-messaging-compat.js"></script>
+
+<script>
+  const firebaseConfig = {
+    apiKey: "AIzaSyDrFdwYhlj84GQ3eLzPctLgxZ572PHu7Tg",
+    authDomain: "x-clone-d4697.firebaseapp.com",
+    projectId: "x-clone-d4697",
+    storageBucket: "x-clone-d4697.firebasestorage.app",
+    messagingSenderId: "438425139174",
+    appId: "1:438425139174:web:b1ebea6f124a245cf9c827",
+    measurementId: "G-PLQBYNDKQM"
+  };
+
+  // Initialize Firebase
+  firebase.initializeApp(firebaseConfig);
+
+  // Get Messaging instance
+  const messaging = firebase.messaging();
+
+  // Ask for notification permission and get token
+  messaging.requestPermission()
+    .then(() => {
+      console.log("🔔 Notification permission granted.");
+      return messaging.getToken({
+        vapidKey: "BM0BorMxQhF2Um-9nMjPzmIkhOOZtLa8yAGH1X5kHbJbCZfGTO2oOSYsdmMpxH2U1ncd5AquVz96AWug8jHcaGI"
+      });
+    })
+    .then((token) => {
+      console.log("✅ Registration Token:", token);
+      // 👉 Copy this token and use it to send push notifications
+      // You can save it to Firestore or your own database if needed
+    })
+    .catch((err) => {
+      console.error("❌ Error getting token or permission denied:", err);
+    });
+</script>
+
+<script>
+  document.getElementById('mobileModeToggle').addEventListener('click', () => {
+    document.body.classList.toggle('dark-mode');
+    document.body.classList.toggle('light-mode');
+  });
+</script>
+
+<!-- ☰ Mobile Sidebar Menu -->
+<div id="mobileSidebarMenu" class="fixed top-16 right-4 bg-white dark:bg-black shadow-lg rounded-lg z-50 p-4 w-64 space-y-3 hidden">
+  <button id="mobileBtnMessages" class="w-full text-left text-gray-800 dark:text-white hover:text-blue-500">
+    <i class="fas fa-envelope mr-2"></i> Messages
+  </button>
+  <button id="mobileBtnSaved" class="w-full text-left text-gray-800 dark:text-white hover:text-blue-500">
+    <i class="fas fa-bookmark mr-2"></i> Saved
+  </button>
+  <button id="mobileBtnVerified" class="w-full text-left text-gray-800 dark:text-white hover:text-blue-500">
+    <i class="fas fa-check-circle mr-2"></i> Verified Clidders
+  </button>
+<!-- Mobile Favorites Button (Unique ID) -->
+<button id="mobileSidebarFavorites" class="w-full text-left text-gray-800 dark:text-white hover:text-blue-500">
+  <i class="fas fa-star mr-2"></i> Favorites
+</button>
+
+  <button id="mobileBtnFromMe" class="w-full text-left text-gray-800 dark:text-white hover:text-blue-500">
+    <i class="fas fa-user-edit mr-2"></i> From Me
+  </button>
+  <button onclick="window.open('https://blackhatai.nicepage.io', '_blank')" class="w-full text-left text-gray-800 dark:text-white hover:text-blue-500">
+    <i class="fas fa-robot mr-2"></i> Black Hat AI
+  </button>
+</div>
+
+
+
+<script>
+  document.getElementById("mobileBtnMessages").addEventListener("click", () => {
+    document.getElementById("sidebarMessages")?.click();
+  });
+
+  document.getElementById("mobileBtnSaved").addEventListener("click", () => {
+    document.getElementById("sidebarBookmarks")?.click();
+  });
+
+  document.getElementById("mobileBtnVerified").addEventListener("click", () => {
+    document.getElementById("sidebarLists")?.click();
+  });
+
+   document.getElementById("mobileSidebarFavorites").addEventListener("click", () => {
+    document.getElementById("sidebarFavorites")?.click();
+  });
+
+  document.getElementById("mobileBtnFromMe").addEventListener("click", () => {
+    document.getElementById("sidebarFromMe")?.click();
+  });
+</script>
+
+
+
+
+
+<script>
+  function toggleMobileSidebarMenu() {
+    const menu = document.getElementById("mobileSidebarMenu");
+    if (menu.classList.contains("hidden")) {
+      menu.classList.remove("hidden");
+    } else {
+      menu.classList.add("hidden");
+    }
+  }
+
+  function navigateTo(section) {
+    alert("Navigate to: " + section); // Replace with real logic if needed
+    document.getElementById("mobileSidebarMenu").classList.add("hidden");
+  }
+
+  // Optional: Hide menu if you click outside it
+  document.addEventListener("click", function(event) {
+    const menu = document.getElementById("mobileSidebarMenu");
+    const toggleBtn = event.target.closest("button[onclick='toggleMobileSidebarMenu()']");
+    if (!menu.contains(event.target) && !toggleBtn) {
+      menu.classList.add("hidden");
+    }
+  });
+</script>
+
+<script>
+  const sidebarClipsBtn = document.getElementById("sidebarClips");
+  const clipsSection = document.getElementById("clipsSection");
+  const centerContent = document.getElementById("centerContent");
+  const clipsDisplay = document.getElementById("clipsDisplay");
+
+  sidebarClipsBtn.addEventListener("click", () => {
+    // Hide all children in #centerContent
+    [...centerContent.children].forEach(child => {
+      if (child !== clipsSection) {
+        child.style.display = "none";
+      }
+    });
+
+    // Clear previous clips
+    clipsDisplay.innerHTML = "";
+
+    // Find all <video> tags already in the DOM
+    const existingVideos = document.querySelectorAll("video");
+
+    existingVideos.forEach(video => {
+      const clone = video.cloneNode(true);
+clone.controls = false;   // Hide all native controls
+clone.autoplay = false;
+clone.muted = false;
+clone.className = "w-full h-auto rounded shadow";
+
+// Play video when clicked anywhere on the video element
+clone.style.cursor = "pointer";  // Show pointer cursor on hover
+clone.addEventListener("click", () => {
+  if (clone.paused) {
+    clone.play();
+  } else {
+    clone.pause();
+  }
+});
+
+
+      const wrapper = document.createElement("div");
+      wrapper.appendChild(clone);
+      clipsDisplay.appendChild(wrapper);
+    });
+
+    clipsSection.classList.remove("hidden");
+  });
+</script>
+
+<script>
+  document.addEventListener('contextmenu', event => event.preventDefault());
+</script>
+<script>
+  document.onkeydown = function (e) {
+    if (e.key === "F12" || 
+        (e.ctrlKey && e.shiftKey && e.key === "I") || 
+        (e.ctrlKey && e.shiftKey && e.key === "J") || 
+        (e.ctrlKey && e.key === "U")) {
+      return false;
+    }
+  };
+</script>
+<script>
+  setInterval(() => {
+    if (window.devtools?.isOpen) {
+      alert("Inspecting this page is not allowed.");
+      window.location.href = "https://www.google.com";
+    }
+  }, 1000);
+</script>
+
+<script>
+  document.addEventListener("DOMContentLoaded", function () {
+    const toggleBtn = document.getElementById("mobileSearchToggle");
+    const searchContainer = document.getElementById("mobileSearchContainer");
+    const searchInput = document.getElementById("mobileSearchInput");
+
+    toggleBtn?.addEventListener("click", function (e) {
+      e.stopPropagation();
+      const hidden = searchContainer.classList.contains("hidden");
+      if (hidden) {
+        searchContainer.classList.remove("hidden");
+        setTimeout(() => searchInput.focus(), 100);
+      } else {
+        searchContainer.classList.add("hidden");
+      }
+    });
+
+    document.addEventListener("click", function (e) {
+      if (
+        !e.target.closest("#mobileSearchContainer") &&
+        !e.target.closest("#mobileSearchToggle")
+      ) {
+        searchContainer.classList.add("hidden");
+      }
+    });
+  });
+</script>
+
+
+<!-- Pages Modal -->
+<div id="pagesModal" class="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50 hidden">
+  <div class="bg-white p-6 w-[90%] max-w-md shadow-xl relative">
+    <button onclick="document.getElementById('pagesModal').classList.add('hidden')" 
+            class="absolute top-2 right-3 text-gray-500 hover:text-red-600 text-xl font-bold">&times;</button>
+    <h2 class="text-xl font-semibold mb-4">Pages</h2>
+    <p>Here you can manage your pages.</p>
+    <!-- Add your Pages content/tools here -->
+  </div>
+</div>
+
+<!-- Settings Modal -->
+<div id="settingsModal" class="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50 hidden">
+  <div class="bg-white p-6 w-[90%] max-w-md shadow-xl relative">
+    <button onclick="document.getElementById('settingsModal').classList.add('hidden')" 
+            class="absolute top-2 right-3 text-gray-500 hover:text-red-600 text-xl font-bold">&times;</button>
+    <h2 class="text-xl font-semibold mb-4">Settings</h2>
+    <p>Here you can adjust your account settings.</p>
+    <!-- Add your Settings options here -->
+  </div>
+</div>
+
+
+<script>
+document.addEventListener("DOMContentLoaded", () => {
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      const video = entry.target;
+      if (entry.isIntersecting) {
+        video.play().catch(() => {});
+      } else {
+        video.pause();
+      }
+    });
+  }, {
+    threshold: 0.6
+  });
+
+  function setupVideoAutoplay() {
+    const videos = document.querySelectorAll("video");
+    videos.forEach(video => {
+      video.muted = true;
+      video.playsInline = true;
+      video.setAttribute("autoplay", true);
+      video.setAttribute("loop", true);
+
+      // Unmute on user click
+      video.addEventListener("click", () => {
+        video.muted = false;
+        video.volume = 1.0;
+      });
+
+      observer.observe(video);
+    });
+  }
+
+  setupVideoAutoplay();
+
+  // Watch for dynamically added videos
+  const feed = document.getElementById("feed");
+  if (feed) {
+    const mutationObserver = new MutationObserver(setupVideoAutoplay);
+    mutationObserver.observe(feed, { childList: true, subtree: true });
+  }
+});
+</script>
+
+<div id="themeModal" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 hidden">
+  <div class="bg-white p-6 rounded-lg shadow-lg space-y-4 text-center">
+    <h2 class="text-xl font-bold">Pick a Theme Color</h2>
+    <input type="color" id="colorPicker" class="w-24 h-12 border rounded" />
+    <div class="space-x-4">
+      <button id="applyThemeBtn" class="px-4 py-2 bg-blue-500 text-white rounded">Apply</button>
+      <button id="resetThemeBtn" class="px-4 py-2 bg-gray-300 rounded">Reset</button>
+    </div>
+  </div>
+</div>
+<script>
+  const sidebarThemeBtn = document.getElementById("sidebarTheme");
+  const themeModal = document.getElementById("themeModal");
+  const colorPicker = document.getElementById("colorPicker");
+  const applyThemeBtn = document.getElementById("applyThemeBtn");
+  const resetThemeBtn = document.getElementById("resetThemeBtn");
+
+  const elementsToTheme = [
+    document.body,
+    document.getElementById("leftSidebar"),
+    document.getElementById("rightSidebar"),
+    document.getElementById("centerContent")
+  ];
+
+  // Load saved theme
+  window.addEventListener("DOMContentLoaded", () => {
+    const savedColor = localStorage.getItem("customThemeColor");
+    if (savedColor) applyTheme(savedColor);
+  });
+
+  sidebarThemeBtn.addEventListener("click", () => {
+    themeModal.classList.remove("hidden");
+  });
+
+  themeModal.addEventListener("click", (e) => {
+    if (e.target === themeModal) {
+      themeModal.classList.add("hidden");
+    }
+  });
+
+  applyThemeBtn.addEventListener("click", () => {
+    const color = colorPicker.value;
+    applyTheme(color);
+    localStorage.setItem("customThemeColor", color);
+    themeModal.classList.add("hidden");
+  });
+
+  resetThemeBtn.addEventListener("click", () => {
+    localStorage.removeItem("customThemeColor");
+    elementsToTheme.forEach(el => el.style.backgroundColor = "");
+    themeModal.classList.add("hidden");
+  });
+
+  function applyTheme(color) {
+    elementsToTheme.forEach(el => el.style.backgroundColor = color);
+  }
+
+
+function getVerifiedHTML(verified) {
+  return verified
+    ? `<img src="https://upload.wikimedia.org/wikipedia/commons/e/e4/Twitter_Verified_Badge.svg"
+             alt="Verified Badge"
+             class="verified-badge" />`
+    : "";
+}
+
+</script>
+
+<script>
+  import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.1.0/firebase-auth.js";
+  import { getFirestore, doc, getDoc } from "https://www.gstatic.com/firebasejs/10.1.0/firebase-firestore.js";
+
+  const auth = getAuth();
+  const db = getFirestore();
+
+  const currentUserPicEl = document.getElementById("currentUserPic");
+
+  onAuthStateChanged(auth, async (user) => {
+    if (user) {
+      const userRef = doc(db, "users", user.uid);
+      const userSnap = await getDoc(userRef);
+      if (userSnap.exists()) {
+        const data = userSnap.data();
+        if (data.profilePic) {
+          currentUserPicEl.src = data.profilePic;
+        }
+      }
+    }
+  });
+</script>
+
+<script>
+
+const tabForYou = document.getElementById("tabForYou");
+const tabFollowing = document.getElementById("tabFollowing");
+
+function activateTab(tab) {
+  tabForYou.classList.remove("text-blue-500", "border-blue-500");
+  tabFollowing.classList.remove("text-blue-500", "border-blue-500");
+
+  tab.classList.add("text-blue-500", "border-blue-500");
+
+  // You can replace this with actual filtering logic
+  if (tab.id === "tabForYou") {
+    console.log("Showing For You feed");
+    // fetchAndRenderForYouPosts();
+  } else {
+    console.log("Showing Following feed");
+    // fetchAndRenderFollowingPosts();
+  }
+}
+
+tabForYou.addEventListener("click", () => activateTab(tabForYou));
+tabFollowing.addEventListener("click", () => activateTab(tabFollowing));
+
+// Default to For You
+activateTab(tabForYou);
+
+
+</script>
+<script>
+  document.addEventListener("DOMContentLoaded", function() {
+    const header = document.querySelector("header");
+    if (header) header.style.display = "none";
+  });
+</script>
+
+
+<script type="module">
+  // Make sure Firebase is imported already in your index.html
+  import { getDocs, collection } from "https://www.gstatic.com/firebasejs/10.1.0/firebase-firestore.js";
+  import { db } from "./your-firebase-config.js"; // adapt if db is already initialized
+
+  const userSearchInput = document.getElementById("userSearchInput");
+
+  let usersById = {}; // uid → { fullName, userName }
+
+  async function loadUsers() {
+    const usersSnapshot = await getDocs(collection(db, "users"));
+    usersSnapshot.forEach(doc => {
+      const data = doc.data();
+      usersById[doc.id] = {
+        fullName: (data.fullName || "").toLowerCase(),
+        userName: (data.userName || "").toLowerCase(),
+      };
+    });
+  }
+
+  function filterPostsBySearch(searchTerm) {
+    const term = searchTerm.toLowerCase();
+
+    const filtered = posts.filter(post => {
+      const user = usersById[post.uid] || {};
+      return (
+        (user.fullName || "").includes(term) ||
+        (user.userName || "").includes(term) ||
+        (post.caption || "").toLowerCase().includes(term) ||
+        (post.imageUrl || "").toLowerCase().includes(term)
+      );
+    });
+
+    renderPosts(filtered);
+  }
+
+  userSearchInput.addEventListener("input", (e) => {
+    const term = e.target.value.trim();
+    if (!term) {
+      renderPosts(posts);
+    } else {
+      filterPostsBySearch(term);
+    }
+  });
+
+  // load users on first run
+  loadUsers();
+</script>
+
+<script>
+
+const charCount = document.getElementById("charCount");
+tweetInput.addEventListener("input", () => {
+  charCount.textContent = `${tweetInput.value.length} / 100000`;
+  btnSubmitTweet.disabled = tweetInput.value.length === 0 || tweetInput.value.length > 100000;
+});
+
+</script>
+
+
+
+
+
+
+<!-- SETTINGS MODAL -->
+<div id="modalSettings" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 hidden">
+  <div class="bg-white dark:bg-gray-900 p-6 rounded-2xl w-full max-w-2xl max-h-[90vh] overflow-y-auto shadow-lg border border-gray-300 dark:border-gray-700">
+    <h2 class="text-2xl font-bold mb-6 text-center text-gray-900 dark:text-white">Settings</h2>
+    <ul class="flex justify-around text-sm font-semibold text-gray-700 dark:text-gray-300 border-b pb-4 mb-4">
+      <li class="cursor-pointer px-3 py-2 rounded hover:bg-gray-100 dark:hover:bg-gray-800" onclick="toggleSettingSection('accessibilitySettings')">Accessibility</li>
+      <li class="cursor-pointer px-3 py-2 rounded hover:bg-gray-100 dark:hover:bg-gray-800" onclick="toggleSettingSection('displaySettings')">Display</li>
+      <li class="cursor-pointer px-3 py-2 rounded hover:bg-gray-100 dark:hover:bg-gray-800" onclick="toggleSettingSection('languageSettings')">Languages</li>
+      <li class="cursor-pointer px-3 py-2 rounded hover:bg-gray-100 dark:hover:bg-gray-800" onclick="toggleSettingSection('dataSettings')">Data Usage</li>
+      <li class="cursor-pointer px-3 py-2 rounded hover:bg-gray-100 dark:hover:bg-gray-800" onclick="toggleSettingSection('keyboardSettings')">Shortcuts</li>
+    </ul>
+
+    <!-- Accessibility -->
+    <div id="accessibilitySettings" class="hidden text-sm text-gray-800 dark:text-gray-200">
+      <h3 class="text-lg font-semibold mb-2">Accessibility</h3>
+      <p class="mb-4">Manage aspects of your Clidder experience such as limiting color contrast and motion. These settings affect all the Clidder accounts on this browser.</p>
+      <div class="space-y-3">
+        <div>
+          <h4 class="font-semibold">Vision</h4>
+          <label class="block">
+            <input type="checkbox" id="highContrast" class="mr-2"> Increase color contrast
+          </label>
+        </div>
+        <div>
+          <h4 class="font-semibold">Motion</h4>
+          <label class="block">
+            <input type="checkbox" id="reduceMotion" class="mr-2"> Reduce motion
+          </label>
+        </div>
+        <div>
+          <h4 class="font-semibold">Media</h4>
+          <label class="block">
+            <input type="checkbox" id="imageReminder" class="mr-2"> Receive image description reminder
+          </label>
+        </div>
+        <a href="https://help.twitter.com/en/rules-and-policies/twitter-accessibility" target="_blank" class="text-blue-500 hover:underline text-xs">Learn more about accessibility at X</a>
+      </div>
+    </div>
+
+    <!-- Display -->
+    <div id="displaySettings" class="hidden text-sm text-gray-800 dark:text-gray-200">
+      <h3 class="text-lg font-semibold mb-2">Display</h3>
+      <p class="mb-4">Manage your font size, color, and background. These settings affect all the Clidder accounts on this browser.</p>
+      <div class="space-y-4">
+        <div>
+          <label class="block font-medium mb-1">Font Size</label>
+          <select id="fontSize" class="w-full border rounded p-2">
+            <option value="small">Aa Small</option>
+            <option value="medium">Aa Medium</option>
+            <option value="large">Aa Large</option>
+          </select>
+        </div>
+        <div>
+          <label class="block font-medium mb-1">Color Theme</label>
+          <select id="colorTheme" class="w-full border rounded p-2">
+            <option value="blue">Blue</option>
+            <option value="purple">Purple</option>
+            <option value="green">Green</option>
+		<option value="orange">Orange</option>
+	        <option value="pink">Pink</option>
+		<option value="teal">Teal</option>
+		<option value="red">red</option>
+		<option value="indigo">Indigo</option>
+		<option value="yellow">Yellow</option>
+		<option value="brown">Brown</option>
+		<option value="cyan">Cyan</option>
+		<option value="lime">Lime</option>
+		<option value="gray">Gray</option>
+          </select>
+        </div>
+        <div>
+          <label class="block font-medium mb-1">Background</label>
+          <select id="backgroundTheme" class="w-full border rounded p-2">
+            <option value="default">Default</option>
+            <option value="dim">Dim</option>
+            <option value="lightsOut">Lights Out</option>
+          </select>
+        </div>
+      </div>
+    </div>
+
+    <!-- Languages -->
+    <div id="languageSettings" class="hidden text-sm text-gray-800 dark:text-gray-200">
+      <h3 class="text-lg font-semibold mb-2">Languages</h3>
+      <p class="mb-4">Manage which languages are used to personalize your Clidder experience.</p>
+      <div class="space-y-3">
+        <div>
+          <label class="block font-medium mb-1">Display Language</label>
+          <select id="displayLanguage" class="w-full border rounded p-2">
+            <option value="en">English</option>
+            <option value="es">Spanish</option>
+            <option value="fr">French</option>
+          </select>
+        </div>
+        <div>
+          <label class="block font-medium mb-1">Additional Languages</label>
+          <input type="text" id="additionalLanguages" placeholder="e.g., German, Japanese" class="w-full border rounded p-2">
+        </div>
+      </div>
+    </div>
+
+    <!-- Data Usage -->
+    <div id="dataSettings" class="hidden text-sm text-gray-800 dark:text-gray-200">
+      <h3 class="text-lg font-semibold mb-2">Data Usage</h3>
+      <p class="mb-4">Limit how Clidder uses some of your network data on this device.</p>
+      <label class="block mb-2">
+        <input type="checkbox" id="dataSaver" class="mr-2"> Data saver
+      </label>
+      <label class="block font-medium mb-1">Autoplay</label>
+      <select id="autoplay" class="w-full border rounded p-2">
+        <option value="wifi">On Wi-Fi only</option>
+        <option value="always">On cellular or Wi-Fi</option>
+        <option value="never">Never</option>
+      </select>
+    </div>
+
+    <!-- Keyboard Shortcuts -->
+    <div id="keyboardSettings" class="hidden text-sm text-gray-800 dark:text-gray-200">
+      <h3 class="text-lg font-semibold mb-2">Keyboard Shortcuts</h3>
+      <ul class="space-y-1 text-sm">
+        <li><strong>?</strong>: Shortcut help</li>
+        <li><strong>j</strong>: Next post</li>
+        <li><strong>k</strong>: Previous post</li>
+        <li><strong>g + h</strong>: Home</li>
+        <li><strong>g + p</strong>: Profile</li>
+        <li><strong>n</strong>: New post</li>
+        <li><strong>Ctrl + Enter</strong>: Send post</li>
+        <li><strong>/</strong>: Search</li>
+      </ul>
+    </div>
+
+    <!-- Save + Close -->
+    <div class="flex justify-end mt-6 space-x-2">
+      <button id="saveSettings" class="bg-green-500 hover:bg-green-600 text-white px-5 py-2 rounded-lg">Save</button>
+      <button id="closeModalSettings" class="bg-red-500 hover:bg-red-600 text-white px-5 py-2 rounded-lg">Close</button>
+    </div>
+  </div>
+</div>
+
+<script>
+  function toggleSettingSection(id) {
+    ['accessibilitySettings', 'displaySettings', 'languageSettings', 'dataSettings', 'keyboardSettings'].forEach(sec => {
+      document.getElementById(sec).classList.add('hidden');
+    });
+    document.getElementById(id).classList.remove('hidden');
+  }
+
+  document.getElementById("sidebarSettings").addEventListener("click", () => {
+    document.getElementById("modalSettings").classList.remove("hidden");
+    loadSettings();
+  });
+
+  document.getElementById("closeModalSettings").addEventListener("click", () => {
+    document.getElementById("modalSettings").classList.add("hidden");
+  });
+
+  document.getElementById("saveSettings").addEventListener("click", () => {
+    const settings = {
+      highContrast: document.getElementById("highContrast").checked,
+      reduceMotion: document.getElementById("reduceMotion").checked,
+      imageReminder: document.getElementById("imageReminder").checked,
+      fontSize: document.getElementById("fontSize").value,
+      colorTheme: document.getElementById("colorTheme").value,
+      backgroundTheme: document.getElementById("backgroundTheme").value,
+      displayLanguage: document.getElementById("displayLanguage").value,
+      additionalLanguages: document.getElementById("additionalLanguages").value,
+      dataSaver: document.getElementById("dataSaver").checked,
+      autoplay: document.getElementById("autoplay").value
+    };
+    localStorage.setItem("clidderSettings", JSON.stringify(settings));
+    applySettings(settings);
+    alert("Settings saved!");
+    document.getElementById("modalSettings").classList.add("hidden");
+  });
+
+  document.getElementById("resetSettings").addEventListener("click", () => {
+    localStorage.removeItem("clidderSettings");
+    location.reload();
+  });
+
+  function loadSettings() {
+    const s = JSON.parse(localStorage.getItem("clidderSettings"));
+    if (!s) return;
+    document.getElementById("highContrast").checked = s.highContrast;
+    document.getElementById("reduceMotion").checked = s.reduceMotion;
+    document.getElementById("imageReminder").checked = s.imageReminder;
+    document.getElementById("fontSize").value = s.fontSize;
+    document.getElementById("colorTheme").value = s.colorTheme;
+    document.getElementById("backgroundTheme").value = s.backgroundTheme;
+    document.getElementById("displayLanguage").value = s.displayLanguage;
+    document.getElementById("additionalLanguages").value = s.additionalLanguages;
+    document.getElementById("dataSaver").checked = s.dataSaver;
+    document.getElementById("autoplay").value = s.autoplay;
+  }
+
+  function applySettings(s) {
+    document.body.classList.remove("light-mode", "dark-mode");
+    if (s.backgroundTheme === "lightsOut") {
+      document.body.classList.add("dark-mode");
+    } else {
+      document.body.classList.add("light-mode");
+    }
+
+    const center = document.getElementById('centerContent');
+    if (center) {
+      center.classList.remove("font-small", "font-medium", "font-large");
+      center.classList.add(`font-${s.fontSize}`);
+
+      const elements = center.querySelectorAll('*');
+      elements.forEach(el => {
+        el.classList.remove(
+          "theme-blue", "theme-purple", "theme-green", "theme-orange",
+          "theme-pink", "theme-teal", "theme-red", "theme-indigo",
+          "theme-yellow", "theme-brown", "theme-cyan", "theme-lime", "theme-gray"
+        );
+        el.classList.add(`theme-${s.colorTheme}`);
+      });
+    }
+
+    document.body.style.filter = s.highContrast ? "contrast(1.2)" : "";
+    document.body.style.setProperty('scroll-behavior', s.reduceMotion ? 'auto' : 'smooth');
+  }
+
+  window.addEventListener("DOMContentLoaded", () => {
+    const s = JSON.parse(localStorage.getItem("clidderSettings"));
+    if (s) applySettings(s);
+  });
+</script>
+
+<style>
+  #centerContent.font-small { font-size: 0.45rem; }
+  #centerContent.font-medium { font-size: 0.65rem; }
+  #centerContent.font-large { font-size: 5.25rem; }
+
+  .theme-blue { color: #1e40af !important; }
+  .theme-purple { color: #6b21a8 !important; }
+  .theme-green { color: #15803d !important; }
+  .theme-orange { color: #c2410c !important; }
+  .theme-pink { color: #be185d !important; }
+  .theme-teal { color: #0f766e !important; }
+  .theme-red { color: #b91c1c !important; }
+  .theme-indigo { color: #4338ca !important; }
+  .theme-yellow { color: #ca8a04 !important; }
+  .theme-brown { color: #78350f !important; }
+  .theme-cyan { color: #155e75 !important; }
+  .theme-lime { color: #4d7c0f !important; }
+  .theme-gray { color: #374151 !important; }
+</style>
+
+
+
+<script>
+  document.addEventListener("DOMContentLoaded", () => {
+    const splash = document.getElementById("splashScreen");
+    const splashImage = document.getElementById("splashImage");
+    const isDark = document.body.classList.contains("dark-mode");
+
+    // Set image and background based on theme
+    if (isDark) {
+      splash.style.backgroundColor = "#000";
+      splashImage.src = "https://i.ibb.co/gL6Yxkch/clidder-new-d.png";
+    } else {
+      splash.style.backgroundColor = "#fff";
+      splashImage.src = "https://i.ibb.co/23QP3LzG/clidder-new-s.png";
+    }
+
+    // Hide splash after 3 seconds
+    setTimeout(() => {
+      splash.style.display = "none";
+    }, 3000);
+  });
+</script>
+
+
+<!-- Floating Add Button for Mobile -->
+<button id="mobileAddPostBtn" aria-label="Add new hat" class="fixed bottom-16 right-5 bg-blue-600 text-white p-4 rounded-full shadow-lg text-2xl z-50 md:hidden">
+  <i class="fas fa-plus"></i>
+</button>
+
+<script>
+
+document.getElementById("mobileAddPostBtn").addEventListener("click", () => {
+  document.getElementById("modalAddPost").classList.remove("hidden");
+});
+
+</script>
+<script>
+  const tweetInput = document.getElementById('tweetInput');
+
+  tweetInput.addEventListener('input', () => {
+    tweetInput.style.height = 'auto'; // Reset height
+    tweetInput.style.height = tweetInput.scrollHeight + 'px'; // Adjust height
+  });
+
+  // Optional: Trigger resize on page load
+  window.addEventListener('load', () => {
+    tweetInput.style.height = tweetInput.scrollHeight + 'px';
+  });
+</script>
+
+
+</body>
+</html>
+
