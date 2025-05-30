@@ -2,7 +2,7 @@
 <head><link rel="icon" type="image/x-icon" href="https://i.ibb.co/YmCwGCB/cd.png">
   <meta charset="utf-8" />
   <meta content="width=device-width, initial-scale=1" name="viewport" />
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet" />
+
 
   <title>Clidder</title>
   <script src="https://cdn.tailwindcss.com"></script>
@@ -15,14 +15,9 @@
     rel="stylesheet"
   />
   <style>
-   body {
-  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  body {
+  font-family: "Helvetica Neue", "Segoe UI", system-ui, sans-serif;
 }
-
-
-
-
-
 
 
 
@@ -56,11 +51,11 @@
     body.light-mode .text-gray-500 {
       color: #6b7280;
     }
-    body.light-mode .bg-blue-500 {
-      background-color: #3b82f6;
+    body.light-mode .bg-[#FF7D1E] {
+      background-color: #FF7D1E;
     }
-    body.light-mode .hover\:bg-blue-600:hover {
-      background-color: #2563eb;
+    body.light-mode .hover\:bg-[#e6680f]:hover {
+      background-color: #FF7D1E;
     }
     body.light-mode .bg-indigo-500 {
       background-color: #6366f1;
@@ -101,8 +96,8 @@
     body.light-mode .bg-gray-100 {
       background-color: #f3f4f6;
     }
-    body.light-mode .ring-blue-400 {
-      --tw-ring-color: #60a5fa;
+    body.light-mode .ring-[#FF7D1E] {
+      --tw-ring-color: #FF7D1E;
     }
 
     /* Dark mode */
@@ -135,11 +130,11 @@ body.dark-mode #centerContent,
     body.dark-mode .text-gray-500 {
       color: #6b7280;
     }
-    body.dark-mode .bg-blue-500 {
-      background-color: #2563eb;
+    body.dark-mode .bg-[#FF7D1E] {
+      background-color: #FF7D1E;
     }
-    body.dark-mode .hover\:bg-blue-600:hover {
-      background-color: #1d4ed8;
+    body.dark-mode .hover\:bg-[#e6680f]:hover {
+      background-color: #FF7D1E;
     }
     body.dark-mode .bg-indigo-500 {
       background-color: #4f46e5;
@@ -180,8 +175,8 @@ body.dark-mode #centerContent,
     body.dark-mode .bg-gray-100 {
       background-color: #374151;
     }
-    body.dark-mode .ring-blue-400 {
-      --tw-ring-color: #3b82f6;
+    body.dark-mode .ring-[#FF7D1E] {
+      --tw-ring-color: #FF7D1E;
     }
 
     /* Dark/Light mode toggle button styles */
@@ -198,18 +193,18 @@ body.dark-mode #centerContent,
       transition: background-color 0.3s, color 0.3s;
     }
     body.light-mode .mode-toggle-btn {
-      background-color: #1d4ed8;
+      background-color: #FF7D1E;
       color: white;
     }
     body.light-mode .mode-toggle-btn:hover {
-      background-color: #2563eb;
+      background-color: #FF7D1E;
     }
     body.dark-mode .mode-toggle-btn {
       background-color: #93c5fd;
       color: #1e293b;
     }
     body.dark-mode .mode-toggle-btn:hover {
-      background-color: #60a5fa;
+      background-color: #FF7D1E;
     }
 
     /* Position dark mode toggle in leftSidebar bottom */
@@ -221,7 +216,7 @@ body.dark-mode #centerContent,
       display: flex;
       flex-direction: column;
       justify-content: flex-end;
-      height:height: 100vh;
+      height: 100vh;
       padding-bottom: 1rem;
       box-sizing: border-box;
     }
@@ -376,12 +371,12 @@ body.dark-mode #centerContent,
       z-index: 10;
     }
     #rightSidebar {
-      right: 318.7;
+      right: 318.7px;
       border-right: none;
       border-left:1px solid #374151 ;
     }
     #leftSidebar {
-      left: 383;
+      left: 383px;
       border-right: 1px solid #374151;
       border-left: none;
     }
@@ -414,12 +409,12 @@ body.dark-mode #centerContent,
 
 #leftSidebar button:hover {
   background-color: rgba(59, 130, 246, 0.1); /* Tailwind blue-500 light */
-  color: #3b82f6;
+  color: #FF7D1E;
 }
 
 body.dark-mode #leftSidebar button:hover {
   background-color: #1e40af33;
-  color: #3b82f6;
+  color: #FF7D1E;
 }
 
 
@@ -445,7 +440,8 @@ body.dark-mode #rightSidebar {
 }
 
 
-    𝓬𝓹media (max-width: 1023px) {
+    @media (max-width: 1023px) {
+
       #leftSidebar,
       #rightSidebar {
         display: none;
@@ -469,7 +465,7 @@ body.dark-mode #rightSidebar {
     }
 
 #notificationBadgeLeft {
-  background-color: #3b82f6; /* Tailwind blue-500 */
+  background-color: #FF7D1E; /* Tailwind blue-500 */
   color: white;
   font-size: 0.75rem;
   font-weight: 700;
@@ -749,7 +745,7 @@ body.dark-mode #searchInput {
 }
 
 .read-more {
-  color: #3b82f6; /* Tailwind's blue-500 */
+  color: #FF7D1E; /* Tailwind's blue-500 */
   cursor: pointer;
   display: inline-block;
   margin-top: 4px;
@@ -827,6 +823,58 @@ body.dark-mode select {
   }
 }
 
+@media screen and (min-width: 769px) and (max-width: 1023px) {
+  /* Applies to tablets and non-standard widths between mobile and desktop */
+
+  body {
+    font-size: 16px;
+  }
+
+  #leftSidebar,
+  #rightSidebar {
+    display: flex !important;
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    overflow-y: auto;
+    background-color: white;
+    z-index: 20;
+  }
+
+  #leftSidebar {
+    left: 0;
+    width: 15rem;
+    border-right: 1px solid #ccc;
+  }
+
+  #rightSidebar {
+    right: 0;
+    width: 15rem;
+    border-left: 1px solid #ccc;
+  }
+
+  #centerContent {
+    margin-left: 15rem;
+    margin-right: 15rem;
+    width: auto;
+    padding: 1rem;
+    height: 100vh;
+    overflow-y: auto;
+  }
+
+  header {
+    padding-left: 15rem;
+    padding-right: 15rem;
+  }
+
+  #tweetBox {
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+    border-radius: 0.5rem;
+  }
+}
+
+
+
 #tweetInput {
   line-height: 1.4;
   font-size: 1rem;
@@ -869,7 +917,7 @@ body.dark-mode .reply-item {
 
 
 .animated-gradient {
-  background: linear-gradient(270deg, #6366f1, #3b82f6, #ec4899, #f59e0b, #10b981);
+  background: linear-gradient(270deg, #6366f1, #FF7D1E, #ec4899, #f59e0b, #10b981);
   background-size: 800% 800%;
   animation: gradientShift 6s ease infinite;
 }
@@ -886,6 +934,22 @@ body.dark-mode .reply-item {
   }
 }
 
+#newPostAlert {
+  animation: fadeSlideDown 0.4s ease;
+}
+
+@keyframes fadeSlideDown {
+  from {
+    opacity: 0;
+    transform: translate(-50%, -20%);
+  }
+  to {
+    opacity: 1;
+    transform: translate(-50%, 0%);
+  }
+}
+
+
 
 /* Optional: toggle moon/sun icon */
 body.light-mode #mobileModeToggle i::before {
@@ -896,7 +960,7 @@ body.dark-mode #mobileModeToggle i::before {
 }
 
 .animated-gradient {
-  background: linear-gradient(270deg, #1e3a8a, #3b82f6, #8b5cf6);
+  background: linear-gradient(270deg, #1e3a8a, #FF7D1E, #8b5cf6);
   background-size: 800% 800%;
   animation: gradientShift 6s ease infinite;
 }
@@ -1008,7 +1072,7 @@ body.dark-mode .reply-item {
 }
 
 #birthdayBanner {
-  background: linear-gradient(to right, #7c3aed, #3b82f6, #06b6d4, #10b981);
+  background: linear-gradient(to right, #7c3aed, #FF7D1E, #06b6d4, #10b981);
   color: #ffffff;
   font-weight: 700;
   padding: 0.75rem;
@@ -1019,7 +1083,7 @@ body.dark-mode .reply-item {
 }
 
 .birthday-banner-container {
-  background: linear-gradient(to right, #7c3aed, #3b82f6, #06b6d4, #10b981);
+  background: linear-gradient(to right, #7c3aed, #FF7D1E, #06b6d4, #10b981);
   border-bottom: 2px solid #a855f7;
   padding: 1rem;
   display: none;
@@ -1048,7 +1112,7 @@ body.dark-mode .reply-item {
 
 
 .birthday-user-card {
-  background: linear-gradient(to right, #6d28d9, #3b82f6); /* Purple to blue gradient */
+  background: linear-gradient(to right, #6d28d9, #FF7D1E); /* Purple to blue gradient */
   border-radius: 12px;
   padding: 0.5rem 0.75rem;
   display: flex;
@@ -1180,6 +1244,73 @@ body.dark-mode .post-options-menu button:hover {
   color: #1d9bf0; /* Twitter blue on hover */
 }
 
+/* Compact tweet-style font and spacing for posts */
+#feed,
+#feed .post-content,
+#feed .reply-item {
+  font-size: 14px;
+  line-height: 1.4;
+  padding: 0.5rem 0;
+}
+
+#feed .reply-item strong {
+  font-size: 14px;
+  font-weight: 600;
+}
+
+#feed .post-content p {
+  margin-bottom: 0.25rem;
+}
+
+#feed .tweet-action-btn,
+#feed .read-more,
+#feed .post-actions button {
+  font-size: 13px;
+  line-height: 1.2;
+}
+
+#feed .post-actions {
+  padding: 4px 8px;
+  gap: 0.25rem;
+}
+
+
+#rightSidebar {
+  font-family: "Helvetica Neue", "Segoe UI", system-ui, sans-serif;
+  font-size: 14px;
+  line-height: 1.4;
+  font-weight: 400;
+}
+
+#rightSidebar h2 {
+  font-size: 15px;
+  font-weight: 700;
+}
+
+#rightSidebar p,
+#rightSidebar li,
+#rightSidebar a {
+  font-size: 13px;
+  line-height: 1.4;
+  font-weight: 400;
+}
+
+
+#centerContent, #centerContent * {
+  user-select: text !important;
+  -webkit-user-select: text !important;
+  -moz-user-select: text !important;
+  -ms-user-select: text !important;
+}
+
+
+#centerContent .verified-badge {
+  user-select: none !important;
+  -webkit-user-select: none !important;
+  -moz-user-select: none !important;
+  -ms-user-select: none !important;
+}
+
 
 
   </style>
@@ -1191,7 +1322,7 @@ body.dark-mode .post-options-menu button:hover {
 <!-- Instagram, Twitter and TikTok SDKs auto-load as needed -->
 
 <link rel="manifest" href="/manifest.json" />
-<meta name="theme-color" content="#2563eb" />
+<meta name="theme-color" content="#FF7D1E" />
 
 
 </head>
@@ -1218,7 +1349,7 @@ body.dark-mode .post-options-menu button:hover {
     <div id="mobileSearchContainer" class="flex-grow hidden">
       <input type="search" id="mobileSearchInput"
         placeholder="Search Clidder..."
-        class="w-full rounded-md border border-gray-300 px-3 py-1 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 dark:bg-gray-800 dark:text-white" />
+        class="w-full rounded-md border border-gray-300 px-3 py-1 text-sm focus:outline-none focus:ring-2 focus:ring-[#FF7D1E] dark:bg-gray-800 dark:text-white" />
     </div>
   </div>
 
@@ -1255,9 +1386,7 @@ body.dark-mode .post-options-menu button:hover {
       </h1>
     </div>
 
-      <div class="w-full max-w-md">
-        <input aria-label="Search hats by caption" class="w-full rounded-md border border-gray-300 px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500" id="searchInput" placeholder="Discover in Clidder ..." type="search" />
-      </div>
+      
       <nav class="hidden md:flex space-x-6 text-gray-700 relative">
         <button aria-label="Home" class="hover:text-gray-900 focus:outline-none focus:text-gray-900" id="btnHome">
           <i class="fas fa-home fa-lg"></i>
@@ -1269,7 +1398,7 @@ body.dark-mode .post-options-menu button:hover {
         <button aria-label="Favorites" class="hover:text-gray-900 focus:outline-none focus:text-gray-900" id="btnFavorites">
           <i class="fas fa-star fa-lg"></i>
         </button>
-        <button class="flex items-center space-x-1 hover:text-blue-500 focus:outline-none focus:text-blue-500 relative" id="sidebarNotifications" style="position: relative;">
+        <button class="flex items-center space-x-1 hover:text-[#FF7D1E] focus:outline-none focus:text-[#FF7D1E] relative" id="sidebarNotifications" style="position: relative;">
           <i class="fas fa-bell fa-lg"></i>
         
           <span id="notificationBadge" style="display:none;">0</span>
@@ -1329,73 +1458,73 @@ body.dark-mode .post-options-menu button:hover {
 
 
       <nav class="flex flex-col space-y-4">
-        <button class="flex items-center space-x-3 hover:text-blue-500 focus:outline-none focus:text-blue-500" id="sidebarHome">
+        <button class="flex items-center space-x-3 hover:text-[#FF7D1E] focus:outline-none focus:text-[#FF7D1E]" id="sidebarHome">
           <i class="fas fa-home text-white dark:text-black" 
    style="text-shadow: -1px -1px 0 black, 1px -1px 0 black, -1px 1px 0 black, 1px 1px 0 black;"></i>
            <span>Home</span>
         </button>
 
-        <button class="flex items-center space-x-3 hover:text-blue-500 focus:outline-none focus:text-blue-500" id="sidebarExplore" style="">
+        <button class="flex items-center space-x-3 hover:text-[#FF7D1E] focus:outline-none focus:text-[#FF7D1E]" id="sidebarExplore" style="">
           <i class="fas fa-hashtag text-white dark:text-black" 
    style="text-shadow: -1px -1px 0 black, 1px -1px 0 black, -1px 1px 0 black, 1px 1px 0 black;"></i>
           <span>Discover</span>
         </button>
 
-        <button class="flex items-center space-x-3 hover:text-blue-500 focus:outline-none focus:text-blue-500" id="sidebarNotificationsLeft">
+        <button class="flex items-center space-x-3 hover:text-[#FF7D1E] focus:outline-none focus:text-[#FF7D1E]" id="sidebarNotificationsLeft">
           <i class="fas fa-bell text-white dark:text-black" 
    style="text-shadow: -1px -1px 0 black, 1px -1px 0 black, -1px 1px 0 black, 1px 1px 0 black;"></i>
           <span>Notifications</span>
           <span id="notificationBadgeLeft" class="ml-1 bg-red-500 text-white rounded-full px-2 text-xs font-semibold" style="display:none;"></span>
         </button>
 
-<button class="flex items-center space-x-3 hover:text-blue-500 focus:outline-none focus:text-blue-500" id="sidebarClips">
+<button class="flex items-center space-x-3 hover:text-[#FF7D1E] focus:outline-none focus:text-[#FF7D1E]" id="sidebarClips">
   <i class="fas fa-play-circle text-white dark:text-black" 
    style="text-shadow: -1px -1px 0 black, 1px -1px 0 black, -1px 1px 0 black, 1px 1px 0 black;"></i>
   <span>Clips</span>
 </button>
 
-        <button class="flex items-center space-x-3 hover:text-blue-500 focus:outline-none focus:text-blue-500" id="sidebarMessages">
+        <button class="flex items-center space-x-3 hover:text-[#FF7D1E] focus:outline-none focus:text-[#FF7D1E]" id="sidebarMessages">
           <i class="fas fa-envelope text-white dark:text-black" 
    style="text-shadow: -1px -1px 0 black, 1px -1px 0 black, -1px 1px 0 black, 1px 1px 0 black;"></i>
           <span>Messages</span>
         </button>
 
-        <button class="flex items-center space-x-3 hover:text-blue-500 focus:outline-none focus:text-blue-500" id="sidebarBookmarks">
+        <button class="flex items-center space-x-3 hover:text-[#FF7D1E] focus:outline-none focus:text-[#FF7D1E]" id="sidebarBookmarks">
           <i class="fas fa-bookmark text-white dark:text-black" 
    style="text-shadow: -1px -1px 0 black, 1px -1px 0 black, -1px 1px 0 black, 1px 1px 0 black;"></i>
           <span>Saved</span>
         </button>
 
-        <button class="flex items-center space-x-3 hover:text-blue-500 focus:outline-none focus:text-blue-500" id="sidebarLists">
+        <button class="flex items-center space-x-3 hover:text-[#FF7D1E] focus:outline-none focus:text-[#FF7D1E]" id="sidebarLists">
          <i class="fas fa-bolt text-white dark:text-black" style="text-shadow: -1px -1px 0 black, 1px -1px 0 black, -1px 1px 0 black, 1px 1px 0 black;"></i>
           <span>Verified Clidders</span>
         </button>
 
-        <button class="flex items-center space-x-3 hover:text-blue-500 focus:outline-none focus:text-blue-500" id="sidebarFavorites">
+        <button class="flex items-center space-x-3 hover:text-[#FF7D1E] focus:outline-none focus:text-[#FF7D1E]" id="sidebarFavorites">
           <i class="fas fa-star text-white dark:text-black" 
    style="text-shadow: -1px -1px 0 black, 1px -1px 0 black, -1px 1px 0 black, 1px 1px 0 black;"></i>
           <span>Favorites</span>
         </button>
 
-        <button class="flex items-center space-x-3 hover:text-blue-500 focus:outline-none focus:text-blue-500" id="sidebarFromMe">
+        <button class="flex items-center space-x-3 hover:text-[#FF7D1E] focus:outline-none focus:text-[#FF7D1E]" id="sidebarFromMe">
           	<i class="fas fa-share-square text-white dark:text-black" 
    style="text-shadow: -1px -1px 0 black, 1px -1px 0 black, -1px 1px 0 black, 1px 1px 0 black;"></i>
           <span>From Me</span>
         </button>
         
-        <button class="flex items-center space-x-3 hover:text-blue-500 focus:outline-none focus:text-blue-500" id="sidebarProfile" style="">
+        <button class="flex items-center space-x-3 hover:text-[#FF7D1E] focus:outline-none focus:text-[#FF7D1E]" id="sidebarProfile" style="">
           <i class="fas fa-user text-white dark:text-black" 
    style="text-shadow: -1px -1px 0 black, 1px -1px 0 black, -1px 1px 0 black, 1px 1px 0 black;"></i>
           <span>Profile</span>
         </button>
 
-        <button class="flex items-center space-x-3 hover:text-blue-500 focus:outline-none focus:text-blue-500" id="sidebarMore" style="">
+        <button class="flex items-center space-x-3 hover:text-[#FF7D1E] focus:outline-none focus:text-[#FF7D1E]" id="sidebarMore" style="">
           <i class="fas fa-users text-white dark:text-black" 
    style="text-shadow: -1px -1px 0 black, 1px -1px 0 black, -1px 1px 0 black, 1px 1px 0 black;"></i>
           <span>Clidders</span>
         </button>
 
-<button id="sidebarTheme" class="flex items-center space-x-3 hover:text-blue-500 focus:outline-none focus:text-blue-500">
+<button id="sidebarTheme" class="flex items-center space-x-3 hover:text-[#FF7D1E] focus:outline-none focus:text-[#FF7D1E]">
   <i class="fas fa-palette text-white dark:text-black" 
    style="text-shadow: -1px -1px 0 black, 1px -1px 0 black, -1px 1px 0 black, 1px 1px 0 black;"></i>
   <span>Theme</span>
@@ -1404,7 +1533,7 @@ body.dark-mode .post-options-menu button:hover {
 
 
 <!-- Add this in the left sidebar navigation -->
-<button id="sidebarSettings" class="flex items-center space-x-3 hover:text-blue-500 focus:outline-none focus:text-blue-500">
+<button id="sidebarSettings" class="flex items-center space-x-3 hover:text-[#FF7D1E] focus:outline-none focus:text-[#FF7D1E]">
   <i class="fas fa-cog text-white dark:text-black" 
    style="text-shadow: -1px -1px 0 black, 1px -1px 0 black, -1px 1px 0 black, 1px 1px 0 black;"></i>
   <span>Settings</span>
@@ -1416,7 +1545,7 @@ body.dark-mode .post-options-menu button:hover {
 
 
       </nav>
-      <button id="btnTweet" class="bg-blue-500 text-white rounded-full py-3 px-5 font-bold text-lg hover:bg-blue-600 transition flex items-center gap-2">
+      <button id="btnTweet" class="bg-[#FF7D1E] text-white rounded-full py-3 px-5 font-bold text-lg hover:bg-[#e6680f] transition flex items-center gap-2">
   <i class="fas fa-feather fa-lg"></i>
   Clidde
 </button>
@@ -1447,8 +1576,8 @@ body.dark-mode .post-options-menu button:hover {
 <!-- Transparent For You / Following Tabs like Twitter -->
 <div id="topFeedTabs" class="fixed top-0 left-1/2 transform -translate-x-1/2 w-full max-w-xl z-40 border-b border-gray-200 dark:border-gray-700 backdrop-blur bg-transparent">
   <div class="flex justify-around text-sm font-semibold text-gray-500 dark:text-gray-300">
-    <button id="tabForYou" class="flex-1 py-3 text-center transition-colors border-b-2 border-transparent hover:text-blue-500">For You</button>
-    <button id="tabFollowing" class="flex-1 py-3 text-center transition-colors border-b-2 border-transparent hover:text-blue-500">From Verified</button>
+    <button id="tabForYou" class="flex-1 py-3 text-center transition-colors border-b-2 border-transparent hover:text-[#FF7D1E]">For You</button>
+    <button id="tabFollowing" class="flex-1 py-3 text-center transition-colors border-b-2 border-transparent hover:text-[#FF7D1E]">From Verified</button>
   </div>
 </div>
 
@@ -1466,29 +1595,96 @@ body.dark-mode .post-options-menu button:hover {
         class="w-full bg-transparent text-gray-900 dark:text-white placeholder-gray-500 dark:placeholder-gray-400 text-lg border-none focus:outline-none resize-none"
       ></textarea>
 
-      <div class="flex justify-between items-center mt-3">
-        <div class="flex flex-wrap gap-4 text-blue-400 text-lg">
-          <i class="fas fa-image cursor-pointer hover:text-blue-500" title="Image"></i>
-          <i class="fas fa-gift cursor-pointer hover:text-blue-500" title="Gift"></i>
-          <i class="fas fa-chart-bar cursor-pointer hover:text-blue-500" title="Poll"></i>
-          <i class="fas fa-smile cursor-pointer hover:text-blue-500" title="Emoji"></i>
-          <i class="fas fa-map-marker-alt cursor-pointer hover:text-blue-500" title="Location"></i>
-          <i class="fas fa-music cursor-pointer hover:text-blue-500" title="Audio Clip"></i>
-          <i class="fas fa-video cursor-pointer hover:text-blue-500" title="Video"></i>
-          <i class="fas fa-paperclip cursor-pointer hover:text-blue-500" title="Attach File"></i>
+<!-- Who Can Reply Button + Popover -->
+<div class="mt-3 relative">
+  <!-- Floating Button -->
+  <button id="replySettingBtn" type="button"
+    class="text-sm text-[#FF7D1E] hover:underline font-medium flex items-center gap-2">
+    <div class="w-5 h-5 rounded-full bg-blue-100 text-[#FF7D1E] flex items-center justify-center">
+      <i class="fas fa-globe-americas text-xs"></i>
+    </div>
+    Everyone can reply
+  </button>
+
+  <!-- Popover -->
+  <div id="replyPopover"
+    class="absolute z-50 mt-2 w-96 bg-white dark:bg-gray-800 dark:text-white border border-gray-300 dark:border-gray-600 rounded-2xl shadow-2xl p-4 hidden transition-all duration-200 ease-in-out">
+    
+    <h3 class="text-md font-bold mb-1">Who can reply?</h3>
+    <p class="text-sm text-gray-500 dark:text-gray-300 mb-4">
+      Choose who can reply to this post. Anyone mentioned can always reply.
+    </p>
+
+    <div class="flex flex-col space-y-3">
+      <button class="reply-option-item flex items-center gap-3 p-2 rounded-xl hover:bg-gray-100 dark:hover:bg-gray-700 transition"
+        data-value="everyone">
+        <div class="w-9 h-9 rounded-full bg-blue-100 text-[#FF7D1E] flex items-center justify-center">
+          <i class="fas fa-globe-americas text-sm"></i>
         </div>
+        <span class="text-sm">Everyone</span>
+      </button>
+
+      <button class="reply-option-item flex items-center gap-3 p-2 rounded-xl hover:bg-gray-100 dark:hover:bg-gray-700 transition"
+        data-value="followers">
+        <div class="w-9 h-9 rounded-full bg-blue-100 text-[#FF7D1E] flex items-center justify-center">
+          <i class="fas fa-user-friends text-sm"></i>
+        </div>
+        <span class="text-sm">People you follow</span>
+      </button>
+
+      <button class="reply-option-item flex items-center gap-3 p-2 rounded-xl hover:bg-gray-100 dark:hover:bg-gray-700 transition"
+        data-value="verified">
+        <div class="w-9 h-9 rounded-full bg-blue-100 text-[#FF7D1E] flex items-center justify-center">
+          <i class="fas fa-check-circle text-sm"></i>
+        </div>
+        <span class="text-sm">Verified users</span>
+      </button>
+
+      <div>
+        <button
+          class="reply-option-item flex items-center gap-3 p-2 rounded-xl hover:bg-gray-100 dark:hover:bg-gray-700 transition w-full"
+          data-value="custom">
+          <div class="w-9 h-9 rounded-full bg-blue-100 text-[#FF7D1E] flex items-center justify-center">
+            <i class="fas fa-lock text-sm"></i>
+          </div>
+          <span class="text-sm">Only specific users</span>
+        </button>
+        <input type="text" id="allowedUsernames" placeholder="e.g. alice, bob"
+          class="mt-2 w-full text-xs px-3 py-2 rounded-md border border-gray-300 dark:border-gray-600 bg-gray-50 dark:bg-gray-700 text-gray-800 dark:text-white focus:outline-none focus:ring-2 focus:ring-[#FF7D1E] hidden" />
+      </div>
+    </div>
+  </div>
+</div>
+
+
+      <div class="flex justify-between items-center mt-3">
+        <div class="flex flex-wrap gap-4 text-[#FF7D1E] text-sm">
+
+  <i class="fas fa-chart-bar cursor-pointer hover:text-[#e6680f]" title="Poll"></i>
+  <i id="emojiToggle" class="fas fa-smile cursor-pointer hover:text-[#e6680f]" title="Emoji"></i>
+
+</div>
+
+<!-- Flexible Emoji Picker Panel -->
+<div id="emojiPicker"
+     class="hidden mt-2 max-h-60 overflow-y-auto border rounded p-2 bg-white dark:bg-gray-800 shadow-md"
+     style="width: 320px;">
+</div>
+
+
+
+
+
         <button
           id="btnSubmitTweet"
-          class="bg-blue-500 hover:bg-blue-600 text-white font-semibold px-5 py-2 rounded-full disabled:opacity-50"
+          class="bg-[#FF7D1E] hover:bg-[#e6680f] text-white font-semibold px-5 py-2 rounded-full disabled:opacity-50"
           disabled
         >
           Clidde
         </button>
       </div>
 
-      <div class="text-right text-sm text-gray-500 mt-2">
-        <span id="charCount">0 / 100000</span>
-      </div>
+      
     </div>
   </div>
 </div>
@@ -1518,15 +1714,29 @@ body.dark-mode .post-options-menu button:hover {
 </section>
 
 
+<!-- 🔔 New Post Notification -->
+<div id="newPostAlert" class="hidden fixed top-[4rem] left-1/2 transform -translate-x-1/2 bg-[#FF7D1E] text-white px-4 py-2 rounded-full shadow-lg flex items-center space-x-2 z-50 cursor-pointer">
+  <div id="newPostAvatars" class="flex -space-x-2"></div>
+  <span id="newPostText"><strong>posted</strong> <i class="fas fa-arrow-up"></i></span>
+</div>
 
 
       <section id="feed" class="flex flex-col mt-0"></section>
+
+
+
+<div id="infiniteScrollLoader" class="flex justify-center items-center py-6">
+  <div class="animate-spin rounded-full h-8 w-8 border-4" style="border-color: #FF7D1E; border-top-color: transparent;"></div>
+</div>
+
+
+
 
     </section>
 
     <aside id="rightSidebar" class="hidden lg:flex flex-col w-80 space-y-6 text-gray-700 text-sm" aria-label="Right Sidebar">
 
-<div class="sticky top-0 z-10 rounded-[20px] shadow p-6 flex flex-col items-center space-y-4 text-white text-center"
+<div class="sticky top-0 z-10 rounded-[10px] shadow p-6 flex flex-col items-center space-y-4 text-white text-center"
      style="background: linear-gradient(135deg, #6366f1, #7c3aed, #4f46e5, #06b6d4); background-size: 400% 400%; animation: gradientShift 8s ease infinite;">
   <h2 class="text-2xl font-bold">Clidder</h2>
 
@@ -1537,44 +1747,48 @@ body.dark-mode .post-options-menu button:hover {
 
 
 
-<div class="relative w-full">
-  <input 
-    type="text" 
-    id="userSearchInput" 
-    placeholder="Search anything in Clidder..."
-    class="w-full px-4 py-2 pl-10 border border-gray-300 rounded-[10px] shadow-[inset_2px_2px_5px_rgba(0,0,0,0.1),inset_-2px_-2px_5px_rgba(255,255,255,0.2)] focus:outline-none focus:ring-2 focus:ring-blue-500 dark:bg-gray-800 dark:text-white transition"
+<div class="relative w-full max-w-md">
+  <svg class="absolute left-3 top-1/2 -translate-y-1/2 text-gray-500" xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-4.35-4.35M16.65 16.65A7.5 7.5 0 1116.65 2a7.5 7.5 0 010 15z" />
+  </svg>
+  <input
+    aria-label="Search hats by caption"
+    id="searchInput"
+    type="search"
+    placeholder="Search Clidder"
+    class="w-full pl-10 pr-4 py-2 rounded-full bg-gray-100 text-sm shadow-sm focus:bg-white focus:outline-none focus:ring-2 focus:ring-[#FF7D1E] transition"
   />
-  <i class="fas fa-search absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 dark:text-gray-300"></i>
 </div>
 
 
 
 
 
-<div class="bg-white rounded-[20px] shadow p-4 flex flex-col items-center space-y-4">
+<div class="bg-white rounded-[10px] border border-gray-200 p-4 flex flex-col items-center space-y-4">
+
         <h2 class="text-xl font-bold mb-2">Subscribe to Premium</h2>
         <p class="text-gray-600 text-center">Get exclusive access to premium content and features by subscribing to our premium plan.</p>
         <a href="https://blackhatai.nicepage.io" target="_blank" rel="noopener noreferrer" class="mt-4 bg-yellow-500 text-white font-semibold rounded-full px-6 py-3 hover:bg-yellow-600 transition text-center w-full">Subscribe to Premium</a>
       </div>
 
-<div class="bg-white rounded-[20px] shadow p-4">
+<div class="bg-white rounded-[10px] border border-gray-200 p-4">
         <h2 class="text-xl font-bold mb-4">Trends for you</h2>
         <ul id="trendsList" class="space-y-3"></ul>
       </div>
 
 
-<div class="bg-white rounded-[20px] shadow p-4 flex flex-col items-center space-y-4">
+<div class="bg-white rounded-[10px] border border-gray-200 p-4 flex flex-col items-center space-y-4">
         <h2 class="text-xl font-bold mb-2">Account Center</h2>
         <p class="text-gray-600 text-center">Recover Your Account from Black Hat Account Center</p>
         <a href="https://blackhataccountcenter.netlify.app/" target="_blank" rel="noopener noreferrer" class="mt-4 bg-purple-500 text-white font-semibold rounded-full px-6 py-3 hover:bg-purple-600 transition text-center w-full">Recover Now</a>
       </div>
 
-<div class="bg-white rounded-[20px] shadow p-4">
+<div class="bg-white rounded-[10px] border border-gray-200 p-4">
         <h2 class="text-xl font-bold mb-4">Friends for You</h2>
         <ul id="whoToFollowList" class="space-y-4"></ul>
       </div>
 
-<div class="bg-white  rounded-[20px] shadow p-4 flex flex-col items-center space-y-4">
+<div class="bg-white rounded-[10px] border border-gray-200 p-4 flex flex-col items-center space-y-4">
         <h2 class="text-xl font-bold mb-2">Verify My Account</h2>
         <p class="text-gray-600 text-center">Verify Your Clidder Account to Get More features</p>
         <a href="https://blackhatsupport.wordpress.com/" target="_blank" rel="noopener noreferrer" class="mt-4 bg-red-500 text-white font-semibold rounded-full px-6 py-3 hover:bg-red-600 transition text-center w-full">Verify My Account</a>
@@ -1582,15 +1796,15 @@ body.dark-mode .post-options-menu button:hover {
 
       
       
-<div class="bg-white rounded-[20px] shadow p-4 flex flex-col items-center space-y-4">
+<div class="bg-white rounded-[10px] border border-gray-200 p-4 flex flex-col items-center space-y-4">
         <h2 class="text-xl font-bold mb-2">Follow Us on Web</h2>
         <p class="text-gray-600 text-center">Follow our official Website !</p>
         <a href="https://blackhatai.nicepage.io" target="_blank" rel="noopener noreferrer" class="mt-4 bg-green-500 text-white font-semibold rounded-full px-6 py-3 hover:bg-green-600 transition text-center w-full">Follow</a>
       </div>
-<div class="bg-white rounded-[20px] shadow p-4 flex flex-col items-center space-y-4">
+<div class="bg-white rounded-[10px] border border-gray-200 p-4 flex flex-col items-center space-y-4">
         <h2 class="text-xl font-bold mb-2">Support Center</h2>
         <p class="text-gray-600 text-center">Call to Support Center to Help</p>
-        <a href="https://blackhatai.wordpress.com" target="_blank" rel="noopener noreferrer" class="mt-4 bg-blue-500 text-white font-semibold rounded-full px-6 py-3 hover:bg-blue-600 transition text-center w-full">Support Center</a>
+        <a href="https://blackhatai.wordpress.com" target="_blank" rel="noopener noreferrer" class="mt-4 bg-[#FF7D1E] text-white font-semibold rounded-full px-6 py-3 hover:bg-[#e6680f] transition text-center w-full">Support Center</a>
       </div>
 
 <div class="text-xs text-gray-500 mt-6 space-y-1 text-center leading-relaxed">
@@ -1616,13 +1830,13 @@ body.dark-mode .post-options-menu button:hover {
       <form class="flex flex-col space-y-4" id="formAddPost">
         <label class="flex flex-col text-gray-700 font-medium">
           Image URL
-          <input id="postImageUrl" placeholder="Paste Your Media URL" required="" type="url" class="mt-1 p-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-500">
+          <input id="postImageUrl" placeholder="Paste Your Media URL" required="" type="url" class="mt-1 p-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-[#FF7D1E]">
         </label>
         <label class="flex flex-col text-gray-700 font-medium">
           Caption
-          <textarea id="postCaption" placeholder="What’s buzzing now ? " rows="3" class="mt-1 p-2 border border-gray-300 rounded resize-none focus:outline-none focus:ring-2 focus:ring-blue-500"></textarea>
+          <textarea id="postCaption" placeholder="What’s buzzing now ? " rows="3" class="mt-1 p-2 border border-gray-300 rounded resize-none focus:outline-none focus:ring-2 focus:ring-[#FF7D1E]"></textarea>
         </label>
-        <button type="submit" class="bg-blue-600 text-white py-2 rounded font-semibold hover:bg-blue-700 transition">Clide Post</button>
+        <button type="submit" class="bg-[#e6680f] text-white py-2 rounded font-semibold hover:bg-[#cc5900] transition">Clide Post</button>
       </form>
       <button aria-label="Close modal" id="btnCloseModal" class="absolute top-3 right-3 text-gray-500 hover:text-gray-700 focus:outline-none">
         <i class="fas fa-times fa-lg"></i>
@@ -1644,19 +1858,19 @@ body.dark-mode .post-options-menu button:hover {
         <i class="fas fa-times fa-lg"></i>
       </button>
       <nav class="flex flex-col space-y-4 text-gray-700 text-lg">
-        <button id="mobileBtnHome" class="flex items-center space-x-3 hover:text-blue-500 focus:outline-none focus:text-blue-500">
+        <button id="mobileBtnHome" class="flex items-center space-x-3 hover:text-[#FF7D1E] focus:outline-none focus:text-[#FF7D1E]">
           <i class="fas fa-home fa-lg"></i>
           <span>Home</span>
         </button>
-        <button id="mobileBtnAddPost" class="flex items-center space-x-3 hover:text-blue-500 focus:outline-none focus:text-blue-500">
+        <button id="mobileBtnAddPost" class="flex items-center space-x-3 hover:text-[#FF7D1E] focus:outline-none focus:text-[#FF7D1E]">
           <i class="fas fa-plus-square fa-lg"></i>
           <span>Add Hat</span>
         </button>
-        <button id="mobileBtnProfile" class="flex items-center space-x-3 hover:text-blue-500 focus:outline-none focus:text-blue-500">
+        <button id="mobileBtnProfile" class="flex items-center space-x-3 hover:text-[#FF7D1E] focus:outline-none focus:text-[#FF7D1E]">
           <i class="fas fa-user-circle fa-lg"></i>
           <span>Profile</span>
         </button>
-        <button id="mobileBtnFavorites" class="flex items-center space-x-3 hover:text-blue-500 focus:outline-none focus:text-blue-500">
+        <button id="mobileBtnFavorites" class="flex items-center space-x-3 hover:text-[#FF7D1E] focus:outline-none focus:text-[#FF7D1E]">
           <i class="fas fa-star fa-lg"></i>
           <span>Favorites</span>
         </button>
@@ -1682,22 +1896,22 @@ body.dark-mode .post-options-menu button:hover {
       <div id="authForms" class="space-y-6">
         <div id="signInForm" class="flex flex-col space-y-4">
           <h3 class="text-lg font-bold text-center">Sign In</h3>
-          <input id="signInUserInput" type="text" placeholder="Username or Email" maxlength="100" class="w-full border border-gray-300 rounded-md p-3 focus:outline-none focus:ring-2 focus:ring-blue-500 text-lg" />
-          <input id="signInPassword" type="password" placeholder="Password" maxlength="100" class="w-full border border-gray-300 rounded-md p-3 focus:outline-none focus:ring-2 focus:ring-blue-500 text-lg" />
-          <button id="btnSignIn" class="bg-blue-600 text-white py-3 rounded font-semibold hover:bg-blue-700 transition">Sign In</button>
-          <p class="text-center text-gray-600">Don't have an account? <button id="showSignUp" class="text-blue-600 hover:underline focus:outline-none">Create one</button></p>
+          <input id="signInUserInput" type="text" placeholder="Username or Email" maxlength="100" class="w-full border border-gray-300 rounded-md p-3 focus:outline-none focus:ring-2 focus:ring-[#FF7D1E] text-lg" />
+          <input id="signInPassword" type="password" placeholder="Password" maxlength="100" class="w-full border border-gray-300 rounded-md p-3 focus:outline-none focus:ring-2 focus:ring-[#FF7D1E] text-lg" />
+          <button id="btnSignIn" class="bg-[#e6680f] text-white py-3 rounded font-semibold hover:bg-[#cc5900] transition">Sign In</button>
+          <p class="text-center text-gray-600">Don't have an account? <button id="showSignUp" class="text-[#FF7D1E] hover:underline focus:outline-none">Create one</button></p>
         </div>
 <div id="signUpForm" class="flex flex-col space-y-4 hidden w-full">
 
           <h3 class="text-lg font-bold text-center">Create Account</h3>
-          <input id="signUpFullName" type="text" placeholder="Full Name" maxlength="100" class="w-full border border-gray-300 rounded-md p-3 focus:outline-none focus:ring-2 focus:ring-blue-500 text-lg" />
-          <input id="signUpEmail" type="email" placeholder="Email" maxlength="100" class="w-full border border-gray-300 rounded-md p-3 focus:outline-none focus:ring-2 focus:ring-blue-500 text-lg" />
-          <input id="signUpUserName" type="text" placeholder="Username Without @" maxlength="50" class="w-full border border-gray-300 rounded-md p-3 focus:outline-none focus:ring-2 focus:ring-blue-500 text-lg" />
-          <input id="signUpPassword" type="password" placeholder="Password" maxlength="100" class="w-full border border-gray-300 rounded-md p-3 focus:outline-none focus:ring-2 focus:ring-blue-500 text-lg" />
-          <input id="signUpPasswordConfirm" type="password" placeholder="Confirm Password" maxlength="100" class="w-full border border-gray-300 rounded-md p-3 focus:outline-none focus:ring-2 focus:ring-blue-500 text-lg" />
-          <textarea id="signUpBio" placeholder="Bio" rows="3" maxlength="280" class="w-full border border-gray-300 rounded-md p-3 resize-none focus:outline-none focus:ring-2 focus:ring-blue-500 text-lg"></textarea>
-          <input id="signUpBirthday" type="date" class="w-full border border-gray-300 rounded-md p-3 focus:outline-none focus:ring-2 focus:ring-blue-500 text-lg" />
-          <select id="signUpGender" class="w-full border border-gray-300 rounded-md p-3 focus:outline-none focus:ring-2 focus:ring-blue-500 text-lg">
+          <input id="signUpFullName" type="text" placeholder="Full Name" maxlength="100" class="w-full border border-gray-300 rounded-md p-3 focus:outline-none focus:ring-2 focus:ring-[#FF7D1E] text-lg" />
+          <input id="signUpEmail" type="email" placeholder="Email" maxlength="100" class="w-full border border-gray-300 rounded-md p-3 focus:outline-none focus:ring-2 focus:ring-[#FF7D1E] text-lg" />
+          <input id="signUpUserName" type="text" placeholder="Username Without @" maxlength="50" class="w-full border border-gray-300 rounded-md p-3 focus:outline-none focus:ring-2 focus:ring-[#FF7D1E] text-lg" />
+          <input id="signUpPassword" type="password" placeholder="Password" maxlength="100" class="w-full border border-gray-300 rounded-md p-3 focus:outline-none focus:ring-2 focus:ring-[#FF7D1E] text-lg" />
+          <input id="signUpPasswordConfirm" type="password" placeholder="Confirm Password" maxlength="100" class="w-full border border-gray-300 rounded-md p-3 focus:outline-none focus:ring-2 focus:ring-[#FF7D1E] text-lg" />
+          <textarea id="signUpBio" placeholder="Bio" rows="3" maxlength="280" class="w-full border border-gray-300 rounded-md p-3 resize-none focus:outline-none focus:ring-2 focus:ring-[#FF7D1E] text-lg"></textarea>
+          <input id="signUpBirthday" type="date" class="w-full border border-gray-300 rounded-md p-3 focus:outline-none focus:ring-2 focus:ring-[#FF7D1E] text-lg" />
+          <select id="signUpGender" class="w-full border border-gray-300 rounded-md p-3 focus:outline-none focus:ring-2 focus:ring-[#FF7D1E] text-lg">
             <option value="" disabled selected>Select Gender</option>
             <option value="Male">Male</option>
             <option value="Female">Female</option>
@@ -1705,12 +1919,12 @@ body.dark-mode .post-options-menu button:hover {
             <option value="Other">Other</option>
             <option value="Prefer not to say">Prefer not to say</option>
           </select>
-          <input id="signUpAddress" type="text" placeholder="Address" maxlength="200" class="w-full border border-gray-300 rounded-md p-3 focus:outline-none focus:ring-2 focus:ring-blue-500 text-lg" />
-          <input id="signUpCountry" type="text" placeholder="Country" maxlength="100" class="w-full border border-gray-300 rounded-md p-3 focus:outline-none focus:ring-2 focus:ring-blue-500 text-lg" />
-          <input id="signUpProfilePic" type="url" placeholder="Profile Picture URL" maxlength="300" class="w-full border border-gray-300 rounded-md p-3 focus:outline-none focus:ring-2 focus:ring-blue-500 text-lg" />
-          <input id="signUpCoverPic" type="url" placeholder="Cover Picture URL" maxlength="300" class="w-full border border-gray-300 rounded-md p-3 focus:outline-none focus:ring-2 focus:ring-blue-500 text-lg" />
+          <input id="signUpAddress" type="text" placeholder="Address" maxlength="200" class="w-full border border-gray-300 rounded-md p-3 focus:outline-none focus:ring-2 focus:ring-[#FF7D1E] text-lg" />
+          <input id="signUpCountry" type="text" placeholder="Country" maxlength="100" class="w-full border border-gray-300 rounded-md p-3 focus:outline-none focus:ring-2 focus:ring-[#FF7D1E] text-lg" />
+          <input id="signUpProfilePic" type="url" placeholder="Profile Picture URL" maxlength="300" class="w-full border border-gray-300 rounded-md p-3 focus:outline-none focus:ring-2 focus:ring-[#FF7D1E] text-lg" />
+          <input id="signUpCoverPic" type="url" placeholder="Cover Picture URL" maxlength="300" class="w-full border border-gray-300 rounded-md p-3 focus:outline-none focus:ring-2 focus:ring-[#FF7D1E] text-lg" />
           <button id="btnSignUp" class="bg-green-600 text-white py-3 rounded font-semibold hover:bg-green-700 transition">Create Account</button>
-          <p class="text-center text-gray-600">Already have an account? <button id="showSignIn" class="text-blue-600 hover:underline focus:outline-none">Sign in</button></p>
+          <p class="text-center text-gray-600">Already have an account? <button id="showSignIn" class="text-[#FF7D1E] hover:underline focus:outline-none">Sign in</button></p>
         </div>
       </div>
       <button aria-label="Close modal" id="btnCloseAuthModal" class="absolute top-3 right-3 text-gray-500 hover:text-gray-700 focus:outline-none">
@@ -1791,9 +2005,69 @@ document.getElementById("tabForYou").addEventListener("click", () => {
   loadAllPosts();
 
   // Update tab styling
-  document.getElementById("tabForYou").classList.add("border-blue-500", "text-blue-500");
-  document.getElementById("tabFollowing").classList.remove("border-blue-500", "text-blue-500");
+  document.getElementById("tabForYou").classList.add("border-blue-500", "text-[#FF7D1E]");
+  document.getElementById("tabFollowing").classList.remove("border-blue-500", "text-[#FF7D1E]");
 });
+
+
+
+let latestPostTime = null;
+let newPostUsers = new Map();
+
+onSnapshot(query(collection(db, "posts"), orderBy("createdAt", "desc")), (snapshot) => {
+  if (!snapshot.empty) {
+    const newest = snapshot.docs[0].data();
+
+    // Ignore on first load
+    if (!latestPostTime) {
+      latestPostTime = newest.createdAt?.toMillis();
+      return;
+    }
+
+    // Track new posts after the last known time
+    snapshot.docs.forEach(doc => {
+      const post = doc.data();
+      const time = post.createdAt?.toMillis();
+
+      if (time > latestPostTime && post.profilePic && post.userId) {
+        newPostUsers.set(post.userId, post.profilePic);
+      }
+    });
+
+    if (newPostUsers.size > 0) {
+      // Update avatar list
+      const avatarContainer = document.getElementById("newPostAvatars");
+      avatarContainer.innerHTML = "";
+
+      newPostUsers.forEach(pic => {
+        const img = document.createElement("img");
+        img.src = pic;
+        img.className = "w-6 h-6 rounded-full border-2 border-white";
+        avatarContainer.appendChild(img);
+      });
+
+      // Update text like "3 people posted ↑"
+      const textSpan = document.getElementById("newPostText");
+      const count = newPostUsers.size;
+      textSpan.innerHTML = `<strong>${count} posted</strong> <i class="fas fa-arrow-up"></i>`;
+
+      // Show banner
+      document.getElementById("newPostAlert").classList.remove("hidden");
+
+      // Click to refresh
+      document.getElementById("newPostAlert").onclick = () => {
+        loadAllPosts();
+        newPostUsers.clear();
+        document.getElementById("newPostAlert").classList.add("hidden");
+      };
+    }
+
+    // Always update latest known time
+    latestPostTime = newest.createdAt?.toMillis();
+  }
+});
+
+
 
 document.getElementById("tabFollowing").addEventListener("click", async () => {
   const feed = document.getElementById("feed");
@@ -1812,8 +2086,8 @@ document.getElementById("tabFollowing").addEventListener("click", async () => {
   });
 
   // Update tab styling
-  document.getElementById("tabForYou").classList.remove("border-blue-500", "text-blue-500");
-  document.getElementById("tabFollowing").classList.add("border-blue-500", "text-blue-500");
+  document.getElementById("tabForYou").classList.remove("border-blue-500", "text-[#FF7D1E]");
+  document.getElementById("tabFollowing").classList.add("border-blue-500", "text-[#FF7D1E]");
 });
 
 
@@ -1943,7 +2217,7 @@ document.getElementById("sidebarNotificationsLeft").addEventListener("click", ()
       const li = document.createElement("li");
       li.className = "bg-white dark:bg-gray-800 p-4 rounded shadow";
       li.innerHTML = `
-        <div class="font-semibold text-blue-600 dark:text-blue-300">${post.fullName || "Someone"}</div>
+        <div class="font-semibold text-[#FF7D1E] dark:text-blue-300">${post.fullName || "Someone"}</div>
         <div class="text-sm text-gray-700 dark:text-gray-300">${post.caption}</div>
       `;
       notifList.appendChild(li);
@@ -2515,7 +2789,9 @@ div.appendChild(menu);
 
 
       const userName = document.createElement("span");
-     userName.className = "font-bold text-gray-900 text-lg flex items-center space-x-2";
+     userName.className = "text-gray-900 text-sm flex items-center space-x-2";
+
+
 
 
       // Put avatar inside userName span to appear aside user name
@@ -2534,7 +2810,7 @@ userName.appendChild(nameText);
 
 
  const userHandle = document.createElement("span");
-userHandle.className = "text-unique-user user-handle text-sm";
+userHandle.className = "text-unique-user user-handle text-xs font-normal";
 userHandle.textContent = post.userHandle.replace(/^@/, "𝓬𝓹");
 userHandle.addEventListener("click", () => {
   showUserProfile(post.userHandle.replace(/^@/, ""));
@@ -2572,7 +2848,7 @@ const hashtagRegex = /#(\w+)/g;
 
 let linkedText = post.caption
   .replace(urlRegex, (url) => {
-    return `<a href="${url}" target="_blank" rel="noopener noreferrer" class="text-blue-600 hover:underline">${url}</a>`;
+    return `<a href="${url}" target="_blank" rel="noopener noreferrer" class="text-[#FF7D1E] hover:underline">${url}</a>`;
   })
   .replace(hashtagRegex, (tag, word) => {
     return `<span class="hashtag text-purple-500 cursor-pointer hover:underline" data-tag="${word}">#${word}</span>`;
@@ -2583,13 +2859,13 @@ content.innerHTML = linkedText;
 div.appendChild(content);
 
 // Add "Read more" button if caption is long
-if (post.caption && post.caption.split(/\s+/).length > 30) {
+if (post.caption && post.caption.split(/\s+/).length > 50) {
   const readMore = document.createElement("span");
-  readMore.className = "read-more text-blue-500 hover:underline";
+  readMore.className = "read-more text-[#FF7D1E] hover:underline";
   readMore.textContent = "Read more";
   readMore.addEventListener("click", () => {
     content.classList.toggle("expanded");
-    readMore.textContent = content.classList.contains("expanded") ? "Read less" : "Read more";
+    readMore.textContent = content.classList.contains("expanded") ? "Show less" : "Show more";
   });
   div.appendChild(readMore);
 }
@@ -2794,7 +3070,7 @@ if (isYouTube || isFacebook || isTikTok || isInstagram || isTwitter || isDrive) 
   // "View more" button
   if (post.replies.length > 1) {
     const viewMoreBtn = document.createElement("button");
-    viewMoreBtn.className = "text-blue-500 text-sm mt-2 view-more-btn";
+    viewMoreBtn.className = "text-[#FF7D1E] text-sm mt-2 view-more-btn";
     viewMoreBtn.textContent = "View more Commentary";
     repliesDiv.appendChild(viewMoreBtn);
 
@@ -2831,7 +3107,7 @@ replyBox.className = "flex items-center border-t border-gray-300 dark:border-gra
 
 replyBox.innerHTML = `
   <input type="text" placeholder="Leave a Commentary..." class="reply-input flex-1 px-4 py-2 text-sm bg-transparent focus:outline-none" />
-  <button class="text-blue-500 font-semibold text-sm px-3" disabled>Commentary</button>
+  <button class="text-[#FF7D1E] font-semibold text-sm px-3" disabled>Commentary</button>
 `;
 
 // Enable Post button only when typing
@@ -3248,9 +3524,9 @@ actions.className = "post-actions flex justify-around flex-wrap text-gray-500 mt
           const postEl = document.getElementById(`post-${post.id}`);
           if (postEl) {
             postEl.scrollIntoView({ behavior: "smooth", block: "center" });
-            postEl.classList.add("ring-4", "ring-blue-400");
+            postEl.classList.add("ring-4", "ring-[#FF7D1E]");
             setTimeout(() => {
-              postEl.classList.remove("ring-4", "ring-blue-400");
+              postEl.classList.remove("ring-4", "ring-[#FF7D1E]");
             }, 2000);
           }
           notificationsDropdown.style.display = "none";
@@ -3651,23 +3927,23 @@ document.addEventListener('click', function (e) {
         <form id="profileEditForm" class="flex flex-col items-center space-y-4">
           <div class="w-full relative">
             <img id="coverPicPreview" src="${currentUser.coverPic || 'https://placehold.co/600x200/png?text=Cover+Photo'}" alt="Cover photo" class="w-full h-48 object-cover rounded-lg" />
-            <input id="coverPicInput" type="url" placeholder="Cover Picture URL" class="mt-2 w-full border border-gray-300 rounded-md p-2 focus:outline-none focus:ring-2 focus:ring-blue-500 text-sm" value="${currentUser.coverPic || ''}" />
+            <input id="coverPicInput" type="url" placeholder="Cover Picture URL" class="mt-2 w-full border border-gray-300 rounded-md p-2 focus:outline-none focus:ring-2 focus:ring-[#FF7D1E] text-sm" value="${currentUser.coverPic || ''}" />
           </div>
           <div class="relative -mt-16">
             <img id="profilePicPreview" src="${currentUser.profilePic || 'https://placehold.co/100x100/png?text=Profile'}" alt="Profile photo" class="w-24 h-24 rounded-full object-cover border-4 border-white shadow-lg" />
-            <input id="profilePicInput" type="url" placeholder="Profile Picture URL" class="mt-2 w-64 border border-gray-300 rounded-md p-2 focus:outline-none focus:ring-2 focus:ring-blue-500 text-sm" value="${currentUser.profilePic || ''}" />
+            <input id="profilePicInput" type="url" placeholder="Profile Picture URL" class="mt-2 w-64 border border-gray-300 rounded-md p-2 focus:outline-none focus:ring-2 focus:ring-[#FF7D1E] text-sm" value="${currentUser.profilePic || ''}" />
           </div>
-          <input id="fullNameInput" type="text" maxlength="100" class="w-full border border-gray-300 rounded-md p-3 focus:outline-none focus:ring-2 focus:ring-blue-500 text-lg text-center font-bold" value="${currentUser.fullName || ''}" placeholder="Full Name" required />
-          <input id="usernameInput" type="text" maxlength="50" class="w-full border border-gray-300 rounded-md p-3 focus:outline-none focus:ring-2 focus:ring-blue-500 text-gray-500 text-center" value="${currentUser.username || ''}" placeholder="Username" disabled />
-          <textarea id="bioInput" rows="3" maxlength="280" class="w-full border border-gray-300 rounded-md p-3 resize-none focus:outline-none focus:ring-2 focus:ring-blue-500 text-center text-gray-700" placeholder="Bio">${currentUser.bio || ''}</textarea>
+          <input id="fullNameInput" type="text" maxlength="100" class="w-full border border-gray-300 rounded-md p-3 focus:outline-none focus:ring-2 focus:ring-[#FF7D1E] text-lg text-center font-bold" value="${currentUser.fullName || ''}" placeholder="Full Name" required />
+          <input id="usernameInput" type="text" maxlength="50" class="w-full border border-gray-300 rounded-md p-3 focus:outline-none focus:ring-2 focus:ring-[#FF7D1E] text-gray-500 text-center" value="${currentUser.username || ''}" placeholder="Username" disabled />
+          <textarea id="bioInput" rows="3" maxlength="280" class="w-full border border-gray-300 rounded-md p-3 resize-none focus:outline-none focus:ring-2 focus:ring-[#FF7D1E] text-center text-gray-700" placeholder="Bio">${currentUser.bio || ''}</textarea>
           <div class="flex flex-wrap justify-center gap-4 text-sm text-gray-600 w-full">
             <label class="flex flex-col w-40">
               <span class="font-semibold">Birthday:</span>
-              <input id="birthdayInput" type="date" class="border border-gray-300 rounded-md p-2 focus:outline-none focus:ring-2 focus:ring-blue-500" value="${currentUser.birthday || ''}" />
+              <input id="birthdayInput" type="date" class="border border-gray-300 rounded-md p-2 focus:outline-none focus:ring-2 focus:ring-[#FF7D1E]" value="${currentUser.birthday || ''}" />
             </label>
             <label class="flex flex-col w-40">
               <span class="font-semibold">Gender:</span>
-              <select id="genderInput" class="border border-gray-300 rounded-md p-2 focus:outline-none focus:ring-2 focus:ring-blue-500">
+              <select id="genderInput" class="border border-gray-300 rounded-md p-2 focus:outline-none focus:ring-2 focus:ring-[#FF7D1E]">
                 <option value="" ${!currentUser.gender ? 'selected' : ''}>Select Gender</option>
                 <option value="Male" ${currentUser.gender === 'Male' ? 'selected' : ''}>Male</option>
                 <option value="Female" ${currentUser.gender === 'Female' ? 'selected' : ''}>Female</option>
@@ -3678,15 +3954,15 @@ document.addEventListener('click', function (e) {
             </label>
             <label class="flex flex-col w-40">
               <span class="font-semibold">Address:</span>
-              <input id="addressInput" type="text" maxlength="200" class="border border-gray-300 rounded-md p-2 focus:outline-none focus:ring-2 focus:ring-blue-500" value="${currentUser.address || ''}" />
+              <input id="addressInput" type="text" maxlength="200" class="border border-gray-300 rounded-md p-2 focus:outline-none focus:ring-2 focus:ring-[#FF7D1E]" value="${currentUser.address || ''}" />
             </label>
             <label class="flex flex-col w-40">
               <span class="font-semibold">Country:</span>
-              <input id="countryInput" type="text" maxlength="100" class="border border-gray-300 rounded-md p-2 focus:outline-none focus:ring-2 focus:ring-blue-500" value="${currentUser.country || ''}" />
+              <input id="countryInput" type="text" maxlength="100" class="border border-gray-300 rounded-md p-2 focus:outline-none focus:ring-2 focus:ring-[#FF7D1E]" value="${currentUser.country || ''}" />
             </label>
             <label class="flex flex-col w-40">
               <span class="font-semibold">Email:</span>
-              <input id="emailInput" type="email" maxlength="100" class="border border-gray-300 rounded-md p-2 focus:outline-none focus:ring-2 focus:ring-blue-500" value="${currentUser.email || ''}" required />
+              <input id="emailInput" type="email" maxlength="100" class="border border-gray-300 rounded-md p-2 focus:outline-none focus:ring-2 focus:ring-[#FF7D1E]" value="${currentUser.email || ''}" required />
             </label>
           </div>
           <div class="flex space-x-4 mt-4">
@@ -3851,7 +4127,7 @@ document.addEventListener('click', function (e) {
 
         const followBtn = document.createElement("button");
         followBtn.className =
-          "ml-auto bg-blue-500 text-white rounded-full px-3 py-1 text-sm font-semibold hover:bg-blue-600 transition";
+          "ml-auto bg-[#FF7D1E] text-white rounded-full px-3 py-1 text-sm font-semibold hover:bg-[#e6680f] transition";
         followBtn.textContent = "Follow";
         followBtn.addEventListener("click", () => {
           alert(`Followed ${user.name}`);
@@ -4254,26 +4530,27 @@ document.getElementById('btnInstallPWA').addEventListener('click', async () => {
 
 <!-- 📱 Mobile Bottom Navigation Bar -->
 <nav id="mobileBottomNav" class="fixed bottom-0 left-0 right-0 bg-white border-t border-gray-200 flex justify-around items-center h-16 z-50 md:hidden">
-  <button id="mobileNavHome" class="flex flex-col items-center text-gray-600 hover:text-blue-500">
-    <i class="fas fa-home text-xl"></i><span class="text-xs"></span>
+  <button id="mobileNavHome" class="flex flex-col items-center text-gray-600 hover:text-[#FF7D1E]">
+    <i class="fas fa-home text-white dark:text-black" 
+   style="text-shadow: -1px -1px 0 black, 1px -1px 0 black, -1px 1px 0 black, 1px 1px 0 black;"></i><span class="text-xs"></span>
   </button>
   
 
 
 
-  <button id="mobileNavFavs" class="flex flex-col items-center text-gray-600 hover:text-blue-500">
+  <button id="mobileNavFavs" class="flex flex-col items-center text-gray-600 hover:text-[#FF7D1E]">
     <i class="fas fa-star text-xl"></i><span class="text-xs"></span>
   </button>
 
-<button id="mobileclips" class="flex flex-col items-center text-gray-600 hover:text-blue-500">
+<button id="mobileclips" class="flex flex-col items-center text-gray-600 hover:text-[#FF7D1E]">
     <i class="fas fa-play-circle fa-lg"></i><span class="text-xs"></span>
   </button>
 
-   <button id="mobileNavClidders" class="flex flex-col items-center text-gray-600 hover:text-blue-500">
+   <button id="mobileNavClidders" class="flex flex-col items-center text-gray-600 hover:text-[#FF7D1E]">
       <i class="fas fa-users text-lg"></i>
     </button>
 
-  <button id="mobileNavProfile" class="flex flex-col items-center text-gray-600 hover:text-blue-500">
+  <button id="mobileNavProfile" class="flex flex-col items-center text-gray-600 hover:text-[#FF7D1E]">
     <img id="mobileProfilePicIcon" src="" alt="Profile" class="w-6 h-6 rounded-full hidden" />
 <i id="mobileProfileIconFallback" class="fas fa-user-circle fa-lg"></i>
 <span class="text-xs"></span>
@@ -4338,24 +4615,24 @@ document.getElementById('btnInstallPWA').addEventListener('click', async () => {
 
 <!-- ☰ Mobile Sidebar Menu -->
 <div id="mobileSidebarMenu" class="fixed top-16 right-4 bg-white dark:bg-black shadow-lg rounded-lg z-50 p-4 w-64 space-y-3 hidden">
-  <button id="mobileBtnMessages" class="w-full text-left text-gray-800 dark:text-white hover:text-blue-500">
+  <button id="mobileBtnMessages" class="w-full text-left text-gray-800 dark:text-white hover:text-[#FF7D1E]">
     <i class="fas fa-envelope mr-2"></i> Messages
   </button>
-  <button id="mobileBtnSaved" class="w-full text-left text-gray-800 dark:text-white hover:text-blue-500">
+  <button id="mobileBtnSaved" class="w-full text-left text-gray-800 dark:text-white hover:text-[#FF7D1E]">
     <i class="fas fa-bookmark mr-2"></i> Saved
   </button>
-  <button id="mobileBtnVerified" class="w-full text-left text-gray-800 dark:text-white hover:text-blue-500">
+  <button id="mobileBtnVerified" class="w-full text-left text-gray-800 dark:text-white hover:text-[#FF7D1E]">
     <i class="fas fa-check-circle mr-2"></i> Verified Clidders
   </button>
 <!-- Mobile Favorites Button (Unique ID) -->
-<button id="mobileSidebarFavorites" class="w-full text-left text-gray-800 dark:text-white hover:text-blue-500">
+<button id="mobileSidebarFavorites" class="w-full text-left text-gray-800 dark:text-white hover:text-[#FF7D1E]">
   <i class="fas fa-star mr-2"></i> Favorites
 </button>
 
-  <button id="mobileBtnFromMe" class="w-full text-left text-gray-800 dark:text-white hover:text-blue-500">
+  <button id="mobileBtnFromMe" class="w-full text-left text-gray-800 dark:text-white hover:text-[#FF7D1E]">
     <i class="fas fa-user-edit mr-2"></i> From Me
   </button>
-  <button onclick="window.open('https://blackhatai.nicepage.io', '_blank')" class="w-full text-left text-gray-800 dark:text-white hover:text-blue-500">
+  <button onclick="window.open('https://blackhatai.nicepage.io', '_blank')" class="w-full text-left text-gray-800 dark:text-white hover:text-[#FF7D1E]">
     <i class="fas fa-robot mr-2"></i> Black Hat AI
   </button>
 </div>
@@ -4583,7 +4860,7 @@ document.addEventListener("DOMContentLoaded", () => {
     <h2 class="text-xl font-bold">Pick a Theme Color</h2>
     <input type="color" id="colorPicker" class="w-24 h-12 border rounded" />
     <div class="space-x-4">
-      <button id="applyThemeBtn" class="px-4 py-2 bg-blue-500 text-white rounded">Apply</button>
+      <button id="applyThemeBtn" class="px-4 py-2 bg-[#FF7D1E] text-white rounded">Apply</button>
       <button id="resetThemeBtn" class="px-4 py-2 bg-gray-300 rounded">Reset</button>
     </div>
   </div>
@@ -4675,10 +4952,10 @@ const tabForYou = document.getElementById("tabForYou");
 const tabFollowing = document.getElementById("tabFollowing");
 
 function activateTab(tab) {
-  tabForYou.classList.remove("text-blue-500", "border-blue-500");
-  tabFollowing.classList.remove("text-blue-500", "border-blue-500");
+  tabForYou.classList.remove("text-[#FF7D1E]", "border-blue-500");
+  tabFollowing.classList.remove("text-[#FF7D1E]", "border-blue-500");
 
-  tab.classList.add("text-blue-500", "border-blue-500");
+  tab.classList.add("text-[#FF7D1E]", "border-blue-500");
 
   // You can replace this with actual filtering logic
   if (tab.id === "tabForYou") {
@@ -4805,7 +5082,7 @@ tweetInput.addEventListener("input", () => {
             <input type="checkbox" id="imageReminder" class="mr-2"> Receive image description reminder
           </label>
         </div>
-        <a href="https://help.twitter.com/en/rules-and-policies/twitter-accessibility" target="_blank" class="text-blue-500 hover:underline text-xs">Learn more about accessibility at X</a>
+        <a href="https://help.twitter.com/en/rules-and-policies/twitter-accessibility" target="_blank" class="text-[#FF7D1E] hover:underline text-xs">Learn more about accessibility at X</a>
       </div>
     </div>
 
@@ -5039,13 +5316,13 @@ tweetInput.addEventListener("input", () => {
     // Hide splash after 3 seconds
     setTimeout(() => {
       splash.style.display = "none";
-    }, 3000);
+    }, 2000);
   });
 </script>
 
 
 <!-- Floating Add Button for Mobile -->
-<button id="mobileAddPostBtn" aria-label="Add new hat" class="fixed bottom-16 right-5 bg-blue-600 text-white p-4 rounded-full shadow-lg text-2xl z-50 md:hidden">
+<button id="mobileAddPostBtn" aria-label="Add new hat" class="fixed bottom-16 right-5 bg-[#e6680f] text-white p-4 rounded-full shadow-lg text-2xl z-50 md:hidden">
   <i class="fas fa-plus"></i>
 </button>
 
@@ -5069,6 +5346,161 @@ document.getElementById("mobileAddPostBtn").addEventListener("click", () => {
     tweetInput.style.height = tweetInput.scrollHeight + 'px';
   });
 </script>
+
+
+<script>
+  const replyBtn = document.getElementById('replySettingBtn');
+  const replyPopover = document.getElementById('replyPopover');
+  const usernameInput = document.getElementById('allowedUsernames');
+  const replyItems = document.querySelectorAll('.reply-option-item');
+
+  let currentPermission = "everyone";
+
+  const permissionLabels = {
+    everyone: '<div class="w-5 h-5 rounded-full bg-blue-100 text-[#FF7D1E] flex items-center justify-center"><i class="fas fa-globe-americas text-xs"></i></div> Everyone can reply',
+    followers: '<div class="w-5 h-5 rounded-full bg-blue-100 text-[#FF7D1E] flex items-center justify-center"><i class="fas fa-user-friends text-xs"></i></div> People you follow can reply',
+    verified: '<div class="w-5 h-5 rounded-full bg-blue-100 text-[#FF7D1E] flex items-center justify-center"><i class="fas fa-check-circle text-xs"></i></div> Verified users can reply',
+    custom: '<div class="w-5 h-5 rounded-full bg-blue-100 text-[#FF7D1E] flex items-center justify-center"><i class="fas fa-lock text-xs"></i></div> Only specific users'
+  };
+
+  // Toggle the popover
+  replyBtn.addEventListener('click', () => {
+    replyPopover.classList.toggle('hidden');
+  });
+
+  // Handle selection
+  replyItems.forEach(item => {
+    item.addEventListener('click', () => {
+      currentPermission = item.getAttribute('data-value');
+      replyBtn.innerHTML = permissionLabels[currentPermission];
+      replyPopover.classList.add('hidden');
+      if (currentPermission === 'custom') {
+        usernameInput.classList.remove('hidden');
+      } else {
+        usernameInput.classList.add('hidden');
+      }
+    });
+  });
+
+  // Function to retrieve settings when posting
+  function getReplySettings() {
+    return {
+      permission: currentPermission,
+      allowedUsers:
+        currentPermission === 'custom'
+          ? usernameInput.value.split(',').map(u => u.trim().toLowerCase()).filter(Boolean)
+          : []
+    };
+  }
+
+  // 🔁 Example usage in your Firestore Clidde submit
+  // const { permission, allowedUsers } = getReplySettings();
+  // await addDoc(..., { replyPermission: permission, allowedUsers })
+</script>
+
+<script>
+function showLoadingSpinner() {
+  document.getElementById('infiniteScrollLoader').style.display = 'flex';
+}
+
+function hideLoadingSpinner() {
+  document.getElementById('infiniteScrollLoader').style.display = 'none';
+}
+
+
+</script>
+
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+  const emojiToggle = document.getElementById('emojiToggle');
+  const emojiPicker = document.getElementById('emojiPicker');
+  const tweetInput = document.getElementById('tweetInput');
+
+  const emojis = [
+    "😀", "😃", "😄", "😁", "😆", "😅", "😂", "🤣", "😊", "😇",
+    "🙂", "🙃", "😉", "😌", "😍", "🥰", "😘", "😗", "😙", "😚",
+    "😋", "😛", "😝", "😜", "🤪", "🤨", "🧐", "🤓", "😎", "🥸",
+    "🤩", "🥳", "😏", "😒", "😞", "😔", "😟", "😕", "🙁", "☹️",
+    "😣", "😖", "😫", "😩", "🥺", "😢", "😭", "😤", "😠", "😡",
+    "🤬", "🤯", "😳", "🥵", "🥶", "😱", "😨", "😰", "😥", "😓",
+    "🤗", "🤔", "🤭", "🤫", "🤥", "😶", "😐", "😑", "😬", "🙄",
+    "😯", "😦", "😧", "😮", "😲", "🥱", "😴", "🤤", "😪", "😵",
+    "🤐", "🥴", "🤢", "🤮", "🤧", "😷", "🤒", "🤕", "🤑", "🤠",
+    "😈", "👿", "👹", "👺", "💀", "☠️", "👻", "👽", "👾", "🤖",
+    "💩", "😺", "😸", "😹", "😻", "😼", "😽", "🙀", "😿", "😾",
+    "🙈", "🙉", "🙊", "💋", "💌", "💘", "💝", "💖", "💗", "💓",
+    "💞", "💕", "💟", "❣️", "❤️", "🧡", "💛", "💚", "💙", "💜",
+    "🤎", "🖤", "🤍", "💔", "❤️‍🔥", "❤️‍🩹", "💯", "💢", "💥", "💫",
+    "💦", "💨", "🕳️", "👂", "👃", "🧠", "🫀", "🫁", "🦷", "🦴",
+    "👀", "👁️", "👅", "👄", "🫦", "💋", "👶", "🧒", "👦", "👧",
+    "🧑", "👱", "👨", "👩", "🧔", "👨‍🦰", "👨‍🦱", "👨‍🦳", "👨‍🦲", "👩‍🦰",
+    "👩‍🦱", "👩‍🦳", "👩‍🦲", "🧓", "👴", "👵", "🙍", "🙎", "🙅", "🙆",
+    "💁", "🙋", "🧏", "🙇", "🤦", "🤷", "🧑‍⚕️", "🧑‍🎓", "🧑‍🏫", "🧑‍⚖️",
+    "🧑‍🌾", "🧑‍🍳", "🧑‍🔧", "🧑‍🏭", "🧑‍💼", "🧑‍🔬", "🧑‍🎤", "🧑‍🎨", "🧑‍✈️", "🧑‍🚀",
+    "🧑‍🚒", "👮", "🕵️", "💂", "👷", "🤴", "👸", "👳", "👲", "🧕",
+    "🤵", "👰", "🤰", "🤱", "👼", "🎅", "🤶", "🧑‍🎄", "🦸", "🦹",
+    "🧙", "🧚", "🧛", "🧜", "🧝", "🧞", "🧟", "💃", "🕺", "🕴️",
+    "🚶", "🏃", "💪", "🦵", "🦶", "👂", "🦻", "👃", "👣", "🫶",
+    "👍", "👎", "👊", "✊", "🤛", "🤜", "👏", "🙌", "👐", "🤲",
+    "🤝", "🙏", "✍️", "💅", "🤳", "💍", "💄", "💼", "👓", "🕶️",
+    "🌂", "☂️", "🎩", "🧢", "👒", "🎓", "⛑️", "📿", "💎", "🔍",
+    "📱", "📲", "💻", "🖥️", "🖨️", "🕹️", "🗜️", "💽", "💾", "💿",
+    "📀", "📷", "📸", "📹", "🎥", "📞", "☎️", "📟", "📠", "📺",
+    "📻", "🎙️", "🎚️", "🎛️", "🧭", "⏱️", "⏲️", "⏰", "🕰️", "⌛",
+    "⏳", "📡", "🔋", "🔌", "💡", "🔦", "🕯️", "🧯", "🛢️", "💸",
+    "💵", "💴", "💶", "💷", "💰", "💳", "🧾", "💎", "⚖️", "🔧",
+    "🔨", "⚒️", "🛠️", "⛏️", "🔩", "⚙️", "🗜️", "⚗️", "🧪", "🧫",
+    "🧬", "🔬", "🔭", "📡", "💉", "🩸", "💊", "🩹", "🩺", "🚪",
+    "🛏️", "🛋️", "🪑", "🚽", "🚿", "🛁", "🪒", "🧴", "🧷", "🧹",
+    "🧺", "🧻", "🪠", "🧼", "🪥", "🧽", "🛒", "🚬", "⚰️", "⚱️",
+    "🏺", "🕳️", "🪦", "🧿", "🪬", "📿", "🪞", "🪟", "🛍️", "📦"
+  ];
+
+  // Populate emoji picker
+  emojis.forEach(emoji => {
+    const btn = document.createElement('button');
+    btn.textContent = emoji;
+    btn.className = 'emoji-button';
+    btn.style.margin = '4px';
+    btn.style.fontSize = '20px';
+    btn.style.background = 'transparent';
+    btn.style.border = 'none';
+    btn.style.cursor = 'pointer';
+
+    btn.addEventListener('click', () => {
+      const start = tweetInput.selectionStart;
+      const end = tweetInput.selectionEnd;
+      const text = tweetInput.value;
+      tweetInput.value = text.slice(0, start) + emoji + text.slice(end);
+      tweetInput.focus();
+      tweetInput.setSelectionRange(start + emoji.length, start + emoji.length);
+    });
+
+    emojiPicker.appendChild(btn);
+  });
+
+  // Show/hide emoji panel
+  emojiToggle.addEventListener('click', (e) => {
+    e.stopPropagation();
+    emojiPicker.classList.toggle('hidden');
+  });
+
+  // Hide if clicked outside
+  document.addEventListener('click', function (e) {
+    if (!emojiPicker.contains(e.target) && e.target !== emojiToggle) {
+      emojiPicker.classList.add('hidden');
+    }
+  });
+});
+</script>
+
+
+<style>
+  .emoji-button:hover {
+    transform: scale(1.2);
+  }
+</style>
+
 
 
 </body>
