@@ -1334,6 +1334,21 @@ body.dark-mode .profile-button-border {
   display: flex !important;
 }
 
+/* For dark mode input and textarea */
+body.dark-mode input,
+body.dark-mode textarea {
+  background-color: #1f2937; /* Tailwind gray-800 */
+  color: #f9fafb;             /* Light text */
+  border-color: #374151;      /* Tailwind gray-700 */
+}
+
+/* Placeholder text */
+body.dark-mode input::placeholder,
+body.dark-mode textarea::placeholder {
+  color: #9ca3af; /* Tailwind gray-400 */
+}
+
+
 
   </style>
 
@@ -1603,14 +1618,36 @@ body.dark-mode .profile-button-border {
   </div>
 </div>
 
-<!-- Profile button above tweet input -->
 <div class="border-y profile-button-border px-4 py-1">
-  <button id="mobileNavProfile" class="flex flex-col items-center text-gray-600 hover:text-[#FF7D1E] ">
-    <img id="mobileProfilePicIcon" src="" alt="Profile" class="w-12 h-12 rounded-full hidden" />
-    <i id="mobileProfileIconFallback" class="fas fa-user-circle fa-lg w-12 h-12"></i>
-    <span class="text-xs"></span>
-  </button>
+  <div class="flex items-center justify-between w-full relative">
+
+    <!-- Left: Profile Button -->
+    <button id="mobileNavProfile" class="flex items-center text-gray-600 hover:text-[#FF7D1E]">
+      <img id="mobileProfilePicIcon" src="" alt="Profile" class="w-12 h-12 rounded-full hidden" />
+      <i id="mobileProfileIconFallback" class="fas fa-user-circle fa-3x"></i>
+    </button>
+
+    <!-- Center: Clidder GPT Logo -->
+    <div class="flex-1 flex justify-center">
+      <img src="https://i.ibb.co/d09mv2HR/clidder-new-gpt.png" alt="Clidder GPT" class="w-10 h-10" />
+    </div>
+
+    <!-- Right: Three-dot button -->
+    <div class="relative">
+      <button id="headerMoreBtn" class="w-10 h-10 flex items-center justify-center rounded-full hover:bg-gray-200 dark:hover:bg-gray-700 transition">
+        <i class="fas fa-ellipsis-h text-gray-600 dark:text-white"></i>
+      </button>
+
+      <!-- Dropdown menu -->
+      <div id="headerMoreDropdown" class="hidden absolute right-0 mt-2 w-36 bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg shadow-lg z-50">
+        <button onclick="document.getElementById('sidebarTheme').click()" class="w-full text-left px-4 py-2 text-sm text-gray-700 dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700">Custom Themes</button>
+        <button onclick="document.getElementById('sidebarSettings').click()" class="w-full text-left px-4 py-2 text-sm text-gray-700 dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700">Timeline Settings</button>
+      </div>
+    </div>
+
+  </div>
 </div>
+
 
 
 
@@ -5638,6 +5675,23 @@ document.addEventListener('DOMContentLoaded', function () {
     }
   });
 </script>
+
+<script>
+  const headerMoreBtn = document.getElementById('headerMoreBtn');
+  const headerMoreDropdown = document.getElementById('headerMoreDropdown');
+
+  headerMoreBtn.addEventListener('click', (e) => {
+    e.stopPropagation(); // Prevent outside click from closing instantly
+    headerMoreDropdown.classList.toggle('hidden');
+  });
+
+  document.addEventListener('click', () => {
+    headerMoreDropdown.classList.add('hidden');
+  });
+</script>
+
+
+
 
 </body>
 </html>
