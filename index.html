@@ -1355,6 +1355,22 @@ body.dark-mode textarea::placeholder {
 }
 
 
+.premium-badge {
+  width: 16px;
+  height: 16px;
+  margin-left: 4px;
+  vertical-align: middle;
+  pointer-events: none;
+}
+
+.pro-badge {
+  width: 16px;
+  height: 16px;
+  margin-left: 4px;
+  vertical-align: middle;
+  pointer-events: none;
+}
+
 
   </style>
 
@@ -1990,7 +2006,8 @@ body.dark-mode textarea::placeholder {
 
           <h3 class="text-lg font-bold text-center">Create Account</h3>
           <input id="signUpFullName" type="text" placeholder="Full Name" maxlength="100" class="w-full border border-gray-300 rounded-md p-3 focus:outline-none focus:ring-2 focus:ring-[#FF7D1E] text-lg" />
-          <input id="signUpEmail" type="email" placeholder="Email" maxlength="100" class="w-full border border-gray-300 rounded-md p-3 focus:outline-none focus:ring-2 focus:ring-[#FF7D1E] text-lg" />
+          <input id="signUpEmail" type="text" placeholder="Email or Phone (e.g. +94712345678)" maxlength="100" class="w-full border border-gray-300 rounded-md p-3 focus:outline-none focus:ring-2 focus:ring-[#FF7D1E] text-lg" />
+
           <input id="signUpUserName" type="text" placeholder="Username Without @" maxlength="50" class="w-full border border-gray-300 rounded-md p-3 focus:outline-none focus:ring-2 focus:ring-[#FF7D1E] text-lg" />
           <input id="signUpPassword" type="password" placeholder="Password" maxlength="100" class="w-full border border-gray-300 rounded-md p-3 focus:outline-none focus:ring-2 focus:ring-[#FF7D1E] text-lg" />
           <input id="signUpPasswordConfirm" type="password" placeholder="Confirm Password" maxlength="100" class="w-full border border-gray-300 rounded-md p-3 focus:outline-none focus:ring-2 focus:ring-[#FF7D1E] text-lg" />
@@ -2217,7 +2234,9 @@ birthdayUsers.forEach(user => {
     <img src="${user.profilePic || 'https://i.ibb.co/0VqN92C4/clidder-off-dark.png'}" alt="${user.fullName}" />
     <span class="inline-flex items-center">
     ${user.fullName}
+    ${getPremiumHTML(user.premium)}
     ${getVerifiedHTML(user.verified)}
+    ${getProHTML(user.pro)}
   </span>
   `;
   usersListEl.appendChild(card);
@@ -2525,7 +2544,9 @@ if (currentUser) {
   sidebarUserName.innerHTML = `
   <span class="inline-flex items-center">
     ${currentUser.fullName}
+    ${getPremiumHTML(currentUser.premium)}
     ${getVerifiedHTML(currentUser.verified)}
+    ${getProHTML(currentUser.pro)}
   </span>
 `;
 
@@ -2660,9 +2681,11 @@ if (currentUser) {
     // Sign Up handler
     btnSignUp.addEventListener("click", async () => {
       const fullName = signUpFullName.value.trim();
-      const email = signUpEmail.value.trim().toLowerCase();
+    const email = signUpEmail.value.trim();
+
       const username = signUpUserName.value.trim();
-const usernameRegex = /^[a-zA-Z]+$/;
+const usernameRegex = /^[a-zA-Z0-9_]{3,20}$/;
+
 if (!usernameRegex.test(username)) {
   alert("Username can only contain letters. No numbers, spaces, or symbols allowed.");
   return;
@@ -2682,10 +2705,17 @@ if (!usernameRegex.test(username)) {
         alert("Please fill in all required fields.");
         return;
       }
-      if (!validateEmail(email)) {
-        alert("Please enter a valid email address.");
-        return;
-      }
+      function isValidEmailOrPhone(value) {
+  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  const phoneRegex = /^\+\d{7,15}$/; // International format
+  return emailRegex.test(value) || phoneRegex.test(value);
+}
+
+if (!isValidEmailOrPhone(email)) {
+  alert("Please enter a valid email or international phone number (e.g. +94712345678).");
+  return;
+}
+
       if (password !== passwordConfirm) {
         alert("Passwords do not match.");
         return;
@@ -2788,6 +2818,8 @@ if (!usernameRegex.test(username)) {
           userId: currentUser.id,
           userName: currentUser.fullName,
 verified: currentUser.verified || false,
+premium: currentUser.premium || false,
+pro: currentUser.pro || false,
 
           userHandle: "𝓬𝓹" + currentUser.username.toLowerCase(),
           profilePic: currentUser.profilePic || "",
@@ -2897,8 +2929,12 @@ const nameText = document.createElement("span");
 nameText.className = "inline-flex items-center";
 nameText.innerHTML = `
   ${post.userName || "HatUser"}
+  ${getPremiumHTML(post.premium)}
   ${getVerifiedHTML(post.verified)}
+ ${getProHTML(post.pro)}
+
 `;
+
 userName.appendChild(nameText);
 
 
@@ -3815,7 +3851,9 @@ document.addEventListener('click', function (e) {
               <h3>
   <span class="inline-flex items-center">
     ${user.fullName}
+    ${getPremiumHTML(user.premium)}
     ${getVerifiedHTML(user.verified)}
+    ${getProHTML(user.pro)}
   </span>
 </h3>
 
@@ -3939,7 +3977,9 @@ document.addEventListener('click', function (e) {
               <h3>
   <span class="inline-flex items-center">
     ${user.fullName}
+    ${getPremiumHTML(user.premium)}
     ${getVerifiedHTML(user.verified)}
+    ${getProHTML(user.pro)}
   </span>
 </h3>
 
@@ -4055,7 +4095,7 @@ document.addEventListener('click', function (e) {
             </label>
             <label class="flex flex-col w-40">
               <span class="font-semibold">Email:</span>
-              <input id="emailInput" type="email" maxlength="100" class="border border-gray-300 rounded-md p-2 focus:outline-none focus:ring-2 focus:ring-[#FF7D1E]" value="${currentUser.email || ''}" required />
+             <input id="emailInput" type="email" maxlength="100" class="border border-gray-300 rounded-md p-2 bg-gray-100 text-gray-500 cursor-not-allowed" value="${currentUser.email || ''}" disabled readonly />
             </label>
           </div>
           <div class="flex space-x-4 mt-4">
@@ -4116,10 +4156,17 @@ document.addEventListener('click', function (e) {
           alert("Email is required.");
           return;
         }
-        if (!validateEmail(email)) {
-          alert("Please enter a valid email address.");
-          return;
-        }
+        function isValidEmailOrPhone(value) {
+  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  const phoneRegex = /^\+\d{7,15}$/; // International format
+  return emailRegex.test(value) || phoneRegex.test(value);
+}
+
+if (!isValidEmailOrPhone(email)) {
+  alert("Please enter a valid email or international phone number (e.g. +94712345678).");
+  return;
+}
+
 
         try {
           // Update user in Firestore
@@ -4131,7 +4178,7 @@ document.addEventListener('click', function (e) {
             gender,
             address,
             country,
-            email,
+           
             profilePic,
             coverPic,
           });
@@ -4145,7 +4192,7 @@ document.addEventListener('click', function (e) {
             gender,
             address,
             country,
-            email,
+            
             profilePic,
             coverPic,
           };
@@ -4350,6 +4397,8 @@ document.addEventListener('click', function (e) {
           userHandle: "𝓬𝓹" + currentUser.username.toLowerCase(),
           profilePic: currentUser.profilePic || "",
 verified: currentUser.verified || false,
+premium: currentUser.premium || false,
+pro: currentUser.pro || false,
 
           likes: [],
           retweets: [],
@@ -4624,8 +4673,8 @@ document.getElementById('btnInstallPWA').addEventListener('click', async () => {
 <!-- 📱 Mobile Bottom Navigation Bar -->
 <nav id="mobileBottomNav" class="fixed bottom-0 left-0 right-0 bg-white border-t border-gray-200 flex justify-around items-center h-16 z-50 md:hidden">
   <button id="mobileNavHome" class="flex flex-col items-center text-gray-600 hover:text-[#FF7D1E]">
-    <i class="fas fa-home text-black dark:text-white" 
-   style="text-shadow: -1px -1px 0 black, 1px -1px 0 black, -1px 1px 0 black, 1px 1px 0 black;"></i><span class="text-xs"></span>
+    <i class="fas fa-home"></i>
+<span class="text-xs"></span>
   </button>
   
 
@@ -5009,6 +5058,20 @@ function getVerifiedHTML(verified) {
              class="verified-badge" />`
     : "";
 }
+
+
+function getPremiumHTML(isPremium) {
+  return isPremium === true
+    ? ' <img src="https://upload.wikimedia.org/wikipedia/commons/archive/8/81/20230122072306%21Twitter_Verified_Badge_Gold.svg" class="premium-badge" alt="Premium">'
+    : '';
+}
+
+function getProHTML(pro) {
+  return pro === true
+    ? `<img src="https://upload.wikimedia.org/wikipedia/commons/b/be/Verified-badge-pink.svg" class="pro-badge" alt="Pro">`
+    : "";
+}
+
 
 </script>
 
