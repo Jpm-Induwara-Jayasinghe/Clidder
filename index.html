@@ -11,7 +11,7 @@
     rel="stylesheet"
   />
   <link
-    href="https://fonts.googleapis.com/css2?family=Roboto:wghtð“¬ð“¹400;700&display=swap"
+    href="https://fonts.googleapis.com/css2?family=Roboto:wght𝓬𝓹400;700&display=swap"
     rel="stylesheet"
   />
   <style>
@@ -1020,11 +1020,11 @@ body.dark-mode #mobileModeToggle i::before {
     user-select: none !important;         /* Standard */
   }
 
-/* â‹®â‹®â‹® â€œMoreâ€ dropdown */
+/* ⋮⋮⋮ “More” dropdown */
 #moreOptionsDropdown {
   position: absolute;
   top: 100%;
-  right: 3rem;            /* adjust to sit under the â‹® button */
+  right: 3rem;            /* adjust to sit under the ⋮ button */
   width: 150px;
   background: white;
   border: 1px solid #d1d5db;
@@ -1349,6 +1349,12 @@ body.dark-mode textarea::placeholder {
 }
 
 
+.verified-badge {
+  pointer-events: none !important;
+  cursor: default !important;
+}
+
+
 
   </style>
 
@@ -1372,14 +1378,14 @@ body.dark-mode textarea::placeholder {
 
 
  <header class="bg-white border-b border-gray-300 sticky top-0 z-50">
-<!-- âœ… MOBILE HEADER â€” updated -->
-<!-- âœ… MOBILE HEADER with inline search -->
+<!-- ✅ MOBILE HEADER — updated -->
+<!-- ✅ MOBILE HEADER with inline search -->
 <div class="flex items-center justify-between p-4 md:hidden relative w-full">
   <!-- Left: Logo and Search -->
   <div class="flex items-center space-x-2 w-full">
     <!-- Logo -->
     <h1 class="text-xl font-extrabold select-none text-transparent bg-clip-text animated-gradient">
-      ð“¬ð“µð“²ð“­ð“­ð“®ð“»
+      𝓬𝓵𝓲𝓭𝓭𝓮𝓻
     </h1>
 
     <!-- Search Bar (Hidden by Default) -->
@@ -1403,7 +1409,7 @@ body.dark-mode textarea::placeholder {
  
     <!-- Menu -->
     <button onclick="toggleMobileSidebarMenu()" class="text-gray-700 dark:text-white text-xl focus:outline-none">
-      â˜°
+      ☰
     </button>
   </div>
 </div>
@@ -1414,12 +1420,12 @@ body.dark-mode textarea::placeholder {
 
 
 
-  <!-- âœ… DESKTOP HEADER -->
+  <!-- ✅ DESKTOP HEADER -->
   <div class="max-w-5xl mx-auto hidden md:flex items-center justify-between p-4 space-x-6">
     <!-- Left: Clidder Logo -->
     <div class="flex items-center flex-shrink-0">
       <h1 class="text-2xl font-bold select-none bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 text-transparent bg-clip-text animate-gradient bg-[length:200%_200%]">
-        ð“¬ð“µð“²ð“­ð“­ð“®ð“»
+        𝓬𝓵𝓲𝓭𝓭𝓮𝓻
       </h1>
     </div>
 
@@ -1445,7 +1451,7 @@ body.dark-mode textarea::placeholder {
           <i class="fas fa-user-circle fa-lg"></i>
         </button>
 
-<!-- â‹®â‹®â‹® More Options -->
+<!-- ⋮⋮⋮ More Options -->
 <button id="btnMoreOptions" aria-label="More options" class="hover:text-gray-900 focus:outline-none focus:text-gray-900 relative">
   <i class="fas fa-ellipsis-v fa-lg"></i>
 </button>
@@ -1632,35 +1638,28 @@ body.dark-mode textarea::placeholder {
       <img src="https://i.ibb.co/d09mv2HR/clidder-new-gpt.png" alt="Clidder GPT" class="w-10 h-10" />
     </div>
 
+
     <a href="https://blackhat.com" target="_blank" rel="noopener noreferrer"
        class="text-[#FF7D1E] font-semibold text-sm hover:underline">
       Premium
     </a>
 
+
     <!-- Right: Three-dot button -->
     <div class="relative">
-      <button id="headerMoreBtn" class="w-10 h-10 text-2xl font-bold text-gray-600 dark:text-white flex items-center justify-center rounded-full hover:bg-gray-200 dark:hover:bg-gray-700 transition">
+            <button id="headerMoreBtn" class="w-10 h-10 text-2xl font-bold text-gray-600 dark:text-white flex items-center justify-center rounded-full hover:bg-gray-200 dark:hover:bg-gray-700 transition">
         ⋮
       </button>
-    </div>
 
-  </div>
-</div>
-
-
-
-     <!-- Dropdown menu -->
-<div id="headerMoreDropdown" class="hidden absolute right-0 mt-2 w-36 bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg shadow-lg z-50">
-  <button onclick="document.getElementById('sidebarTheme').click()" class="w-full text-left px-4 py-2 text-sm text-gray-700 dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700">Custom Themes</button>
-  <button onclick="document.getElementById('sidebarSettings').click()" class="w-full text-left px-4 py-2 text-sm text-gray-700 dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700">Timeline Settings</button>
-  
-  <!-- Dark/Light Toggle -->
+      <!-- Dropdown menu -->
+      <div id="headerMoreDropdown" class="hidden absolute right-0 mt-2 w-36 bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg shadow-lg z-50">
+        <button onclick="document.getElementById('sidebarTheme').click()" class="w-full text-left px-4 py-2 text-sm text-gray-700 dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700">Custom Themes</button>
+        <button onclick="document.getElementById('sidebarSettings').click()" class="w-full text-left px-4 py-2 text-sm text-gray-700 dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700">Timeline Settings</button>
   <button id="dropdownModeToggle" class="w-full text-left px-4 py-2 text-sm text-gray-700 dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 flex items-center justify-between">
     <span>Dark Mode</span>
     <i class="fas fa-moon"></i>
   </button>
-</div>
-
+      </div>
     </div>
 
   </div>
@@ -1766,7 +1765,7 @@ body.dark-mode textarea::placeholder {
           class="bg-[#FF7D1E] hover:bg-[#e6680f] text-white font-semibold px-5 py-2 rounded-full disabled:opacity-50"
           disabled
         >
-          Clidde
+         Clidde
         </button>
       </div>
 
@@ -1778,7 +1777,7 @@ body.dark-mode textarea::placeholder {
 
 
 <div id="birthdayBanner" style="display:none;" class="birthday-banner-container">
-  <div class="birthday-banner-title">It's Their Big Day â€“ Say Happy Birthday!</div>
+  <div class="birthday-banner-title">It's Their Big Day – Say Happy Birthday!</div>
   <div id="birthdayBannerUsers" class="birthday-users-list"></div>
 </div>
 
@@ -1793,14 +1792,14 @@ body.dark-mode textarea::placeholder {
 
 
 <section id="clipsSection" class="hidden flex flex-col space-y-4">
-  <h2 class="text-2xl font-bold text- mt-4"><p align ="left">ð’žð“ð’¾ð“…ð“ˆ ð’»ð‘œð“‡ ð’´ð‘œð“Š</h2></p>
+  <h2 class="text-2xl font-bold text- mt-4"><p align ="left">𝒞𝓁𝒾𝓅𝓈 𝒻𝑜𝓇 𝒴𝑜𝓊</h2></p>
   <div id="clipsDisplay" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 p-4">
     <!-- Video clips will be cloned here -->
   </div>
 </section>
 
 
-<!-- ðŸ”” New Post Notification -->
+<!-- 🔔 New Post Notification -->
 <div id="newPostAlert" class="hidden fixed top-[4rem] left-1/2 transform -translate-x-1/2 bg-[#FF7D1E] text-white px-4 py-2 rounded-full shadow-lg flex items-center space-x-2 z-50 cursor-pointer">
   <div id="newPostAvatars" class="flex -space-x-2"></div>
   <span id="newPostText"><strong>posted</strong> <i class="fas fa-arrow-up"></i></span>
@@ -1902,7 +1901,7 @@ body.dark-mode textarea::placeholder {
     <a href="ads-info.html" class="hover:underline">Ads info</a> |
     <a href="#" class="hover:underline">More</a>
   </div>
-  <div>Â© 2025 Clidder Corp.</div>
+  <div>© 2025 Clidder Corp.</div>
 </div>
 
 
@@ -1920,7 +1919,7 @@ body.dark-mode textarea::placeholder {
         </label>
         <label class="flex flex-col text-gray-700 font-medium">
           Caption
-          <textarea id="postCaption" placeholder="Whatâ€™s buzzing now ? " rows="3" class="mt-1 p-2 border border-gray-300 rounded resize-none focus:outline-none focus:ring-2 focus:ring-[#FF7D1E]"></textarea>
+          <textarea id="postCaption" placeholder="What’s buzzing now ? " rows="3" class="mt-1 p-2 border border-gray-300 rounded resize-none focus:outline-none focus:ring-2 focus:ring-[#FF7D1E]"></textarea>
         </label>
         <button type="submit" class="bg-[#e6680f] text-white py-2 rounded font-semibold hover:bg-[#cc5900] transition">Clide Post</button>
       </form>
@@ -2132,7 +2131,7 @@ onSnapshot(query(collection(db, "posts"), orderBy("createdAt", "desc")), (snapsh
         avatarContainer.appendChild(img);
       });
 
-      // Update text like "3 people posted â†‘"
+      // Update text like "3 people posted ↑"
       const textSpan = document.getElementById("newPostText");
       const count = newPostUsers.size;
       textSpan.innerHTML = `<strong>${count} posted</strong> <i class="fas fa-arrow-up"></i>`;
@@ -2188,7 +2187,7 @@ document.getElementById("tabFollowing").addEventListener("click", async () => {
 
 if ("Notification" in window && Notification.permission === "default") {
   Notification.requestPermission().then(permission => {
-    console.log("ðŸ›‘ Notification permission:", permission);
+    console.log("🛑 Notification permission:", permission);
   });
 }
 
@@ -2245,7 +2244,7 @@ function addBirthdayNotification(user) {
     <img src="${user.profilePic || 'https://i.ibb.co/0VqN92C4/clidder-off-dark.png'}" alt="${user.fullName}">
     <div class="notification-content">
       <div class="notification-user">${user.fullName}</div>
-      <div class="notification-caption">ðŸŽ‚ It's their birthday today! Send your wishes ðŸŽ‰</div>
+      <div class="notification-caption">🎂 It's their birthday today! Send your wishes 🎉</div>
       <div class="notification-time">${new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}</div>
     </div>
   `;
@@ -2254,7 +2253,7 @@ function addBirthdayNotification(user) {
 
 
 function showNewPostNotification(postCaption) {
-  console.log("ðŸ”” Trying to show notification:", postCaption);
+  console.log("🔔 Trying to show notification:", postCaption);
   if (Notification.permission === "granted") {
     new Notification("Clidder by Jayasinghe", {
       body: postCaption || "Someone just posted!",
@@ -2272,7 +2271,7 @@ onSnapshot(postsQueryForNotify, (snapshot) => {
   snapshot.docChanges().forEach((change) => {
     if (change.type === "added") {
       const newPost = change.doc.data();
-      console.log("ðŸ“¥ New post detected:", newPost.caption);
+      console.log("📥 New post detected:", newPost.caption);
       showNewPostNotification(newPost.caption);
 
 
@@ -2366,7 +2365,7 @@ tweetInput.addEventListener("input", () => {
 });
 
 
-// â‹®â‹®â‹® More-options dropdown toggle
+// ⋮⋮⋮ More-options dropdown toggle
 const btnMoreOptions     = document.getElementById("btnMoreOptions");
 const moreOptionsDropdown = document.getElementById("moreOptionsDropdown");
 
@@ -2381,8 +2380,8 @@ document.addEventListener("click", () => {
   moreOptionsDropdown.style.display = "none";
 });
 
-// â€” Facilities for each menu item â€”
-// 1) Account â†’ open profile modal (or redirect)
+// — Facilities for each menu item —
+// 1) Account → open profile modal (or redirect)
 document.getElementById("moreAccount")
   .addEventListener("click", () => {
     moreOptionsDropdown.style.display = "none";
@@ -2393,21 +2392,21 @@ document.getElementById("moreAccount")
     }
   });
 
-// 2) Pages â†’ open center modal
+// 2) Pages → open center modal
 document.getElementById("morePages")
   .addEventListener("click", () => {
     moreOptionsDropdown.style.display = "none";
     document.getElementById("pagesModal").classList.remove("hidden");
   });
 
-// 3) Settings â†’ open center modal
+// 3) Settings → open center modal
 document.getElementById("moreSettings")
   .addEventListener("click", () => {
     moreOptionsDropdown.style.display = "none";
     document.getElementById("settingsModal").classList.remove("hidden");
   });
 
-// 4) Logout â†’ clear session & refresh UI
+// 4) Logout → clear session & refresh UI
 document.getElementById("moreLogout")
   .addEventListener("click", () => {
     moreOptionsDropdown.style.display = "none";
@@ -2530,7 +2529,7 @@ if (currentUser) {
   </span>
 `;
 
-  sidebarUserHandle.textContent = "ð“¬ð“¹" + currentUser.username.toLowerCase();
+  sidebarUserHandle.textContent = "𝓬𝓹" + currentUser.username.toLowerCase();
   sidebarUserPic.src = currentUser.profilePic || "https://via.placeholder.com/40?text=U";
 } else {
   sidebarSummary.classList.add("hidden");
@@ -2790,7 +2789,7 @@ if (!usernameRegex.test(username)) {
           userName: currentUser.fullName,
 verified: currentUser.verified || false,
 
-          userHandle: "ð“¬ð“¹" + currentUser.username.toLowerCase(),
+          userHandle: "𝓬𝓹" + currentUser.username.toLowerCase(),
           profilePic: currentUser.profilePic || "",
           likes: [],
           retweets: [],
@@ -2837,7 +2836,7 @@ verified: currentUser.verified || false,
     function renderPost(post, id) {
       const div = document.createElement("article");
 
-// â‹® Button
+// ⋮ Button
 const menuButton = document.createElement("button");
 menuButton.className = "post-options-btn absolute top-2 right-2 text-gray-500 hover:text-gray-700 text-xl focus:outline-none";
 menuButton.innerHTML = "...";
@@ -2905,7 +2904,7 @@ userName.appendChild(nameText);
 
  const userHandle = document.createElement("span");
 userHandle.className = "text-unique-user user-handle text-xs font-normal";
-userHandle.textContent = post.userHandle.replace(/^@/, "ð“¬ð“¹");
+userHandle.textContent = post.userHandle.replace(/^@/, "𝓬𝓹");
 userHandle.addEventListener("click", () => {
   showUserProfile(post.userHandle.replace(/^@/, ""));
 });
@@ -3015,7 +3014,7 @@ if (post.imageUrl && post.imageUrl.trim() !== "") {
     wrapper.style.paddingTop = ratioPercent + "%";
   };
 
-  // 1) KNOWN EMBEDS â†’ force 16:9
+  // 1) KNOWN EMBEDS → force 16:9
   const isDrive = url.includes("drive.google.com/file");
 
 if (isYouTube || isFacebook || isTikTok || isInstagram || isTwitter || isDrive) {
@@ -3106,7 +3105,7 @@ if (isYouTube || isFacebook || isTikTok || isInstagram || isTwitter || isDrive) 
     }
   }
 
-  // 2) LOCAL VIDEO FILE â†’ dynamic aspect
+  // 2) LOCAL VIDEO FILE → dynamic aspect
   else if (isVideoFile) {
     const video = document.createElement("video");
     video.src = url;
@@ -3125,7 +3124,7 @@ if (isYouTube || isFacebook || isTikTok || isInstagram || isTwitter || isDrive) 
     });
   }
 
-  // 3) IMAGE â†’ dynamic aspect
+  // 3) IMAGE → dynamic aspect
   else {
     const img = document.createElement("img");
     img.src = url;
@@ -3224,7 +3223,7 @@ postBtn.addEventListener("click", () => {
 
   const reply = {
     userName: currentUser.fullName,
-    userHandle: "ð“¬ð“¹" + currentUser.username.toLowerCase(),
+    userHandle: "𝓬𝓹" + currentUser.username.toLowerCase(),
     text,verified: currentUser.verified || false,
 
     createdAt: new Date().toISOString(),
@@ -3261,7 +3260,7 @@ actions.className = "post-actions flex justify-around flex-wrap text-gray-500 mt
         if (replyText && replyText.trim() !== "") {
           const reply = {
             userName,
-            userHandle: "ð“¬ð“¹" + currentUser.username.toLowerCase(),
+            userHandle: "𝓬𝓹" + currentUser.username.toLowerCase(),
             text: replyText.trim(),
             createdAt: new Date().toISOString(),
           };
@@ -3645,7 +3644,7 @@ actions.className = "post-actions flex justify-around flex-wrap text-gray-500 mt
       updateNotifications();
     });
 
-// Global click listener for â‹® post menu
+// Global click listener for ⋮ post menu
 document.addEventListener('click', function (e) {
   const isBtn = e.target.closest('.post-options-btn');
   const allMenus = document.querySelectorAll('.post-options-menu');
@@ -3765,7 +3764,7 @@ document.addEventListener('click', function (e) {
 
   usersSnapshot.forEach((doc) => {
     const user = { id: doc.id, ...doc.data() };
-    if (user.fullName && user.fullName.trim().endsWith("ðŸŒŸ")) {
+    if (user.fullName && user.fullName.trim().endsWith("🌟")) {
       if (user.fullName.trim().toUpperCase() === "INDUWARA JAYASINGHE") {
         induwaraUser = user;
       } else {
@@ -3822,7 +3821,7 @@ document.addEventListener('click', function (e) {
 
               <span class="text-yellow-400 text-lg animate-bounce">Verified</span>
             </div>
-            <p class="text-gray-500 dark:text-gray-400">ð“¬ð“¹${user.username}</p>
+            <p class="text-gray-500 dark:text-gray-400">𝓬𝓹${user.username}</p>
           </div>
         </div>
         <button class="follow-btn px-4 py-2 text-sm font-semibold rounded-full border border-yellow-400 dark:border-yellow-300 ${
@@ -3833,7 +3832,7 @@ document.addEventListener('click', function (e) {
       </div>
       <div class="mt-3 flex justify-between items-center text-sm text-gray-600 dark:text-gray-300">
         <span><i>This Clidder account has been verified by Black Hat.</i></span>
-        <span class="text-right font-medium">${userPosts.length} Posts â€¢ ${followers.length} Followers</span>
+        <span class="text-right font-medium">${userPosts.length} Posts • ${followers.length} Followers</span>
       </div>
     `;
 
@@ -3946,7 +3945,7 @@ document.addEventListener('click', function (e) {
 
               <span class="text-yellow-400 text-lg animate-bounce"></span>
             </div>
-            <p class="text-gray-500 dark:text-gray-400">ð“¬ð“¹${user.username}</p>
+            <p class="text-gray-500 dark:text-gray-400">𝓬𝓹${user.username}</p>
           </div>
         </div>
         <button class="follow-btn px-4 py-2 text-sm font-semibold rounded-full border border-yellow-400 dark:border-yellow-300 ${
@@ -3956,8 +3955,8 @@ document.addEventListener('click', function (e) {
         </button>
       </div>
       <div class="mt-3 flex justify-between items-center text-sm text-gray-600 dark:text-gray-300">
-        <span><i><b>ð“’ð“µð“²ð“­ð“­ð“®ð“» | ð“ ð“™ð“ªð”‚ð“ªð“¼ð“²ð“·ð“°ð“±ð“® ð“‘ð“»ð“¸ð“½ð“±ð“®ð“»ð“¼ ð“—ð“¸ð“µð“­ð“²ð“·ð“°ð“¼ ð“’ð“¸ð“¶ð“¹ð“ªð“·ð”‚ ð“›ð“²ð“¶ð“²ð“½ð“®ð“­.</b></i></span>
-        <span class="text-right font-medium">${userPosts.length} Posts â€¢ ${followers.length} Followers</span>
+        <span><i><b>𝓒𝓵𝓲𝓭𝓭𝓮𝓻 | 𝓐 𝓙𝓪𝔂𝓪𝓼𝓲𝓷𝓰𝓱𝓮 𝓑𝓻𝓸𝓽𝓱𝓮𝓻𝓼 𝓗𝓸𝓵𝓭𝓲𝓷𝓰𝓼 𝓒𝓸𝓶𝓹𝓪𝓷𝔂 𝓛𝓲𝓶𝓲𝓽𝓮𝓭.</b></i></span>
+        <span class="text-right font-medium">${userPosts.length} Posts • ${followers.length} Followers</span>
       </div>
     `;
 
@@ -4167,19 +4166,19 @@ document.addEventListener('click', function (e) {
     const whoToFollow = [
       {
         name: "Clidder",
-        handle: "ð“¬ð“¹clidder",
+        handle: "𝓬𝓹clidder",
         avatar:
           "https://i.ibb.co/0VqN92C4/clidder-off-dark.png",
       },
       {
-        name: "Appleð“¬ð“¹",
-        handle: "ð“¬ð“¹appleinc",
+        name: "Apple𝓬𝓹",
+        handle: "𝓬𝓹appleinc",
         avatar:
           "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQUdOAh9FKCC6CszRyOE_tODjH_U_blkP5SwQ&s?text=B&font=roboto&font-weight=700&bg=ddd&fg=555",
       },
       {
-        name: "Teslað“¬ð“¹",
-        handle: "ð“¬ð“¹tesla",
+        name: "Tesla𝓬𝓹",
+        handle: "𝓬𝓹tesla",
         avatar:
           "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTFJP7X_crOPPYfdGyvHw8KhkxswWPubv8P4w&s?text=C&font=roboto&font-weight=700&bg=ddd&fg=555",
       },
@@ -4348,7 +4347,7 @@ document.addEventListener('click', function (e) {
           createdAt: serverTimestamp(),
           userId: currentUser.id,
           userName: currentUser.fullName,
-          userHandle: "ð“¬ð“¹" + currentUser.username.toLowerCase(),
+          userHandle: "𝓬𝓹" + currentUser.username.toLowerCase(),
           profilePic: currentUser.profilePic || "",
 verified: currentUser.verified || false,
 
@@ -4472,8 +4471,8 @@ const scrollTopBtn = document.getElementById("scrollTopBtn");
  window.addEventListener('DOMContentLoaded', () => {
     const usernames = document.querySelectorAll('.user-handle');
     usernames.forEach(el => {
-      if (el.textContent.startsWith('ð“¬ð“¹')) {
-        el.textContent = el.textContent.replace(/^ð“¬ð“¹/, 'ð“¬ð“¹');
+      if (el.textContent.startsWith('𝓬𝓹')) {
+        el.textContent = el.textContent.replace(/^𝓬𝓹/, '𝓬𝓹');
       }
     });
   });
@@ -4622,45 +4621,33 @@ document.getElementById('btnInstallPWA').addEventListener('click', async () => {
 
 </script>
 
-<!-- ðŸ“± Mobile Bottom Navigation Bar -->
+<!-- 📱 Mobile Bottom Navigation Bar -->
 <nav id="mobileBottomNav" class="fixed bottom-0 left-0 right-0 bg-white border-t border-gray-200 flex justify-around items-center h-16 z-50 md:hidden">
   <button id="mobileNavHome" class="flex flex-col items-center text-gray-600 hover:text-[#FF7D1E]">
     <i class="fas fa-home text-black dark:text-white" 
    style="text-shadow: -1px -1px 0 black, 1px -1px 0 black, -1px 1px 0 black, 1px 1px 0 black;"></i><span class="text-xs"></span>
   </button>
+  
+
+
 
   <button id="mobileNavFavs" class="flex flex-col items-center text-gray-600 hover:text-[#FF7D1E]">
-    <i class="fas fa-star text-black dark:text-white" 
-   style="text-shadow: -1px -1px 0 black, 1px -1px 0 black, -1px 1px 0 black, 1px 1px 0 black;"></i><span class="text-xs"></span>
+    <i class="fas fa-star text-xl"></i><span class="text-xs"></span>
   </button>
-  
-  <button id="mobileNavFromMe" class="flex flex-col items-center text-gray-600 dark:text-white hover:text-[#FF7D1E]">
-  <i class="fas fa-share-square text-black dark:text-white"
-     style="text-shadow: -1px -1px 0 black, 1px -1px 0 black, -1px 1px 0 black, 1px 1px 0 black;"></i>
-  <span class="text-xs"></span>
-</button>
 
 <button id="mobileclips" class="flex flex-col items-center text-gray-600 hover:text-[#FF7D1E]">
-    <i class="fas fa-play-circle text-black dark:text-white" 
-   style="text-shadow: -1px -1px 0 black, 1px -1px 0 black, -1px 1px 0 black, 1px 1px 0 black;"></i><span class="text-xs"></span>
+    <i class="fas fa-play-circle fa-lg"></i><span class="text-xs"></span>
   </button>
 
    <button id="mobileNavClidders" class="flex flex-col items-center text-gray-600 hover:text-[#FF7D1E]">
-      <i class="fas fa-users text-black dark:text-white" 
-   style="text-shadow: -1px -1px 0 black, 1px -1px 0 black, -1px 1px 0 black, 1px 1px 0 black;"></i>
+      <i class="fas fa-users text-lg"></i>
     </button>
 
 
-<button id="mobileNavVerified" class="flex flex-col items-center text-gray-600 dark:text-white hover:text-[#FF7D1E]">
-  <i class="fas fa-bolt text-black dark:text-white"
-     style="text-shadow: -1px -1px 0 black, 1px -1px 0 black, -1px 1px 0 black, 1px 1px 0 black;"></i>
-  <span class="text-xs"></span>
-</button>
-
-
-
-
- 
+  
+  <button id="mobileModeToggle" class="text-gray-700 dark:text-white text-xl focus:outline-none">
+      <i class="fas fa-moon"></i>
+    </button>
 
 
 
@@ -4693,24 +4680,29 @@ document.getElementById('btnInstallPWA').addEventListener('click', async () => {
   // Ask for notification permission and get token
   messaging.requestPermission()
     .then(() => {
-      console.log("ðŸ”” Notification permission granted.");
+      console.log("🔔 Notification permission granted.");
       return messaging.getToken({
         vapidKey: "BM0BorMxQhF2Um-9nMjPzmIkhOOZtLa8yAGH1X5kHbJbCZfGTO2oOSYsdmMpxH2U1ncd5AquVz96AWug8jHcaGI"
       });
     })
     .then((token) => {
-      console.log("âœ… Registration Token:", token);
-      // ðŸ‘‰ Copy this token and use it to send push notifications
+      console.log("✅ Registration Token:", token);
+      // 👉 Copy this token and use it to send push notifications
       // You can save it to Firestore or your own database if needed
     })
     .catch((err) => {
-      console.error("âŒ Error getting token or permission denied:", err);
+      console.error("❌ Error getting token or permission denied:", err);
     });
 </script>
 
+<script>
+  document.getElementById('mobileModeToggle').addEventListener('click', () => {
+    document.body.classList.toggle('dark-mode');
+    document.body.classList.toggle('light-mode');
+  });
+</script>
 
-
-<!-- â˜° Mobile Sidebar Menu -->
+<!-- ☰ Mobile Sidebar Menu -->
 <div id="mobileSidebarMenu" class="fixed top-16 right-4 bg-white dark:bg-black shadow-lg rounded-lg z-50 p-4 w-64 space-y-3 hidden">
   <button id="mobileBtnMessages" class="w-full text-left text-gray-800 dark:text-white hover:text-[#FF7D1E]">
     <i class="fas fa-envelope mr-2"></i> Messages
@@ -4758,19 +4750,7 @@ document.getElementById('btnInstallPWA').addEventListener('click', async () => {
   });
 </script>
 
-<script>
-  document.getElementById("mobileNavFromMe").addEventListener("click", function () {
-    const sidebarBtn = document.getElementById("sidebarFromMe");
-    if (sidebarBtn) sidebarBtn.click();
-  });
-</script>
 
-<script>
-  document.getElementById("mobileNavVerified").addEventListener("click", () => {
-    const sidebarBtn = document.getElementById("sidebarLists");
-    if (sidebarBtn) sidebarBtn.click();
-  });
-</script>
 
 
 
@@ -5099,7 +5079,7 @@ activateTab(tabForYou);
 
   const userSearchInput = document.getElementById("userSearchInput");
 
-  let usersById = {}; // uid â†’ { fullName, userName }
+  let usersById = {}; // uid → { fullName, userName }
 
   async function loadUsers() {
     const usersSnapshot = await getDocs(collection(db, "users"));
@@ -5502,7 +5482,7 @@ document.getElementById("mobileAddPostBtn").addEventListener("click", () => {
     };
   }
 
-  // ðŸ” Example usage in your Firestore Clidde submit
+  // 🔁 Example usage in your Firestore Clidde submit
   // const { permission, allowedUsers } = getReplySettings();
   // await addDoc(..., { replyPermission: permission, allowedUsers })
 </script>
@@ -5526,43 +5506,43 @@ document.addEventListener('DOMContentLoaded', function () {
   const tweetInput = document.getElementById('tweetInput');
 
   const emojis = [
-    "ðŸ˜€", "ðŸ˜ƒ", "ðŸ˜„", "ðŸ˜", "ðŸ˜†", "ðŸ˜…", "ðŸ˜‚", "ðŸ¤£", "ðŸ˜Š", "ðŸ˜‡",
-    "ðŸ™‚", "ðŸ™ƒ", "ðŸ˜‰", "ðŸ˜Œ", "ðŸ˜", "ðŸ¥°", "ðŸ˜˜", "ðŸ˜—", "ðŸ˜™", "ðŸ˜š",
-    "ðŸ˜‹", "ðŸ˜›", "ðŸ˜", "ðŸ˜œ", "ðŸ¤ª", "ðŸ¤¨", "ðŸ§", "ðŸ¤“", "ðŸ˜Ž", "ðŸ¥¸",
-    "ðŸ¤©", "ðŸ¥³", "ðŸ˜", "ðŸ˜’", "ðŸ˜ž", "ðŸ˜”", "ðŸ˜Ÿ", "ðŸ˜•", "ðŸ™", "â˜¹ï¸",
-    "ðŸ˜£", "ðŸ˜–", "ðŸ˜«", "ðŸ˜©", "ðŸ¥º", "ðŸ˜¢", "ðŸ˜­", "ðŸ˜¤", "ðŸ˜ ", "ðŸ˜¡",
-    "ðŸ¤¬", "ðŸ¤¯", "ðŸ˜³", "ðŸ¥µ", "ðŸ¥¶", "ðŸ˜±", "ðŸ˜¨", "ðŸ˜°", "ðŸ˜¥", "ðŸ˜“",
-    "ðŸ¤—", "ðŸ¤”", "ðŸ¤­", "ðŸ¤«", "ðŸ¤¥", "ðŸ˜¶", "ðŸ˜", "ðŸ˜‘", "ðŸ˜¬", "ðŸ™„",
-    "ðŸ˜¯", "ðŸ˜¦", "ðŸ˜§", "ðŸ˜®", "ðŸ˜²", "ðŸ¥±", "ðŸ˜´", "ðŸ¤¤", "ðŸ˜ª", "ðŸ˜µ",
-    "ðŸ¤", "ðŸ¥´", "ðŸ¤¢", "ðŸ¤®", "ðŸ¤§", "ðŸ˜·", "ðŸ¤’", "ðŸ¤•", "ðŸ¤‘", "ðŸ¤ ",
-    "ðŸ˜ˆ", "ðŸ‘¿", "ðŸ‘¹", "ðŸ‘º", "ðŸ’€", "â˜ ï¸", "ðŸ‘»", "ðŸ‘½", "ðŸ‘¾", "ðŸ¤–",
-    "ðŸ’©", "ðŸ˜º", "ðŸ˜¸", "ðŸ˜¹", "ðŸ˜»", "ðŸ˜¼", "ðŸ˜½", "ðŸ™€", "ðŸ˜¿", "ðŸ˜¾",
-    "ðŸ™ˆ", "ðŸ™‰", "ðŸ™Š", "ðŸ’‹", "ðŸ’Œ", "ðŸ’˜", "ðŸ’", "ðŸ’–", "ðŸ’—", "ðŸ’“",
-    "ðŸ’ž", "ðŸ’•", "ðŸ’Ÿ", "â£ï¸", "â¤ï¸", "ðŸ§¡", "ðŸ’›", "ðŸ’š", "ðŸ’™", "ðŸ’œ",
-    "ðŸ¤Ž", "ðŸ–¤", "ðŸ¤", "ðŸ’”", "â¤ï¸â€ðŸ”¥", "â¤ï¸â€ðŸ©¹", "ðŸ’¯", "ðŸ’¢", "ðŸ’¥", "ðŸ’«",
-    "ðŸ’¦", "ðŸ’¨", "ðŸ•³ï¸", "ðŸ‘‚", "ðŸ‘ƒ", "ðŸ§ ", "ðŸ«€", "ðŸ«", "ðŸ¦·", "ðŸ¦´",
-    "ðŸ‘€", "ðŸ‘ï¸", "ðŸ‘…", "ðŸ‘„", "ðŸ«¦", "ðŸ’‹", "ðŸ‘¶", "ðŸ§’", "ðŸ‘¦", "ðŸ‘§",
-    "ðŸ§‘", "ðŸ‘±", "ðŸ‘¨", "ðŸ‘©", "ðŸ§”", "ðŸ‘¨â€ðŸ¦°", "ðŸ‘¨â€ðŸ¦±", "ðŸ‘¨â€ðŸ¦³", "ðŸ‘¨â€ðŸ¦²", "ðŸ‘©â€ðŸ¦°",
-    "ðŸ‘©â€ðŸ¦±", "ðŸ‘©â€ðŸ¦³", "ðŸ‘©â€ðŸ¦²", "ðŸ§“", "ðŸ‘´", "ðŸ‘µ", "ðŸ™", "ðŸ™Ž", "ðŸ™…", "ðŸ™†",
-    "ðŸ’", "ðŸ™‹", "ðŸ§", "ðŸ™‡", "ðŸ¤¦", "ðŸ¤·", "ðŸ§‘â€âš•ï¸", "ðŸ§‘â€ðŸŽ“", "ðŸ§‘â€ðŸ«", "ðŸ§‘â€âš–ï¸",
-    "ðŸ§‘â€ðŸŒ¾", "ðŸ§‘â€ðŸ³", "ðŸ§‘â€ðŸ”§", "ðŸ§‘â€ðŸ­", "ðŸ§‘â€ðŸ’¼", "ðŸ§‘â€ðŸ”¬", "ðŸ§‘â€ðŸŽ¤", "ðŸ§‘â€ðŸŽ¨", "ðŸ§‘â€âœˆï¸", "ðŸ§‘â€ðŸš€",
-    "ðŸ§‘â€ðŸš’", "ðŸ‘®", "ðŸ•µï¸", "ðŸ’‚", "ðŸ‘·", "ðŸ¤´", "ðŸ‘¸", "ðŸ‘³", "ðŸ‘²", "ðŸ§•",
-    "ðŸ¤µ", "ðŸ‘°", "ðŸ¤°", "ðŸ¤±", "ðŸ‘¼", "ðŸŽ…", "ðŸ¤¶", "ðŸ§‘â€ðŸŽ„", "ðŸ¦¸", "ðŸ¦¹",
-    "ðŸ§™", "ðŸ§š", "ðŸ§›", "ðŸ§œ", "ðŸ§", "ðŸ§ž", "ðŸ§Ÿ", "ðŸ’ƒ", "ðŸ•º", "ðŸ•´ï¸",
-    "ðŸš¶", "ðŸƒ", "ðŸ’ª", "ðŸ¦µ", "ðŸ¦¶", "ðŸ‘‚", "ðŸ¦»", "ðŸ‘ƒ", "ðŸ‘£", "ðŸ«¶",
-    "ðŸ‘", "ðŸ‘Ž", "ðŸ‘Š", "âœŠ", "ðŸ¤›", "ðŸ¤œ", "ðŸ‘", "ðŸ™Œ", "ðŸ‘", "ðŸ¤²",
-    "ðŸ¤", "ðŸ™", "âœï¸", "ðŸ’…", "ðŸ¤³", "ðŸ’", "ðŸ’„", "ðŸ’¼", "ðŸ‘“", "ðŸ•¶ï¸",
-    "ðŸŒ‚", "â˜‚ï¸", "ðŸŽ©", "ðŸ§¢", "ðŸ‘’", "ðŸŽ“", "â›‘ï¸", "ðŸ“¿", "ðŸ’Ž", "ðŸ”",
-    "ðŸ“±", "ðŸ“²", "ðŸ’»", "ðŸ–¥ï¸", "ðŸ–¨ï¸", "ðŸ•¹ï¸", "ðŸ—œï¸", "ðŸ’½", "ðŸ’¾", "ðŸ’¿",
-    "ðŸ“€", "ðŸ“·", "ðŸ“¸", "ðŸ“¹", "ðŸŽ¥", "ðŸ“ž", "â˜Žï¸", "ðŸ“Ÿ", "ðŸ“ ", "ðŸ“º",
-    "ðŸ“»", "ðŸŽ™ï¸", "ðŸŽšï¸", "ðŸŽ›ï¸", "ðŸ§­", "â±ï¸", "â²ï¸", "â°", "ðŸ•°ï¸", "âŒ›",
-    "â³", "ðŸ“¡", "ðŸ”‹", "ðŸ”Œ", "ðŸ’¡", "ðŸ”¦", "ðŸ•¯ï¸", "ðŸ§¯", "ðŸ›¢ï¸", "ðŸ’¸",
-    "ðŸ’µ", "ðŸ’´", "ðŸ’¶", "ðŸ’·", "ðŸ’°", "ðŸ’³", "ðŸ§¾", "ðŸ’Ž", "âš–ï¸", "ðŸ”§",
-    "ðŸ”¨", "âš’ï¸", "ðŸ› ï¸", "â›ï¸", "ðŸ”©", "âš™ï¸", "ðŸ—œï¸", "âš—ï¸", "ðŸ§ª", "ðŸ§«",
-    "ðŸ§¬", "ðŸ”¬", "ðŸ”­", "ðŸ“¡", "ðŸ’‰", "ðŸ©¸", "ðŸ’Š", "ðŸ©¹", "ðŸ©º", "ðŸšª",
-    "ðŸ›ï¸", "ðŸ›‹ï¸", "ðŸª‘", "ðŸš½", "ðŸš¿", "ðŸ›", "ðŸª’", "ðŸ§´", "ðŸ§·", "ðŸ§¹",
-    "ðŸ§º", "ðŸ§»", "ðŸª ", "ðŸ§¼", "ðŸª¥", "ðŸ§½", "ðŸ›’", "ðŸš¬", "âš°ï¸", "âš±ï¸",
-    "ðŸº", "ðŸ•³ï¸", "ðŸª¦", "ðŸ§¿", "ðŸª¬", "ðŸ“¿", "ðŸªž", "ðŸªŸ", "ðŸ›ï¸", "ðŸ“¦"
+    "😀", "😃", "😄", "😁", "😆", "😅", "😂", "🤣", "😊", "😇",
+    "🙂", "🙃", "😉", "😌", "😍", "🥰", "😘", "😗", "😙", "😚",
+    "😋", "😛", "😝", "😜", "🤪", "🤨", "🧐", "🤓", "😎", "🥸",
+    "🤩", "🥳", "😏", "😒", "😞", "😔", "😟", "😕", "🙁", "☹️",
+    "😣", "😖", "😫", "😩", "🥺", "😢", "😭", "😤", "😠", "😡",
+    "🤬", "🤯", "😳", "🥵", "🥶", "😱", "😨", "😰", "😥", "😓",
+    "🤗", "🤔", "🤭", "🤫", "🤥", "😶", "😐", "😑", "😬", "🙄",
+    "😯", "😦", "😧", "😮", "😲", "🥱", "😴", "🤤", "😪", "😵",
+    "🤐", "🥴", "🤢", "🤮", "🤧", "😷", "🤒", "🤕", "🤑", "🤠",
+    "😈", "👿", "👹", "👺", "💀", "☠️", "👻", "👽", "👾", "🤖",
+    "💩", "😺", "😸", "😹", "😻", "😼", "😽", "🙀", "😿", "😾",
+    "🙈", "🙉", "🙊", "💋", "💌", "💘", "💝", "💖", "💗", "💓",
+    "💞", "💕", "💟", "❣️", "❤️", "🧡", "💛", "💚", "💙", "💜",
+    "🤎", "🖤", "🤍", "💔", "❤️‍🔥", "❤️‍🩹", "💯", "💢", "💥", "💫",
+    "💦", "💨", "🕳️", "👂", "👃", "🧠", "🫀", "🫁", "🦷", "🦴",
+    "👀", "👁️", "👅", "👄", "🫦", "💋", "👶", "🧒", "👦", "👧",
+    "🧑", "👱", "👨", "👩", "🧔", "👨‍🦰", "👨‍🦱", "👨‍🦳", "👨‍🦲", "👩‍🦰",
+    "👩‍🦱", "👩‍🦳", "👩‍🦲", "🧓", "👴", "👵", "🙍", "🙎", "🙅", "🙆",
+    "💁", "🙋", "🧏", "🙇", "🤦", "🤷", "🧑‍⚕️", "🧑‍🎓", "🧑‍🏫", "🧑‍⚖️",
+    "🧑‍🌾", "🧑‍🍳", "🧑‍🔧", "🧑‍🏭", "🧑‍💼", "🧑‍🔬", "🧑‍🎤", "🧑‍🎨", "🧑‍✈️", "🧑‍🚀",
+    "🧑‍🚒", "👮", "🕵️", "💂", "👷", "🤴", "👸", "👳", "👲", "🧕",
+    "🤵", "👰", "🤰", "🤱", "👼", "🎅", "🤶", "🧑‍🎄", "🦸", "🦹",
+    "🧙", "🧚", "🧛", "🧜", "🧝", "🧞", "🧟", "💃", "🕺", "🕴️",
+    "🚶", "🏃", "💪", "🦵", "🦶", "👂", "🦻", "👃", "👣", "🫶",
+    "👍", "👎", "👊", "✊", "🤛", "🤜", "👏", "🙌", "👐", "🤲",
+    "🤝", "🙏", "✍️", "💅", "🤳", "💍", "💄", "💼", "👓", "🕶️",
+    "🌂", "☂️", "🎩", "🧢", "👒", "🎓", "⛑️", "📿", "💎", "🔍",
+    "📱", "📲", "💻", "🖥️", "🖨️", "🕹️", "🗜️", "💽", "💾", "💿",
+    "📀", "📷", "📸", "📹", "🎥", "📞", "☎️", "📟", "📠", "📺",
+    "📻", "🎙️", "🎚️", "🎛️", "🧭", "⏱️", "⏲️", "⏰", "🕰️", "⌛",
+    "⏳", "📡", "🔋", "🔌", "💡", "🔦", "🕯️", "🧯", "🛢️", "💸",
+    "💵", "💴", "💶", "💷", "💰", "💳", "🧾", "💎", "⚖️", "🔧",
+    "🔨", "⚒️", "🛠️", "⛏️", "🔩", "⚙️", "🗜️", "⚗️", "🧪", "🧫",
+    "🧬", "🔬", "🔭", "📡", "💉", "🩸", "💊", "🩹", "🩺", "🚪",
+    "🛏️", "🛋️", "🪑", "🚽", "🚿", "🛁", "🪒", "🧴", "🧷", "🧹",
+    "🧺", "🧻", "🪠", "🧼", "🪥", "🧽", "🛒", "🚬", "⚰️", "⚱️",
+    "🏺", "🕳️", "🪦", "🧿", "🪬", "📿", "🪞", "🪟", "🛍️", "📦"
   ];
 
   // Populate emoji picker
@@ -5685,7 +5665,6 @@ document.addEventListener('DOMContentLoaded', function () {
 </script>
 
 
-
 <!-- Fullscreen Image Modal -->
 <div id="imageModal" class="fixed inset-0 z-50 bg-black bg-opacity-80 hidden items-center justify-center">
   <span class="absolute top-4 right-6 text-white text-2xl cursor-pointer" onclick="closeImageModal()">&times;</span>
@@ -5734,6 +5713,7 @@ document.addEventListener('DOMContentLoaded', function () {
   });
 </script>
 
+
 <script>
   const dropdownToggle = document.getElementById('dropdownModeToggle');
 
@@ -5756,6 +5736,14 @@ document.addEventListener('DOMContentLoaded', function () {
     document.body.classList.remove('light-mode', 'dark-mode');
     document.body.classList.add(`${savedTheme}-mode`);
     applyDarkModeState();
+  });
+</script>
+
+<script>
+  document.addEventListener("DOMContentLoaded", () => {
+    document.querySelectorAll(".verified-badge").forEach(badge => {
+      badge.style.pointerEvents = "none";
+    });
   });
 </script>
 
