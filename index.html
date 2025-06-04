@@ -732,7 +732,7 @@ body.dark-mode #searchInput {
 
 .post-content {
   display: -webkit-box;
-  -webkit-line-clamp: 5;
+  -webkit-line-clamp: 15;
   -webkit-box-orient: vertical;
   overflow: hidden;
   position: relative;
@@ -743,6 +743,7 @@ body.dark-mode #searchInput {
   -webkit-line-clamp: unset;
   max-height: none;
 }
+
 
 .read-more {
   color: #FF7D1E; /* Tailwind's blue-500 */
@@ -1364,6 +1365,28 @@ body.dark-mode textarea::placeholder {
 }
 
 .pro-badge {
+  width: 16px;
+  height: 16px;
+  margin-left: 4px;
+  vertical-align: middle;
+  pointer-events: none;
+}
+
+.company-badge {
+  width: 16px;
+  height: 16px;
+  margin-left: 4px;
+  vertical-align: middle;
+  pointer-events: none;
+}
+
+/* ORANGE-OUT ANY SCHEME THAT SHOULD STAND OUT */
+.protocol-link {
+  color: #FF7D1E !important;
+}
+
+
+.ai-badge {
   width: 16px;
   height: 16px;
   margin-left: 4px;
@@ -2237,6 +2260,7 @@ birthdayUsers.forEach(user => {
     ${getPremiumHTML(user.premium)}
     ${getVerifiedHTML(user.verified)}
     ${getProHTML(user.pro)}
+    ${getCompanyHTML(user.company)}
   </span>
   `;
   usersListEl.appendChild(card);
@@ -2547,6 +2571,9 @@ if (currentUser) {
     ${getPremiumHTML(currentUser.premium)}
     ${getVerifiedHTML(currentUser.verified)}
     ${getProHTML(currentUser.pro)}
+    ${getCompanyHTML(currentUser.company)}
+    ${getAIHTML(currentUser.AI)}
+
   </span>
 `;
 
@@ -2820,6 +2847,8 @@ if (!isValidEmailOrPhone(email)) {
 verified: currentUser.verified || false,
 premium: currentUser.premium || false,
 pro: currentUser.pro || false,
+company: currentUser.company || false,
+ AI: currentUser.AI || false,
 
           userHandle: "𝓬𝓹" + currentUser.username.toLowerCase(),
           profilePic: currentUser.profilePic || "",
@@ -2931,7 +2960,9 @@ nameText.innerHTML = `
   ${post.userName || "HatUser"}
   ${getPremiumHTML(post.premium)}
   ${getVerifiedHTML(post.verified)}
- ${getProHTML(post.pro)}
+  ${getProHTML(post.pro)}
+  ${getCompanyHTML(post.company)}
+  ${getAIHTML(post.AI)}
 
 `;
 
@@ -2975,29 +3006,45 @@ content.className = "post-content text-gray-900 text-lg whitespace-pre-wrap brea
 const urlRegex = /(https?:\/\/[^\s]+)/g;
 const hashtagRegex = /#(\w+)/g;
 
-let linkedText = post.caption
+function escapeHTML(str) {
+  return str
+    .replace(/&/g, "&amp;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;");
+}
+
+// Step 1: Escape HTML to prevent injection
+let safeText = escapeHTML(post.caption || "");
+
+// Step 2: Linkify URLs and hashtags
+let linkedText = safeText
   .replace(urlRegex, (url) => {
-    return `<a href="${url}" target="_blank" rel="noopener noreferrer" class="text-[#FF7D1E] hover:underline">${url}</a>`;
+    return `<a href="${url}" target="_blank" rel="noopener noreferrer">${url}</a>`;
   })
   .replace(hashtagRegex, (tag, word) => {
     return `<span class="hashtag text-purple-500 cursor-pointer hover:underline" data-tag="${word}">#${word}</span>`;
   });
 
+// Step 3: Render safely
 content.innerHTML = linkedText;
+;
 
 div.appendChild(content);
 
 // Add "Read more" button if caption is long
-if (post.caption && post.caption.split(/\s+/).length > 50) {
+if (post.caption && (post.caption.length > 300 || post.caption.split('\n').length > 5)) {
   const readMore = document.createElement("span");
   readMore.className = "read-more text-[#FF7D1E] hover:underline";
   readMore.textContent = "Read more";
   readMore.addEventListener("click", () => {
     content.classList.toggle("expanded");
-    readMore.textContent = content.classList.contains("expanded") ? "Show less" : "Show more";
+    readMore.textContent = content.classList.contains("expanded")
+      ? "Show less"
+      : "Read more";
   });
   div.appendChild(readMore);
 }
+
 
 
 // Enable hashtag click to auto-fill search bar
@@ -3185,11 +3232,15 @@ if (isYouTube || isFacebook || isTikTok || isInstagram || isTwitter || isDrive) 
   repliesDiv.className = "reply-list";
 
   // First comment
-  const firstReply = document.createElement("div");
-  firstReply.className = "reply-item";
-  firstReply.innerHTML = `
+const firstReply = document.createElement("div");
+firstReply.className = "reply-item";
+firstReply.innerHTML = `
   <span class="inline-flex items-center font-semibold">
     ${post.replies[0].userName}
+    ${getAIHTML(post.replies[0].AI)}
+    ${getCompanyHTML(post.replies[0].company)}
+    ${getProHTML(post.replies[0].pro)}
+    ${getPremiumHTML(post.replies[0].premium)}
     ${getVerifiedHTML(post.replies[0].verified)}
   </span> ${post.replies[0].text}
 `;
@@ -3212,9 +3263,14 @@ if (isYouTube || isFacebook || isTikTok || isInstagram || isTwitter || isDrive) 
       replyDiv.innerHTML = `
   <span class="inline-flex items-center font-semibold">
     ${reply.userName}
+    ${getPremiumHTML(reply.premium)}
     ${getVerifiedHTML(reply.verified)}
+    ${getProHTML(reply.pro)}
+    ${getCompanyHTML(reply.company)}
+    ${getAIHTML(reply.AI)}
   </span> ${reply.text}
 `;
+
 
       moreComments.appendChild(replyDiv);
     });
@@ -3261,6 +3317,10 @@ postBtn.addEventListener("click", () => {
     userName: currentUser.fullName,
     userHandle: "𝓬𝓹" + currentUser.username.toLowerCase(),
     text,verified: currentUser.verified || false,
+  premium: currentUser.premium || false,
+  pro: currentUser.pro || false,
+  company: currentUser.company || false,
+  AI: currentUser.AI || false,
 
     createdAt: new Date().toISOString(),
   };
@@ -3854,6 +3914,9 @@ document.addEventListener('click', function (e) {
     ${getPremiumHTML(user.premium)}
     ${getVerifiedHTML(user.verified)}
     ${getProHTML(user.pro)}
+    ${getCompanyHTML(user.company)}
+    ${getAIHTML(user.AI)}
+
   </span>
 </h3>
 
@@ -3980,6 +4043,7 @@ document.addEventListener('click', function (e) {
     ${getPremiumHTML(user.premium)}
     ${getVerifiedHTML(user.verified)}
     ${getProHTML(user.pro)}
+    ${getCompanyHTML(user.company)}
   </span>
 </h3>
 
@@ -4399,6 +4463,8 @@ if (!isValidEmailOrPhone(email)) {
 verified: currentUser.verified || false,
 premium: currentUser.premium || false,
 pro: currentUser.pro || false,
+company: currentUser.company || false,
+AI: currentUser.AI || false,
 
           likes: [],
           retweets: [],
@@ -5062,13 +5128,25 @@ function getVerifiedHTML(verified) {
 
 function getPremiumHTML(isPremium) {
   return isPremium === true
-    ? ' <img src="https://upload.wikimedia.org/wikipedia/commons/archive/8/81/20230122072306%21Twitter_Verified_Badge_Gold.svg" class="premium-badge" alt="Premium">'
+    ? ' <img src="https://upload.wikimedia.org/wikipedia/commons/d/d8/Orange-verified-sign-and-tick-18752.svg" class="premium-badge" alt="Premium">'
     : '';
 }
 
 function getProHTML(pro) {
   return pro === true
     ? `<img src="https://upload.wikimedia.org/wikipedia/commons/b/be/Verified-badge-pink.svg" class="pro-badge" alt="Pro">`
+    : "";
+}
+
+function getCompanyHTML(company) {
+  return company === true
+    ? `<img src="https://upload.wikimedia.org/wikipedia/commons/archive/8/81/20230122072306%21Twitter_Verified_Badge_Gold.svg" class="company-badge" alt="Company">`
+    : "";
+}
+
+function getAIHTML(isAI) {
+  return isAI === true
+    ? `<img src="https://upload.wikimedia.org/wikipedia/commons/a/af/Light-green-verified-sign-and-tick-18748.svg" class="ai-badge" alt="AI">`
     : "";
 }
 
@@ -5810,6 +5888,53 @@ document.addEventListener('DOMContentLoaded', function () {
   });
 </script>
 
+<script>
+(() => {
+  /* Schemes we want to tint */
+  const PROTOCOLS = [
+    'https:',   // you can add 'https:' here if you decide you want it too
+    'http:',
+    'mailto:',
+    'tel:',
+    'file:',
+    'ws:',
+    'data:'
+  ];
+
+  /* Build one regex that matches a word starting with any of those schemes */
+  const schemeRegex = new RegExp(
+    `(^|[\\s>])((?:${PROTOCOLS.map(p => p.replace(':', '\\:')).join('|')})[^\\s<]*)`,
+    'gi'
+  );
+
+  /* Paint every .post-content block that’s already on the page */
+  function paint(container = document) {
+    container.querySelectorAll('.post-content').forEach(el => {
+      // Skip if we already processed it
+      if (el.dataset.schemePainted) return;
+
+      el.innerHTML = el.innerHTML.replace(
+        schemeRegex,
+        (_, pre, match) => `${pre}<span class="protocol-link">${match}</span>`
+      );
+
+      el.dataset.schemePainted = 'true';
+    });
+  }
+
+  /* Initial run */
+  paint();
+
+  /* Keep watching: highlight links in posts that arrive later (infinite scroll, etc.) */
+  const feed = document.getElementById('feed');
+  if (feed) {
+    new MutationObserver(() => paint()).observe(feed, {
+      childList: true,
+      subtree:  true
+    });
+  }
+})();
+</script>
 
 
 </body>
