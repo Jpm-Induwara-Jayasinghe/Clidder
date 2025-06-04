@@ -1,5 +1,5 @@
 <html lang="en">
-<head><link rel="icon" type="image/x-icon" href="https://i.ibb.co/d09mv2HR/clidder-new-gpt.png">
+<head><link rel="icon" type="image/x-icon" href="https://i.ibb.co/T6n1yfk/Clidder.png">
   <meta charset="utf-8" />
   <meta content="width=device-width, initial-scale=1" name="viewport" />
 
@@ -1305,12 +1305,18 @@ body.dark-mode .post-options-menu button:hover {
 }
 
 
-#centerContent .verified-badge {
+/* Make *every* badge inside the feed non-selectable */
+#centerContent .verified-badge,
+#centerContent .premium-badge,
+#centerContent .pro-badge,
+#centerContent .company-badge,
+#centerContent .ai-badge {
   user-select: none !important;
   -webkit-user-select: none !important;
   -moz-user-select: none !important;
   -ms-user-select: none !important;
 }
+
 
 
   #topFeedTabs {
@@ -1411,7 +1417,7 @@ body.dark-mode textarea::placeholder {
 <body class="bg-gray-50 min-h-screen flex flex-col">
 
 <div id="splashScreen" style="position:fixed; top:0; left:0; width:100%; height:100vh; display:flex; align-items:center; justify-content:center; z-index:99999; background:#fff;">
-  <img id="splashImage" src="https://i.ibb.co/23QP3LzG/clidder-new-s.png" alt="Clidder Splash" style="width: 100px; height: 100px;" />
+  <img id="splashImage" src="https://i.ibb.co/T6n1yfk/Clidder.png" alt="Clidder Splash" style="width: 100px; height: 100px;" />
 </div>
 
 
@@ -1531,7 +1537,7 @@ body.dark-mode textarea::placeholder {
 <!-- Left-aligned clickable logo, aligned with sidebar buttons -->
 <div class="mb-2 pl-[0rem]">
   <button class="hover:bg-blue-100 dark:hover:bg-gray-700 p-2 rounded-full">
-    <img src="https://i.ibb.co/d09mv2HR/clidder-new-gpt.png" alt="Clidder Logo" class="w-8 h-8" />
+    <img src="https://i.ibb.co/T6n1yfk/Clidder.png" alt="Clidder Logo" class="w-8 h-8" />
   </button>
 </div>
 
@@ -1674,7 +1680,7 @@ body.dark-mode textarea::placeholder {
 
     <!-- Center: Clidder GPT Logo -->
     <div class="flex-1 flex justify-center">
-      <img src="https://i.ibb.co/d09mv2HR/clidder-new-gpt.png" alt="Clidder GPT" class="w-10 h-10" />
+      <img src="https://i.ibb.co/T6n1yfk/Clidder.png" alt="Clidder GPT" class="w-10 h-10" />
     </div>
 
 
@@ -1864,7 +1870,7 @@ body.dark-mode textarea::placeholder {
      style="background: linear-gradient(135deg, #6366f1, #7c3aed, #4f46e5, #06b6d4); background-size: 400% 400%; animation: gradientShift 8s ease infinite;">
   <h2 class="text-2xl font-bold">Clidder</h2>
 
-  <img src="https://i.ibb.co/d09mv2HR/clidder-new-gpt.png" width="100" alt="Security Shield Icon" class="mx-auto" />
+  <img src="https://i.ibb.co/T6n1yfk/Clidder.png" width="100" alt="Security Shield Icon" class="mx-auto" />
 
   <p class="text-white/90 text-lg font-medium">from Jayasinghe Brothers</p>
 </div>
@@ -5539,10 +5545,10 @@ tweetInput.addEventListener("input", () => {
     // Set image and background based on theme
     if (isDark) {
       splash.style.backgroundColor = "#000";
-      splashImage.src = "https://i.ibb.co/gL6Yxkch/clidder-new-d.png";
+      splashImage.src = "https://i.ibb.co/T6n1yfk/Clidder.png";
     } else {
       splash.style.backgroundColor = "#fff";
-      splashImage.src = "https://i.ibb.co/23QP3LzG/clidder-new-s.png";
+      splashImage.src = "https://i.ibb.co/T6n1yfk/Clidder.png";
     }
 
     // Hide splash after 3 seconds
@@ -5736,7 +5742,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
 
 <script>
-  const originalFaviconURL = "https://i.ibb.co/d09mv2HR/clidder-new-gpt.png";
+  const originalFaviconURL = "https://i.ibb.co/T6n1yfk/Clidder.png";
   const faviconElement = document.querySelector("link[rel~='icon']");
   let currentCount = 0;
 
@@ -5883,12 +5889,29 @@ document.addEventListener('DOMContentLoaded', function () {
 </script>
 
 <script>
-  document.addEventListener("DOMContentLoaded", () => {
-    document.querySelectorAll(".verified-badge").forEach(badge => {
-      badge.style.pointerEvents = "none";
+document.addEventListener('DOMContentLoaded', () => {
+  const badgeSel =
+    '.verified-badge, .premium-badge, .pro-badge, .company-badge, .ai-badge';
+
+  /* initial sweep */
+  hardenBadges();
+
+  /* keep sweeping as the feed grows */
+  new MutationObserver(hardenBadges).observe(
+    document.getElementById('centerContent'),
+    { childList: true, subtree: true }
+  );
+
+  function hardenBadges() {
+    document.querySelectorAll(badgeSel).forEach(badge => {
+      badge.style.pointerEvents = 'none';
+      badge.style.userSelect    = 'none';
+      badge.style.webkitUserSelect = 'none';
     });
-  });
+  }
+});
 </script>
+
 
 <script>
 (() => {
@@ -5898,6 +5921,9 @@ document.addEventListener('DOMContentLoaded', function () {
     'http:',
     'mailto:',
     'tel:',
+    '𝓬𝓹',
+    '@',
+    '#', 
     'file:',
     'ws:',
     'data:'
