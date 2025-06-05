@@ -1310,6 +1310,7 @@ body.dark-mode .post-options-menu button:hover {
 #centerContent .premium-badge,
 #centerContent .pro-badge,
 #centerContent .company-badge,
+#centerContent .clidder-badge,
 #centerContent .ai-badge {
   user-select: none !important;
   -webkit-user-select: none !important;
@@ -1399,6 +1400,15 @@ body.dark-mode textarea::placeholder {
   vertical-align: middle;
   pointer-events: none;
 }
+
+.clidder-badge {
+  width: 16px;
+  height: 16px;
+  margin-left: 4px;
+  vertical-align: middle;
+  pointer-events: none;
+}
+
 
 
   </style>
@@ -2268,6 +2278,7 @@ birthdayUsers.forEach(user => {
     ${getProHTML(user.pro)}
     ${getCompanyHTML(user.company)}
     ${getAIHTML(user.AI)}
+    ${getClidderHTML(user.Clidder)}
   </span>
   `;
   usersListEl.appendChild(card);
@@ -2580,6 +2591,7 @@ if (currentUser) {
     ${getProHTML(currentUser.pro)}
     ${getCompanyHTML(currentUser.company)}
     ${getAIHTML(currentUser.AI)}
+    ${getClidderHTML(currentUser.Clidder)}
 
   </span>
 `;
@@ -2856,6 +2868,8 @@ premium: currentUser.premium || false,
 pro: currentUser.pro || false,
 company: currentUser.company || false,
  AI: currentUser.AI || false,
+Clidder: currentUser.Clidder || false,
+
 
           userHandle: "𝓬𝓹" + currentUser.username.toLowerCase(),
           profilePic: currentUser.profilePic || "",
@@ -2970,6 +2984,7 @@ nameText.innerHTML = `
   ${getProHTML(post.pro)}
   ${getCompanyHTML(post.company)}
   ${getAIHTML(post.AI)}
+   ${getClidderHTML(post.Clidder)}
 
 `;
 
@@ -3249,6 +3264,7 @@ firstReply.innerHTML = `
     ${getProHTML(post.replies[0].pro)}
     ${getPremiumHTML(post.replies[0].premium)}
     ${getVerifiedHTML(post.replies[0].verified)}
+    ${getClidderHTML(post.replies[0].Clidder)}
   </span> ${post.replies[0].text}
 `;
 
@@ -3275,6 +3291,7 @@ firstReply.innerHTML = `
     ${getProHTML(reply.pro)}
     ${getCompanyHTML(reply.company)}
     ${getAIHTML(reply.AI)}
+    ${getClidderHTML(reply.Clidder)}
   </span> ${reply.text}
 `;
 
@@ -3328,6 +3345,8 @@ postBtn.addEventListener("click", () => {
   pro: currentUser.pro || false,
   company: currentUser.company || false,
   AI: currentUser.AI || false,
+Clidder: currentUser.Clidder || false,
+
 
     createdAt: new Date().toISOString(),
   };
@@ -3923,6 +3942,7 @@ document.addEventListener('click', function (e) {
     ${getProHTML(user.pro)}
     ${getCompanyHTML(user.company)}
     ${getAIHTML(user.AI)}
+    ${getClidderHTML(user.Clidder)}
 
   </span>
 </h3>
@@ -4052,6 +4072,7 @@ document.addEventListener('click', function (e) {
     ${getProHTML(user.pro)}
     ${getCompanyHTML(user.company)}
     ${getAIHTML(user.AI)}
+    ${getClidderHTML(user.Clidder)}
   </span>
 </h3>
 
@@ -4473,6 +4494,8 @@ premium: currentUser.premium || false,
 pro: currentUser.pro || false,
 company: currentUser.company || false,
 AI: currentUser.AI || false,
+Clidder: currentUser.Clidder || false,
+
 
           likes: [],
           retweets: [],
@@ -5157,6 +5180,13 @@ function getAIHTML(isAI) {
     ? `<img src="https://upload.wikimedia.org/wikipedia/commons/a/af/Light-green-verified-sign-and-tick-18748.svg" class="ai-badge" alt="AI">`
     : "";
 }
+
+function getClidderHTML(isClidder) {
+  return isClidder === true
+    ? `<img src="https://upload.wikimedia.org/wikipedia/commons/4/49/Clidder.svg" class="clidder-badge" alt="Clidder">`
+    : "";
+}
+
 
 
 </script>
@@ -5891,7 +5921,7 @@ document.addEventListener('DOMContentLoaded', function () {
 <script>
 document.addEventListener('DOMContentLoaded', () => {
   const badgeSel =
-    '.verified-badge, .premium-badge, .pro-badge, .company-badge, .ai-badge';
+    '.verified-badge, .premium-badge, .pro-badge, .company-badge, .ai-badge, .clidder-badge';
 
   /* initial sweep */
   hardenBadges();
