@@ -1916,6 +1916,8 @@ body.dark-mode textarea::placeholder {
 </div>
 
 
+<div id="relevantPeopleBox" class="bg-white rounded-[10px] border border-gray-200 p-4"></div>
+
 
 
 
@@ -6317,6 +6319,75 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 })();
 </script>
+
+<script type="module">
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/9.22.1/firebase-app.js";
+  import { getFirestore, doc, getDoc } from "https://www.gstatic.com/firebasejs/9.22.1/firebase-firestore.js";
+
+  const firebaseConfig = {
+    apiKey: "AIzaSyDrFdwYhlj84GQ3eLzPctLgxZ572PHu7Tg",
+    authDomain: "x-clone-d4697.firebaseapp.com",
+    projectId: "x-clone-d4697",
+    storageBucket: "x-clone-d4697.appspot.com",
+    messagingSenderId: "438425139174",
+    appId: "1:438425139174:web:b1ebea6f124a245cf9c827"
+  };
+
+  const app = initializeApp(firebaseConfig);
+  const db = getFirestore(app);
+
+  async function loadInduwaraProfile() {
+    const userRef = doc(db, "users", "Nn8GSkAwqHcwttbNu4KK");
+    const docSnap = await getDoc(userRef);
+
+    if (docSnap.exists()) {
+      const user = docSnap.data();
+
+      // Safe fallback values
+      const fullname = user.fullname || "INDUWARA JAYASINGHE";
+      const username = user.username || "induwarajayasinghe";
+      const bio = user.bio || "Founder of Clidder Inc. | A Jayasinghe Brothers Holdings Company Ltd.";
+      const profilePic = user.profilePic || "https://i.ibb.co/0VqN92C4/clidder-off-dark.png";
+
+      const isVerified = user.verified === true;
+      const isPremium = user.premium === true;
+      const isPro = user.pro === true;
+
+      const badgeIcons = {
+        verified: "https://upload.wikimedia.org/wikipedia/commons/e/e4/Twitter_Verified_Badge.svg",
+        premium: "https://upload.wikimedia.org/wikipedia/commons/d/d8/Orange-verified-sign-and-tick-18752.svg", // gold star
+        pro: "https://upload.wikimedia.org/wikipedia/commons/b/be/Verified-badge-pink.svg"     // lightning icon
+      };
+
+      const badgesHTML = `
+        ${isVerified ? `<img src="${badgeIcons.verified}" alt="Verified" title="Verified" style="width: 16px; height: 16px;" />` : ""}
+        ${isPremium ? `<img src="${badgeIcons.premium}" alt="Premium" title="Premium" style="width: 16px; height: 16px;" />` : ""}
+        ${isPro ? `<img src="${badgeIcons.pro}" alt="Pro" title="Pro" style="width: 16px; height: 16px;" />` : ""}
+      `;
+
+      document.getElementById("relevantPeopleBox").innerHTML = `
+        <h3 class="text-xl font-bold mb-4">Relevant people</h3>
+        <div class="flex items-start space-x-4">
+          <img src="${profilePic}" alt="${fullname}" class="w-12 h-12 rounded-full object-cover" />
+          <div>
+            <div class="flex items-center space-x-1">
+              <span class="font-semibold text-gray-800">${fullname}</span>
+              ${badgesHTML}
+            </div>
+            <div class="text-sm text-gray-500">𝓬𝓹${username}</div>
+            <p class="text-sm text-gray-600 mt-1">${bio}</p>
+            <a href="#" class="text-sm text-[#FF7D1E] hover:underline mt-1 inline-block">View Profile</a>
+          </div>
+        </div>
+      `;
+    } else {
+      document.getElementById("relevantPeopleBox").innerHTML = "<p>User not found.</p>";
+    }
+  }
+
+  loadInduwaraProfile();
+</script>
+
 
 
 </body>
