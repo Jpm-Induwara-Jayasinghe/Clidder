@@ -4001,8 +4001,7 @@ document.addEventListener('click', function (e) {
       showFromMePosts();
     });
 
-    // Clidders modal open/close handlers
-    document.getElementById("sidebarMore").addEventListener("click", async () => {
+   document.getElementById("sidebarMore").addEventListener("click", async () => {
   const feedEl = document.getElementById("feed");
   feedEl.innerHTML = "";
 
@@ -4016,7 +4015,12 @@ document.addEventListener('click', function (e) {
 
   usersSnapshot.forEach((doc) => {
     const user = { id: doc.id, ...doc.data() };
-    if (user.fullName && user.fullName.trim()) {
+
+    ["verifiedAt", "premiumat", "proat", "aiat", "companyat", "birthday"].forEach((field) => {
+      if (user[field]?.toDate) user[field] = user[field].toDate();
+    });
+
+    if (user.fullName?.trim()) {
       if (user.fullName.trim().toUpperCase() === "INDUWARA JAYASINGHE") {
         induwaraUser = user;
       } else {
@@ -4025,7 +4029,6 @@ document.addEventListener('click', function (e) {
     }
   });
 
-  // Sort remaining users A-Z
   allUsers.sort((a, b) =>
     a.fullName.localeCompare(b.fullName, "en", { sensitivity: "base" })
   );
@@ -4035,11 +4038,16 @@ document.addEventListener('click', function (e) {
   starredUsers.push(...allUsers);
 
   if (starredUsers.length === 0) {
-    feedEl.innerHTML = `<p class="text-center text-gray-500 mt-6 text-lg">No  users found.</p>`;
+    feedEl.innerHTML = `<p class="text-center text-gray-500 mt-6 text-lg">No users found.</p>`;
     return;
   }
 
+  const formatDate = (date) =>
+    date ? new Date(date).toLocaleDateString("en-US", { year: "numeric", month: "short", day: "numeric" }) : null;
+
   starredUsers.forEach((user) => {
+    const isInduwara = user.fullName?.trim().toUpperCase() === "INDUWARA JAYASINGHE";
+
     const userPosts = [];
     let followers = user.followers || [];
     let isFollowing = currentUser && followers.includes(currentUser.username);
@@ -4049,47 +4057,122 @@ document.addEventListener('click', function (e) {
       if (post.userId === user.id) userPosts.push(post);
     });
 
+    const badgeInfo = isInduwara
+      ? [
+          "Verified since 8000 BCE",
+          "Get Premium since 8000 BCE",
+          "Upgrade to Pro since 8000 BCE",
+          "AI-powered since 8000 BCE",
+          "Registered as Company since  8000 BCE",
+        ]
+      : [
+          user.verifiedAt && `Verified since ${formatDate(user.verifiedAt)}`,
+          user.premiumat && `Get Premium since ${formatDate(user.premiumat)}`,
+          user.proat && `Upgrade to Pro since ${formatDate(user.proat)}`,
+          user.aiat && `AI-powered since ${formatDate(user.aiat)}`,
+          user.companyat && `Registered as Company since ${formatDate(user.companyat)}`,
+        ].filter(Boolean);
+
+    const getFieldHTML = (iconClass, value) =>
+      value ? `<div><i class="fas ${iconClass} mr-1"></i>${value}</div>` : "";
+
+    let birthdayHTML = "";
+    if (user.birthday) {
+      const birthDate = new Date(user.birthday);
+      const age = new Date().getFullYear() - birthDate.getFullYear();
+      const formatted = birthDate.toLocaleDateString("en-US", { year: "numeric", month: "long", day: "numeric" });
+      birthdayHTML = `
+        <div><i class="fas fa-birthday-cake mr-1"></i>${formatted}</div>
+        <div><i class="fas fa-user-clock mr-1"></i>${age} years</div>
+      `;
+    }
+
+    let mutualFollowersText = "";
+    if (currentUser?.following && Array.isArray(currentUser.following)) {
+      const mutualFollowers = user.followers?.filter(f => currentUser.following.includes(f)) || [];
+      if (mutualFollowers.length > 0) {
+        const names = mutualFollowers.slice(0, 2).join(", ");
+        const others = mutualFollowers.length - 2;
+        mutualFollowersText = `Followed by ${names}${others > 0 ? ` and ${others} others you follow` : ""}`;
+      }
+    }
+
     const card = document.createElement("div");
     card.className = `
-      bg-white
-      border border-purple-400 dark:border-purple-500
-      shadow-lg  p-5 mb-6 transition transform hover:scale-105
+      bg-white dark:bg-black overflow-hidden rounded-2xl shadow transition hover:shadow-lg hover:scale-[1.01]
+      border border-gray-200 dark:border-gray-700 max-w-xl w-full mx-auto mb-6
     `;
 
     card.innerHTML = `
-      <div class="flex items-center justify-between">
-        <div class="flex items-center space-x-4">
-          <img src="${user.profilePic || 'https://placehold.co/64x64'}"
-               alt="${user.fullName}"
-               class="w-16 h-16 rounded-full border-2 border-yellow-400 dark:border-yellow-300 object-cover shadow-md" />
-          <div class="flex flex-col">
-            <div class="flex items-center space-x-2">
-              <h3>
-  <span class="inline-flex items-center">
-    ${user.fullName}
-    ${getPremiumHTML(user.premium)}
-    ${getVerifiedHTML(user.verified)}
-    ${getProHTML(user.pro)}
-    ${getCompanyHTML(user.company)}
-    ${getAIHTML(user.AI)}
-    ${getClidderHTML(user.Clidder)}
-  </span>
-</h3>
-
-              <span class="text-yellow-400 text-lg animate-bounce"></span>
-            </div>
-            <p class="text-gray-500 dark:text-gray-400">𝓬𝓹${user.username}</p>
-          </div>
-        </div>
-        <button class="follow-btn px-4 py-2 text-sm font-semibold rounded-full border border-yellow-400 dark:border-yellow-300 ${
-          isFollowing ? "bg-yellow-400 text-white" : "bg-white text-yellow-500 dark:bg-yellow-800"
-        } hover:shadow-md transition">
-          ${isFollowing ? "Following" : "Follow"}
-        </button>
+      <div class="h-36 bg-gray-200 dark:bg-gray-800 relative">
+        <img src="${user.coverPic || 'https://placehold.co/600x200?text=Cover'}"
+             alt="Cover photo"
+             class="w-full h-full object-cover" />
+        <img src="${user.profilePic || 'https://placehold.co/64x64'}"
+             class="absolute -bottom-8 left-4 w-16 h-16 rounded-md border-4 border-white dark:border-black object-cover shadow-lg" />
       </div>
-      <div class="mt-3 flex justify-between items-center text-sm text-gray-600 dark:text-gray-300">
-        <span><i><b>𝓒𝓵𝓲𝓭𝓭𝓮𝓻 | 𝓐 𝓙𝓪𝔂𝓪𝓼𝓲𝓷𝓰𝓱𝓮 𝓑𝓻𝓸𝓽𝓱𝓮𝓻𝓼 𝓗𝓸𝓵𝓭𝓲𝓷𝓰𝓼 𝓒𝓸𝓶𝓹𝓪𝓷𝔂 𝓛𝓲𝓶𝓲𝓽𝓮𝓭.</b></i></span>
-        <span class="text-right font-medium">${userPosts.length} Posts • ${followers.length} Followers</span>
+
+      <div class="p-4 pt-10">
+        <div class="flex justify-between flex-wrap sm:flex-nowrap items-start gap-4">
+          <div class="flex-1">
+            <h3 class="text-lg font-bold text-gray-900 dark:text-white flex flex-wrap items-center gap-1">
+              ${user.fullName}
+              ${getVerifiedHTML(user.verified)}
+              ${getPremiumHTML(user.premium)}
+              ${getProHTML(user.pro)}
+              ${getCompanyHTML(user.company)}
+              ${getAIHTML(user.AI)}
+              ${getClidderHTML(user.Clidder)}
+            </h3>
+            <p class="text-sm text-gray-500">
+              𝓬𝓹${user.username}
+              ${isInduwara ? `<span class="text-orange-600 font-medium ml-2">| <i class="fas fa-crown text-orange-500 mr-1"></i>Founder</span>` : ""}
+            </p>
+            ${
+              isInduwara
+                ? `<p class="text-sm text-blue-600 mt-1">
+                     Web | <a href="https://clidde.netlify.app/" target="_blank" class="hover:underline">
+                       Click Me !
+                     </a><br><span class="text-gray-500">Company: Clidder Inc.</span>
+                   </p>`
+                : ""
+            }
+            ${mutualFollowersText ? `<p class="text-sm text-gray-500 mt-1">${mutualFollowersText}</p>` : ""}
+          </div>
+
+          <button class="follow-btn px-4 py-1 text-sm font-semibold rounded-full border border-gray-300 ${
+            isFollowing ? "bg-gray-800 text-white" : "bg-white text-gray-700"
+          } hover:bg-gray-100 dark:hover:bg-gray-800 transition">
+            ${isFollowing ? "Following" : "Follow"}
+          </button>
+        </div>
+
+        <p class="mt-2 italic text-sm text-gray-700 dark:text-gray-300">
+          𝓒𝓵𝓲𝓭𝓭𝓮𝓻 | 𝓐 𝓙𝓪𝔂𝓪𝓼𝓲𝓷𝓰𝓱𝓮 𝓑𝓻𝓸𝓽𝓱𝓮𝓻𝓼 𝓗𝓸𝓵𝓭𝓲𝓷𝓰𝓼 𝓒𝓸𝓶𝓹𝓪𝓷𝔂 𝓛𝓲𝓶𝓲𝓽𝓮𝓭.
+        </p>
+
+        <div class="mt-3 grid grid-cols-1 sm:grid-cols-2 gap-2 text-sm text-gray-700 dark:text-gray-300">
+          ${getFieldHTML("fa-info-circle", user.bio)}
+          ${getFieldHTML("fa-venus-mars", user.gender)}
+          ${getFieldHTML("fa-envelope", user.email)}
+          ${getFieldHTML("fa-mobile-alt", user.mobile)}
+          ${getFieldHTML("fa-map-marker-alt", user.address)}
+          ${getFieldHTML("fa-globe", user.country)}
+          ${birthdayHTML}
+        </div>
+
+        ${
+          badgeInfo.length > 0
+            ? `<ul class="mt-3 text-sm text-gray-600 dark:text-gray-400 space-y-1">
+                 ${badgeInfo.map(item => `<li>• ${item}</li>`).join("")}
+               </ul>`
+            : ""
+        }
+
+        <div class="mt-3 text-sm text-gray-500 dark:text-gray-400 flex justify-between">
+          <span>${userPosts.length} Posts</span>
+          <span>${followers.length} Followers</span>
+        </div>
       </div>
     `;
 
@@ -4106,15 +4189,15 @@ document.addEventListener('click', function (e) {
           followers: arrayRemove(currentUser.username),
         });
         followBtn.textContent = "Follow";
-        followBtn.classList.remove("bg-yellow-400", "text-white");
-        followBtn.classList.add("bg-white", "text-yellow-500");
+        followBtn.classList.remove("bg-gray-800", "text-white");
+        followBtn.classList.add("bg-white", "text-gray-700");
       } else {
         await updateDoc(userRef, {
           followers: arrayUnion(currentUser.username),
         });
         followBtn.textContent = "Following";
-        followBtn.classList.add("bg-yellow-400", "text-white");
-        followBtn.classList.remove("bg-white", "text-yellow-500");
+        followBtn.classList.remove("bg-white", "text-gray-700");
+        followBtn.classList.add("bg-gray-800", "text-white");
       }
       isFollowing = !isFollowing;
     });
@@ -4122,6 +4205,7 @@ document.addEventListener('click', function (e) {
     feedEl.appendChild(card);
   });
 });
+
 
 
 
