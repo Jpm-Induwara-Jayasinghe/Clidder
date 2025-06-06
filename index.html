@@ -4,6 +4,21 @@
   <meta content="width=device-width, initial-scale=1" name="viewport" />
 
 
+<!-- ——— Open Graph ——— -->
+<meta property="og:type"        content="website">
+<meta property="og:url"         content="https://clidder.example.com/">
+<meta property="og:title"       content="Clidder – What’s buzzing now">
+<meta property="og:description" content="Join Clidder, the fast, fun way to share what’s buzzing in your world.">
+<meta property="og:image"       content="https://i.ibb.co/T6n1yfk/Clidder-preview.png">
+
+<!-- ——— Twitter Card (uses the same image) ——— -->
+<meta name="twitter:card"        content="summary_large_image">
+<meta name="twitter:site"        content="@ClidderApp">  <!-- optional -->
+<meta name="twitter:title"       content="Clidder – What’s buzzing now">
+<meta name="twitter:description" content="Join Clidder, the fast, fun way to share what’s buzzing in your world.">
+<meta name="twitter:image"       content="https://i.ibb.co/T6n1yfk/Clidder-preview.png">
+
+
   <title>Clidder</title>
   <script src="https://cdn.tailwindcss.com"></script>
   <link
@@ -2030,49 +2045,274 @@ body.dark-mode textarea::placeholder {
     </button>
   </div>
 
-  <div id="modalAuth" aria-modal="true" role="dialog" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4 z-50 hidden overflow-auto"><div class="bg-white shadow-lg w-full max-w-lg max-h-[90vh] overflow-y-auto p-4 sm:p-6 relative">
 
-      <h2 class="text-xl font-semibold mb-4 text-center" id="modalAuthTitle">Welcome to Clidder</h2>
-      <div id="authForms" class="space-y-6">
-        <div id="signInForm" class="flex flex-col space-y-4">
-          <h3 class="text-lg font-bold text-center">Sign In</h3>
-          <input id="signInUserInput" type="text" placeholder="Username or Email" maxlength="100" class="w-full border border-gray-300 rounded-md p-3 focus:outline-none focus:ring-2 focus:ring-[#FF7D1E] text-lg" />
-          <input id="signInPassword" type="password" placeholder="Password" maxlength="100" class="w-full border border-gray-300 rounded-md p-3 focus:outline-none focus:ring-2 focus:ring-[#FF7D1E] text-lg" />
-          <button id="btnSignIn" class="bg-[#e6680f] text-white py-3 rounded font-semibold hover:bg-[#cc5900] transition">Sign In</button>
-          <p class="text-center text-gray-600">Don't have an account? <button id="showSignUp" class="text-[#FF7D1E] hover:underline focus:outline-none">Create one</button></p>
+
+
+
+
+
+
+
+
+ <!-- Clidder Auth Modal (Fullscreen, Twitter-Style, Multi-Step) -->
+<div id="modalAuth" aria-modal="true" role="dialog"
+     class="fixed inset-0 bg-black flex flex-col justify-between z-50 overflow-auto text-white font-sans">
+
+  <!-- Main Panel -->
+  <div class="flex flex-col md:flex-row w-full h-full overflow-y-auto">
+
+    <!-- Left Panel -->
+    <div class="hidden md:flex flex-col items-center justify-center w-1/2 bg-black text-center px-4 space-y-8">
+      <h1 class="text-5xl font-extrabold leading-tight">It's what's buzzing</h1>
+      <img src="https://i.ibb.co/T6n1yfk/Clidder.png" alt="Clidder Logo" class="w-52 h-52" />
+    </div>
+
+    <!-- Right Panel -->
+    <div class="flex flex-col justify-center items-center w-full md:w-1/2 px-6 sm:px-10 py-10 relative">
+
+      <div id="authForms" class="w-full max-w-md space-y-12">
+
+        <!-- 🔐 Sign In Form -->
+        <div id="signInForm" class="flex flex-col space-y-6">
+          <h2 class="text-3xl font-bold text-center">Join today.</h2>
+
+          <input id="signInUserInput" type="text" placeholder="Username, Mobile No or Email" class="twitter-input" />
+          <input id="signInPassword" type="password" placeholder="Password" class="twitter-input" />
+
+          <div class="flex justify-end">
+            <a href="https://blackhatai.nicepage.io/" target="_blank" class="text-blue-400 text-sm hover:underline">
+              Forgot password?
+            </a>
+          </div>
+
+          <button id="btnSignIn" class="twitter-btn-orange">Sign In</button>
+
+          <p class="text-center text-sm text-gray-400">
+            Don’t have an account?
+            <button id="showSignUp" class="text-[#FF7D1E] hover:underline font-semibold">Create one</button>
+          </p>
         </div>
-<div id="signUpForm" class="flex flex-col space-y-4 hidden w-full">
 
-          <h3 class="text-lg font-bold text-center">Create Account</h3>
-          <input id="signUpFullName" type="text" placeholder="Full Name" maxlength="100" class="w-full border border-gray-300 rounded-md p-3 focus:outline-none focus:ring-2 focus:ring-[#FF7D1E] text-lg" />
-          <input id="signUpEmail" type="text" placeholder="Email or Phone (e.g. +94712345678)" maxlength="100" class="w-full border border-gray-300 rounded-md p-3 focus:outline-none focus:ring-2 focus:ring-[#FF7D1E] text-lg" />
+        <!-- 🆕 Sign Up Form (Multi-Step) -->
+        <form id="signUpForm" class="hidden space-y-10">
 
-          <input id="signUpUserName" type="text" placeholder="Username Without @" maxlength="50" class="w-full border border-gray-300 rounded-md p-3 focus:outline-none focus:ring-2 focus:ring-[#FF7D1E] text-lg" />
-          <input id="signUpPassword" type="password" placeholder="Password" maxlength="100" class="w-full border border-gray-300 rounded-md p-3 focus:outline-none focus:ring-2 focus:ring-[#FF7D1E] text-lg" />
-          <input id="signUpPasswordConfirm" type="password" placeholder="Confirm Password" maxlength="100" class="w-full border border-gray-300 rounded-md p-3 focus:outline-none focus:ring-2 focus:ring-[#FF7D1E] text-lg" />
-          <textarea id="signUpBio" placeholder="Bio" rows="3" maxlength="280" class="w-full border border-gray-300 rounded-md p-3 resize-none focus:outline-none focus:ring-2 focus:ring-[#FF7D1E] text-lg"></textarea>
-          <input id="signUpBirthday" type="date" class="w-full border border-gray-300 rounded-md p-3 focus:outline-none focus:ring-2 focus:ring-[#FF7D1E] text-lg" />
-          <select id="signUpGender" class="w-full border border-gray-300 rounded-md p-3 focus:outline-none focus:ring-2 focus:ring-[#FF7D1E] text-lg">
-            <option value="" disabled selected>Select Gender</option>
-            <option value="Male">Male</option>
-            <option value="Female">Female</option>
-            <option value="Non-binary">Non-binary</option>
-            <option value="Other">Other</option>
-            <option value="Prefer not to say">Prefer not to say</option>
-          </select>
-          <input id="signUpAddress" type="text" placeholder="Address" maxlength="200" class="w-full border border-gray-300 rounded-md p-3 focus:outline-none focus:ring-2 focus:ring-[#FF7D1E] text-lg" />
-          <input id="signUpCountry" type="text" placeholder="Country" maxlength="100" class="w-full border border-gray-300 rounded-md p-3 focus:outline-none focus:ring-2 focus:ring-[#FF7D1E] text-lg" />
-          <input id="signUpProfilePic" type="url" placeholder="Profile Picture URL" maxlength="300" class="w-full border border-gray-300 rounded-md p-3 focus:outline-none focus:ring-2 focus:ring-[#FF7D1E] text-lg" />
-          <input id="signUpCoverPic" type="url" placeholder="Cover Picture URL" maxlength="300" class="w-full border border-gray-300 rounded-md p-3 focus:outline-none focus:ring-2 focus:ring-[#FF7D1E] text-lg" />
-          <button id="btnSignUp" class="bg-green-600 text-white py-3 rounded font-semibold hover:bg-green-700 transition">Create Account</button>
-          <p class="text-center text-gray-600">Already have an account? <button id="showSignIn" class="text-[#FF7D1E] hover:underline focus:outline-none">Sign in</button></p>
-        </div>
+          <!-- Step 1 -->
+          <div class="sign-up-step space-y-6 py-6" data-step="1">
+            <h2 class="text-3xl font-bold text-center">Step 1 of 4</h2>
+            <input id="signUpFullName" type="text" placeholder="Full Name" class="twitter-input" required />
+            <input id="signUpEmail" type="text" placeholder="Email or Phone (e.g. +94712345678)" class="twitter-input" required />
+            <button type="button" class="next-step twitter-btn-orange">Next</button>
+          </div>
+
+          <!-- Step 2 -->
+          <div class="sign-up-step hidden space-y-6 py-6" data-step="2">
+            <h2 class="text-3xl font-bold text-center">Step 2 of 4</h2>
+            <input id="signUpUserName" type="text" placeholder="Username Without @" class="twitter-input" required />
+            <div class="flex justify-between">
+              <button type="button" class="prev-step twitter-btn-secondary">Back</button>
+              <button type="button" class="next-step twitter-btn-orange">Next</button>
+            </div>
+          </div>
+
+          <!-- Step 3 -->
+          <div class="sign-up-step hidden space-y-6 py-6" data-step="3">
+            <h2 class="text-3xl font-bold text-center">Step 3 of 4</h2>
+            <input id="signUpPassword" type="password" placeholder="Password" class="twitter-input" required />
+            <input id="signUpPasswordConfirm" type="password" placeholder="Confirm Password" class="twitter-input" required />
+            <div class="flex justify-between">
+              <button type="button" class="prev-step twitter-btn-secondary">Back</button>
+              <button type="button" class="next-step twitter-btn-orange">Next</button>
+            </div>
+          </div>
+
+          <!-- Step 4 -->
+          <div class="sign-up-step hidden space-y-6 py-6" data-step="4">
+            <h2 class="text-3xl font-bold text-center">Step 4 of 4</h2>
+            <textarea id="signUpBio" placeholder="Bio" rows="3" maxlength="280" class="twitter-input resize-none"></textarea>
+            <input id="signUpBirthday" type="date" class="twitter-input" />
+            <select id="signUpGender" class="twitter-input">
+              <option value="" disabled selected>Select Gender</option>
+              <option value="Male">Male</option>
+              <option value="Female">Female</option>
+              <option value="Non-binary">Non-binary</option>
+              <option value="Other">Other</option>
+              <option value="Prefer not to say">Prefer not to say</option>
+            </select>
+            <input id="signUpAddress" type="text" placeholder="Address" class="twitter-input" />
+            <input id="signUpCountry" type="text" placeholder="Country" class="twitter-input" />
+            <input id="signUpProfilePic" type="url" placeholder="Profile Picture URL" class="twitter-input" />
+            <input id="signUpCoverPic" type="url" placeholder="Cover Picture URL" class="twitter-input" />
+
+            <div class="flex justify-between">
+              <button type="button" class="prev-step twitter-btn-secondary">Back</button>
+              <button id="btnSignUp" type="submit" class="twitter-btn-green">Create Account</button>
+            </div>
+
+            <p class="text-center text-sm text-gray-400 mt-2">
+              Already have an account?
+              <button type="button" id="showSignIn" class="text-[#FF7D1E] hover:underline font-semibold">Sign in</button>
+            </p>
+          </div>
+        </form>
       </div>
-      <button aria-label="Close modal" id="btnCloseAuthModal" class="absolute top-3 right-3 text-gray-500 hover:text-gray-700 focus:outline-none">
+
+      <!-- Close Button -->
+      <button aria-label="Close modal" id="btnCloseAuthModal"
+              class="absolute top-4 right-4 text-gray-500 hover:text-white focus:outline-none">
         <i class="fas fa-times fa-lg"></i>
       </button>
     </div>
   </div>
+
+  <!-- Footer -->
+  <footer class="text-xs text-gray-500 px-4 py-6 text-center space-y-2 font-normal">
+    <div class="flex flex-wrap justify-center gap-2 sm:gap-4">
+      <a href="#" class="hover:underline">About</a> |
+      <a href="#" class="hover:underline">Download the Clidder app</a> |
+      <a href="#" class="hover:underline">Clibra</a> |
+      <a href="#" class="hover:underline">Help Centre</a> |
+      <a href="#" class="hover:underline">Terms of Service</a> |
+      <a href="#" class="hover:underline">Privacy Policy</a> |
+      <a href="#" class="hover:underline">Cookie Policy</a> |
+      <a href="#" class="hover:underline">Accessibility</a> |
+      <a href="#" class="hover:underline">Ads info</a> |
+      <a href="#" class="hover:underline">Blog</a> |
+      <a href="#" class="hover:underline">Careers</a> |
+      <a href="#" class="hover:underline">Brand Resources</a> |
+      <a href="#" class="hover:underline">Advertising</a> |
+      <a href="#" class="hover:underline">Marketing</a> |
+      <a href="#" class="hover:underline">Clidder for Business</a> |
+      <a href="#" class="hover:underline">Developers</a> |
+      <a href="#" class="hover:underline">Directory</a> |
+      <a href="#" class="hover:underline">Settings</a>
+    </div>
+    <p class="mt-2">&copy; 2025 Clidder Corp. | A Jayasinghe Brothers Holdings Company Limited.</p>
+  </footer>
+</div>
+
+<!-- Twitter-style Inputs and Buttons -->
+<style>
+  body, .font-sans {
+    font-family: "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  }
+
+  .twitter-input {
+    width: 100%;
+    background-color: #16181c;
+    color: white;
+    border: 1px solid #2f3336;
+    border-radius: 6px;
+    padding: 0.75rem 1rem;
+    font-size: 1rem;
+    transition: border-color 0.2s, box-shadow 0.2s;
+  }
+
+  .twitter-input::placeholder {
+    color: #8899a6;
+  }
+
+  .twitter-input:focus {
+    outline: none;
+    border-color: #1d9bf0;
+    box-shadow: 0 0 0 1px #1d9bf0;
+  }
+
+  .twitter-btn-orange {
+    width: 100%;
+    background-color: #e6680f;
+    color: white;
+    padding: 0.75rem;
+    font-weight: bold;
+    border-radius: 9999px;
+    transition: background-color 0.2s;
+  }
+
+  .twitter-btn-orange:hover {
+    background-color: #cc5900;
+  }
+
+  .twitter-btn-green {
+    background-color: #16a34a;
+    color: white;
+    padding: 0.75rem 1.5rem;
+    font-weight: bold;
+    border-radius: 9999px;
+    transition: background-color 0.2s;
+  }
+
+  .twitter-btn-green:hover {
+    background-color: #15803d;
+  }
+
+  .twitter-btn-secondary {
+    background-color: #2f3336;
+    color: white;
+    padding: 0.75rem 1.5rem;
+    font-weight: bold;
+    border-radius: 9999px;
+    transition: background-color 0.2s;
+  }
+
+  .twitter-btn-secondary:hover {
+    background-color: #3c4043;
+  }
+</style>
+
+<!-- Multi-Step Script -->
+<script>
+  const showSignUpBtn = document.getElementById('showSignUp');
+  const showSignInBtn = document.getElementById('showSignIn');
+  const signInForm = document.getElementById('signInForm');
+  const signUpForm = document.getElementById('signUpForm');
+  const closeBtn = document.getElementById('btnCloseAuthModal');
+  const modal = document.getElementById('modalAuth');
+
+  showSignUpBtn?.addEventListener('click', () => {
+    signInForm.classList.add('hidden');
+    signUpForm.classList.remove('hidden');
+    setStep(1);
+  });
+
+  showSignInBtn?.addEventListener('click', () => {
+    signUpForm.classList.add('hidden');
+    signInForm.classList.remove('hidden');
+  });
+
+  closeBtn?.addEventListener('click', () => {
+    modal.classList.add('hidden');
+  });
+
+  const steps = document.querySelectorAll('.sign-up-step');
+  let currentStep = 1;
+
+  function setStep(step) {
+    currentStep = step;
+    steps.forEach(s => {
+      s.classList.toggle('hidden', parseInt(s.dataset.step) !== step);
+    });
+  }
+
+  document.querySelectorAll('.next-step').forEach(btn => {
+    btn.addEventListener('click', () => {
+      if (currentStep < steps.length) setStep(currentStep + 1);
+    });
+  });
+
+  document.querySelectorAll('.prev-step').forEach(btn => {
+    btn.addEventListener('click', () => {
+      if (currentStep > 1) setStep(currentStep - 1);
+    });
+  });
+</script>
+
+
+
+
+
+
+
+
+
 
   <div id="modalProfile" aria-modal="true" role="dialog" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4 z-50 hidden overflow-auto">
     <div class="bg-white shadow-lg max-w-lg w-full p-6 relative max-h-[90vh] overflow-y-auto">
