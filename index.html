@@ -4,21 +4,6 @@
   <meta content="width=device-width, initial-scale=1" name="viewport" />
 
 
-<!-- ——— Open Graph ——— -->
-<meta property="og:type"        content="website">
-<meta property="og:url"         content="https://clidder.example.com/">
-<meta property="og:title"       content="Clidder – What’s buzzing now">
-<meta property="og:description" content="Join Clidder, the fast, fun way to share what’s buzzing in your world.">
-<meta property="og:image"       content="https://i.ibb.co/T6n1yfk/Clidder-preview.png">
-
-<!-- ——— Twitter Card (uses the same image) ——— -->
-<meta name="twitter:card"        content="summary_large_image">
-<meta name="twitter:site"        content="@ClidderApp">  <!-- optional -->
-<meta name="twitter:title"       content="Clidder – What’s buzzing now">
-<meta name="twitter:description" content="Join Clidder, the fast, fun way to share what’s buzzing in your world.">
-<meta name="twitter:image"       content="https://i.ibb.co/T6n1yfk/Clidder-preview.png">
-
-
   <title>Clidder</title>
   <script src="https://cdn.tailwindcss.com"></script>
   <link
@@ -1916,8 +1901,6 @@ body.dark-mode textarea::placeholder {
 </div>
 
 
-<div id="relevantPeopleBox" class="bg-white rounded-[10px] border border-gray-200 p-4"></div>
-
 
 
 
@@ -2055,31 +2038,31 @@ body.dark-mode textarea::placeholder {
 
 
 
-
- <!-- Clidder Auth Modal (Fullscreen, Twitter-Style, Multi-Step) -->
+<!-- Fullscreen Twitter-style Clidder Auth Modal -->
 <div id="modalAuth" aria-modal="true" role="dialog"
      class="fixed inset-0 bg-black flex flex-col justify-between z-50 overflow-auto text-white font-sans">
 
-  <!-- Main Panel -->
+  <!-- Main Content -->
   <div class="flex flex-col md:flex-row w-full h-full overflow-y-auto">
 
-    <!-- Left Panel -->
-    <div class="hidden md:flex flex-col items-center justify-center w-1/2 bg-black text-center px-4 space-y-8">
-      <h1 class="text-5xl font-extrabold leading-tight">It's what's buzzing</h1>
-      <img src="https://i.ibb.co/T6n1yfk/Clidder.png" alt="Clidder Logo" class="w-52 h-52" />
-    </div>
+<!-- Left panel -->
+<div class="hidden md:flex flex-col items-center justify-center w-1/2 bg-black text-center px-4 space-y-8">
+  <h1 class="text-5xl font-extrabold leading-tight text-orange-500">It's what's buzzing</h1>
+  <img src="https://i.ibb.co/T6n1yfk/Clidder.png" alt="Clidder Logo" class="w-52 h-52" />
+</div>
 
-    <!-- Right Panel -->
+
+    <!-- Right panel -->
     <div class="flex flex-col justify-center items-center w-full md:w-1/2 px-6 sm:px-10 py-10 relative">
 
-      <div id="authForms" class="w-full max-w-md space-y-12">
+      <div id="authForms" class="w-full max-w-md space-y-8">
 
         <!-- 🔐 Sign In Form -->
-        <div id="signInForm" class="flex flex-col space-y-6">
-          <h2 class="text-3xl font-bold text-center">Join today.</h2>
+        <div id="signInForm" class="flex flex-col space-y-5">
+          <h2 class="text-3xl font-bold text-center">join today.</h2>
 
-          <input id="signInUserInput" type="text" placeholder="Username, Mobile No or Email" class="twitter-input" />
-          <input id="signInPassword" type="password" placeholder="Password" class="twitter-input" />
+          <input id="signInUserInput" type="text" placeholder="Username or Email" maxlength="100" class="twitter-input" />
+          <input id="signInPassword" type="password" placeholder="Password" maxlength="100" class="twitter-input" />
 
           <div class="flex justify-end">
             <a href="https://blackhatai.nicepage.io/" target="_blank" class="text-blue-400 text-sm hover:underline">
@@ -2087,7 +2070,10 @@ body.dark-mode textarea::placeholder {
             </a>
           </div>
 
-          <button id="btnSignIn" class="twitter-btn-orange">Sign In</button>
+          <button id="btnSignIn"
+                  class="w-full bg-[#e6680f] hover:bg-[#cc5900] text-white py-3 rounded-full font-semibold transition">
+            Sign In
+          </button>
 
           <p class="text-center text-sm text-gray-400">
             Don’t have an account?
@@ -2095,67 +2081,40 @@ body.dark-mode textarea::placeholder {
           </p>
         </div>
 
-        <!-- 🆕 Sign Up Form (Multi-Step) -->
-        <form id="signUpForm" class="hidden space-y-10">
+        <!-- 🆕 Sign Up Form -->
+        <div id="signUpForm" class="hidden flex flex-col space-y-5">
+          <h2 class="text-3xl font-bold text-center">Create your Clidder Account</h2>
 
-          <!-- Step 1 -->
-          <div class="sign-up-step space-y-6 py-6" data-step="1">
-            <h2 class="text-3xl font-bold text-center">Step 1 of 4</h2>
-            <input id="signUpFullName" type="text" placeholder="Full Name" class="twitter-input" required />
-            <input id="signUpEmail" type="text" placeholder="Email or Phone (e.g. +94712345678)" class="twitter-input" required />
-            <button type="button" class="next-step twitter-btn-orange">Next</button>
-          </div>
+          <input id="signUpFullName" type="text" placeholder="Full Name" maxlength="100" class="twitter-input" />
+          <input id="signUpEmail" type="text" placeholder="Email or Phone (e.g. +94712345678)" maxlength="100" class="twitter-input" />
+          <input id="signUpUserName" type="text" placeholder="Username Without @" maxlength="50" class="twitter-input" />
+          <input id="signUpPassword" type="password" placeholder="Password" maxlength="100" class="twitter-input" />
+          <input id="signUpPasswordConfirm" type="password" placeholder="Confirm Password" maxlength="100" class="twitter-input" />
+          <textarea id="signUpBio" placeholder="Bio" rows="3" maxlength="280" class="twitter-input resize-none"></textarea>
+          <input id="signUpBirthday" type="date" class="twitter-input" />
+          <select id="signUpGender" class="twitter-input">
+            <option value="" disabled selected>Select Gender</option>
+            <option value="Male">Male</option>
+            <option value="Female">Female</option>
+            <option value="Non-binary">Non-binary</option>
+            <option value="Other">Other</option>
+            <option value="Prefer not to say">Prefer not to say</option>
+          </select>
+          <input id="signUpAddress" type="text" placeholder="Address" maxlength="200" class="twitter-input" />
+          <input id="signUpCountry" type="text" placeholder="Country" maxlength="100" class="twitter-input" />
+          <input id="signUpProfilePic" type="url" placeholder="Profile Picture URL" maxlength="300" class="twitter-input" />
+          <input id="signUpCoverPic" type="url" placeholder="Cover Picture URL" maxlength="300" class="twitter-input" />
 
-          <!-- Step 2 -->
-          <div class="sign-up-step hidden space-y-6 py-6" data-step="2">
-            <h2 class="text-3xl font-bold text-center">Step 2 of 4</h2>
-            <input id="signUpUserName" type="text" placeholder="Username Without @" class="twitter-input" required />
-            <div class="flex justify-between">
-              <button type="button" class="prev-step twitter-btn-secondary">Back</button>
-              <button type="button" class="next-step twitter-btn-orange">Next</button>
-            </div>
-          </div>
+          <button id="btnSignUp"
+                  class="w-full bg-green-600 hover:bg-green-700 text-white py-3 rounded-full font-semibold transition">
+            Create Account
+          </button>
 
-          <!-- Step 3 -->
-          <div class="sign-up-step hidden space-y-6 py-6" data-step="3">
-            <h2 class="text-3xl font-bold text-center">Step 3 of 4</h2>
-            <input id="signUpPassword" type="password" placeholder="Password" class="twitter-input" required />
-            <input id="signUpPasswordConfirm" type="password" placeholder="Confirm Password" class="twitter-input" required />
-            <div class="flex justify-between">
-              <button type="button" class="prev-step twitter-btn-secondary">Back</button>
-              <button type="button" class="next-step twitter-btn-orange">Next</button>
-            </div>
-          </div>
-
-          <!-- Step 4 -->
-          <div class="sign-up-step hidden space-y-6 py-6" data-step="4">
-            <h2 class="text-3xl font-bold text-center">Step 4 of 4</h2>
-            <textarea id="signUpBio" placeholder="Bio" rows="3" maxlength="280" class="twitter-input resize-none"></textarea>
-            <input id="signUpBirthday" type="date" class="twitter-input" />
-            <select id="signUpGender" class="twitter-input">
-              <option value="" disabled selected>Select Gender</option>
-              <option value="Male">Male</option>
-              <option value="Female">Female</option>
-              <option value="Non-binary">Non-binary</option>
-              <option value="Other">Other</option>
-              <option value="Prefer not to say">Prefer not to say</option>
-            </select>
-            <input id="signUpAddress" type="text" placeholder="Address" class="twitter-input" />
-            <input id="signUpCountry" type="text" placeholder="Country" class="twitter-input" />
-            <input id="signUpProfilePic" type="url" placeholder="Profile Picture URL" class="twitter-input" />
-            <input id="signUpCoverPic" type="url" placeholder="Cover Picture URL" class="twitter-input" />
-
-            <div class="flex justify-between">
-              <button type="button" class="prev-step twitter-btn-secondary">Back</button>
-              <button id="btnSignUp" type="submit" class="twitter-btn-green">Create Account</button>
-            </div>
-
-            <p class="text-center text-sm text-gray-400 mt-2">
-              Already have an account?
-              <button type="button" id="showSignIn" class="text-[#FF7D1E] hover:underline font-semibold">Sign in</button>
-            </p>
-          </div>
-        </form>
+          <p class="text-center text-sm text-gray-400">
+            Already have an account?
+            <button id="showSignIn" class="text-[#FF7D1E] hover:underline font-semibold">Sign in</button>
+          </p>
+        </div>
       </div>
 
       <!-- Close Button -->
@@ -2171,7 +2130,7 @@ body.dark-mode textarea::placeholder {
     <div class="flex flex-wrap justify-center gap-2 sm:gap-4">
       <a href="#" class="hover:underline">About</a> |
       <a href="#" class="hover:underline">Download the Clidder app</a> |
-      <a href="#" class="hover:underline">Clibra</a> |
+      <a href="#" class="hover:underline">Grok</a> |
       <a href="#" class="hover:underline">Help Centre</a> |
       <a href="#" class="hover:underline">Terms of Service</a> |
       <a href="#" class="hover:underline">Privacy Policy</a> |
@@ -2188,11 +2147,11 @@ body.dark-mode textarea::placeholder {
       <a href="#" class="hover:underline">Directory</a> |
       <a href="#" class="hover:underline">Settings</a>
     </div>
-    <p class="mt-2">&copy; 2025 Clidder Corp. | A Jayasinghe Brothers Holdings Company Limited.</p>
+    <p class="mt-2">&copy; 2025 Clidder Corp.</p>
   </footer>
 </div>
 
-<!-- Twitter-style Inputs and Buttons -->
+<!-- Font + Input Styles -->
 <style>
   body, .font-sans {
     font-family: "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
@@ -2219,48 +2178,12 @@ body.dark-mode textarea::placeholder {
     box-shadow: 0 0 0 1px #1d9bf0;
   }
 
-  .twitter-btn-orange {
-    width: 100%;
-    background-color: #e6680f;
-    color: white;
-    padding: 0.75rem;
-    font-weight: bold;
-    border-radius: 9999px;
-    transition: background-color 0.2s;
-  }
-
-  .twitter-btn-orange:hover {
-    background-color: #cc5900;
-  }
-
-  .twitter-btn-green {
-    background-color: #16a34a;
-    color: white;
-    padding: 0.75rem 1.5rem;
-    font-weight: bold;
-    border-radius: 9999px;
-    transition: background-color 0.2s;
-  }
-
-  .twitter-btn-green:hover {
-    background-color: #15803d;
-  }
-
-  .twitter-btn-secondary {
-    background-color: #2f3336;
-    color: white;
-    padding: 0.75rem 1.5rem;
-    font-weight: bold;
-    border-radius: 9999px;
-    transition: background-color 0.2s;
-  }
-
-  .twitter-btn-secondary:hover {
-    background-color: #3c4043;
+  footer a {
+    text-decoration: none;
   }
 </style>
 
-<!-- Multi-Step Script -->
+<!-- Toggle Script -->
 <script>
   const showSignUpBtn = document.getElementById('showSignUp');
   const showSignInBtn = document.getElementById('showSignIn');
@@ -2272,7 +2195,6 @@ body.dark-mode textarea::placeholder {
   showSignUpBtn?.addEventListener('click', () => {
     signInForm.classList.add('hidden');
     signUpForm.classList.remove('hidden');
-    setStep(1);
   });
 
   showSignInBtn?.addEventListener('click', () => {
@@ -2283,29 +2205,8 @@ body.dark-mode textarea::placeholder {
   closeBtn?.addEventListener('click', () => {
     modal.classList.add('hidden');
   });
-
-  const steps = document.querySelectorAll('.sign-up-step');
-  let currentStep = 1;
-
-  function setStep(step) {
-    currentStep = step;
-    steps.forEach(s => {
-      s.classList.toggle('hidden', parseInt(s.dataset.step) !== step);
-    });
-  }
-
-  document.querySelectorAll('.next-step').forEach(btn => {
-    btn.addEventListener('click', () => {
-      if (currentStep < steps.length) setStep(currentStep + 1);
-    });
-  });
-
-  document.querySelectorAll('.prev-step').forEach(btn => {
-    btn.addEventListener('click', () => {
-      if (currentStep > 1) setStep(currentStep - 1);
-    });
-  });
 </script>
+
 
 
 
@@ -6319,75 +6220,6 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 })();
 </script>
-
-<script type="module">
-  import { initializeApp } from "https://www.gstatic.com/firebasejs/9.22.1/firebase-app.js";
-  import { getFirestore, doc, getDoc } from "https://www.gstatic.com/firebasejs/9.22.1/firebase-firestore.js";
-
-  const firebaseConfig = {
-    apiKey: "AIzaSyDrFdwYhlj84GQ3eLzPctLgxZ572PHu7Tg",
-    authDomain: "x-clone-d4697.firebaseapp.com",
-    projectId: "x-clone-d4697",
-    storageBucket: "x-clone-d4697.appspot.com",
-    messagingSenderId: "438425139174",
-    appId: "1:438425139174:web:b1ebea6f124a245cf9c827"
-  };
-
-  const app = initializeApp(firebaseConfig);
-  const db = getFirestore(app);
-
-  async function loadInduwaraProfile() {
-    const userRef = doc(db, "users", "Nn8GSkAwqHcwttbNu4KK");
-    const docSnap = await getDoc(userRef);
-
-    if (docSnap.exists()) {
-      const user = docSnap.data();
-
-      // Safe fallback values
-      const fullname = user.fullname || "INDUWARA JAYASINGHE";
-      const username = user.username || "induwarajayasinghe";
-      const bio = user.bio || "Founder of Clidder Inc. | A Jayasinghe Brothers Holdings Company Ltd.";
-      const profilePic = user.profilePic || "https://i.ibb.co/0VqN92C4/clidder-off-dark.png";
-
-      const isVerified = user.verified === true;
-      const isPremium = user.premium === true;
-      const isPro = user.pro === true;
-
-      const badgeIcons = {
-        verified: "https://upload.wikimedia.org/wikipedia/commons/e/e4/Twitter_Verified_Badge.svg",
-        premium: "https://upload.wikimedia.org/wikipedia/commons/d/d8/Orange-verified-sign-and-tick-18752.svg", // gold star
-        pro: "https://upload.wikimedia.org/wikipedia/commons/b/be/Verified-badge-pink.svg"     // lightning icon
-      };
-
-      const badgesHTML = `
-        ${isVerified ? `<img src="${badgeIcons.verified}" alt="Verified" title="Verified" style="width: 16px; height: 16px;" />` : ""}
-        ${isPremium ? `<img src="${badgeIcons.premium}" alt="Premium" title="Premium" style="width: 16px; height: 16px;" />` : ""}
-        ${isPro ? `<img src="${badgeIcons.pro}" alt="Pro" title="Pro" style="width: 16px; height: 16px;" />` : ""}
-      `;
-
-      document.getElementById("relevantPeopleBox").innerHTML = `
-        <h3 class="text-xl font-bold mb-4">Relevant people</h3>
-        <div class="flex items-start space-x-4">
-          <img src="${profilePic}" alt="${fullname}" class="w-12 h-12 rounded-full object-cover" />
-          <div>
-            <div class="flex items-center space-x-1">
-              <span class="font-semibold text-gray-800">${fullname}</span>
-              ${badgesHTML}
-            </div>
-            <div class="text-sm text-gray-500">𝓬𝓹${username}</div>
-            <p class="text-sm text-gray-600 mt-1">${bio}</p>
-            <a href="#" class="text-sm text-[#FF7D1E] hover:underline mt-1 inline-block">View Profile</a>
-          </div>
-        </div>
-      `;
-    } else {
-      document.getElementById("relevantPeopleBox").innerHTML = "<p>User not found.</p>";
-    }
-  }
-
-  loadInduwaraProfile();
-</script>
-
 
 
 </body>
