@@ -4,7 +4,23 @@
   <meta content="width=device-width, initial-scale=1" name="viewport" />
 
 
-  <title>Clidder</title>
+<!-- ——— Open Graph ——— -->
+<meta property="og:type"        content="website">
+<meta property="og:url"         content="https://clidder.example.com/">
+<meta property="og:title"       content="Clidder – It's what’s buzzing now">
+<meta property="og:description" content="join today and see what's buzzing on world?">
+<meta property="og:image"       content="https://i.ibb.co/T6n1yfk/Clidder-preview.png">
+
+<!-- ——— Twitter Card (uses the same image) ——— -->
+<meta name="twitter:card"        content="summary_large_image">
+<meta name="twitter:site"        content="@ClidderApp">  <!-- optional -->
+<meta name="twitter:title"       content="Clidder – What’s buzzing now">
+<meta name="twitter:description" content="Join Clidder, the fast, fun way to share what’s buzzing in your world.">
+<meta name="twitter:image"       content="https://i.ibb.co/T6n1yfk/Clidder-preview.png">
+
+
+
+  <title>Home / Clidder</title>
   <script src="https://cdn.tailwindcss.com"></script>
   <link
     href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"
@@ -3091,35 +3107,56 @@ div.appendChild(menu);
       div.className =
         "bg-white shadow-md p-6 flex flex-col space-y-3 cursor-pointer select-none relative";
 
-      const header = document.createElement("header");
-      header.className = "flex items-center space-x-4";
-
-      const avatar = document.createElement("img");
-      avatar.src = post.profilePic && post.profilePic.trim() !== "" ? post.profilePic : "https://placehold.co/40x40/png?text=" + (post.userName ? post.userName[0].toUpperCase() : "U") + "&font=roboto&font-weight=700&bg=ddd&fg=555";
-      avatar.alt = post.userName
-        ? `${post.userName} avatar`
-        : "User avatar placeholder";
-      avatar.className = "w-12 h-12 rounded-full object-cover";
-
-      const userInfo = document.createElement("div");
-      userInfo.className = "flex flex-col";
-
-
-
-      const userName = document.createElement("span");
-     userName.className = "text-gray-900 text-sm flex items-center space-x-2";
 
 
 
 
-      // Put avatar inside userName span to appear aside user name
-      const avatarSmall = document.createElement("img");
-      avatarSmall.src = avatar.src;
-      avatarSmall.alt = avatar.alt;
-      avatarSmall.className = "w-8 h-8 rounded-full object-cover";
-      userName.appendChild(avatarSmall);
+
+
+
+// Post header container
+const header = document.createElement("header");
+header.className = "flex items-center gap-3"; // Tight spacing
+
+// Avatar (left)
+const avatar = document.createElement("img");
+avatar.src = post.profilePic && post.profilePic.trim() !== ""
+  ? post.profilePic
+  : "https://placehold.co/40x40/png?text=" +
+    (post.userName ? post.userName[0].toUpperCase() : "U") +
+    "&font=roboto&font-weight=700&bg=ddd&fg=555";
+avatar.alt = post.userName ? `${post.userName} avatar` : "User avatar placeholder";
+avatar.className = "w-10 h-10 rounded-full object-cover";
+header.appendChild(avatar);
+
+// User info (right side)
+const userInfo = document.createElement("div");
+userInfo.className = "flex flex-col";
+
+// Time
+const timeSpan = document.createElement("span");
+timeSpan.className = "text-gray-500 dark:text-gray-400 font-normal";
+let createdAtDate = null;
+if (post.createdAt && post.createdAt.toDate) {
+  createdAtDate = post.createdAt.toDate();
+} else if (post.createdAt instanceof Date) {
+  createdAtDate = post.createdAt;
+} else if (typeof post.createdAt === "string") {
+  createdAtDate = new Date(post.createdAt);
+}
+timeSpan.textContent = "· " + timeAgo(createdAtDate);
+
+// Username (starts with 𝓬𝓹, no @)
+const userHandle = document.createElement("span");
+userHandle.className = "text-gray-500 dark:text-gray-400 font-normal cursor-pointer";
+userHandle.textContent = post.userHandle.replace(/^@/, "");
+userHandle.addEventListener("click", () => {
+  showUserProfile(post.userHandle.replace(/^@/, ""));
+});
+
+// Name + badges
 const nameText = document.createElement("span");
-nameText.className = "inline-flex items-center";
+nameText.className = "font-semibold text-gray-900 dark:text-white inline-flex items-center";
 nameText.innerHTML = `
   ${post.userName || "HatUser"}
   ${getPremiumHTML(post.premium)}
@@ -3127,44 +3164,32 @@ nameText.innerHTML = `
   ${getProHTML(post.pro)}
   ${getCompanyHTML(post.company)}
   ${getAIHTML(post.AI)}
-   ${getClidderHTML(post.Clidder)}
-
+  ${getClidderHTML(post.Clidder)}
 `;
 
-userName.appendChild(nameText);
+// Final one-line row: name + badges + handle + time
+const nameRow = document.createElement("div");
+nameRow.className = "flex flex-wrap items-center gap-1 text-sm leading-tight";
+nameRow.appendChild(nameText);
+nameRow.appendChild(userHandle);
+nameRow.appendChild(timeSpan);
+
+// Assemble
+userInfo.appendChild(nameRow);
+header.appendChild(userInfo);
+div.appendChild(header);
+
+// Post content
+const content = document.createElement("div");
+content.className = "post-content text-gray-900 dark:text-white text-base whitespace-pre-wrap break-words";
 
 
- const userHandle = document.createElement("span");
-userHandle.className = "text-unique-user user-handle text-xs font-normal";
-userHandle.textContent = post.userHandle.replace(/^@/, "𝓬𝓹");
-userHandle.addEventListener("click", () => {
-  showUserProfile(post.userHandle.replace(/^@/, ""));
-});
 
 
-      userInfo.appendChild(userName);
-      userInfo.appendChild(userHandle);
 
-      header.appendChild(userInfo);
 
-      // Add time element
-      const timeSpan = document.createElement("span");
-      timeSpan.className = "text-gray-400 text-xs ml-auto select-none";
-      let createdAtDate = null;
-      if (post.createdAt && post.createdAt.toDate) {
-        createdAtDate = post.createdAt.toDate();
-      } else if (post.createdAt instanceof Date) {
-        createdAtDate = post.createdAt;
-      } else if (typeof post.createdAt === "string") {
-        createdAtDate = new Date(post.createdAt);
-      }
-      timeSpan.textContent = timeAgo(createdAtDate);
-      header.appendChild(timeSpan);
 
-      div.appendChild(header);
 
-      const content = document.createElement("div");
-content.className = "post-content text-gray-900 text-lg whitespace-pre-wrap break-words";
 
 
 // Convert URLs in the caption into clickable links
