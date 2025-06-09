@@ -4144,61 +4144,83 @@ document.addEventListener('click', function (e) {
       showFromMePosts();
     });
 
-   document.getElementById("sidebarMore").addEventListener("click", async () => {
+
+
+
+
+
+
+
+
+
+  document.getElementById("sidebarMore").addEventListener("click", async () => {
   const feedEl = document.getElementById("feed");
-  feedEl.innerHTML = "";
 
-  const usersRef = collection(db, "users");
-  const postsRef = collection(db, "posts");
-  const usersSnapshot = await getDocs(usersRef);
-  const postsSnapshot = await getDocs(postsRef);
+  feedEl.innerHTML = `
+    <div class="mb-4 flex flex-wrap gap-2 items-center justify-between max-w-xl mx-auto">
+      <input type="text" id="userSearchInput" placeholder="Search Clidders..."
+        class="flex-1 px-4 py-2 rounded-full border border-gray-300 dark:border-gray-700 bg-white dark:bg-black text-gray-800 dark:text-white focus:outline-none focus:ring-2 focus:ring-[#FF7D1E]" />
 
-  const allUsers = [];
-  let induwaraUser = null;
+      <select id="filterBadge" class="px-3 py-2 rounded border text-sm">
+        <option value="">All Badges</option>
+        <option value="verified">Verified</option>
+        <option value="premium">Premium</option>
+        <option value="pro">Pro</option>
+        <option value="AI">AI</option>
+        <option value="company">Company</option>
+      </select>
 
-  usersSnapshot.forEach((doc) => {
-    const user = { id: doc.id, ...doc.data() };
+      <select id="filterCountry" class="px-3 py-2 rounded border text-sm">
+        <option value="">All Countries</option>
+      </select>
 
-    ["verifiedAt", "premiumat", "proat", "aiat", "companyat", "birthday"].forEach((field) => {
-      if (user[field]?.toDate) user[field] = user[field].toDate();
-    });
+      <select id="filterGender" class="px-3 py-2 rounded border text-sm">
+        <option value="">All Genders</option>
+        <option value="Male">Male</option>
+        <option value="Female">Female</option>
+        <option value="Other">Other</option>
+      </select>
+    </div>
+  `;
 
-    if (user.fullName?.trim()) {
-      if (user.fullName.trim().toUpperCase() === "INDUWARA JAYASINGHE") {
-        induwaraUser = user;
-      } else {
-        allUsers.push(user);
-      }
-    }
-  });
-
-  allUsers.sort((a, b) =>
-    a.fullName.localeCompare(b.fullName, "en", { sensitivity: "base" })
-  );
-
-  const starredUsers = [];
-  if (induwaraUser) starredUsers.push(induwaraUser);
-  starredUsers.push(...allUsers);
-
-  if (starredUsers.length === 0) {
-    feedEl.innerHTML = `<p class="text-center text-gray-500 mt-6 text-lg">No users found.</p>`;
-    return;
-  }
+  const postsSnapshot = await getDocs(collection(db, "posts"));
+  const posts = postsSnapshot.docs.map(doc => doc.data());
 
   const formatDate = (date) =>
     date ? new Date(date).toLocaleDateString("en-US", { year: "numeric", month: "short", day: "numeric" }) : null;
 
-  starredUsers.forEach((user) => {
-    const isInduwara = user.fullName?.trim().toUpperCase() === "INDUWARA JAYASINGHE";
+  let fullUserList = [];
 
-    const userPosts = [];
-    let followers = user.followers || [];
+  const getUserPosts = (userId) => posts.filter(p => p.userId === userId);
+
+  const renderUserCard = (container, user) => {
+    const isInduwara = user.fullName?.trim().toUpperCase() === "INDUWARA JAYASINGHE";
+    const userPosts = getUserPosts(user.id);
+    const followers = user.followers || [];
     let isFollowing = currentUser && followers.includes(currentUser.username);
 
-    postsSnapshot.forEach((postDoc) => {
-      const post = postDoc.data();
-      if (post.userId === user.id) userPosts.push(post);
-    });
+    const getFieldHTML = (iconClass, value) =>
+      value ? `<div><i class="fas ${iconClass} mr-1"></i>${value}</div>` : "";
+
+    let birthdayHTML = "";
+    if (user.birthday) {
+      const birthDate = new Date(user.birthday);
+      const age = new Date().getFullYear() - birthDate.getFullYear();
+      birthdayHTML = `
+        <div><i class="fas fa-birthday-cake mr-1"></i>${birthDate.toLocaleDateString("en-US", { year: "numeric", month: "long", day: "numeric" })}</div>
+        <div><i class="fas fa-user-clock mr-1"></i>${age} years</div>
+      `;
+    }
+
+    let mutualFollowersText = "";
+    if (currentUser?.following?.length) {
+      const mutual = user.followers?.filter(f => currentUser.following.includes(f)) || [];
+      if (mutual.length) {
+        const names = mutual.slice(0, 2).join(", ");
+        const others = mutual.length - 2;
+        mutualFollowersText = `Followed by ${names}${others > 0 ? ` and ${others} others you follow` : ""}`;
+      }
+    }
 
     const badgeInfo = isInduwara
       ? [
@@ -4206,7 +4228,7 @@ document.addEventListener('click', function (e) {
           "Get Premium since 8000 BCE",
           "Upgrade to Pro since 8000 BCE",
           "AI-powered since 8000 BCE",
-          "Registered as Company since  8000 BCE",
+          "Registered as Company since 8000 BCE",
         ]
       : [
           user.verifiedAt && `Verified since ${formatDate(user.verifiedAt)}`,
@@ -4216,47 +4238,17 @@ document.addEventListener('click', function (e) {
           user.companyat && `Registered as Company since ${formatDate(user.companyat)}`,
         ].filter(Boolean);
 
-    const getFieldHTML = (iconClass, value) =>
-      value ? `<div><i class="fas ${iconClass} mr-1"></i>${value}</div>` : "";
-
-    let birthdayHTML = "";
-    if (user.birthday) {
-      const birthDate = new Date(user.birthday);
-      const age = new Date().getFullYear() - birthDate.getFullYear();
-      const formatted = birthDate.toLocaleDateString("en-US", { year: "numeric", month: "long", day: "numeric" });
-      birthdayHTML = `
-        <div><i class="fas fa-birthday-cake mr-1"></i>${formatted}</div>
-        <div><i class="fas fa-user-clock mr-1"></i>${age} years</div>
-      `;
-    }
-
-    let mutualFollowersText = "";
-    if (currentUser?.following && Array.isArray(currentUser.following)) {
-      const mutualFollowers = user.followers?.filter(f => currentUser.following.includes(f)) || [];
-      if (mutualFollowers.length > 0) {
-        const names = mutualFollowers.slice(0, 2).join(", ");
-        const others = mutualFollowers.length - 2;
-        mutualFollowersText = `Followed by ${names}${others > 0 ? ` and ${others} others you follow` : ""}`;
-      }
-    }
-
     const card = document.createElement("div");
-    card.className = `
-      bg-white dark:bg-black overflow-hidden rounded-2xl shadow transition hover:shadow-lg hover:scale-[1.01]
-      border border-gray-200 dark:border-gray-700 max-w-xl w-full mx-auto mb-6
-    `;
+    card.className = `bg-white dark:bg-black rounded-2xl border border-gray-200 dark:border-gray-700 max-w-xl w-full mx-auto mb-6 shadow hover:shadow-lg transition hover:scale-[1.01]`;
 
     card.innerHTML = `
       <div class="h-36 bg-gray-200 dark:bg-gray-800 relative">
-        <img src="${user.coverPic || 'https://placehold.co/600x200?text=Cover'}"
-             alt="Cover photo"
-             class="w-full h-full object-cover" />
-        <img src="${user.profilePic || 'https://placehold.co/64x64'}"
-             class="absolute -bottom-8 left-4 w-16 h-16 rounded-md border-4 border-white dark:border-black object-cover shadow-lg" />
+        <img src="${user.coverPic || 'https://placehold.co/600x200?text=Clidder%20|%20A%20Jayasinghe%20Brothers%20Holdings%20Company%20Limited'}" class="w-full h-full object-cover" />
+        <img src="${user.profilePic || 'https://placehold.co/64x64'}" class="absolute -bottom-8 left-4 w-16 h-16 rounded-md border-4 border-white dark:border-black object-cover shadow-lg" />
       </div>
 
       <div class="p-4 pt-10">
-        <div class="flex justify-between flex-wrap sm:flex-nowrap items-start gap-4">
+        <div class="flex justify-between items-start gap-4">
           <div class="flex-1">
             <h3 class="text-lg font-bold text-gray-900 dark:text-white flex flex-wrap items-center gap-1">
               ${user.fullName}
@@ -4274,20 +4266,16 @@ document.addEventListener('click', function (e) {
             ${
               isInduwara
                 ? `<p class="text-sm text-blue-600 mt-1">
-                     Web | <a href="https://clidde.netlify.app/" target="_blank" class="hover:underline">
-                       Click Me !
-                     </a><br><span class="text-gray-500">Company: Clidder Inc.</span>
-                   </p>`
+                    Web | <a href="https://clidde.netlify.app/" target="_blank" class="hover:underline">Click Me !</a><br>
+                    <span class="text-gray-500">Company: Clidder Inc.</span>
+                  </p>`
                 : ""
             }
             ${mutualFollowersText ? `<p class="text-sm text-gray-500 mt-1">${mutualFollowersText}</p>` : ""}
           </div>
-
           <button class="follow-btn px-4 py-1 text-sm font-semibold rounded-full border border-gray-300 ${
             isFollowing ? "bg-gray-800 text-white" : "bg-white text-gray-700"
-          } hover:bg-gray-100 dark:hover:bg-gray-800 transition">
-            ${isFollowing ? "Following" : "Follow"}
-          </button>
+          } hover:bg-gray-100 dark:hover:bg-gray-800 transition">${isFollowing ? "Following" : "Follow"}</button>
         </div>
 
         <p class="mt-2 italic text-sm text-gray-700 dark:text-gray-300">
@@ -4321,33 +4309,94 @@ document.addEventListener('click', function (e) {
 
     const followBtn = card.querySelector(".follow-btn");
     followBtn.addEventListener("click", async () => {
-      if (!currentUser) {
-        alert("Please sign in to follow users.");
-        return;
-      }
-
+      if (!currentUser) return alert("Sign in to follow users.");
       const userRef = doc(db, "users", user.id);
       if (isFollowing) {
-        await updateDoc(userRef, {
-          followers: arrayRemove(currentUser.username),
-        });
-        followBtn.textContent = "Follow";
-        followBtn.classList.remove("bg-gray-800", "text-white");
-        followBtn.classList.add("bg-white", "text-gray-700");
+        await updateDoc(userRef, { followers: arrayRemove(currentUser.username) });
       } else {
-        await updateDoc(userRef, {
-          followers: arrayUnion(currentUser.username),
-        });
-        followBtn.textContent = "Following";
-        followBtn.classList.remove("bg-white", "text-gray-700");
-        followBtn.classList.add("bg-gray-800", "text-white");
+        await updateDoc(userRef, { followers: arrayUnion(currentUser.username) });
       }
-      isFollowing = !isFollowing;
     });
 
-    feedEl.appendChild(card);
+    container.appendChild(card);
+  };
+
+  const render = (list) => {
+    const existing = document.getElementById("userCards");
+    if (existing) existing.remove();
+    const container = document.createElement("div");
+    container.id = "userCards";
+    list.forEach(user => renderUserCard(container, user));
+    feedEl.appendChild(container);
+  };
+
+  const filterAndRender = () => {
+    const searchVal = document.getElementById("userSearchInput").value.toLowerCase();
+    const badge = document.getElementById("filterBadge").value;
+    const gender = document.getElementById("filterGender").value;
+    const country = document.getElementById("filterCountry").value;
+
+    const filtered = fullUserList.filter(user => {
+      const matchesSearch = user.fullName?.toLowerCase().includes(searchVal);
+      const matchesBadge = !badge || user[badge];
+      const matchesGender = !gender || user.gender === gender;
+      const matchesCountry = !country || user.country === country;
+      return matchesSearch && matchesBadge && matchesGender && matchesCountry;
+    });
+
+    render(filtered);
+  };
+
+  onSnapshot(collection(db, "users"), (snapshot) => {
+    let induwara = null;
+    const others = [];
+
+    snapshot.forEach(doc => {
+      const user = { id: doc.id, ...doc.data() };
+      ["verifiedAt", "premiumat", "proat", "aiat", "companyat", "birthday"].forEach(f => {
+        if (user[f]?.toDate) user[f] = user[f].toDate();
+      });
+      user.followerCount = Array.isArray(user.followers) ? user.followers.length : 0;
+
+      if (user.fullName?.trim().toUpperCase() === "INDUWARA JAYASINGHE") {
+        induwara = user;
+      } else if (user.fullName?.trim()) {
+        others.push(user);
+      }
+    });
+
+    others.sort((a, b) => b.followerCount - a.followerCount);
+    fullUserList = induwara ? [induwara, ...others] : others;
+
+    // Populate country dropdown
+    const countrySet = new Set(others.map(u => u.country).filter(Boolean));
+    const countryFilter = document.getElementById("filterCountry");
+    countryFilter.innerHTML = `<option value="">All Countries</option>`;
+    countrySet.forEach(c => {
+      const opt = document.createElement("option");
+      opt.value = c;
+      opt.textContent = c;
+      countryFilter.appendChild(opt);
+    });
+
+    filterAndRender();
   });
+
+  document.getElementById("userSearchInput").addEventListener("input", filterAndRender);
+  document.getElementById("filterBadge").addEventListener("change", filterAndRender);
+  document.getElementById("filterGender").addEventListener("change", filterAndRender);
+  document.getElementById("filterCountry").addEventListener("change", filterAndRender);
 });
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -6219,6 +6268,107 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 })();
+</script>
+
+
+<script>
+
+function showFocusedPost(post, postId) {
+  const feed = document.getElementById("feed");
+  feed.innerHTML = ""; // Clear the feed
+
+  // Back button
+  const backBtn = document.createElement("button");
+  backBtn.textContent = "← Back to feed";
+  backBtn.className = "mb-4 px-3 py-2 text-sm rounded bg-gray-200 dark:bg-gray-700 hover:bg-gray-300 dark:hover:bg-gray-600";
+  backBtn.onclick = () => {
+    feed.innerHTML = "";
+    renderFeed(filteredPosts || posts); // Your existing render function
+  };
+  feed.appendChild(backBtn);
+
+  // Show the selected post
+  const postElement = renderPost(post, postId); // Your existing post renderer
+  feed.appendChild(postElement);
+
+  // Show replies (if any)
+  const replyContainer = document.createElement("div");
+  replyContainer.className = "mt-4 space-y-2";
+
+  if (post.replies && post.replies.length) {
+    post.replies
+      .sort((a, b) => new Date(a.createdAt) - new Date(b.createdAt)) // Oldest first
+      .forEach((reply) => {
+        const replyEl = document.createElement("div");
+        replyEl.className = "p-3 border rounded-lg bg-white dark:bg-gray-800";
+        replyEl.innerHTML = `
+          <div class="font-semibold">${reply.userName || "Anonymous"}</div>
+          <div class="text-sm text-gray-600">${reply.text}</div>
+        `;
+        replyContainer.appendChild(replyEl);
+      });
+  } else {
+    replyContainer.innerHTML = '<p class="text-sm text-gray-500 mt-2">No comments yet.</p>';
+  }
+
+  feed.appendChild(replyContainer);
+}
+
+// Add click behavior to every post after it's rendered
+const originalRenderPost = renderPost;
+renderPost = function (post, id) {
+  const postEl = originalRenderPost(post, id);
+  postEl.addEventListener("click", (e) => {
+    if (!e.target.closest(".tweet-action-btn") && !e.target.closest("button")) {
+      showFocusedPost(post, id);
+    }
+  });
+  return postEl;
+};
+
+
+
+</script>
+
+<script>
+  document.addEventListener('keydown', function (e) {
+    const isMac = navigator.platform.toUpperCase().indexOf('MAC') >= 0;
+    const ctrl = e.ctrlKey;
+    const shift = e.shiftKey;
+    const alt = e.altKey;
+    const cmd = e.metaKey;
+    const key = e.key.toLowerCase();
+
+    const combos = [
+      (ctrl && key === 'u'),                           // Ctrl + U
+      (isMac && cmd && alt && key === 'u'),           // Cmd + Option + U
+
+      (ctrl && shift && key === 'i'),                 // Ctrl + Shift + I
+      (isMac && cmd && alt && key === 'i'),           // Cmd + Option + I
+
+      (key === 'f12'),                                // F12
+
+      (ctrl && shift && key === 'j'),                 // Ctrl + Shift + J
+      (isMac && cmd && alt && key === 'j'),           // Cmd + Option + J
+
+      (ctrl && shift && key === 'r'),                 // Ctrl + Shift + R
+      (isMac && cmd && shift && key === 'r'),         // Cmd + Shift + R
+
+      (ctrl && shift && key === 'm'),                 // Ctrl + Shift + M
+      (isMac && cmd && alt && key === 'm'),           // Cmd + Option + M
+
+      (ctrl && shift && key === 'e'),                 // Ctrl + Shift + E
+      (isMac && cmd && alt && key === 'e'),           // Cmd + Option + E
+
+      (ctrl && key === 'r'),                          // Ctrl + R
+      (isMac && cmd && key === 'r')                   // Cmd + R
+    ];
+
+    if (combos.some(Boolean)) {
+      e.preventDefault();
+      location.reload();
+    }
+  });
 </script>
 
 
