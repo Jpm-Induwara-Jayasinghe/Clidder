@@ -1568,7 +1568,7 @@ body.dark-mode textarea::placeholder {
 
 <!-- Left-aligned clickable logo, aligned with sidebar buttons -->
 <div class="mb-2 pl-[0rem]">
-  <button class="hover:bg-blue-100 dark:hover:bg-gray-700 p-2 rounded-full">
+  <button>
     <img src="https://i.ibb.co/T6n1yfk/Clidder.png" alt="Clidder Logo" class="w-8 h-8" />
   </button>
 </div>
@@ -1579,10 +1579,15 @@ body.dark-mode textarea::placeholder {
 
       <nav class="flex flex-col space-y-4">
         <button class="flex items-center space-x-3 hover:text-[#FF7D1E] focus:outline-none focus:text-[#FF7D1E]" id="sidebarHome">
-          <i class="fas fa-home text-black dark:text-white" 
-   style="text-shadow: -1px -1px 0 black, 1px -1px 0 black, -1px 1px 0 black, 1px 1px 0 black;"></i>
-           <span>Home</span>
-        </button>
+  <span class="relative inline-block">
+    <i class="fas fa-home text-black dark:text-white" 
+       style="text-shadow: -1px -1px 0 black, 1px -1px 0 black, -1px 1px 0 black, 1px 1px 0 black;"></i>
+    <!-- Always-visible orange dot -->
+    <span class="absolute -top-1 -right-1 w-2 h-2 bg-orange-500 rounded-full"></span>
+  </span>
+  <span>Home</span>
+</button>
+
 
         <button class="flex items-center space-x-3 hover:text-[#FF7D1E] focus:outline-none focus:text-[#FF7D1E]" id="sidebarExplore" style="">
           <i class="fas fa-hashtag text-black dark:text-white" 
@@ -1644,11 +1649,6 @@ body.dark-mode textarea::placeholder {
           <span>Clidders</span>
         </button>
 
-<button id="sidebarTheme" class="flex items-center space-x-3 hover:text-[#FF7D1E] focus:outline-none focus:text-[#FF7D1E]">
-  <i class="fas fa-palette text-black dark:text-white" 
-   style="text-shadow: -1px -1px 0 black, 1px -1px 0 black, -1px 1px 0 black, 1px 1px 0 black;"></i>
-  <span>Theme</span>
-</button>
 
 
 
@@ -1661,6 +1661,11 @@ body.dark-mode textarea::placeholder {
 
 
 
+<button id="sidebarTheme" class="flex items-center space-x-3 hover:text-[#FF7D1E] focus:outline-none focus:text-[#FF7D1E]">
+  <i class="fas fa-palette text-black dark:text-white" 
+   style="text-shadow: -1px -1px 0 black, 1px -1px 0 black, -1px 1px 0 black, 1px 1px 0 black;"></i>
+  <span>Theme</span>
+</button>
 
 
 
@@ -1731,10 +1736,14 @@ body.dark-mode textarea::placeholder {
       <div id="headerMoreDropdown" class="hidden absolute right-0 mt-2 w-36 bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg shadow-lg z-50">
         <button onclick="document.getElementById('sidebarTheme').click()" class="w-full text-left px-4 py-2 text-sm text-gray-700 dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700">Custom Themes</button>
         <button onclick="document.getElementById('sidebarSettings').click()" class="w-full text-left px-4 py-2 text-sm text-gray-700 dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700">Timeline Settings</button>
+        <button onclick=window.location.href='timeline-setting.html' class="w-full text-left px-4 py-2 text-sm text-gray-700 dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700">Dev Tools</button>
+
+
   <button id="dropdownModeToggle" class="w-full text-left px-4 py-2 text-sm text-gray-700 dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 flex items-center justify-between">
     <span>Dark Mode</span>
     <i class="fas fa-moon"></i>
   </button>
+
       </div>
     </div>
 
@@ -1854,7 +1863,7 @@ body.dark-mode textarea::placeholder {
 
 <div class=" border-gray-300 dark:border-gray-700 text-center py-3">
   <span class="text-[#FF7D1E] font-semibold text-sm">
-    Clidder | A Jayasinghe Brothers Holdings Company Limited
+    𝓒𝓵𝓲𝓭𝓭𝓮𝓻 | 𝓐 𝓙𝓪𝔂𝓪𝓼𝓲𝓷𝓰𝓱𝓮 𝓑𝓻𝓸𝓽𝓱𝓮𝓻𝓼 𝓗𝓸𝓵𝓭𝓲𝓷𝓰𝓼 𝓒𝓸𝓶𝓹𝓪𝓷𝔂 𝓛𝓲𝓶𝓲𝓽𝓮𝓭.
   </span>
 </div>
 
@@ -1908,17 +1917,36 @@ body.dark-mode textarea::placeholder {
 
 
 <div class="relative w-full max-w-md">
-  <svg class="absolute left-3 top-1/2 -translate-y-1/2 text-gray-500" xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+  <!-- Search Icon (left) -->
+  <svg class="absolute left-3 top-1/2 -translate-y-1/2 text-gray-500 dark:text-gray-400" xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="none" viewBox="0 0 24 24" stroke="currentColor">
     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-4.35-4.35M16.65 16.65A7.5 7.5 0 1116.65 2a7.5 7.5 0 010 15z" />
   </svg>
+
+  <!-- Search Input -->
   <input
-    aria-label="Search hats by caption"
     id="searchInput"
     type="search"
     placeholder="Discover on Clidder"
-    class="w-full pl-10 pr-4 py-2 rounded-full bg-gray-100 text-sm shadow-sm focus:bg-white focus:outline-none focus:ring-2 focus:ring-[#FF7D1E] transition"
+    class="w-full pl-10 pr-8 py-2 rounded-md 
+           bg-white dark:bg-gray-900 
+           text-sm text-black dark:text-white 
+           placeholder-gray-500 dark:placeholder-gray-400 
+           border border-gray-300 dark:border-gray-700 
+           focus:outline-none 
+           focus:border-[#FF7D1E] focus:ring-1 focus:ring-[#FF7D1E] 
+           transition"
   />
+
+  <!-- Slash key hint -->
+  <span class="absolute right-2 top-1/2 -translate-y-1/2 
+               text-xs text-gray-500 dark:text-gray-400 
+               bg-white dark:bg-gray-800 
+               px-1 rounded-sm font-mono 
+               pointer-events-none select-none leading-tight">
+    /
+  </span>
 </div>
+
 
 
 <div class="rounded-[10px] border border-white/30 backdrop-blur-md shadow p-6 flex flex-col items-center space-y-4 text-orange-500 text-center
@@ -2160,22 +2188,22 @@ body.dark-mode textarea::placeholder {
   <!-- Footer -->
   <footer class="text-xs text-gray-500 px-4 py-6 text-center space-y-2 font-normal">
     <div class="flex flex-wrap justify-center gap-2 sm:gap-4">
-      <a href="#" class="hover:underline">About</a> |
+      <a href="about.html" class="hover:underline">About</a> |
       <a href="#" class="hover:underline">Download the Clidder app</a> |
       <a href="#" class="hover:underline">Clibra</a> |
       <a href="#" class="hover:underline">Help Centre</a> |
-      <a href="#" class="hover:underline">Terms of Service</a> |
-      <a href="#" class="hover:underline">Privacy Policy</a> |
-      <a href="#" class="hover:underline">Cookie Policy</a> |
-      <a href="#" class="hover:underline">Accessibility</a> |
-      <a href="#" class="hover:underline">Ads info</a> |
-      <a href="#" class="hover:underline">Blog</a> |
-      <a href="#" class="hover:underline">Careers</a> |
-      <a href="#" class="hover:underline">Brand Resources</a> |
-      <a href="#" class="hover:underline">Advertising</a> |
-      <a href="#" class="hover:underline">Marketing</a> |
-      <a href="#" class="hover:underline">Clidder for Business</a> |
-      <a href="#" class="hover:underline">Developers</a> |
+      <a href="terms.html" class="hover:underline">Terms of Service</a> |
+      <a href="privacy.html" class="hover:underline">Privacy Policy</a> |
+      <a href="cookies.html" class="hover:underline">Cookie Policy</a> |
+      <a href="accessibility.html" class="hover:underline">Accessibility</a> |
+      <a href="ads-info.html" class="hover:underline">Ads info</a> |
+      <a href="blog.html" class="hover:underline">Blog</a> |
+      <a href="careers.html" class="hover:underline">Careers</a> |
+      <a href="brand.html" class="hover:underline">Brand Resources</a> |
+      <a href="advertise.html" class="hover:underline">Advertising</a> |
+      <a href="marketing.html" class="hover:underline">Marketing</a> |
+      <a href="business.html" class="hover:underline">Clidder for Business</a> |
+      <a href="developers.html" class="hover:underline">Developers</a> |
       <a href="#" class="hover:underline">Directory</a> |
       <a href="#" class="hover:underline">Settings</a>
     </div>

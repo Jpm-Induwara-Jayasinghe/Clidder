@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Careers at Clidder</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background-color: #111;
+      color: #f1f1f1;
+    }
+
+    header {
+      background-color: #1a1a1a;
+      color: #ff6600;
+      padding: 20px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+    }
+
+    header img {
+      height: 40px;
+    }
+
+    #datetime {
+      font-size: 14px;
+    }
+
+    main {
+      max-width: 900px;
+      margin: auto;
+      padding: 30px 20px;
+    }
+
+    h1 {
+      color: #ff6600;
+      text-align: center;
+      margin-bottom: 10px;
+    }
+
+    p.intro {
+      text-align: center;
+      font-size: 15px;
+      margin-bottom: 30px;
+      color: #ccc;
+    }
+
+    .job {
+      background-color: #1e1e1e;
+      border: 1px solid #333;
+      padding: 20px;
+      margin-bottom: 20px;
+      border-radius: 8px;
+    }
+
+    .job h2 {
+      color: #ff6600;
+      margin-bottom: 8px;
+    }
+
+    .job small {
+      color: #aaa;
+      display: block;
+      margin-bottom: 10px;
+    }
+
+    .job p {
+      font-size: 14px;
+      line-height: 1.5;
+    }
+
+    .apply-btn {
+      margin-top: 10px;
+      display: inline-block;
+      background: #ff6600;
+      color: #fff;
+      padding: 8px 16px;
+      border-radius: 5px;
+      text-decoration: none;
+    }
+
+    .apply-btn:hover {
+      background: #e65c00;
+    }
+
+    footer {
+      text-align: center;
+      font-size: 13px;
+      color: #888;
+      padding: 30px 15px;
+      background-color: #0d0d0d;
+    }
+
+    @media (max-width: 600px) {
+      header {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <img src="https://i.ibb.co/T6n1yfk/Clidder.png" alt="Clidder Logo">
+    <div id="datetime">Loading...</div>
+  </header>
+
+  <main>
+    <h1>Careers at Clidder</h1>
+    <p class="intro">
+      Work with <strong>Clidder Inc.</strong> — A proud project by <strong>Black Hat Inc.</strong>, a Jayasinghe Brothers Holdings Company.<br/>
+      All data is stored securely on large Black Hat servers. Technologies: Python, PHP, C++, C#, and JavaScript.
+    </p>
+
+    <!-- Job 1 -->
+    <div class="job">
+      <h2>Software Engineer (Full Stack)</h2>
+      <small>Location: Remote or Sri Lanka | Type: Full-time</small>
+      <p>
+        We're looking for skilled developers with experience in Python, PHP, C++, and JavaScript. You'll work on building secure and scalable features for Clidder.
+      </p>
+      <a href="mailto:clidderllc@gmail.com?subject=Job Application - Software Engineer" class="apply-btn">Apply Now</a>
+    </div>
+
+    <!-- Job 2 -->
+    <div class="job">
+      <h2>Security Analyst</h2>
+      <small>Location: HQ (Sri Lanka) | Type: Contract</small>
+      <p>
+        Join the Black Hat infrastructure team to help secure Clidder's private servers and user data. Background in cybersecurity or ethical hacking is a plus.
+      </p>
+      <a href="mailto:clidderllc@gmail.com?subject=Job Application - Security Analyst" class="apply-btn">Apply Now</a>
+    </div>
+
+    <!-- Job 3 -->
+    <div class="job">
+      <h2>Content Moderator</h2>
+      <small>Location: Remote | Type: Part-time</small>
+      <p>
+        Help maintain community guidelines by moderating posts and user behavior. Good judgment, communication, and fast internet required.
+      </p>
+      <a href="mailto:clidderllc@gmail.com?subject=Job Application - Content Moderator" class="apply-btn">Apply Now</a>
+    </div>
+  </main>
+
+  <footer>
+    &copy; <span id="year"></span> Clidder Inc. | A Black Hat Inc. Company<br/>
+    Project by INDUWARA JAYASINGHE<br/>
+    Contact: <a href="mailto:clidderllc@gmail.com" style="color: #ff6600;">clidderllc@gmail.com</a>
+  </footer>
+
+  <script>
+    function updateDateTime() {
+      const now = new Date();
+      const date = now.toLocaleDateString('en-GB');
+      const time = now.toLocaleTimeString('en-GB');
+      document.getElementById('datetime').textContent = `${date} | ${time}`;
+    }
+
+    updateDateTime();
+    setInterval(updateDateTime, 1000);
+    document.getElementById("year").textContent = new Date().getFullYear();
+  </script>
+
+</body>
+</html>

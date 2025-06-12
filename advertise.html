@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Advertise on Clidder</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', sans-serif;
+      background-color: #000;
+      color: #fff;
+    }
+
+    header {
+      background-color: #121212;
+      border-bottom: 1px solid #2f2f2f;
+      padding: 16px 32px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    header img {
+      height: 40px;
+    }
+
+    #datetime {
+      font-size: 13px;
+      color: #bbb;
+    }
+
+    .container {
+      max-width: 1000px;
+      margin: auto;
+      padding: 40px 20px;
+    }
+
+    h1 {
+      font-size: 36px;
+      color: #ff6600;
+      margin-bottom: 10px;
+    }
+
+    h2 {
+      color: #ff6600;
+      font-size: 24px;
+      margin-top: 40px;
+    }
+
+    p {
+      font-size: 17px;
+      color: #ccc;
+    }
+
+    .btn {
+      display: inline-block;
+      background-color: #ff6600;
+      color: #000;
+      text-decoration: none;
+      padding: 12px 24px;
+      margin-top: 20px;
+      border-radius: 9999px;
+      font-weight: bold;
+    }
+
+    .ad-section {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 30px;
+      margin-top: 40px;
+    }
+
+    .ad-card {
+      background: #1a1a1a;
+      border: 1px solid #333;
+      border-radius: 12px;
+      padding: 20px;
+    }
+
+    .ad-card h3 {
+      color: #ff6600;
+      font-size: 20px;
+    }
+
+    .ad-card p {
+      font-size: 15px;
+      color: #aaa;
+    }
+
+    footer {
+      text-align: center;
+      font-size: 13px;
+      color: #777;
+      margin-top: 60px;
+      padding-bottom: 40px;
+    }
+
+    a {
+      color: #ff6600;
+      text-decoration: none;
+    }
+
+    a:hover {
+      text-decoration: underline;
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <img src="https://i.ibb.co/T6n1yfk/Clidder.png" alt="Clidder Logo">
+    <div id="datetime">Loading time...</div>
+  </header>
+
+  <div class="container">
+    <h1>Advertise on Clidder</h1>
+    <p>Reach your audience on Clidder — the platform where conversations spark influence. Engage with millions through targeted, meaningful campaigns.</p>
+    <a class="btn" href="mailto:clidderllc@gmail.com">Get Started</a>
+
+    <h2>Why Advertise with Clidder?</h2>
+    <div class="ad-section">
+      <div class="ad-card">
+        <h3>Massive Reach</h3>
+        <p>Clidder connects millions of active users globally, letting your brand go viral in seconds.</p>
+      </div>
+      <div class="ad-card">
+        <h3>Advanced Targeting</h3>
+        <p>Target users based on location, interests, gender, or engagement to maximize ROI.</p>
+      </div>
+      <div class="ad-card">
+        <h3>Real-Time Impact</h3>
+        <p>Your campaign is live the moment you click “Publish.” Watch conversations and results unfold instantly.</p>
+      </div>
+      <div class="ad-card">
+        <h3>Multiple Ad Formats</h3>
+        <p>Run banner ads, promoted posts, sponsored trends, or custom campaigns powered by you.</p>
+      </div>
+    </div>
+
+    <h2>Advertiser Support</h2>
+    <p>Our dedicated team ensures your campaign strategy is optimized for success. We’re with you at every step — from planning to analysis.</p>
+    <p>Email <a href="mailto:clidderllc@gmail.com">clidderllc@gmail.com</a> for business inquiries.</p>
+
+    <h2>About Clidder</h2>
+    <p>Clidder is a social microblogging platform founded by <strong>Induwara Jayasinghe</strong> and operated by <strong>Black Hat Inc.</strong>, a Jayasinghe Brothers Holdings Company. All services and data are hosted on secured Black Hat servers.</p>
+  </div>
+
+  <footer>
+    &copy; <span id="year"></span> Clidder Inc. | A Black Hat Company<br>
+    Last updated: <span id="last-update">...</span>
+  </footer>
+
+  <script>
+    function updateDateTime() {
+      const now = new Date();
+      const date = now.toLocaleDateString('en-GB');
+      const time = now.toLocaleTimeString('en-GB');
+      document.getElementById('datetime').textContent = `${date} ${time}`;
+      document.getElementById('last-update').textContent = `${date} ${time}`;
+    }
+
+    updateDateTime();
+    setInterval(updateDateTime, 1000);
+    document.getElementById('year').textContent = new Date().getFullYear();
+  </script>
+
+</body>
+</html>

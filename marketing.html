@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Marketing with Clidder</title>
+  <style>
+    body {
+      margin: 0;
+      background-color: #000;
+      color: #fff;
+      font-family: "Segoe UI", sans-serif;
+    }
+
+    header {
+      background-color: #1a1a1a;
+      border-bottom: 1px solid #333;
+      padding: 16px 32px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    header img {
+      height: 40px;
+    }
+
+    #datetime {
+      font-size: 13px;
+      color: #aaa;
+    }
+
+    .container {
+      max-width: 1000px;
+      margin: auto;
+      padding: 40px 20px;
+    }
+
+    h1 {
+      color: #ff6600;
+      font-size: 34px;
+      margin-bottom: 12px;
+    }
+
+    h2 {
+      color: #ff6600;
+      font-size: 24px;
+      margin-top: 40px;
+    }
+
+    p {
+      font-size: 17px;
+      color: #ccc;
+      line-height: 1.6;
+    }
+
+    .grid {
+      display: grid;
+      gap: 30px;
+      margin-top: 30px;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    }
+
+    .card {
+      background-color: #1a1a1a;
+      border: 1px solid #333;
+      border-radius: 12px;
+      padding: 20px;
+    }
+
+    .card h3 {
+      color: #ff6600;
+      margin-top: 0;
+    }
+
+    .btn {
+      background-color: #ff6600;
+      color: #000;
+      padding: 12px 24px;
+      border-radius: 30px;
+      text-decoration: none;
+      font-weight: bold;
+      margin-top: 20px;
+      display: inline-block;
+    }
+
+    footer {
+      text-align: center;
+      color: #888;
+      font-size: 13px;
+      margin-top: 60px;
+      padding-bottom: 40px;
+    }
+
+    a {
+      color: #ff6600;
+      text-decoration: none;
+    }
+
+    a:hover {
+      text-decoration: underline;
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <img src="https://i.ibb.co/T6n1yfk/Clidder.png" alt="Clidder Logo">
+    <div id="datetime">Loading time...</div>
+  </header>
+
+  <div class="container">
+    <h1>Marketing with Clidder</h1>
+    <p>Clidder offers a powerful space for brands, creators, and businesses to connect with audiences through authentic conversation, viral trends, and targeted outreach. Let your brand thrive where people talk.</p>
+
+    <a class="btn" href="mailto:clidderllc@gmail.com">Start Marketing</a>
+
+    <h2>Powerful Tools for Marketers</h2>
+    <div class="grid">
+      <div class="card">
+        <h3>Trending Reach</h3>
+        <p>Ride the wave of viral content and elevate your brand by aligning with live trends and hashtags.</p>
+      </div>
+      <div class="card">
+        <h3>Community Influence</h3>
+        <p>Build loyal followings and nurture communities through meaningful two-way conversations.</p>
+      </div>
+      <div class="card">
+        <h3>Real-Time Feedback</h3>
+        <p>Launch campaigns, analyze reactions instantly, and refine based on user sentiment and interaction.</p>
+      </div>
+      <div class="card">
+        <h3>Organic Engagement</h3>
+        <p>Clidder thrives on shares, mentions, reclides, and threads — helping content spread organically.</p>
+      </div>
+    </div>
+
+    <h2>Use Clidder to...</h2>
+    <ul style="color:#ccc; font-size:16px; line-height:1.7;">
+      <li>Launch new products or services</li>
+      <li>Engage influencers & partners</li>
+      <li>Run hashtag campaigns</li>
+      <li>Gather user-generated content</li>
+      <li>Listen to audience sentiment</li>
+    </ul>
+
+    <h2>Clidder’s Commitment</h2>
+    <p>Clidder, founded by <strong>Induwara Jayasinghe</strong> and operated by <strong>Black Hat Inc.</strong>, empowers brand growth through organic community voice and secure infrastructure hosted on Black Hat servers.</p>
+
+    <p>Email us at <a href="mailto:clidderllc@gmail.com">clidderllc@gmail.com</a> to discuss your marketing needs.</p>
+  </div>
+
+  <footer>
+    &copy; <span id="year"></span> Clidder Inc. | A Black Hat Company<br>
+    Updated: <span id="last-update">--</span>
+  </footer>
+
+  <script>
+    function updateDateTime() {
+      const now = new Date();
+      const date = now.toLocaleDateString('en-GB');
+      const time = now.toLocaleTimeString('en-GB');
+      document.getElementById('datetime').textContent = `${date} ${time}`;
+      document.getElementById('last-update').textContent = `${date} ${time}`;
+    }
+
+    updateDateTime();
+    setInterval(updateDateTime, 1000);
+    document.getElementById('year').textContent = new Date().getFullYear();
+  </script>
+
+</body>
+</html>

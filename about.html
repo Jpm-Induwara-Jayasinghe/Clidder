@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>About | Clidder</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background-color: #121212;
+      color: #ffffff;
+      line-height: 1.6;
+    }
+
+    header {
+      background-color: #000000;
+      color: #ff6600;
+      padding: 20px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+    }
+
+    header img {
+      height: 40px;
+    }
+
+    .datetime {
+      display: flex;
+      align-items: center;
+      font-weight: bold;
+      font-size: 16px;
+      gap: 8px;
+    }
+
+    .datetime i {
+      font-style: normal;
+      font-size: 18px;
+    }
+
+    main {
+      max-width: 900px;
+      margin: 30px auto;
+      padding: 20px;
+      background-color: #1e1e1e;
+      border-radius: 12px;
+      box-shadow: 0 0 15px rgba(255, 102, 0, 0.2);
+    }
+
+    h1, h2, h3 {
+      color: #ff6600;
+    }
+
+    .section {
+      margin-bottom: 30px;
+    }
+
+    .info-list {
+      list-style: none;
+      padding-left: 0;
+    }
+
+    .info-list li {
+      margin-bottom: 10px;
+    }
+
+    .footer {
+      text-align: center;
+      color: #888;
+      margin-top: 40px;
+      font-size: 14px;
+    }
+
+    a {
+      color: #ff6600;
+      text-decoration: none;
+    }
+
+    a:hover {
+      text-decoration: underline;
+    }
+
+    @media (max-width: 600px) {
+      header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 10px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <img src="https://i.ibb.co/T6n1yfk/Clidder.png" alt="Clidder Logo" />
+    <div class="datetime"><i>🕒</i><span id="datetime">Loading...</span></div>
+  </header>
+
+  <main>
+    <div class="section">
+      <h1>About Clidder</h1>
+      <p>Clidder is a modern social platform where users connect, share, and express freely. Inspired by Twitter, Clidder brings powerful communication features like threaded replies, emoji reactions, multimedia support, and a sleek dark UI, all built with cutting-edge backend technologies and hosted securely.</p>
+    </div>
+
+    <div class="section">
+      <h2>Founder Information</h2>
+      <ul class="info-list">
+        <li><strong>Name:</strong> INDUWARA JAYASINGHE</li>
+        <li><strong>Role:</strong> Founder</li>
+        <li><strong>Website:</strong> <a href="https://blackhatai.nicepage.io/" target="_blank">https://blackhatai.nicepage.io/</a></li>
+        <li><strong>Email:</strong> <a href="mailto:clidderllc@gmail.com">clidderllc@gmail.com</a></li>
+      </ul>
+    </div>
+
+    <div class="section">
+      <h2>Company Information</h2>
+      <ul class="info-list">
+        <li><strong>Name:</strong> Black Hat Inc</li>
+        <li><strong>Subsidiary of:</strong> Jayasinghe Brothers Holdings Company Limited</li>
+        <li><strong>Project:</strong> 𝓒𝓵𝓲𝓭𝓭𝓮𝓻 | 𝓐 𝓙𝓪𝔂𝓪𝓼𝓲𝓷𝓰𝓱𝓮 𝓑𝓻𝓸𝓽𝓱𝓮𝓻𝓼 𝓗𝓸𝓵𝓭𝓲𝓷𝓰𝓼 𝓒𝓸𝓶𝓹𝓪𝓷𝔂 𝓛𝓲𝓶𝓲𝓽𝓮𝓭.</li>
+      </ul>
+    </div>
+
+    <div class="section">
+      <h2>Technologies Used</h2>
+      <ul class="info-list">
+        
+        <li>Languages: Python, PHP, C++, C#, JavaScript</li>
+        
+        <li>Storage: Large secure Black Hat Inc. servers</li>
+      </ul>
+    </div>
+
+    <div class="section">
+      <h2>Mission</h2>
+      <p>To build a secure, expressive, and professional space for global communication — where users can freely share thoughts and content with real-time features, clean UI, and reliability at scale.</p>
+    </div>
+
+    <div class="section">
+      <h2>Contact</h2>
+      <p>For inquiries, collaborations, or support, email us at <a href="mailto:clidderllc@gmail.com">clidderllc@gmail.com</a></p>
+    </div>
+
+    <div class="footer">
+      &copy; <span id="year"></span> Clidder Inc. All rights reserved.
+    </div>
+  </main>
+
+  <script>
+    function updateDateTime() {
+      const now = new Date();
+      const dateStr = now.toLocaleDateString('en-GB', {
+        year: 'numeric', month: 'long', day: 'numeric'
+      });
+      const timeStr = now.toLocaleTimeString('en-GB', {
+        hour: '2-digit', minute: '2-digit', second: '2-digit'
+      });
+      document.getElementById('datetime').textContent = `${dateStr} | ${timeStr}`;
+    }
+
+    updateDateTime();
+    setInterval(updateDateTime, 1000);
+    document.getElementById("year").textContent = new Date().getFullYear();
+  </script>
+</body>
+</html>

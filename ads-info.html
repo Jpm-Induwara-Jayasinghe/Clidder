@@ -1,138 +1,153 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Clidder – Ads Information</title>
-  <link rel="icon" href="https://i.ibb.co/YmCwGCB/cd.png">
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
-  <style>
-    :root {
-      --primary: #1da1f2;
-      --text: #0f1419;
-      --subtext: #536471;
-      --bg: #ffffff;
-      --border: #e1e8ed;
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Clidder Advertising Information</title>
+<style>
+  body {
+    margin: 0;
+    background-color: #000;
+    color: #fff;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  }
+  header {
+    background: #1a1a1a;
+    border-bottom: 1px solid #333;
+    padding: 16px 32px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  header img {
+    height: 40px;
+  }
+  #datetime {
+    font-size: 13px;
+    color: #aaa;
+  }
+  main.container {
+    max-width: 700px;
+    margin: 40px auto;
+    padding: 0 20px 60px;
+  }
+  h1 {
+    font-size: 36px;
+    color: #ff6600;
+    margin-bottom: 30px;
+  }
+  section {
+    background: #121212;
+    border-radius: 14px;
+    padding: 25px 30px;
+    margin-bottom: 30px;
+    box-shadow: 0 0 12px #ff660055;
+  }
+  section h2 {
+    margin-top: 0;
+    color: #ff6600;
+    font-size: 22px;
+    margin-bottom: 15px;
+  }
+  p, ul {
+    font-size: 16px;
+    line-height: 1.5;
+    color: #ddd;
+  }
+  ul {
+    padding-left: 20px;
+  }
+  a {
+    color: #ff6600;
+    text-decoration: none;
+  }
+  a:hover, a:focus {
+    text-decoration: underline;
+  }
+  footer {
+    text-align: center;
+    color: #777;
+    font-size: 13px;
+    margin-top: 60px;
+    padding-bottom: 40px;
+  }
+  @media (max-width: 600px) {
+    h1 {
+      font-size: 28px;
     }
-
-    * {
-      box-sizing: border-box;
+    main.container {
+      margin: 20px 10px 40px;
     }
-
-    body {
-      margin: 0;
-      font-family: 'Inter', sans-serif;
-      background-color: var(--bg);
-      color: var(--text);
-      line-height: 1.6;
-    }
-
-    header {
-      background-color: #ffffff;
-      border-bottom: 1px solid var(--border);
-      padding: 1rem 2rem;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-    }
-
-    header img {
-      height: 40px;
-    }
-
-    header h1 {
-      font-size: 1.5rem;
-      color: var(--primary);
-      margin: 0;
-    }
-
-    .container {
-      max-width: 800px;
-      margin: 2rem auto;
-      padding: 0 1.5rem;
-    }
-
-    h2 {
-      color: var(--primary);
-      margin-top: 2rem;
-      font-size: 1.25rem;
-    }
-
-    p {
-      color: var(--subtext);
-      font-size: 1rem;
-      margin: 1rem 0;
-    }
-
-    footer {
-      margin-top: 4rem;
-      padding: 2rem 1.5rem;
-      text-align: center;
-      font-size: 0.9rem;
-      color: var(--subtext);
-      border-top: 1px solid var(--border);
-      background: #fafafa;
-    }
-
-    a {
-      color: var(--primary);
-      text-decoration: none;
-    }
-
-    a:hover {
-      text-decoration: underline;
-    }
-
-    .effective-date {
-      font-size: 0.95rem;
-      color: #999;
-      margin-bottom: 1rem;
-    }
-  </style>
+  }
+</style>
 </head>
 <body>
 
-  <header>
-    <div style="display: flex; align-items: center; gap: 0.5rem;">
-      <img src="https://i.ibb.co/YmCwGCB/cd.png" alt="Clidder Logo">
-      <h1>Clidder</h1>
-    </div>
-  </header>
+<header>
+  <img src="https://i.ibb.co/T6n1yfk/Clidder.png" alt="Clidder Logo" />
+  <div id="datetime">Loading time...</div>
+</header>
 
-  <div class="container">
-    <h2>Ads Information</h2>
-    <p class="effective-date">Effective Date: May 29, 2025</p>
+<main class="container" role="main" aria-label="Advertising information">
+  <h1>Advertising on Clidder</h1>
 
-    <p>Advertising helps keep Clidder free for everyone. This page explains how ads work on our platform, what data we use, and your control over ad experiences.</p>
+  <section aria-labelledby="overview">
+    <h2 id="overview">Overview</h2>
+    <p>
+      Clidder offers a dynamic advertising platform tailored to connect your brand with our vibrant community.
+      Whether you’re a startup or an established business, our ad solutions help you reach your audience effectively.
+    </p>
+  </section>
 
-    <h2>1. Why You See Certain Ads</h2>
-    <p>We show ads based on your activity on Clidder, including your profile, interactions, and topics you follow. This helps us make ads more relevant to you.</p>
+  <section aria-labelledby="ad-types">
+    <h2 id="ad-types">Ad Types Available</h2>
+    <ul>
+      <li><strong>Promoted Posts:</strong> Amplify your message by promoting posts directly in users’ timelines.</li>
+      <li><strong>Display Ads:</strong> Eye-catching banners and sidebars across the site with high visibility.</li>
+      <li><strong>Video Ads:</strong> Engage users with short, impactful video advertisements.</li>
+      <li><strong>Targeted Campaigns:</strong> Use demographic and interest data to reach the right audience.</li>
+    </ul>
+  </section>
 
-    <h2>2. What Data Is Used</h2>
-    <p>We may use information such as your device type, location (if shared), and engagement with posts or hashtags to deliver more targeted ads.</p>
+  <section aria-labelledby="privacy">
+    <h2 id="privacy">Privacy and Data</h2>
+    <p>
+      We prioritize user privacy and comply with data protection regulations. Ads are served based on anonymous
+      aggregate data. Clidder does not share personal data with advertisers.
+    </p>
+    <p>
+      All ad data and analytics are securely stored on Black Hat servers managed by Black Hat Company.
+    </p>
+  </section>
 
-    <h2>3. Ad Preferences</h2>
-    <p>You can customize your ad experience in your <strong>Settings &gt; Ads Preferences</strong>. You can manage topics, advertisers, and whether we personalize ads based on your activity.</p>
+  <section aria-labelledby="contact">
+    <h2 id="contact">Get Started</h2>
+    <p>
+      Interested in advertising with Clidder? Contact our Advertising Team for tailored solutions and pricing.
+    </p>
+    <p>
+      Email: <a href="mailto:advertising@clidder.com">advertising@clidder.com</a><br />
+      Phone: +94 72 330 9362
+    </p>
+  </section>
 
-    <h2>4. Third-Party Advertisers</h2>
-    <p>Some ads may be delivered by third-party partners. These partners may collect limited information to measure performance or target ads across platforms.</p>
+</main>
 
-    <h2>5. Your Control</h2>
-    <p>You can opt out of interest-based ads or request to see fewer ads about specific topics. You can also disable ad personalization entirely in your settings.</p>
+<footer>
+  &copy; <span id="year"></span> Clidder Inc. | A Black Hat Company
+</footer>
 
-    <h2>6. Sponsored Content</h2>
-    <p>All paid ads are clearly labeled as <strong>“Promoted”</strong>. We do not sell your private messages or confidential content to advertisers.</p>
-
-    <h2>7. Reporting Ads</h2>
-    <p>If you find an ad that is inappropriate or misleading, you can report it directly using the “...” menu on the ad post.</p>
-
-    <h2>8. Contact Us</h2>
-    <p>For questions or concerns about ads on Clidder, contact us at <a href="mailto:ads@clidder.com">ads@clidder.com</a>.</p>
-  </div>
-
-  <footer>
-    © 2025 Clidder — A Black Hat Corporation Company. All rights reserved.
-  </footer>
+<script>
+  function updateDateTime() {
+    const now = new Date();
+    const date = now.toLocaleDateString('en-GB');
+    const time = now.toLocaleTimeString('en-GB');
+    document.getElementById('datetime').textContent = `${date} ${time}`;
+  }
+  updateDateTime();
+  setInterval(updateDateTime, 1000);
+  document.getElementById('year').textContent = new Date().getFullYear();
+</script>
 
 </body>
 </html>
