@@ -1426,6 +1426,12 @@ body.dark-mode textarea::placeholder {
 }
 
 
+#sidebarMessages,
+#sidebarLists {
+  display: none !important;
+}
+
+
 
   </style>
 
@@ -6498,6 +6504,107 @@ renderPost = function (post, id) {
         });
       });
     }
+  });
+</script>
+
+<script>
+  document.addEventListener("DOMContentLoaded", function () {
+    const savedWallpaper = localStorage.getItem("clidderWallpaper");
+    if (savedWallpaper) {
+      document.body.style.backgroundImage = `url(${savedWallpaper})`;
+      document.body.style.backgroundSize = 'cover';
+      document.body.style.backgroundRepeat = 'no-repeat';
+      document.body.style.backgroundAttachment = 'fixed';
+      document.body.style.backgroundPosition = 'center';
+    }
+
+    const wallpaperBtn = document.createElement("button");
+    wallpaperBtn.className = "flex items-center space-x-3 hover:text-[#FF7D1E] focus:outline-none focus:text-[#FF7D1E]";
+    wallpaperBtn.innerHTML = `
+    <i class="far fa-image text-gray-900 dark:text-white"></i>
+
+      <span>Wallpaper</span>
+    `;
+    wallpaperBtn.id = "sidebarWallpaper";
+
+    const nav = document.querySelector("#leftSidebar nav");
+    nav.appendChild(wallpaperBtn);
+
+    const modalHTML = `
+      <div id="wallpaperModal" class="fixed inset-0 bg-black bg-opacity-50 z-50 hidden flex items-center justify-center p-4">
+        <div class="bg-white dark:bg-gray-800 rounded-lg w-full max-w-4xl max-h-[90vh] flex flex-col overflow-hidden">
+          <div class="p-4 border-b dark:border-gray-700">
+            <h2 class="text-lg font-bold text-center">Set a Wallpaper</h2>
+          </div>
+          <div class="overflow-y-auto p-4 flex-1">
+            <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4">
+              ${[
+                "https://w0.peakpx.com/wallpaper/778/607/HD-wallpaper-16k-waterfall-waterfalls.jpg",
+                "https://e1.pxfuel.com/desktop-wallpaper/971/645/desktop-wallpaper-1366x768-gallery-full-1366x768.jpg",
+                "https://e0.pxfuel.com/wallpapers/199/1013/desktop-wallpaper-muskoka-s-best-kept-secrets.jpg",
+                "https://e0.pxfuel.com/wallpapers/395/213/desktop-wallpaper-unique-3d-unique-hot.jpg",
+                "https://pbs.twimg.com/media/DjppcqFW4AcpNfz.jpg:large",
+                "https://cdn.wallpapersafari.com/50/57/d8RINq.jpg",
+  "https://images4.alphacoders.com/745/745854.jpg",
+  "https://e0.pxfuel.com/wallpapers/409/309/desktop-wallpaper-stunning-national-park-nature-park.jpg",
+  "https://e0.pxfuel.com/wallpapers/800/327/desktop-wallpaper-canada-national-park-awesome-landscapes-for-windows-cool-google-landscape.jpg",
+  "https://e0.pxfuel.com/wallpapers/409/309/desktop-wallpaper-stunning-national-park-nature-park.jpg",
+  "https://w0.peakpx.com/wallpaper/412/83/HD-wallpaper-16k-4096x2160-ultra.jpg",
+  "https://c4.wallpaperflare.com/wallpaper/420/138/321/5c1c859fdbe12-wallpaper-preview.jpg",
+  "https://cdn.wallpapersafari.com/69/5/lhjbnC.jpg",
+  "https://wallpapercave.com/wp/wp6366375.jpg",
+  "https://e0.pxfuel.com/wallpapers/793/625/desktop-wallpaper-summer-landscape-nature-16-16k-for-16k-ultra.jpg",
+  "https://wallup.net/wp-content/uploads/2019/09/282383-sun-grass-meadow-sky-nature-748x497.jpg",
+  "https://images.wallpapersden.com/image/download/leaf-branch-plant_Z2toa22UmZqaraWkpJRmbmdlrWZlbWU.jpg",
+  "https://c1.wallpaperflare.com/preview/921/100/4/wood-the-leaves-twig-leaf.jpg",
+  "https://wallup.net/wp-content/uploads/2014/10/nature/Beautiful_Spring_Tree_Leaves-748x421.png",
+  "https://w0.peakpx.com/wallpaper/404/678/HD-wallpaper-reunion-waterfalls-rock-lake-beautiful-waterfall-reunion-island.jpg",
+  "https://c4.wallpaperflare.com/wallpaper/371/566/533/waterfalls-burney-falls-california-cliff-wallpaper-preview.jpg",
+  "https://images4.alphacoders.com/693/693624.jpg",
+  "https://i.pinimg.com/736x/19/26/fb/1926fb07fcc21aa5ffeed23f26afa48a.jpg",
+  "https://c1.wallpaperflare.com/preview/61/178/395/cloud-heart-sky-blue.jpg",
+  "https://c4.wallpaperflare.com/wallpaper/561/835/789/5c1cb1a7aa81c-wallpaper-preview.jpg",
+  "https://wallpaper-mania.com/wp-content/uploads/2018/09/High_resolution_wallpaper_background_ID_77701053031.jpg",
+  "https://e0.pxfuel.com/wallpapers/88/937/desktop-wallpaper-love-heart.jpg",
+  "https://e1.pxfuel.com/desktop-wallpaper/736/84/desktop-wallpaper-of-love-hearts.jpg",
+  "https://c4.wallpaperflare.com/wallpaper/657/939/596/hd-wallpapers-love-romance-1024%C3%97768-wallpaper-wallpaper-preview.jpg",
+  "https://wallpaperbat.com/img/32718-k.jpg",
+  "https://e1.pxfuel.com/desktop-wallpaper/386/734/desktop-wallpaper-latest-love-backgrounds-980x612px-love-whatsapp-dp.jpg",
+  "https://rare-gallery.com/thumbs/836090-Valentines-Day-Heart-Two-Red.jpg",
+  "https://wallpaper-house.com/data/out/5/wallpaper2you_69729.jpg"
+              ].map(src => `
+                <img src="${src}" class="cursor-pointer rounded-lg w-full h-36 object-cover hover:opacity-80 transition" onclick="
+                  document.body.style.backgroundImage = 'url(${src})';
+                  document.body.style.backgroundSize = 'cover';
+                  document.body.style.backgroundRepeat = 'no-repeat';
+                  document.body.style.backgroundAttachment = 'fixed';
+                  document.body.style.backgroundPosition = 'center';
+                  localStorage.setItem('clidderWallpaper', '${src}');
+                "/>
+              `).join("")}
+            </div>
+          </div>
+          <div class="p-4 border-t dark:border-gray-700 flex justify-between items-center bg-white dark:bg-gray-800">
+            <button class="bg-red-500 hover:bg-red-600 text-white px-4 py-2 rounded" onclick="
+              document.body.style.backgroundImage = '';
+              localStorage.removeItem('clidderWallpaper');
+              document.getElementById('wallpaperModal').classList.add('hidden');
+            ">Reset</button>
+            <button class="bg-gray-500 hover:bg-gray-600 text-white px-4 py-2 rounded" onclick="
+              document.getElementById('wallpaperModal').classList.add('hidden');
+            ">Close</button>
+          </div>
+        </div>
+      </div>
+    `;
+
+    const modalContainer = document.createElement("div");
+    modalContainer.innerHTML = modalHTML;
+    document.body.appendChild(modalContainer);
+
+    wallpaperBtn.addEventListener("click", () => {
+      document.getElementById("wallpaperModal").classList.remove("hidden");
+    });
   });
 </script>
 
