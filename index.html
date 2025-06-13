@@ -753,7 +753,11 @@ body.dark-mode #searchInput {
   overflow: hidden;
   position: relative;
   transition: max-height 0.3s ease;
+
+  margin: 0.5rem 0 0 0 !important; /* Top only */
+  padding: 0 !important;
 }
+
 
 .post-content.expanded {
   -webkit-line-clamp: unset;
@@ -1265,8 +1269,8 @@ body.dark-mode .post-options-menu button:hover {
 #feed,
 #feed .post-content,
 #feed .reply-item {
-  font-size: 14px;
-  line-height: 1.4;
+  font-size: 17px;
+  line-height: 1.3;
   padding: 0.5rem 0;
 }
 
@@ -1282,8 +1286,8 @@ body.dark-mode .post-options-menu button:hover {
 #feed .tweet-action-btn,
 #feed .read-more,
 #feed .post-actions button {
-  font-size: 13px;
-  line-height: 1.2;
+  font-size: 17px;
+  line-height: 1.4;
 }
 
 #feed .post-actions {
