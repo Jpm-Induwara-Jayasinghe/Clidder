@@ -2033,9 +2033,17 @@ body.dark-mode textarea::placeholder {
       <h2 class="text-xl font-semibold mb-4 text-center" id="modalTitle">Add New Hat Post</h2>
       <form class="flex flex-col space-y-4" id="formAddPost">
         <label class="flex flex-col text-gray-700 font-medium">
-          Image URL
-          <input id="postImageUrl" placeholder="Paste Your Media URL" required="" type="url" class="mt-1 p-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-[#FF7D1E]">
-        </label>
+  Image URL
+  <div class="flex items-center gap-2 mt-1">
+    <input id="postImageUrl" placeholder="Paste Your Media URL" required type="url"
+           class="flex-1 p-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-[#FF7D1E]">
+    <button type="button" onclick="pasteMediaUrl()" title="Paste from clipboard"
+            class="px-3 py-2 bg-[#FF7D1E] text-white rounded hover:bg-[#e6680f]">
+      📋
+    </button>
+  </div>
+</label>
+
         <label class="flex flex-col text-gray-700 font-medium">
           Caption
           <textarea id="postCaption" placeholder="What’s buzzing now ? " rows="3" class="mt-1 p-2 border border-gray-300 rounded resize-none focus:outline-none focus:ring-2 focus:ring-[#FF7D1E]"></textarea>
@@ -6539,108 +6547,323 @@ renderPost = function (post, id) {
   });
 </script>
 
-<script>
-  document.addEventListener("DOMContentLoaded", function () {
-    const savedWallpaper = localStorage.getItem("clidderWallpaper");
-    if (savedWallpaper) {
-      document.body.style.backgroundImage = `url(${savedWallpaper})`;
-      document.body.style.backgroundSize = 'cover';
-      document.body.style.backgroundRepeat = 'no-repeat';
-      document.body.style.backgroundAttachment = 'fixed';
-      document.body.style.backgroundPosition = 'center';
-    }
+<script type="module">
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/10.11.0/firebase-app.js";
+  import {
+    getFirestore,
+    collection,
+    addDoc,
+    onSnapshot,
+    query,
+    where,
+    getDocs
+  } from "https://www.gstatic.com/firebasejs/10.11.0/firebase-firestore.js";
 
+  const firebaseConfig = {
+    apiKey: "AIzaSyDrFdwYhlj84GQ3eLzPctLgxZ572PHu7Tg",
+    authDomain: "x-clone-d4697.firebaseapp.com",
+    projectId: "x-clone-d4697",
+    storageBucket: "x-clone-d4697.firebasestorage.app",
+    messagingSenderId: "438425139174",
+    appId: "1:438425139174:web:b1ebea6f124a245cf9c827",
+    measurementId: "G-PLQBYNDKQM"
+  };
+
+  const app = initializeApp(firebaseConfig);
+  const db = getFirestore(app);
+  const wallpapersRef = collection(db, "wallpapers");
+  const privateWallpapersRef = collection(db, "privateWallpapers");
+
+  const PRESET_WALLPAPERS = [
+    "https://w0.peakpx.com/wallpaper/778/607/HD-wallpaper-16k-waterfall-waterfalls.jpg",
+    "https://e1.pxfuel.com/desktop-wallpaper/971/645/desktop-wallpaper-1366x768-gallery-full-1366x768.jpg",
+    "https://e0.pxfuel.com/wallpapers/199/1013/desktop-wallpaper-muskoka-s-best-kept-secrets.jpg",
+    "https://pbs.twimg.com/media/DjppcqFW4AcpNfz.jpg:large",
+    "https://cdn.wallpapersafari.com/50/57/d8RINq.jpg"
+  ];
+
+  document.addEventListener("DOMContentLoaded", () => {
+    const saved = localStorage.getItem("clidderWallpaper");
+    if (saved) applyWallpaper(saved);
+
+    // Sidebar button
     const wallpaperBtn = document.createElement("button");
-    wallpaperBtn.className = "flex items-center space-x-3 hover:text-[#FF7D1E] focus:outline-none focus:text-[#FF7D1E]";
-    wallpaperBtn.innerHTML = `
-    <i class="far fa-image text-gray-900 dark:text-white"></i>
-
-      <span>Wallpaper</span>
-    `;
+    wallpaperBtn.className = "flex items-center space-x-3 hover:text-[#FF7D1E]";
     wallpaperBtn.id = "sidebarWallpaper";
+    wallpaperBtn.innerHTML = `<i class="far fa-image text-gray-900 dark:text-white"></i><span>Wallpaper</span>`;
+    document.querySelector("#leftSidebar nav").appendChild(wallpaperBtn);
 
-    const nav = document.querySelector("#leftSidebar nav");
-    nav.appendChild(wallpaperBtn);
-
+    // Modal layout
     const modalHTML = `
       <div id="wallpaperModal" class="fixed inset-0 bg-black bg-opacity-50 z-50 hidden flex items-center justify-center p-4">
         <div class="bg-white dark:bg-gray-800 rounded-lg w-full max-w-4xl max-h-[90vh] flex flex-col overflow-hidden">
-          <div class="p-4 border-b dark:border-gray-700">
-            <h2 class="text-lg font-bold text-center">Set a Wallpaper</h2>
+          <div class="p-4 border-b dark:border-gray-700 text-center">
+            <h2 class="text-lg font-bold">Set a Wallpaper</h2>
           </div>
-          <div class="overflow-y-auto p-4 flex-1">
-            <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4">
-              ${[
-                "https://w0.peakpx.com/wallpaper/778/607/HD-wallpaper-16k-waterfall-waterfalls.jpg",
-                "https://e1.pxfuel.com/desktop-wallpaper/971/645/desktop-wallpaper-1366x768-gallery-full-1366x768.jpg",
-                "https://e0.pxfuel.com/wallpapers/199/1013/desktop-wallpaper-muskoka-s-best-kept-secrets.jpg",
-                "https://e0.pxfuel.com/wallpapers/395/213/desktop-wallpaper-unique-3d-unique-hot.jpg",
-                "https://pbs.twimg.com/media/DjppcqFW4AcpNfz.jpg:large",
-                "https://cdn.wallpapersafari.com/50/57/d8RINq.jpg",
-  "https://images4.alphacoders.com/745/745854.jpg",
-  "https://e0.pxfuel.com/wallpapers/409/309/desktop-wallpaper-stunning-national-park-nature-park.jpg",
-  "https://e0.pxfuel.com/wallpapers/800/327/desktop-wallpaper-canada-national-park-awesome-landscapes-for-windows-cool-google-landscape.jpg",
-  "https://e0.pxfuel.com/wallpapers/409/309/desktop-wallpaper-stunning-national-park-nature-park.jpg",
-  "https://w0.peakpx.com/wallpaper/412/83/HD-wallpaper-16k-4096x2160-ultra.jpg",
-  "https://c4.wallpaperflare.com/wallpaper/420/138/321/5c1c859fdbe12-wallpaper-preview.jpg",
-  "https://cdn.wallpapersafari.com/69/5/lhjbnC.jpg",
-  "https://wallpapercave.com/wp/wp6366375.jpg",
-  "https://e0.pxfuel.com/wallpapers/793/625/desktop-wallpaper-summer-landscape-nature-16-16k-for-16k-ultra.jpg",
-  "https://wallup.net/wp-content/uploads/2019/09/282383-sun-grass-meadow-sky-nature-748x497.jpg",
-  "https://images.wallpapersden.com/image/download/leaf-branch-plant_Z2toa22UmZqaraWkpJRmbmdlrWZlbWU.jpg",
-  "https://c1.wallpaperflare.com/preview/921/100/4/wood-the-leaves-twig-leaf.jpg",
-  "https://wallup.net/wp-content/uploads/2014/10/nature/Beautiful_Spring_Tree_Leaves-748x421.png",
-  "https://w0.peakpx.com/wallpaper/404/678/HD-wallpaper-reunion-waterfalls-rock-lake-beautiful-waterfall-reunion-island.jpg",
-  "https://c4.wallpaperflare.com/wallpaper/371/566/533/waterfalls-burney-falls-california-cliff-wallpaper-preview.jpg",
-  "https://images4.alphacoders.com/693/693624.jpg",
-  "https://i.pinimg.com/736x/19/26/fb/1926fb07fcc21aa5ffeed23f26afa48a.jpg",
-  "https://c1.wallpaperflare.com/preview/61/178/395/cloud-heart-sky-blue.jpg",
-  "https://c4.wallpaperflare.com/wallpaper/561/835/789/5c1cb1a7aa81c-wallpaper-preview.jpg",
-  "https://wallpaper-mania.com/wp-content/uploads/2018/09/High_resolution_wallpaper_background_ID_77701053031.jpg",
-  "https://e0.pxfuel.com/wallpapers/88/937/desktop-wallpaper-love-heart.jpg",
-  "https://e1.pxfuel.com/desktop-wallpaper/736/84/desktop-wallpaper-of-love-hearts.jpg",
-  "https://c4.wallpaperflare.com/wallpaper/657/939/596/hd-wallpapers-love-romance-1024%C3%97768-wallpaper-wallpaper-preview.jpg",
-  "https://wallpaperbat.com/img/32718-k.jpg",
-  "https://e1.pxfuel.com/desktop-wallpaper/386/734/desktop-wallpaper-latest-love-backgrounds-980x612px-love-whatsapp-dp.jpg",
-  "https://rare-gallery.com/thumbs/836090-Valentines-Day-Heart-Two-Red.jpg",
-  "https://wallpaper-house.com/data/out/5/wallpaper2you_69729.jpg"
-              ].map(src => `
-                <img src="${src}" class="cursor-pointer rounded-lg w-full h-36 object-cover hover:opacity-80 transition" onclick="
-                  document.body.style.backgroundImage = 'url(${src})';
-                  document.body.style.backgroundSize = 'cover';
-                  document.body.style.backgroundRepeat = 'no-repeat';
-                  document.body.style.backgroundAttachment = 'fixed';
-                  document.body.style.backgroundPosition = 'center';
-                  localStorage.setItem('clidderWallpaper', '${src}');
-                "/>
-              `).join("")}
+          <div class="p-4 flex items-center gap-2">
+            <input id="customWallpaperInput" type="text" placeholder="Paste image URL..."
+              class="flex-1 px-3 py-2 rounded-md border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-sm text-black dark:text-white focus:outline-none focus:ring-2 focus:ring-[#FF7D1E]" />
+            <button id="applyCustomBtn" class="bg-[#FF7D1E] text-white px-4 py-2 rounded hover:bg-[#e6680f]">Apply</button>
+            <button id="pasteClipboardBtn" class="bg-gray-500 text-white px-4 py-2 rounded hover:bg-gray-600">Paste</button>
+          </div>
+          <div class="overflow-y-auto p-4 flex-1 space-y-8">
+            <div>
+              <h3 class="text-sm font-semibold mb-2 text-center">🌍 Public Wallpapers</h3>
+              <div id="publicWallpaperGrid" class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4">
+                ${PRESET_WALLPAPERS.map(wallpaperImage).join("")}
+              </div>
+            </div>
+            <div>
+              <h3 class="text-sm font-semibold mb-2 text-center">🔒 Your Private Wallpapers</h3>
+              <div id="privateWallpaperGrid" class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4"></div>
             </div>
           </div>
           <div class="p-4 border-t dark:border-gray-700 flex justify-between items-center bg-white dark:bg-gray-800">
-            <button class="bg-red-500 hover:bg-red-600 text-white px-4 py-2 rounded" onclick="
-              document.body.style.backgroundImage = '';
-              localStorage.removeItem('clidderWallpaper');
-              document.getElementById('wallpaperModal').classList.add('hidden');
-            ">Reset</button>
-            <button class="bg-gray-500 hover:bg-gray-600 text-white px-4 py-2 rounded" onclick="
-              document.getElementById('wallpaperModal').classList.add('hidden');
-            ">Close</button>
+            <button class="bg-red-500 hover:bg-red-600 text-white px-4 py-2 rounded" onclick="resetWallpaper()">Reset</button>
+            <button class="bg-gray-500 hover:bg-gray-600 text-white px-4 py-2 rounded" onclick="document.getElementById('wallpaperModal').classList.add('hidden')">Close</button>
           </div>
         </div>
       </div>
     `;
-
     const modalContainer = document.createElement("div");
     modalContainer.innerHTML = modalHTML;
     document.body.appendChild(modalContainer);
 
+    // Actions
     wallpaperBtn.addEventListener("click", () => {
       document.getElementById("wallpaperModal").classList.remove("hidden");
     });
+
+    document.getElementById("pasteClipboardBtn").addEventListener("click", async () => {
+      try {
+        const text = await navigator.clipboard.readText();
+        if (text.startsWith("http")) {
+          document.getElementById("customWallpaperInput").value = text;
+        } else {
+          alert("Clipboard does not contain a valid URL.");
+        }
+      } catch (err) {
+        alert("Clipboard access denied.");
+      }
+    });
+
+    document.getElementById("applyCustomBtn").addEventListener("click", async () => {
+      const input = document.getElementById("customWallpaperInput");
+      const url = input.value.trim();
+      if (!url || !url.startsWith("http")) return alert("Enter a valid image URL.");
+      applyWallpaper(url);
+
+      const makePublic = confirm("Make this wallpaper public? Press Cancel to keep it private.");
+      const targetRef = makePublic ? wallpapersRef : privateWallpapersRef;
+
+      try {
+        const exists = await getDocs(query(targetRef, where("url", "==", url)));
+        if (exists.empty) await addDoc(targetRef, { url });
+      } catch (err) {
+        console.error("Failed to save wallpaper:", err);
+      }
+
+      if (!makePublic) appendToPrivateGrid(url);
+      input.value = "";
+    });
+
+    // Listen to public wallpapers
+    onSnapshot(wallpapersRef, (snapshot) => {
+      const grid = document.getElementById("publicWallpaperGrid");
+      const urls = new Set(PRESET_WALLPAPERS);
+      grid.innerHTML = PRESET_WALLPAPERS.map(wallpaperImage).join("");
+      snapshot.forEach(doc => {
+        const url = doc.data().url;
+        if (!urls.has(url)) {
+          grid.insertAdjacentHTML("beforeend", wallpaperImage(url));
+          urls.add(url);
+        }
+      });
+    });
+
+    // Load private wallpapers
+    loadPrivateWallpapers();
   });
+
+  function wallpaperImage(url) {
+    return `<img src="${url}" class="cursor-pointer rounded-lg w-full h-36 object-cover hover:opacity-80 transition" onclick="applyWallpaper('${url}')">`;
+  }
+
+  function appendToPrivateGrid(url) {
+    const grid = document.getElementById("privateWallpaperGrid");
+    grid.insertAdjacentHTML("beforeend", wallpaperImage(url));
+  }
+
+  async function loadPrivateWallpapers() {
+    try {
+      const snap = await getDocs(privateWallpapersRef);
+      const grid = document.getElementById("privateWallpaperGrid");
+      grid.innerHTML = "";
+      snap.forEach(doc => {
+        const url = doc.data().url;
+        grid.insertAdjacentHTML("beforeend", wallpaperImage(url));
+      });
+    } catch (e) {
+      console.error("Failed to load private wallpapers:", e);
+    }
+  }
+
+  window.applyWallpaper = function (url) {
+    document.body.style.backgroundImage = `url('${url}')`;
+    document.body.style.backgroundSize = "cover";
+    document.body.style.backgroundRepeat = "no-repeat";
+    document.body.style.backgroundAttachment = "fixed";
+    document.body.style.backgroundPosition = "center";
+
+    ["leftSidebar", "rightSidebar"].forEach(id => {
+      const el = document.getElementById(id);
+      if (el) {
+        el.style.backgroundImage = `url('${url}')`;
+        el.style.backgroundSize = "cover";
+        el.style.backgroundRepeat = "no-repeat";
+        el.style.backgroundPosition = "center";
+      }
+    });
+
+    localStorage.setItem("clidderWallpaper", url);
+  };
+
+  window.resetWallpaper = function () {
+    document.body.style.backgroundImage = "";
+    ["leftSidebar", "rightSidebar"].forEach(id => {
+      const el = document.getElementById(id);
+      if (el) el.style.backgroundImage = "";
+    });
+    localStorage.removeItem("clidderWallpaper");
+    document.getElementById("wallpaperModal").classList.add("hidden");
+  };
 </script>
 
 
+
+
+
+
+
+
+
+
+
+<!-- 🌐 Clidder Offline Notification -->
+<div id="offlineBanner"
+  class="fixed top-4 left-1/2 transform -translate-x-1/2 z-50 w-[95%] max-w-md bg-white dark:bg-[#111827] text-gray-800 dark:text-white border border-[#FF7D1E] rounded-xl shadow-lg px-4 py-3 hidden flex items-start gap-3 transition-all duration-300">
+
+  <!-- Logo -->
+  <img src="https://i.ibb.co/T6n1yfk/Clidder.png" alt="Clidder"
+    class="w-9 h-9 rounded-full border border-[#FF7D1E] shadow-sm mt-1" />
+
+  <!-- Text & Buttons -->
+  <div class="flex flex-col flex-grow text-sm">
+    <span id="offlineText" class="font-semibold text-[#FF7D1E] mb-2">
+      You're offline. Trying to reconnect...
+    </span>
+
+    <div class="flex gap-2 flex-wrap">
+      <button onclick="location.reload()"
+        class="bg-[#FF7D1E] hover:bg-[#e6680f] text-white px-4 py-1 rounded-full text-xs font-semibold transition">
+        Retry
+      </button>
+      <button onclick="openNetworkSettings()"
+        class="bg-[#FF7D1E] hover:bg-[#e6680f] text-white px-4 py-1 rounded-full text-xs font-semibold transition">
+        Check Connection
+      </button>
+    </div>
+  </div>
+</div>
+
+<!-- 🔊 Optional Sound -->
+<audio id="offlineSound" src="https://assets.mixkit.co/sfx/preview/mixkit-tech-break-fail-2947.mp3"></audio>
+
+<!-- 💡 Offline Notification Script -->
+<script>
+  const offlineBanner = document.getElementById('offlineBanner');
+  const offlineText = document.getElementById('offlineText');
+  const offlineSound = document.getElementById('offlineSound');
+  let countdownTimer = null;
+
+  function showOfflineBanner() {
+    const now = new Date().toLocaleTimeString();
+    offlineText.textContent = `You're offline since ${now}. Rechecking in 5s...`;
+    offlineText.classList.remove('text-green-600', 'dark:text-green-400');
+    offlineText.classList.add('text-[#FF7D1E]');
+    offlineBanner.classList.remove('hidden');
+
+    try { offlineSound.play(); } catch (e) {}
+    if ('vibrate' in navigator) navigator.vibrate([200, 100, 200]);
+
+    let seconds = 5;
+    clearInterval(countdownTimer);
+    countdownTimer = setInterval(() => {
+      if (navigator.onLine) return clearInterval(countdownTimer);
+      seconds--;
+      offlineText.textContent = `You're offline since ${now}. Rechecking in ${seconds}s...`;
+      if (seconds === 0) seconds = 5;
+    }, 1000);
+  }
+
+  function hideOfflineBanner() {
+    clearInterval(countdownTimer);
+    offlineText.textContent = "✅ You're back online!";
+    offlineText.classList.remove('text-[#FF7D1E]');
+    offlineText.classList.add('text-green-600', 'dark:text-green-400');
+
+    setTimeout(() => {
+      offlineBanner.classList.add('hidden');
+      offlineText.classList.remove('text-green-600', 'dark:text-green-400');
+      offlineText.classList.add('text-[#FF7D1E]');
+    }, 2000);
+  }
+
+  function updateNetworkStatus() {
+    if (!navigator.onLine) {
+      showOfflineBanner();
+    } else {
+      hideOfflineBanner();
+    }
+  }
+
+  window.addEventListener('online', updateNetworkStatus);
+  window.addEventListener('offline', updateNetworkStatus);
+  updateNetworkStatus();
+
+  setInterval(() => {
+    if (!navigator.onLine) {
+      fetch("https://www.google.com/favicon.ico", { mode: 'no-cors' })
+        .then(() => window.dispatchEvent(new Event('online')))
+        .catch(() => {});
+    }
+  }, 5000);
+
+  function openNetworkSettings() {
+    const ua = navigator.userAgent.toLowerCase();
+    if (ua.includes("android")) {
+      window.location.href = "intent://settings#Intent;scheme=android.settings.WIFI_SETTINGS;end";
+    } else if (ua.includes("iphone") || ua.includes("ipad")) {
+      alert("Please open Settings > Wi-Fi manually.");
+    } else {
+      alert("Please check your internet connection manually.");
+    }
+  }
+</script>
+
+
+<script>
+
+function pasteMediaUrl() {
+  navigator.clipboard.readText().then((text) => {
+    document.getElementById("postImageUrl").value = text;
+  }).catch((err) => {
+    alert("Failed to paste: " + err.message);
+  });
+}
+
+
+</script>
 
 </body>
 </html>
