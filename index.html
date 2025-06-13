@@ -1182,12 +1182,29 @@ body.dark-mode .reply-item {
   border: none !important;
   box-shadow: none !important;
 }
-body.dark-mode .reply-item {
-  all: unset !important;
-  color: #d1d5db !important; /* keep the text readable in dark mode */
-  display: block;
+body.dark-mode .reply-item,
+body.light-mode .reply-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.75rem; /* Tailwind gap-3 */
+  font-size: 0.875rem; /* text-sm */
+  line-height: 1.25rem; /* leading-5 */
   margin-top: 0.5rem;
+  color: inherit;
 }
+
+
+.reply-item .font-semibold {
+  font-weight: 600;
+  font-size: 0.875rem; /* text-sm */
+  line-height: 1.25rem;
+  color: #111827;
+}
+
+body.dark-mode .reply-item .font-semibold {
+  color: #f9fafb;
+}
+
 
 .verified-badge {
   width: 16px;
@@ -1434,6 +1451,7 @@ body.dark-mode textarea::placeholder {
 #sidebarLists {
   display: none !important;
 }
+
 
 
 
@@ -3478,26 +3496,38 @@ if (isYouTube || isFacebook || isTikTok || isInstagram || isTwitter || isDrive) 
   repliesDiv.className = "reply-list";
 
   // First comment
+const reply = post.replies[0];
+const profilePic = reply.profilePic && reply.profilePic.trim() !== ""
+  ? reply.profilePic
+  : "https://placehold.co/36x36/png?text=" + (reply.userName?.charAt(0) || "U");
+
 const firstReply = document.createElement("div");
-firstReply.className = "reply-item";
+firstReply.className = "reply-item flex items-start gap-3 mt-2"; // ✅ flex to keep side-by-side layout
+
 firstReply.innerHTML = `
-  <span class="inline-flex items-center font-semibold">
-    ${post.replies[0].userName}
-    ${getAIHTML(post.replies[0].AI)}
-    ${getCompanyHTML(post.replies[0].company)}
-    ${getProHTML(post.replies[0].pro)}
-    ${getPremiumHTML(post.replies[0].premium)}
-    ${getVerifiedHTML(post.replies[0].verified)}
-    ${getClidderHTML(post.replies[0].Clidder)}
-  </span> ${post.replies[0].text}
+  <img src="${profilePic}" alt="${reply.userName}" class="w-9 h-9 rounded-full object-cover mt-1 flex-shrink-0" />
+  <div class="flex flex-col justify-center">
+
+    <div class="inline-flex items-center font-semibold gap-1 text-sm leading-tight">
+      ${reply.userName}
+      ${getAIHTML(reply.AI)}
+      ${getCompanyHTML(reply.company)}
+      ${getProHTML(reply.pro)}
+      ${getPremiumHTML(reply.premium)}
+      ${getVerifiedHTML(reply.verified)}
+      ${getClidderHTML(reply.Clidder)}
+    </div>
+    <div class="text-sm text-gray-700 dark:text-gray-300">${convertUrlsToLinks(reply.text)}</div>
+  </div>
 `;
+
 
   repliesDiv.appendChild(firstReply);
 
   // "View more" button
   if (post.replies.length > 1) {
     const viewMoreBtn = document.createElement("button");
-    viewMoreBtn.className = "text-[#FF7D1E] text-sm mt-2 view-more-btn";
+    viewMoreBtn.className = "text-[#FF7D1E] text-sm mt-2 view-more-btn ml-12";
     viewMoreBtn.textContent = "View more Commentary";
     repliesDiv.appendChild(viewMoreBtn);
 
@@ -3506,18 +3536,29 @@ firstReply.innerHTML = `
     moreComments.className = "more-comments hidden";
     post.replies.slice(1).forEach((reply) => {
       const replyDiv = document.createElement("div");
-      replyDiv.className = "reply-item";
-      replyDiv.innerHTML = `
-  <span class="inline-flex items-center font-semibold">
-    ${reply.userName}
-    ${getPremiumHTML(reply.premium)}
-    ${getVerifiedHTML(reply.verified)}
-    ${getProHTML(reply.pro)}
-    ${getCompanyHTML(reply.company)}
-    ${getAIHTML(reply.AI)}
-    ${getClidderHTML(reply.Clidder)}
-  </span> ${reply.text}
+replyDiv.className = "reply-item flex items-start gap-3 mb-2";
+
+const profilePic = reply.profilePic && reply.profilePic.trim() !== ""
+  ? reply.profilePic
+  : "https://placehold.co/36x36/png?text=" + (reply.userName?.charAt(0) || "U");
+
+replyDiv.innerHTML = `
+  <img src="${profilePic}" alt="${reply.userName}" class="w-9 h-9 rounded-full object-cover mt-1" />
+  <div>
+    <div class="inline-flex items-center font-semibold gap-1">
+      ${reply.userName}
+      ${getPremiumHTML(reply.premium)}
+      ${getVerifiedHTML(reply.verified)}
+      ${getProHTML(reply.pro)}
+      ${getCompanyHTML(reply.company)}
+      ${getAIHTML(reply.AI)}
+      ${getClidderHTML(reply.Clidder)}
+    </div>
+    <div class="text-sm text-gray-700 dark:text-gray-300">${convertUrlsToLinks(reply.text)}</div>
+  </div>
 `;
+
+
 
 
       moreComments.appendChild(replyDiv);
@@ -3562,18 +3603,19 @@ postBtn.addEventListener("click", () => {
   }
 
   const reply = {
-    userName: currentUser.fullName,
-    userHandle: "𝓬𝓹" + currentUser.username.toLowerCase(),
-    text,verified: currentUser.verified || false,
+  userName: currentUser.fullName,
+  userHandle: "𝓬𝓹" + currentUser.username.toLowerCase(),
+  profilePic: currentUser.profilePic || "", // ✅ ADD THIS LINE
+  text,
+  verified: currentUser.verified || false,
   premium: currentUser.premium || false,
   pro: currentUser.pro || false,
   company: currentUser.company || false,
   AI: currentUser.AI || false,
-Clidder: currentUser.Clidder || false,
+  Clidder: currentUser.Clidder || false,
+  createdAt: new Date().toISOString(),
+};
 
-
-    createdAt: new Date().toISOString(),
-  };
 
   const postRef = doc(db, "posts", id);
   updateDoc(postRef, {
@@ -4156,7 +4198,8 @@ document.addEventListener('click', function (e) {
           <img src="${user.profilePic || 'https://placehold.co/64x64'}"
                alt="${user.fullName}"
                class="w-16 h-16 rounded-full border-2 border-yellow-400 dark:border-yellow-300 object-cover shadow-md" />
-          <div class="flex flex-col">
+          <div class="flex flex-col justify-center">
+
             <div class="flex items-center space-x-2">
               <h3>
   <span class="inline-flex items-center">
@@ -6383,10 +6426,28 @@ function showFocusedPost(post, postId) {
       .forEach((reply) => {
         const replyEl = document.createElement("div");
         replyEl.className = "p-3 border rounded-lg bg-white dark:bg-gray-800";
-        replyEl.innerHTML = `
-          <div class="font-semibold">${reply.userName || "Anonymous"}</div>
-          <div class="text-sm text-gray-600">${reply.text}</div>
-        `;
+        const profilePicUrl = reply.profilePic?.trim()
+  ? reply.profilePic
+  : `https://placehold.co/36x36/png?text=${reply.userName?.charAt(0) || 'U'}`;
+
+replyEl.innerHTML = `
+  <div class="flex items-start gap-3">
+    <img src="${profilePicUrl}" alt="${reply.userName}" class="w-9 h-9 rounded-full object-cover mt-1" />
+    <div>
+      <div class="inline-flex items-center font-semibold gap-1">
+        ${reply.userName || "Anonymous"}
+        ${getPremiumHTML?.(reply.premium)}
+        ${getVerifiedHTML?.(reply.verified)}
+        ${getProHTML?.(reply.pro)}
+        ${getCompanyHTML?.(reply.company)}
+        ${getAIHTML?.(reply.AI)}
+        ${getClidderHTML?.(reply.Clidder)}
+      </div>
+      <div class="text-sm text-gray-700 dark:text-gray-300">${convertUrlsToLinks(reply.text)}</div>
+    </div>
+  </div>
+`;
+
         replyContainer.appendChild(replyEl);
       });
   } else {
@@ -6859,6 +6920,25 @@ function pasteMediaUrl() {
     document.getElementById("postImageUrl").value = text;
   }).catch((err) => {
     alert("Failed to paste: " + err.message);
+  });
+}
+
+
+</script>
+
+<script>
+
+function convertUrlsToLinks(text) {
+  const urlRegex = /(\bhttps?:\/\/[^\s]+)/g;
+  return text.replace(urlRegex, (url) => {
+    // Strip protocol for display only
+    const displayUrl = url.replace(/^https?:\/\//, '');
+    const shortDisplay = displayUrl.length > 50 ? displayUrl.slice(0, 50) + '…' : displayUrl;
+
+    return `<a href="${url}" target="_blank" rel="noopener noreferrer"
+      class="text-[#FF7D1E] underline hover:text-orange-600">
+      ${shortDisplay}
+    </a>`;
   });
 }
 
