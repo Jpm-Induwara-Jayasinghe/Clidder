@@ -345,12 +345,26 @@ body.dark-mode #centerContent,
       gap: 0rem;
     }
     .reply-list {
-      margin-top: 0.75rem;
-      border-top: 1px solid #e5e7eb;
-      padding-top: 0.75rem;
-      font-size: 0.875rem;
-      color: #4b5563;
-    }
+  margin-top: 0.75rem;
+  padding-top: 0.75rem;
+  position: relative;
+}
+
+.reply-list::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 3.5rem; /* same as pl-14 */
+  right: 0;
+  height: 1px;
+  background-color: #e5e7eb;
+}
+
+body.dark-mode .reply-list::before {
+  background-color: #4b5563; /* Tailwind gray-600 */
+}
+
+
     .reply-item {
       margin-bottom: 0.5rem;
     }
@@ -754,9 +768,11 @@ body.dark-mode #searchInput {
   position: relative;
   transition: max-height 0.3s ease;
 
-  margin: 0.5rem 0 0 0 !important; /* Top only */
-  padding: 0 !important;
+  margin: 0.5rem 0 0 0 !important;
+  padding-left: 3.5rem !important; /* 👈 Twitter-like spacing (~16px) */
 }
+
+
 
 
 .post-content.expanded {
@@ -766,12 +782,16 @@ body.dark-mode #searchInput {
 
 
 .read-more {
-  color: #FF7D1E; /* Tailwind's blue-500 */
+  color: #FF7D1E;
   cursor: pointer;
   display: inline-block;
   margin-top: 4px;
-  font-size: 0.875rem; /* text-sm */
+  font-size: 0.875rem;
+
+  display: block;              /* make it full-width */
+  padding-left: 3.5rem;          /* same as .post-content */
 }
+
 
 
 #scrollTopBtn {
@@ -903,7 +923,7 @@ body.dark-mode select {
 }
 
 body.dark-mode .reply-list {
-  border-top: 1px solid #4b5563; /* gray-600 */
+  
   color: #d1d5db; /* light gray text */
 }
 
@@ -2023,11 +2043,7 @@ body.dark-mode textarea::placeholder {
         <p class="text-gray-600 text-center">Follow our official Website !</p>
         <a href="https://blackhatai.nicepage.io" target="_blank" rel="noopener noreferrer" class="mt-4 bg-orange-500 text-white font-semibold rounded-full px-6 py-3 hover:bg-orange-600 transition text-center w-full">Follow</a>
       </div>
-<div class="bg-white rounded-[10px] border border-gray-200 p-4 flex flex-col items-center space-y-4">
-        <h2 class="text-xl font-bold mb-2">Support Center</h2>
-        <p class="text-gray-600 text-center">Call to Support Center to Help</p>
-        <a href="https://blackhatai.wordpress.com" target="_blank" rel="noopener noreferrer" class="mt-4 bg-[#c2410c] text-white font-semibold rounded-full px-6 py-3 hover:bg-[#c2410c] transition text-center w-full">Support Center</a>
-      </div>
+
 
 <div class="text-xs text-gray-500 mt-6 space-y-1 text-center leading-relaxed">
   <div class="space-x-2">
@@ -3344,31 +3360,28 @@ if (post.imageUrl && post.imageUrl.trim() !== "") {
   const isTikTok    = /^(https?:\/\/)?(www\.)?tiktok\.com/.test(url);
   const isInstagram = /^(https?:\/\/)?(www\.)?instagram\.com/.test(url);
   const isTwitter   = /^(https?:\/\/)?(www\.)?twitter\.com/.test(url);
+  const isDrive     = url.includes("drive.google.com/file");
 
-  // create the outer wrapper
+  // Outer Twitter-style margin
+  const outer = document.createElement("div");
+  outer.className = "pl-14 mt-2"; // ✅ Twitter-like left padding and top margin
+
+  // Wrapper and inner layer
   const wrapper = document.createElement("div");
-  wrapper.className = "relative w-full mt-4 rounded-lg border border-gray-200 overflow-hidden";
-  // we'll set padding-top later
-
-  // inner absolutely positioned container
+  wrapper.className = "relative w-full rounded-lg border border-gray-200 overflow-hidden";
   const inner = document.createElement("div");
   inner.className = "absolute top-0 left-0 w-full h-full";
   wrapper.appendChild(inner);
-  div.appendChild(wrapper);
+  outer.appendChild(wrapper);
+  div.appendChild(outer);
 
-  // helper to set padding-top percentage on wrapper
   const setAspect = (ratioPercent) => {
     wrapper.style.paddingTop = ratioPercent + "%";
   };
 
-  // 1) KNOWN EMBEDS → force 16:9
-  const isDrive = url.includes("drive.google.com/file");
-
-if (isYouTube || isFacebook || isTikTok || isInstagram || isTwitter || isDrive) {
-
+  if (isYouTube || isFacebook || isTikTok || isInstagram || isTwitter || isDrive) {
     setAspect(56.25);
 
-    // --- YouTube ---
     if (isYouTube) {
       const vidMatch = url.match(/(?:youtube\.com\/(?:.*v=|embed\/)|youtu\.be\/)([\w-]{11})/);
       if (vidMatch) {
@@ -3379,10 +3392,7 @@ if (isYouTube || isFacebook || isTikTok || isInstagram || isTwitter || isDrive) 
         iframe.className = "w-full h-full";
         inner.appendChild(iframe);
       }
-    }
-
-    // --- Facebook ---
-    else if (isFacebook) {
+    } else if (isFacebook) {
       const fbDiv = document.createElement("div");
       fbDiv.className = "fb-video w-full h-full";
       fbDiv.setAttribute("data-href", url);
@@ -3396,10 +3406,7 @@ if (isYouTube || isFacebook || isTikTok || isInstagram || isTwitter || isDrive) 
         fbScript.src = "https://connect.facebook.net/en_US/sdk.js#xfbml=1&version=v12.0";
         document.body.appendChild(fbScript);
       }
-    }
-
-    // --- TikTok ---
-    else if (isTikTok) {
+    } else if (isTikTok) {
       const block = document.createElement("blockquote");
       block.className = "tiktok-embed w-full h-full";
       block.setAttribute("cite", url);
@@ -3412,10 +3419,7 @@ if (isYouTube || isFacebook || isTikTok || isInstagram || isTwitter || isDrive) 
         s.src = "https://www.tiktok.com/embed.js";
         document.body.appendChild(s);
       }
-    }
-
-    // --- Instagram ---
-    else if (isInstagram) {
+    } else if (isInstagram) {
       const block = document.createElement("blockquote");
       block.className = "instagram-media w-full h-full";
       block.setAttribute("data-instgrm-permalink", url);
@@ -3429,12 +3433,7 @@ if (isYouTube || isFacebook || isTikTok || isInstagram || isTwitter || isDrive) 
       } else {
         window.instgrm?.Embeds.process();
       }
-    }
-
-
- 
-    // --- Twitter ---
-    else if (isTwitter) {
+    } else if (isTwitter) {
       const block = document.createElement("blockquote");
       block.className = "twitter-tweet w-full h-full";
       const a = document.createElement("a");
@@ -3450,10 +3449,7 @@ if (isYouTube || isFacebook || isTikTok || isInstagram || isTwitter || isDrive) 
         window.twttr?.widgets?.load();
       }
     }
-  }
-
-  // 2) LOCAL VIDEO FILE → dynamic aspect
-  else if (isVideoFile) {
+  } else if (isVideoFile) {
     const video = document.createElement("video");
     video.src = url;
     video.muted = false;
@@ -3469,15 +3465,10 @@ if (isYouTube || isFacebook || isTikTok || isInstagram || isTwitter || isDrive) 
       const ratio = (h / w) * 100;
       setAspect(ratio);
     });
-  }
-
-  // 3) IMAGE → dynamic aspect
-  else {
+  } else {
     const img = document.createElement("img");
     img.src = url;
-    img.alt = post.caption
-      ? `Hat photo post: ${post.caption}`
-      : "Hat photo post with no caption";
+    img.alt = post.caption || "Image post";
     img.className = "w-full h-full object-cover";
     inner.appendChild(img);
 
@@ -3577,10 +3568,10 @@ replyDiv.innerHTML = `
 
 
 const replyBox = document.createElement("div");
-replyBox.className = "flex items-center border-t border-gray-300 dark:border-gray-600 mt-2 pt-2";
+replyBox.className = "flex items-center mt-2 pt-2 pl-14";
 
 replyBox.innerHTML = `
-  <input type="text" placeholder="Leave a Commentary..." class="reply-input flex-1 px-4 py-2 text-sm bg-transparent focus:outline-none" />
+  <input type="text" placeholder="Leave a Commentary..." class="reply-input flex-1 pl-4 py-2 text-sm bg-transparent text-gray-900 dark:text-white placeholder-gray-500 dark:placeholder-gray-400 focus:outline-none" />
   <button class="text-[#FF7D1E] font-semibold text-sm px-3" disabled>Commentary</button>
 `;
 
@@ -3591,6 +3582,8 @@ const postBtn = replyBox.querySelector("button");
 replyInput.addEventListener("input", () => {
   postBtn.disabled = replyInput.value.trim() === "";
 });
+
+
 
 // Handle Post click
 postBtn.addEventListener("click", () => {
@@ -5170,8 +5163,16 @@ document.getElementById('btnInstallPWA').addEventListener('click', async () => {
 <!-- 📱 Mobile Bottom Navigation Bar -->
 <nav id="mobileBottomNav" class="fixed bottom-0 left-0 right-0 bg-white border-t border-gray-200 flex justify-around items-center h-16 z-50 md:hidden">
   <button id="mobileNavHome" class="flex flex-col items-center text-gray-600 hover:text-[#FF7D1E]">
-    <i class="fas fa-home"></i>
-<span class="text-xs"></span>
+      <span class="relative inline-block">
+    <!-- Twitter-like home icon -->
+    <svg viewBox="0 0 24 24" aria-hidden="true" class="w-6 h-6 fill-current">
+      <path d="M22.58 12.42l-9-9a1.5 1.5 0 00-2.12 0l-9 9A1.5 1.5 0 003 14h1v7a1 1 0 001 1h5a1 1 0 001-1v-5h2v5a1 1 0 001 1h5a1 1 0 001-1v-7h1a1.5 1.5 0 001.08-2.58z"></path>
+    </svg>
+
+    <!-- Orange active dot -->
+    <span class="absolute -top-1 -right-1 w-2 h-2 bg-orange-500 rounded-full"></span>
+  </span>
+  <span class="text-base font-medium"></span>
   </button>
   
 
