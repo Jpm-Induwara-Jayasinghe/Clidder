@@ -1472,6 +1472,16 @@ body.dark-mode textarea::placeholder {
   display: none !important;
 }
 
+#whoToFollowList {
+  display: none !important;
+}
+
+#whoToFollowList::before,
+#whoToFollowList::after,
+#whoToFollowList:parent,
+#whoToFollowList:parent * {
+  display: none !important;
+}
 
 
 
@@ -1674,21 +1684,18 @@ body.dark-mode textarea::placeholder {
         </button>
 
         <button class="flex items-center space-x-3 hover:text-[#FF7D1E] focus:outline-none focus:text-[#FF7D1E]" id="sidebarFromMe">
-          	<i class="fas fa-share-square text-black dark:text-white" 
+          	<i class="fas fa-history text-black dark:text-white" 
    style="text-shadow: -1px -1px 0 black, 1px -1px 0 black, -1px 1px 0 black, 1px 1px 0 black;"></i>
-          <span>From Me</span>
+
+          <span>My Activity</span>
         </button>
         
-        <button class="flex items-center space-x-3 hover:text-[#FF7D1E] focus:outline-none focus:text-[#FF7D1E]" id="sidebarProfile" style="">
-          <i class="fas fa-user text-black dark:text-white" 
-   style="text-shadow: -1px -1px 0 black, 1px -1px 0 black, -1px 1px 0 black, 1px 1px 0 black;"></i>
-          <span>Profile</span>
-        </button>
+       
 
         <button class="flex items-center space-x-3 hover:text-[#FF7D1E] focus:outline-none focus:text-[#FF7D1E]" id="sidebarMore" style="">
           <i class="fas fa-users text-black dark:text-white" 
    style="text-shadow: -1px -1px 0 black, 1px -1px 0 black, -1px 1px 0 black, 1px 1px 0 black;"></i>
-          <span>Clidders</span>
+          <span>Who  to Follow</span>
         </button>
 
 
@@ -1700,6 +1707,13 @@ body.dark-mode textarea::placeholder {
    style="text-shadow: -1px -1px 0 black, 1px -1px 0 black, -1px 1px 0 black, 1px 1px 0 black;"></i>
   <span>Settings</span>
 </button>
+
+
+ <button class="flex items-center space-x-3 hover:text-[#FF7D1E] focus:outline-none focus:text-[#FF7D1E]" id="sidebarProfile" style="">
+           <i class="fas fa-user-cog text-black dark:text-white" 
+     style="text-shadow: -1px -1px 0 black, 1px -1px 0 black, -1px 1px 0 black, 1px 1px 0 black;"></i>
+          <span>Account</span>
+        </button>
 
 
 
@@ -1903,11 +1917,7 @@ body.dark-mode textarea::placeholder {
 
 
 
-<div class=" border-gray-300 dark:border-gray-700 text-center py-3">
-  <span class="text-[#FF7D1E] font-semibold text-sm">
-    𝓒𝓵𝓲𝓭𝓭𝓮𝓻 | 𝓐 𝓙𝓪𝔂𝓪𝓼𝓲𝓷𝓰𝓱𝓮 𝓑𝓻𝓸𝓽𝓱𝓮𝓻𝓼 𝓗𝓸𝓵𝓭𝓲𝓷𝓰𝓼 𝓒𝓸𝓶𝓹𝓪𝓷𝔂 𝓛𝓲𝓶𝓲𝓽𝓮𝓭.
-  </span>
-</div>
+
 
 
 
@@ -2002,6 +2012,13 @@ body.dark-mode textarea::placeholder {
 
 
 
+<div id="relatedPeopleBox" class="bg-white dark:bg-black rounded-[10px] border border-gray-200 dark:border-gray-700 p-4">
+  <h2 class="text-xl font-bold mb-4">Who  to Follow</h2>
+  <div id="relatedLoadingSpinner" class="flex justify-center items-center py-6">
+    <div class="animate-spin rounded-full h-8 w-8 border-4 border-orange-500 border-t-transparent"></div>
+  </div>
+  <ul id="relatedPeopleList" class="space-y-4 hidden"></ul>
+</div>
 
 
 
@@ -2067,7 +2084,7 @@ body.dark-mode textarea::placeholder {
       <h2 class="text-xl font-semibold mb-4 text-center" id="modalTitle">Add New Hat Post</h2>
       <form class="flex flex-col space-y-4" id="formAddPost">
         <label class="flex flex-col text-gray-700 font-medium">
-  Image URL
+  Media URL
   <div class="flex items-center gap-2 mt-1">
     <input id="postImageUrl" placeholder="Paste Your Media URL" required type="url"
            class="flex-1 p-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-[#FF7D1E]">
@@ -3144,25 +3161,33 @@ Clidder: currentUser.Clidder || false,
     updateUIForUser();
 
     // Helper function to format time difference
-    function timeAgo(date) {
-      if (!date) return "";
-      const now = new Date();
-      const seconds = Math.floor((now - date) / 1000);
-      if (seconds < 5) return "just now";
-      if (seconds < 60) return `${seconds}s ago`;
-      const minutes = Math.floor(seconds / 60);
-      if (minutes < 60) return `${minutes}m ago`;
-      const hours = Math.floor(minutes / 60);
-      if (hours < 24) return `${hours}h ago`;
-      const days = Math.floor(hours / 24);
-      if (days < 7) return `${days}d ago`;
-      const weeks = Math.floor(days / 7);
-      if (weeks < 4) return `${weeks}w ago`;
-      const months = Math.floor(days / 30);
-      if (months < 12) return `${months}mo ago`;
-      const years = Math.floor(days / 365);
-      return `${years}y ago`;
-    }
+function timeAgo(date) {
+  if (!date) return "";
+  const now = new Date();
+  const seconds = Math.floor((now - date) / 1000);
+
+  if (seconds < 60) return `${seconds}s`; // less than a minute
+  const minutes = Math.floor(seconds / 60);
+  if (minutes < 60) return `${minutes}m`; // less than an hour
+  const hours = Math.floor(minutes / 60);
+  if (hours < 24) return `${hours}h`; // less than a day
+  const days = Math.floor(hours / 24);
+  
+  const d = date instanceof Date ? date : new Date(date);
+  const nowYear = now.getFullYear();
+  const postYear = d.getFullYear();
+  const months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun",
+                  "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+  const month = months[d.getMonth()];
+  const day = d.getDate();
+
+  if (nowYear === postYear) {
+    return `${month} ${day}`; // same year: "Apr 9"
+  } else {
+    return `${month} ${day}, ${postYear}`; // different year: "Apr 9, 2023"
+  }
+}
+
 
     function renderPost(post, id) {
       const div = document.createElement("article");
@@ -4276,7 +4301,7 @@ document.addEventListener('click', function (e) {
   feedEl.innerHTML = `
     <div class="mb-4 flex flex-wrap gap-2 items-center justify-between max-w-xl mx-auto">
       <input type="text" id="userSearchInput" placeholder="Search Clidders..."
-        class="flex-1 px-4 py-2 rounded-full border border-gray-300 dark:border-gray-700 bg-white dark:bg-black text-gray-800 dark:text-white focus:outline-none focus:ring-2 focus:ring-[#FF7D1E]" />
+       class="w-44 px-4 py-2 rounded-full border border-gray-300 dark:border-gray-700 bg-white dark:bg-black text-gray-800 dark:text-white focus:outline-none focus:ring-2 focus:ring-[#FF7D1E]" />
 
       <select id="filterBadge" class="px-3 py-2 rounded border text-sm">
         <option value="">All Badges</option>
@@ -4418,8 +4443,8 @@ document.addEventListener('click', function (e) {
         }
 
         <div class="mt-3 text-sm text-gray-500 dark:text-gray-400 flex justify-between">
-          <span>${userPosts.length} Posts</span>
-          <span>${followers.length} Followers</span>
+          <span>${userPosts.length} Cliddes</span>
+          <span>${followers.length} Clidders</span>
         </div>
       </div>
     `;
@@ -6811,81 +6836,92 @@ renderPost = function (post, id) {
 
 
 
-<!-- 🌐 Clidder Offline Notification -->
+<!-- 🌐 Clidder Offline/Online Notification – Twitter Style with Blur -->
 <div id="offlineBanner"
-  class="fixed top-4 left-1/2 transform -translate-x-1/2 z-50 w-[95%] max-w-md bg-white dark:bg-[#111827] text-gray-800 dark:text-white border border-[#FF7D1E] rounded-xl shadow-lg px-4 py-3 hidden flex items-start gap-3 transition-all duration-300">
+     class="fixed inset-0 z-[99999] flex flex-col items-center justify-center text-center px-6 backdrop-blur-md bg-black/80 dark:bg-black/80 hidden">
 
-  <!-- Logo -->
-  <img src="https://i.ibb.co/T6n1yfk/Clidder.png" alt="Clidder"
-    class="w-9 h-9 rounded-full border border-[#FF7D1E] shadow-sm mt-1" />
+  <!-- Icon Area -->
+  <div class="mb-4">
+    <!-- Offline Icon -->
+    <svg id="offlineIcon" xmlns="http://www.w3.org/2000/svg"
+         class="w-12 h-12 text-gray-400 mx-auto"
+         fill="none" viewBox="0 0 24 24" stroke="currentColor">
+      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+            d="M18.364 5.636l-12.728 12.728M6.343 6.343l12.728 12.728" />
+    </svg>
 
-  <!-- Text & Buttons -->
-  <div class="flex flex-col flex-grow text-sm">
-    <span id="offlineText" class="font-semibold text-[#FF7D1E] mb-2">
-      You're offline. Trying to reconnect...
-    </span>
-
-    <div class="flex gap-2 flex-wrap">
-      <button onclick="location.reload()"
-        class="bg-[#FF7D1E] hover:bg-[#e6680f] text-white px-4 py-1 rounded-full text-xs font-semibold transition">
-        Retry
-      </button>
-      <button onclick="openNetworkSettings()"
-        class="bg-[#FF7D1E] hover:bg-[#e6680f] text-white px-4 py-1 rounded-full text-xs font-semibold transition">
-        Check Connection
-      </button>
-    </div>
+    <!-- Online Icon -->
+    <svg id="onlineIcon" xmlns="http://www.w3.org/2000/svg"
+         class="w-12 h-12 text-green-500 mx-auto hidden"
+         fill="none" viewBox="0 0 24 24" stroke="currentColor">
+      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+            d="M5 13l4 4L19 7" />
+    </svg>
   </div>
+
+  <!-- Message -->
+  <p id="offlineMessage" class="text-lg mb-4 text-gray-300 dark:text-gray-300">
+    Looks like you lost your connection.<br>Please check it and try again.
+  </p>
+
+  <!-- Retry / Continue Button -->
+  <button id="retryBtn"
+    onclick="location.reload()"
+    class="transition px-6 py-2 text-white rounded-full font-semibold text-sm shadow-sm bg-blue-600 hover:bg-blue-700 dark:bg-blue-500 dark:hover:bg-blue-600">
+    <span id="retryText">Retry</span>
+  </button>
 </div>
 
-<!-- 🔊 Optional Sound -->
+<!-- Audio Cues -->
 <audio id="offlineSound" src="https://assets.mixkit.co/sfx/preview/mixkit-tech-break-fail-2947.mp3"></audio>
+<audio id="onlineSound" src="https://assets.mixkit.co/sfx/preview/mixkit-achievement-bell-600.mp3"></audio>
 
-<!-- 💡 Offline Notification Script -->
+<!-- Script Logic -->
 <script>
   const offlineBanner = document.getElementById('offlineBanner');
-  const offlineText = document.getElementById('offlineText');
+  const offlineMessage = document.getElementById('offlineMessage');
+  const retryBtn = document.getElementById('retryBtn');
+  const retryText = document.getElementById('retryText');
+  const offlineIcon = document.getElementById('offlineIcon');
+  const onlineIcon = document.getElementById('onlineIcon');
   const offlineSound = document.getElementById('offlineSound');
-  let countdownTimer = null;
+  const onlineSound = document.getElementById('onlineSound');
+
+  let wasOffline = false;
 
   function showOfflineBanner() {
-    const now = new Date().toLocaleTimeString();
-    offlineText.textContent = `You're offline since ${now}. Rechecking in 5s...`;
-    offlineText.classList.remove('text-green-600', 'dark:text-green-400');
-    offlineText.classList.add('text-[#FF7D1E]');
-    offlineBanner.classList.remove('hidden');
+    offlineBanner.classList.remove("hidden");
+    offlineMessage.innerHTML = "Looks like you lost your connection.<br>Please check it and try again.";
+    retryBtn.className = "transition px-6 py-2 text-white rounded-full font-semibold text-sm shadow-sm bg-blue-600 hover:bg-blue-700 dark:bg-blue-500 dark:hover:bg-blue-600";
+    retryText.textContent = "Retry";
+
+    offlineIcon.classList.remove("hidden");
+    onlineIcon.classList.add("hidden");
 
     try { offlineSound.play(); } catch (e) {}
     if ('vibrate' in navigator) navigator.vibrate([200, 100, 200]);
-
-    let seconds = 5;
-    clearInterval(countdownTimer);
-    countdownTimer = setInterval(() => {
-      if (navigator.onLine) return clearInterval(countdownTimer);
-      seconds--;
-      offlineText.textContent = `You're offline since ${now}. Rechecking in ${seconds}s...`;
-      if (seconds === 0) seconds = 5;
-    }, 1000);
+    wasOffline = true;
   }
 
-  function hideOfflineBanner() {
-    clearInterval(countdownTimer);
-    offlineText.textContent = "✅ You're back online!";
-    offlineText.classList.remove('text-[#FF7D1E]');
-    offlineText.classList.add('text-green-600', 'dark:text-green-400');
+  function showOnlineBanner() {
+    offlineBanner.classList.remove("hidden");
+    offlineMessage.innerHTML = "You're back online!<br>You may continue using Clidder.";
+    retryBtn.className = "transition px-6 py-2 text-white rounded-full font-semibold text-sm shadow-sm bg-[#FF7D1E] hover:bg-[#e6680f]";
+    retryText.textContent = "Continue";
 
-    setTimeout(() => {
-      offlineBanner.classList.add('hidden');
-      offlineText.classList.remove('text-green-600', 'dark:text-green-400');
-      offlineText.classList.add('text-[#FF7D1E]');
-    }, 2000);
+    offlineIcon.classList.add("hidden");
+    onlineIcon.classList.remove("hidden");
+
+    try { onlineSound.play(); } catch (e) {}
+    setTimeout(() => offlineBanner.classList.add("hidden"), 2500);
+    wasOffline = false;
   }
 
   function updateNetworkStatus() {
     if (!navigator.onLine) {
       showOfflineBanner();
-    } else {
-      hideOfflineBanner();
+    } else if (wasOffline) {
+      showOnlineBanner();
     }
   }
 
@@ -6900,18 +6936,11 @@ renderPost = function (post, id) {
         .catch(() => {});
     }
   }, 5000);
-
-  function openNetworkSettings() {
-    const ua = navigator.userAgent.toLowerCase();
-    if (ua.includes("android")) {
-      window.location.href = "intent://settings#Intent;scheme=android.settings.WIFI_SETTINGS;end";
-    } else if (ua.includes("iphone") || ua.includes("ipad")) {
-      alert("Please open Settings > Wi-Fi manually.");
-    } else {
-      alert("Please check your internet connection manually.");
-    }
-  }
 </script>
+
+
+
+
 
 
 <script>
@@ -6945,6 +6974,115 @@ function convertUrlsToLinks(text) {
 
 
 </script>
+
+
+<script type="module">
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
+  import {
+    getFirestore,
+    doc,
+    getDoc
+  } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
+
+  const firebaseConfig = {
+    apiKey: "AIzaSyDrFdwYhlj84GQ3eLzPctLgxZ572PHu7Tg",
+    authDomain: "x-clone-d4697.firebaseapp.com",
+    projectId: "x-clone-d4697",
+    storageBucket: "x-clone-d4697.firebasestorage.app",
+    messagingSenderId: "438425139174",
+    appId: "1:438425139174:web:b1ebea6f124a245cf9c827",
+    measurementId: "G-PLQBYNDKQM"
+  };
+
+  const app = initializeApp(firebaseConfig);
+  const db = getFirestore(app);
+
+  const relatedUserIds = [
+    "Nn8GSkAwqHcwttbNu4KK",
+    "7k3Y0CtpVSKSe8kNAopH",
+    "jyXdiSnFg95YJvesqUAO",
+    "ec7tZDMNooxgVrhTNkcB",
+    "22WznXDzH5dym0qJN2DY",
+    "GDoPmGdIjI89qelNRBWL",
+    "RA7yzV9iEitIlSxHEycq",
+    "Suwc31nuY9jiXm479Qjt"
+  ];
+
+  const list = document.getElementById("relatedPeopleList");
+  const spinner = document.getElementById("relatedLoadingSpinner");
+
+  const users = [];
+
+  async function fetchUser(uid) {
+    const snap = await getDoc(doc(db, "users", uid));
+    if (!snap.exists()) return null;
+
+    const data = snap.data();
+   return {
+  uid,
+  name: data.fullName || "Unnamed",
+  username: (data.username || "user").toLowerCase(),
+  profilePic: data.profilePic || "https://i.ibb.co/0VqN92C4/clidder-off-dark.png",
+  followerCount: Array.isArray(data.followers) ? data.followers.length : 0,
+  verified: data.verified || false,
+  premium: data.premium || false,
+  pro: data.pro || false,
+  company: data.company || false,
+  AI: data.AI || false,
+  Clidder: data.Clidder || false
+};
+
+  }
+
+  async function loadUsers() {
+    for (const uid of relatedUserIds) {
+      const user = await fetchUser(uid);
+      if (user) users.push(user);
+    }
+
+    // Sort by followers
+    users.sort((a, b) => b.followerCount - a.followerCount);
+
+    list.innerHTML = "";
+
+    users.forEach(user => {
+      const li = document.createElement("li");
+      li.className = "flex items-center gap-3 cursor-pointer hover:bg-gray-100 dark:hover:bg-gray-800 p-2 rounded-md transition";
+
+      li.innerHTML = `
+        <img src="${user.profilePic}" alt="${user.name}" class="w-10 h-10 rounded-full object-cover" />
+        <div class="flex-1">
+          <div class="font-semibold text-gray-900 dark:text-white inline-flex items-center gap-1">
+  ${user.name}
+  ${getVerifiedHTML(user.verified)}
+ ${getPremiumHTML(user.premium)}
+ ${getProHTML(user.pro)}
+   ${getCompanyHTML(user.company)}
+   ${getAIHTML(user.AI)}
+   ${getClidderHTML(user.Clidder)}
+</div>
+
+          <div class="text-gray-500 text-sm">𝓬𝓹${user.username}</div>
+          <div class="text-gray-400 text-xs">${user.followerCount}K Followers</div>
+        </div>
+      `;
+
+      li.addEventListener("click", () => {
+        // 👇 Trigger "Who to Follow" section
+        document.getElementById("sidebarMore")?.click();
+      });
+
+      list.appendChild(li);
+    });
+
+    spinner.style.display = "none";
+    list.style.display = "block";
+  }
+
+  loadUsers();
+</script>
+
+
 
 </body>
 </html>
