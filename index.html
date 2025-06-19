@@ -1821,66 +1821,6 @@ body.dark-mode textarea::placeholder {
         class="w-full bg-transparent text-gray-900 dark:text-white placeholder-gray-500 dark:placeholder-gray-400 text-lg border-none focus:outline-none resize-none"
       ></textarea>
 
-<!-- Who Can Reply Button + Popover -->
-<div class="mt-3 relative">
-  <!-- Floating Button -->
-  <button id="replySettingBtn" type="button"
-    class="text-sm text-[#FF7D1E] hover:underline font-medium flex items-center gap-2">
-    <div class="w-5 h-5 rounded-full bg-blue-100 text-[#FF7D1E] flex items-center justify-center">
-      <i class="fas fa-globe-americas text-xs"></i>
-    </div>
-    Everyone can reply
-  </button>
-
-  <!-- Popover -->
-  <div id="replyPopover"
-    class="absolute z-50 mt-2 w-96 bg-white dark:bg-gray-800 dark:text-white border border-gray-300 dark:border-gray-600 rounded-2xl shadow-2xl p-4 hidden transition-all duration-200 ease-in-out">
-    
-    <h3 class="text-md font-bold mb-1">Who can reply?</h3>
-    <p class="text-sm text-gray-500 dark:text-gray-300 mb-4">
-      Choose who can reply to this post. Anyone mentioned can always reply.
-    </p>
-
-    <div class="flex flex-col space-y-3">
-      <button class="reply-option-item flex items-center gap-3 p-2 rounded-xl hover:bg-gray-100 dark:hover:bg-gray-700 transition"
-        data-value="everyone">
-        <div class="w-9 h-9 rounded-full bg-blue-100 text-[#FF7D1E] flex items-center justify-center">
-          <i class="fas fa-globe-americas text-sm"></i>
-        </div>
-        <span class="text-sm">Everyone</span>
-      </button>
-
-      <button class="reply-option-item flex items-center gap-3 p-2 rounded-xl hover:bg-gray-100 dark:hover:bg-gray-700 transition"
-        data-value="followers">
-        <div class="w-9 h-9 rounded-full bg-blue-100 text-[#FF7D1E] flex items-center justify-center">
-          <i class="fas fa-user-friends text-sm"></i>
-        </div>
-        <span class="text-sm">People you follow</span>
-      </button>
-
-      <button class="reply-option-item flex items-center gap-3 p-2 rounded-xl hover:bg-gray-100 dark:hover:bg-gray-700 transition"
-        data-value="verified">
-        <div class="w-9 h-9 rounded-full bg-blue-100 text-[#FF7D1E] flex items-center justify-center">
-          <i class="fas fa-check-circle text-sm"></i>
-        </div>
-        <span class="text-sm">Verified users</span>
-      </button>
-
-      <div>
-        <button
-          class="reply-option-item flex items-center gap-3 p-2 rounded-xl hover:bg-gray-100 dark:hover:bg-gray-700 transition w-full"
-          data-value="custom">
-          <div class="w-9 h-9 rounded-full bg-blue-100 text-[#FF7D1E] flex items-center justify-center">
-            <i class="fas fa-lock text-sm"></i>
-          </div>
-          <span class="text-sm">Only specific users</span>
-        </button>
-        <input type="text" id="allowedUsernames" placeholder="e.g. alice, bob"
-          class="mt-2 w-full text-xs px-3 py-2 rounded-md border border-gray-300 dark:border-gray-600 bg-gray-50 dark:bg-gray-700 text-gray-800 dark:text-white focus:outline-none focus:ring-2 focus:ring-[#FF7D1E] hidden" />
-      </div>
-    </div>
-  </div>
-</div>
 
 
       <div class="flex justify-between items-center mt-3">
@@ -2100,6 +2040,18 @@ body.dark-mode textarea::placeholder {
     </div>
   </div>
 </div>
+
+
+
+<div id="breakingNewsBox"
+     class="bg-white dark:bg-zinc-900 border border-gray-200 dark:border-gray-700 rounded-xl shadow-md p-4 mb-4 transition-all">
+  <h2 class="text-lg font-bold mb-3 text-[#FF7D1E]">🚨 What's going on ?</h2>
+
+  <ul id="breakingNewsList" class="space-y-3">
+    <li class="text-gray-500 dark:text-gray-400">Loading breaking news...</li>
+  </ul>
+</div>
+
 
 
 
@@ -7428,7 +7380,131 @@ function getMoonPhaseSymbol(phaseName) {
   });
 </script>
 
+<!-- 🕵️ Pulsing Spy Icon (Desktop Only) -->
+<style>
+  @keyframes pulseSpy {
+    0% { box-shadow: 0 0 0 0 rgba(255, 125, 30, 0.6); }
+    70% { box-shadow: 0 0 0 12px rgba(255, 125, 30, 0); }
+    100% { box-shadow: 0 0 0 0 rgba(255, 125, 30, 0); }
+  }
 
+  .spy-icon {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    width: 60px;
+    height: 60px;
+    border-radius: 10px;
+    object-fit: cover;
+    z-index: 9999;
+    cursor: pointer;
+    animation: pulseSpy 2s infinite;
+    transition: transform 0.3s ease;
+  }
+
+  .spy-icon:hover {
+    transform: scale(1.1);
+  }
+
+  @media (max-width: 767px) {
+    .spy-icon {
+      display: none;
+    }
+  }
+</style>
+
+<a href="https://blackhatai.nicepage.io/" target="_blank">
+  <img src="https://www.shutterstock.com/image-vector/spy-agent-hacker-anonymous-white-600nw-1722014434.jpg" 
+       alt="Spy Icon"
+       class="spy-icon" />
+</a>
+
+
+<script>
+function getRelativeTime(pubDate) {
+  const posted = new Date(pubDate);
+  const now = new Date();
+  const diffMs = now - posted;
+  const diffMins = Math.floor(diffMs / (1000 * 60));
+  if (diffMins < 1) return "Just now";
+  if (diffMins < 60) return `${diffMins}m ago`;
+  const diffHrs = Math.floor(diffMins / 60);
+  if (diffHrs < 24) return `${diffHrs}h ago`;
+  const diffDays = Math.floor(diffHrs / 24);
+  return `${diffDays}d ago`;
+}
+
+async function fetchBreakingNewsRSS() {
+  const url = "https://rss2json.com/api.json?rss_url=" +
+    encodeURIComponent("https://news.google.com/rss?hl=en-US&gl=US&ceid=US:en");
+
+  try {
+    const response = await fetch(url);
+    const data = await response.json();
+
+    const list = document.getElementById("breakingNewsList");
+    list.innerHTML = "";
+
+    if (data.items && data.items.length > 0) {
+      data.items.slice(0, 6).forEach(item => {
+        const li = document.createElement("li");
+
+        const timeAgo = getRelativeTime(item.pubDate || item.isoDate);
+        const category = (item.categories && item.categories[0]) || "News";
+        const badgeColor = {
+          World: "bg-red-500",
+          Tech: "bg-blue-500",
+          Business: "bg-green-500",
+          Sports: "bg-yellow-500",
+          Politics: "bg-purple-500",
+          News: "bg-gray-500"
+        }[category] || "bg-gray-500";
+
+        const thumbnail = item.enclosure?.url || "";
+
+        li.className = `
+          group flex items-start gap-3 px-2 py-3 
+          transition hover:bg-gray-100 dark:hover:bg-gray-800 
+          border-b border-gray-200 dark:border-gray-700 rounded-md
+        `;
+
+        li.innerHTML = `
+          ${thumbnail ? `
+            <img src="${thumbnail}" alt="thumbnail" 
+                 class="w-12 h-12 object-cover rounded-md flex-shrink-0 border border-gray-200 dark:border-gray-700">`
+           : `<div class="mt-1 w-2.5 h-2.5 bg-[#FF7D1E] rounded-full flex-shrink-0"></div>`}
+
+          <div class="flex-1 min-w-0">
+            <a href="${item.link}" target="_blank" 
+               class="block font-semibold text-gray-900 dark:text-white 
+               text-sm leading-snug group-hover:text-[#FF7D1E] transition">
+              ${item.title}
+            </a>
+            <div class="mt-1 flex flex-wrap items-center gap-2 text-xs text-gray-500 dark:text-gray-400">
+              <span class="inline-block px-2 py-0.5 rounded-full text-white ${badgeColor}">
+                ${category}
+              </span>
+              <span>${timeAgo}</span>
+              <span class="italic">via Clidder News</span>
+            </div>
+          </div>
+        `;
+
+        list.appendChild(li);
+      });
+    } else {
+      list.innerHTML = "<li class='text-gray-500 dark:text-gray-400'>No news found.</li>";
+    }
+  } catch (err) {
+    console.error("Error fetching news:", err);
+    document.getElementById("breakingNewsList").innerHTML =
+      "<li class='text-red-500 dark:text-red-400'>Failed to load news.</li>";
+  }
+}
+
+fetchBreakingNewsRSS();
+setInterval(fetchBreakingNewsRSS, 60 * 1000); // Refresh every 1 minute
+</script>
 
 
 
