@@ -2014,9 +2014,8 @@ body.dark-mode textarea::placeholder {
 
 
 <!-- 🌦 Enhanced Weather Widget -->
-<div id="weatherBox"
-     class="text-white p-4 rounded-[10px] shadow border text-sm space-y-4 bg-gradient-to-br from-blue-500 to-indigo-700 animate-bg"
-     style="border-color: rgba(255, 255, 255, 0.1); background-size: 400% 400%;">
+<div id="weatherBox" class="text-white p-4 rounded-[10px] shadow border text-sm space-y-4">
+
   
   <div class="flex justify-between items-center">
     <h2 id="weatherTitle" class="text-xl font-bold">Weather Nearby</h2>
@@ -7182,19 +7181,7 @@ function convertUrlsToLinks(text) {
 
 
 
-<style>
 
-@keyframes bgSlide {
-  0% { background-position: 0% 50%; }
-  50% { background-position: 100% 50%; }
-  100% { background-position: 0% 50%; }
-}
-.animate-bg {
-  animation: bgSlide 15s ease infinite;
-}
-
-
-</style>
 
 
 <script>
@@ -7371,6 +7358,74 @@ function getMoonPhaseSymbol(phaseName) {
 
   updateSunProgress();
   setInterval(updateSunProgress, 5 * 60 * 1000); // Update every 5 min
+</script>
+
+<style>
+
+/* Time-based background gradients with animation */
+.morning-bg {
+  background: linear-gradient(270deg, #fff0b3, #ffe680, #ffd11a);
+  background-size: 600% 600%;
+  animation: gradientShift 10s ease infinite;
+}
+
+.afternoon-bg {
+  background: linear-gradient(270deg, #87cefa, #00bfff, #1e90ff);
+  background-size: 600% 600%;
+  animation: gradientShift 10s ease infinite;
+}
+
+.evening-bg {
+  background: linear-gradient(270deg, #ff9966, #ff5e62, #ff7e5f);
+  background-size: 600% 600%;
+  animation: gradientShift 10s ease infinite;
+}
+
+.night-bg {
+  background: linear-gradient(270deg, #0f2027, #203a43, #2c5364);
+  background-size: 600% 600%;
+  animation: gradientShift 10s ease infinite;
+}
+
+/* Animation for smooth background transitions */
+@keyframes gradientShift {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+
+</style>
+
+<script>
+  function applyTimeBasedWeatherTheme() {
+    const hour = new Date().getHours();
+    const weatherBox = document.getElementById("weatherBox");
+
+    if (!weatherBox) return;
+
+    // Remove existing time-based background classes
+    weatherBox.classList.remove("morning-bg", "afternoon-bg", "evening-bg", "night-bg");
+
+    // Add appropriate class based on the current hour
+    if (hour >= 5 && hour < 12) {
+      weatherBox.classList.add("morning-bg");
+    } else if (hour >= 12 && hour < 17) {
+      weatherBox.classList.add("afternoon-bg");
+    } else if (hour >= 17 && hour < 20) {
+      weatherBox.classList.add("evening-bg");
+    } else {
+      weatherBox.classList.add("night-bg");
+    }
+  }
+
+  // Run immediately when the page loads
+  document.addEventListener("DOMContentLoaded", () => {
+    applyTimeBasedWeatherTheme();
+
+    // Re-check every minute (60000 ms)
+    setInterval(applyTimeBasedWeatherTheme, 60000);
+  });
 </script>
 
 
