@@ -2012,6 +2012,99 @@ body.dark-mode textarea::placeholder {
 
 
 
+
+<!-- 🌦 Enhanced Weather Widget -->
+<div id="weatherBox"
+     class="text-white p-4 rounded-[10px] shadow border text-sm space-y-4 bg-gradient-to-br from-blue-500 to-indigo-700 animate-bg"
+     style="border-color: rgba(255, 255, 255, 0.1); background-size: 400% 400%;">
+  
+  <div class="flex justify-between items-center">
+    <h2 id="weatherTitle" class="text-xl font-bold">Weather Nearby</h2>
+    <span id="weatherTimeLabel" class="text-xs text-white/80">Loading...</span>
+  </div>
+
+  <!-- Current Conditions -->
+  <div class="flex items-center gap-4">
+    <div id="weatherIcon" class="text-4xl">☁️</div>
+    <div>
+      <div id="weatherCondition" class="font-semibold text-lg">Loading...</div>
+      <div id="weatherTemp" class="text-sm">--°C</div>
+    </div>
+  </div>
+
+  <!-- Extra Metrics -->
+  <div class="grid grid-cols-2 gap-2 text-xs text-white/90">
+    <div>🌡 Feels like: <span id="weatherFeels">--</span>°C</div>
+    <div>💧 Humidity: <span id="weatherHumidity">--</span>%</div>
+    <div>🌬 Wind: <span id="weatherWind">--</span> km/h</div>
+    <div>🌫 Visibility: <span id="weatherVisibility">--</span> km</div>
+    <div>🌧 Rain Chance: <span id="weatherRainChance">--</span>%</div>
+    <div>🌅 Sunrise: <span id="sunriseTime">--</span></div>
+    <div>🌇 Sunset: <span id="sunsetTime">--</span></div>
+  </div>
+
+  <!-- 3-Day Forecast -->
+  <div>
+    <h3 class="text-sm font-semibold mb-1 mt-2">📆 3-Day Forecast</h3>
+    <div id="forecastGrid" class="grid grid-cols-3 gap-2 text-xs"></div>
+  </div>
+</div>
+
+
+
+
+<!-- 🌄 Sun Progress Box -->
+<div class="bg-gradient-to-b from-indigo-900 to-slate-900 p-4 rounded-[10px] border border-white/10 shadow text-white text-sm relative">
+  <h2 class="text-base font-semibold mb-2">Sun</h2>
+  <div class="relative h-24 mb-3">
+    <svg id="sunArc" width="100%" height="100%" viewBox="0 0 200 100" preserveAspectRatio="none">
+      <path d="M10,90 Q100,10 190,90" stroke="#999" stroke-width="2" fill="none"/>
+      <circle id="sunMarker" r="6" fill="#FFD700" stroke="#fff" stroke-width="2" />
+    </svg>
+    <div id="sunDuration" class="absolute bottom-0 left-1/2 -translate-x-1/2 text-xs text-white/80 mt-1"></div>
+  </div>
+  <div class="flex justify-between text-xs font-semibold">
+    <div><span id="sunriseTimeDisplay">--:--</span><br><span class="text-[10px] text-white/60">Sunrise</span></div>
+    <div class="text-center">
+      <span class="text-[10px] text-white/60">Daylight</span><br>
+      <span id="daylightDuration">-- hrs</span>
+    </div>
+    <div class="text-right"><span id="sunsetTimeDisplay">--:--</span><br><span class="text-[10px] text-white/60">Sunset</span></div>
+  </div>
+</div>
+
+
+<!-- 🌕 Moon & Humidity Tracker -->
+<div class="bg-gradient-to-b from-slate-900 to-zinc-900 p-4 rounded-[10px] border border-white/10 shadow text-white text-sm relative mt-4 space-y-4">
+
+  <!-- Moon Phase -->
+  <div>
+    <h2 class="text-base font-semibold mb-2">Moon</h2>
+    <div class="flex items-center gap-3">
+      <div id="moonIcon" class="text-3xl">🌑</div>
+      <div>
+        <div id="moonPhase" class="font-semibold text-white/90">--</div>
+        <div class="text-xs text-white/60" id="moonDate">Today</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Humidity Arc -->
+  <div>
+    <h2 class="text-base font-semibold mb-2">Humidity</h2>
+    <div class="relative h-24">
+      <svg id="humidityArc" width="100%" height="100%" viewBox="0 0 200 100" preserveAspectRatio="none">
+        <path d="M10,90 Q100,10 190,90" stroke="#555" stroke-width="2" fill="none"/>
+        <circle id="humidityMarker" r="6" fill="#38bdf8" stroke="#fff" stroke-width="2" />
+      </svg>
+      <div id="humidityPercent" class="absolute bottom-0 left-1/2 -translate-x-1/2 text-xs text-white/80 mt-1">--%</div>
+    </div>
+  </div>
+</div>
+
+
+
+
 <div id="relatedPeopleBox" class="bg-white dark:bg-black rounded-[10px] border border-gray-200 dark:border-gray-700 p-4">
   <h2 class="text-xl font-bold mb-4">Who  to Follow</h2>
   <div id="relatedLoadingSpinner" class="flex justify-center items-center py-6">
@@ -7081,6 +7174,206 @@ function convertUrlsToLinks(text) {
 
   loadUsers();
 </script>
+
+
+
+
+
+
+
+
+<style>
+
+@keyframes bgSlide {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+.animate-bg {
+  animation: bgSlide 15s ease infinite;
+}
+
+
+</style>
+
+
+<script>
+async function fetchEnhancedWeather() {
+  const hour = new Date().getHours();
+  const timeLabel = hour < 6 ? "Night" : hour < 12 ? "Morning" : hour < 18 ? "Afternoon" : "Evening";
+  document.getElementById('weatherTimeLabel').textContent = timeLabel;
+
+  try {
+    const res = await fetch('https://wttr.in/?format=j1');
+    const data = await res.json();
+
+    const area = data.nearest_area[0].areaName[0].value;
+    const current = data.current_condition[0];
+    const slot = Math.floor(hour / 3);
+    const hourly = data.weather[0].hourly[slot];
+    const astronomy = data.weather[0].astronomy[0];
+
+    const desc = current.weatherDesc[0].value.toLowerCase();
+    const icon = desc.includes("rain") ? "🌧️" :
+                 desc.includes("sun") || desc.includes("clear") ? "☀️" :
+                 desc.includes("cloud") ? "☁️" :
+                 desc.includes("snow") ? "❄️" :
+                 desc.includes("storm") ? "⛈️" : "🌤️";
+
+    // Set values
+    document.getElementById("weatherTitle").textContent = `Weather – ${area}`;
+    document.getElementById("weatherIcon").textContent = icon;
+    document.getElementById("weatherCondition").textContent = desc.charAt(0).toUpperCase() + desc.slice(1);
+    document.getElementById("weatherTemp").textContent = `${current.temp_C}°C`;
+    document.getElementById("weatherFeels").textContent = current.FeelsLikeC;
+    document.getElementById("weatherHumidity").textContent = current.humidity;
+    updateHumidityArc(parseInt(current.humidity));
+    document.getElementById("weatherWind").textContent = current.windspeedKmph;
+    document.getElementById("weatherVisibility").textContent = current.visibility;
+    document.getElementById("weatherRainChance").textContent = hourly.chanceofrain;
+    document.getElementById("sunriseTime").textContent = astronomy.sunrise;
+    document.getElementById("sunsetTime").textContent = astronomy.sunset;
+    updateSunProgress(astronomy.sunrise, astronomy.sunset);
+
+// Optional moon phase (hardcoded from data or calculate yourself)
+const moonPhase = data.weather[0].astronomy[0].moon_phase || "Waning Gibbous";
+document.getElementById("moonPhase").textContent = moonPhase;
+document.getElementById("moonIcon").textContent = getMoonPhaseSymbol(moonPhase);
+
+
+
+    // Forecast
+    const forecastHTML = data.weather.slice(0, 3).map((day, i) => {
+      const dayName = i === 0 ? "Today" : new Date(day.date).toLocaleDateString('en-US', { weekday: 'short' });
+      const min = day.mintempC, max = day.maxtempC;
+      const iconSmall = day.hourly[4].weatherDesc[0].value.includes("rain") ? "🌧️" :
+                        day.hourly[4].weatherDesc[0].value.includes("sun") ? "☀️" :
+                        day.hourly[4].weatherDesc[0].value.includes("cloud") ? "☁️" :
+                        day.hourly[4].weatherDesc[0].value.includes("snow") ? "❄️" : "🌡️";
+      return `
+        <div class="bg-white/20 p-2 rounded text-center">
+          <div class="font-bold">${dayName}</div>
+          <div>${iconSmall}</div>
+          <div>${min}–${max}°C</div>
+        </div>`;
+    }).join('');
+    document.getElementById("forecastGrid").innerHTML = forecastHTML;
+
+  } catch (err) {
+    document.getElementById('weatherBox').innerHTML = `<div class="text-red-500">Failed to load weather data.</div>`;
+  }
+}
+
+window.addEventListener("DOMContentLoaded", fetchEnhancedWeather);
+</script>
+
+<script>
+function updateSunProgress(sunriseStr, sunsetStr) {
+  const parseTime = t => {
+    const [h, m] = t.split(/[:\s]/).map(Number);
+    const isPM = t.toLowerCase().includes("pm");
+    return h % 12 + (isPM ? 12 : 0) + m / 60;
+  };
+
+  const sunrise = parseTime(sunriseStr);
+  const sunset = parseTime(sunsetStr);
+  const now = new Date();
+  const currentHour = now.getHours() + now.getMinutes() / 60;
+  const progress = Math.max(0, Math.min(1, (currentHour - sunrise) / (sunset - sunrise)));
+
+  // Move sun
+  const sun = document.getElementById("sunMarker");
+  const arcPath = document.querySelector("#sunArc path");
+  const len = arcPath.getTotalLength();
+  const point = arcPath.getPointAtLength(len * progress);
+  sun.setAttribute("cx", point.x);
+  sun.setAttribute("cy", point.y);
+
+  // Set durations
+  const daylight = sunset - sunrise;
+  document.getElementById("daylightDuration").textContent = `${Math.floor(daylight)} hrs ${Math.round((daylight % 1) * 60)} mins`;
+  document.getElementById("sunriseTimeDisplay").textContent = sunriseStr;
+  document.getElementById("sunsetTimeDisplay").textContent = sunsetStr;
+}
+</script>
+
+<script>
+function updateHumidityArc(humidity) {
+  const progress = Math.max(0, Math.min(1, humidity / 100));
+  const arcPath = document.querySelector("#humidityArc path");
+  const marker = document.getElementById("humidityMarker");
+  const point = arcPath.getPointAtLength(arcPath.getTotalLength() * progress);
+  marker.setAttribute("cx", point.x);
+  marker.setAttribute("cy", point.y);
+  document.getElementById("humidityPercent").textContent = `${humidity}%`;
+}
+
+function getMoonPhaseSymbol(phaseName) {
+  const map = {
+    "New Moon": "🌑",
+    "Waxing Crescent": "🌒",
+    "First Quarter": "🌓",
+    "Waxing Gibbous": "🌔",
+    "Full Moon": "🌕",
+    "Waning Gibbous": "🌖",
+    "Last Quarter": "🌗",
+    "Waning Crescent": "🌘"
+  };
+  return map[phaseName] || "🌑";
+}
+</script>
+
+
+<script>
+  async function updateSunProgress() {
+    const lat = 7.8731;  // Example: Sri Lanka
+    const lon = 80.7718;
+
+    // Fetch sunrise and sunset data
+    const response = await fetch(`https://api.sunrise-sunset.org/json?lat=${lat}&lng=${lon}&formatted=0`);
+    const data = await response.json();
+    const sunrise = new Date(data.results.sunrise);
+    const sunset = new Date(data.results.sunset);
+    const now = new Date();
+
+    // Format time display
+    const formatTime = (date) =>
+      date.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+
+    // Insert into the page
+    document.getElementById("sunriseTimeDisplay").textContent = formatTime(sunrise);
+    document.getElementById("sunsetTimeDisplay").textContent = formatTime(sunset);
+
+    // Calculate daylight duration
+    const daylightMs = sunset - sunrise;
+    const elapsedMs = now - sunrise;
+    const percent = Math.min(Math.max(elapsedMs / daylightMs, 0), 1);
+    const daylightHrs = (daylightMs / (1000 * 60 * 60)).toFixed(1);
+
+    document.getElementById("daylightDuration").textContent = `${daylightHrs} hrs`;
+
+    // Move sun on arc
+    const arc = document.querySelector("#sunArc path");
+    const sun = document.getElementById("sunMarker");
+    const pathLength = arc.getTotalLength();
+    const point = arc.getPointAtLength(pathLength * percent);
+    sun.setAttribute("cx", point.x);
+    sun.setAttribute("cy", point.y);
+
+    // Time left
+    const duration = new Date(daylightMs - elapsedMs);
+    const leftHrs = ((sunset - now) / (1000 * 60 * 60)).toFixed(1);
+    document.getElementById("sunDuration").textContent =
+      now < sunrise ? "Before Sunrise" :
+      now > sunset ? "After Sunset" :
+      `${(percent * 100).toFixed(0)}% of day done`;
+  }
+
+  updateSunProgress();
+  setInterval(updateSunProgress, 5 * 60 * 1000); // Update every 5 min
+</script>
+
+
 
 
 

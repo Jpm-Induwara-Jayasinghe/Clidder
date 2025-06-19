@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>X.com Messages Clone</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" />
+
+  <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/9.22.2/firebase-app.js";
+    import { getFirestore, collection, query, where, getDocs, doc, getDoc, addDoc, onSnapshot, orderBy } from "https://www.gstatic.com/firebasejs/9.22.2/firebase-firestore.js";
+
+    const firebaseConfig = {
+      apiKey: "AIzaSyDrFdwYhlj84GQ3eLzPctLgxZ572PHu7Tg",
+      authDomain: "x-clone-d4697.firebaseapp.com",
+      projectId: "x-clone-d4697",
+      storageBucket: "x-clone-d4697.appspot.com",
+      messagingSenderId: "438425139174",
+      appId: "1:438425139174:web:b1ebea6f124a245cf9c827",
+      measurementId: "G-PLQBYNDKQM",
+    };
+
+    const app = initializeApp(firebaseConfig);
+    const db = getFirestore(app);
+
+    const loginSection = document.getElementById("login-section");
+    const loginForm = document.getElementById("login-form");
+    const loginError = document.getElementById("login-error");
+    const mainSection = document.getElementById("main-section");
+    const searchInput = document.getElementById("search-input");
+    const searchResults = document.getElementById("search-results");
+    const chatSection = document.getElementById("chat-section");
+    const chatHeader = document.getElementById("chat-header");
+    const messagesContainer = document.getElementById("messages-container");
+    const messageForm = document.getElementById("message-form");
+    const messageInput = document.getElementById("message-input");
+    const logoutBtn = document.getElementById("logout-btn");
+
+    let currentUser = null;
+    let currentChatUser = null;
+    let unsubscribeMessages = null;
+
+    loginForm.addEventListener("submit", async (e) => {
+      e.preventDefault();
+      loginError.textContent = "";
+      const username = loginForm.username.value.trim().toLowerCase();
+
+      if (!username) {
+        loginError.textContent = "Please enter your username.";
+        return;
+      }
+
+      try {
+        const usersRef = collection(db, "users");
+        const q = query(usersRef, where("username", "==", username));
+        const querySnapshot = await getDocs(q);
+
+        if (querySnapshot.empty) {
+          loginError.textContent = "User not found.";
+          return;
+        }
+
+        querySnapshot.forEach((doc) => {
+          currentUser = { id: doc.id, ...doc.data() };
+        });
+
+        loginSection.classList.add("hidden");
+        mainSection.classList.remove("hidden");
+        searchInput.value = "";
+        searchInput.focus();
+
+        await displayChattedUsers();
+      } catch (error) {
+        loginError.textContent = "Login error.";
+        console.error(error);
+      }
+    });
+
+    logoutBtn.addEventListener("click", () => {
+      currentUser = null;
+      currentChatUser = null;
+      if (unsubscribeMessages) unsubscribeMessages();
+      messagesContainer.innerHTML = "";
+      chatHeader.textContent = "";
+      searchResults.innerHTML = "";
+      messageInput.value = "";
+      mainSection.classList.add("hidden");
+      loginSection.classList.remove("hidden");
+      loginForm.username.value = "";
+      loginError.textContent = "";
+    });
+
+    searchInput.addEventListener("input", async () => {
+      const searchTerm = searchInput.value.trim().toLowerCase();
+      if (!searchTerm) {
+        await displayChattedUsers();
+        return;
+      }
+
+      searchResults.innerHTML = "";
+
+      try {
+        const usersRef = collection(db, "users");
+        const querySnapshot = await getDocs(usersRef);
+
+        const matchedUsers = [];
+        querySnapshot.forEach((doc) => {
+          const user = { id: doc.id, ...doc.data() };
+          if (user.username.toLowerCase().startsWith(searchTerm) && user.id !== currentUser.id) {
+            matchedUsers.push(user);
+          }
+        });
+
+        if (matchedUsers.length === 0) {
+          searchResults.innerHTML = `<p class="text-gray-500 p-2">No users found.</p>`;
+          return;
+        }
+
+        matchedUsers.forEach((user) => {
+          const userEl = document.createElement("div");
+          userEl.className = "flex items-center p-2 cursor-pointer hover:bg-gray-100 rounded";
+          userEl.innerHTML = `
+            <img src="${user.profilePic || 'https://placehold.co/48x48/png?text=User'}"
+                 alt="Profile of ${user.displayName || user.username}"
+                 class="w-12 h-12 rounded-full object-cover mr-3" />
+            <div>
+              <p class="font-semibold text-gray-900">${user.displayName || user.username}</p>
+              <p class="text-gray-500 text-sm">@${user.username}</p>
+            </div>`;
+          userEl.addEventListener("click", () => openChat(user));
+          searchResults.appendChild(userEl);
+        });
+      } catch (error) {
+        console.error("Search error:", error);
+      }
+    });
+
+    async function displayChattedUsers() {
+      searchResults.innerHTML = "";
+      try {
+        const chatsRef = collection(db, "chats");
+        const chatsSnapshot = await getDocs(chatsRef);
+        const chattedUserIds = new Set();
+
+        chatsSnapshot.forEach((chatDoc) => {
+          const ids = chatDoc.id.split("_");
+          if (ids.includes(currentUser.id)) {
+            chattedUserIds.add(ids.find(id => id !== currentUser.id));
+          }
+        });
+
+        if (chattedUserIds.size === 0) {
+          searchResults.innerHTML = `<p class="text-gray-500 p-2">No chats yet. Start one!</p>`;
+          return;
+        }
+
+        const usersRef = collection(db, "users");
+        const userDocs = await Promise.all([...chattedUserIds].map(uid => getDoc(doc(db, "users", uid))));
+
+        userDocs.forEach(userDoc => {
+          if (userDoc.exists()) {
+            const user = { id: userDoc.id, ...userDoc.data() };
+            const userEl = document.createElement("div");
+            userEl.className = "flex items-center p-2 cursor-pointer hover:bg-gray-100 rounded";
+            userEl.innerHTML = `
+              <img src="${user.profilePic || 'https://placehold.co/48x48/png?text=User'}"
+                   alt="Profile of ${user.displayName || user.username}"
+                   class="w-12 h-12 rounded-full object-cover mr-3" />
+              <div>
+                <p class="font-semibold text-gray-900">${user.displayName || user.username}</p>
+                <p class="text-gray-500 text-sm">@${user.username}</p>
+              </div>`;
+            userEl.addEventListener("click", () => openChat(user));
+            searchResults.appendChild(userEl);
+          }
+        });
+      } catch (error) {
+        console.error("Load chats error:", error);
+      }
+    }
+
+    async function openChat(user) {
+      currentChatUser = user;
+      searchResults.innerHTML = "";
+      searchInput.value = "";
+
+      chatHeader.innerHTML = `
+        <img src="${user.profilePic || 'https://placehold.co/40x40/png?text=User'}"
+             alt="Profile of ${user.displayName || user.username}"
+             class="w-10 h-10 rounded-full object-cover mr-3" />
+        <div>
+          <p class="font-semibold text-gray-900">${user.displayName || user.username}</p>
+          <p class="text-gray-500 text-sm">@${user.username}</p>
+        </div>`;
+
+      messagesContainer.innerHTML = "";
+      messageInput.value = "";
+      chatSection.classList.remove("hidden");
+
+      if (unsubscribeMessages) unsubscribeMessages();
+
+      const chatId = currentUser.id < user.id ? `${currentUser.id}_${user.id}` : `${user.id}_${currentUser.id}`;
+      const messagesRef = collection(db, "chats", chatId, "messages");
+      const messagesQuery = query(messagesRef, orderBy("createdAt", "asc"));
+
+      unsubscribeMessages = onSnapshot(messagesQuery, (snapshot) => {
+        messagesContainer.innerHTML = "";
+        snapshot.forEach((doc) => {
+          const message = doc.data();
+          const isCurrentUser = message.senderId === currentUser.id;
+          const messageEl = document.createElement("div");
+          messageEl.className = `flex mb-3 ${isCurrentUser ? "justify-end" : "justify-start"}`;
+          messageEl.innerHTML = `
+            <div class="max-w-xs px-4 py-2 rounded-lg ${isCurrentUser ? "bg-blue-600 text-white" : "bg-gray-200 text-gray-900"}">
+              ${escapeHtml(message.text)}
+            </div>`;
+          messagesContainer.appendChild(messageEl);
+        });
+        messagesContainer.scrollTop = messagesContainer.scrollHeight;
+      });
+    }
+
+    messageForm.addEventListener("submit", async (e) => {
+      e.preventDefault();
+      const text = messageInput.value.trim();
+      if (!text || !currentChatUser) return;
+
+      const chatId = currentUser.id < currentChatUser.id ? `${currentUser.id}_${currentChatUser.id}` : `${currentChatUser.id}_${currentUser.id}`;
+      const messagesRef = collection(db, "chats", chatId, "messages");
+
+      try {
+        await addDoc(messagesRef, {
+          text,
+          senderId: currentUser.id,
+          receiverId: currentChatUser.id,
+          createdAt: new Date(),
+        });
+        messageInput.value = "";
+      } catch (error) {
+        console.error("Send message error:", error);
+      }
+    });
+
+    function escapeHtml(text) {
+      return text
+        .replace(/&/g, "&amp;")
+        .replace(/</g, "&lt;")
+        .replace(/>/g, "&gt;")
+        .replace(/"/g, "&quot;")
+        .replace(/'/g, "&#039;");
+    }
+  </script>
+</head>
+<body class="bg-gray-50 min-h-screen flex flex-col">
+
+  <!-- Login -->
+  <section id="login-section" class="flex flex-col justify-center items-center flex-grow p-6 max-w-md mx-auto w-full">
+    <h1 class="text-3xl font-bold mb-6 text-gray-900">X.com Messages</h1>
+    <form id="login-form" class="w-full bg-white p-6 rounded-lg shadow border">
+      <label for="username" class="block font-semibold mb-2 text-gray-700">Username</label>
+      <input type="text" id="username" name="username" class="w-full border rounded-md p-3 mb-4" placeholder="e.g. johndoe" required />
+      <button type="submit" class="w-full bg-blue-600 text-white py-3 rounded-md hover:bg-blue-700 transition">Log In</button>
+      <p id="login-error" class="text-red-600 mt-3 text-center"></p>
+    </form>
+  </section>
+
+  <!-- Main -->
+  <section id="main-section" class="hidden flex flex-col flex-grow max-w-4xl mx-auto w-full p-4">
+    <header class="flex justify-between mb-4">
+      <h2 class="text-xl font-bold">Messages</h2>
+      <button id="logout-btn" title="Logout" class="text-gray-600 hover:text-gray-900">
+        <i class="fas fa-sign-out-alt fa-lg"></i>
+      </button>
+    </header>
+
+    <div class="flex flex-col md:flex-row border rounded-lg bg-white shadow overflow-hidden">
+      <div class="md:w-1/3 border-b md:border-b-0 md:border-r p-3">
+        <input id="search-input" type="text" class="w-full p-3 border rounded-md mb-3" placeholder="Search users" />
+        <div id="search-results" class="overflow-y-auto divide-y" tabindex="0"></div>
+      </div>
+
+      <div id="chat-section" class="hidden md:w-2/3 flex flex-col h-[500px]">
+        <div id="chat-header" class="flex items-center border-b p-3 bg-gray-50"></div>
+        <div id="messages-container" class="flex-grow p-4 overflow-y-auto bg-white"></div>
+        <form id="message-form" class="border-t p-3 bg-gray-50 flex items-center">
+          <input id="message-input" type="text" class="flex-grow p-3 border rounded-md" placeholder="Type your message..." required />
+          <button type="submit" class="ml-3 bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700">
+            <i class="fas fa-paper-plane"></i>
+          </button>
+        </form>
+      </div>
+    </div>
+  </section>
+
+</body>
+</html>
