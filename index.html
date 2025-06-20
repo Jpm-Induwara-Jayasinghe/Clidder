@@ -7,15 +7,15 @@
 <!-- ——— Open Graph ——— -->
 <meta property="og:type"        content="website">
 <meta property="og:url"         content="https://clidder.example.com/">
-<meta property="og:title"       content="Clidder – It's what’s buzzing now">
-<meta property="og:description" content="join today and see what's buzzing on world?">
+<meta property="og:title"       content="Clidder – It's what’s going on">
+<meta property="og:description" content="join today and see what's going on world?">
 <meta property="og:image"       content="https://i.ibb.co/T6n1yfk/Clidder-preview.png">
 
 <!-- ——— Twitter Card (uses the same image) ——— -->
 <meta name="twitter:card"        content="summary_large_image">
 <meta name="twitter:site"        content="@ClidderApp">  <!-- optional -->
-<meta name="twitter:title"       content="Clidder – What’s buzzing now">
-<meta name="twitter:description" content="Join Clidder, the fast, fun way to share what’s buzzing in your world.">
+<meta name="twitter:title"       content="Clidder – What’s going on">
+<meta name="twitter:description" content="Join Clidder, the fast, fun way to share what’s going in your world.">
 <meta name="twitter:image"       content="https://i.ibb.co/T6n1yfk/Clidder-preview.png">
 
 
@@ -1817,7 +1817,7 @@ body.dark-mode textarea::placeholder {
       <textarea
         id="tweetInput"
         rows="1"
-        placeholder="What's buzzing now?"
+        placeholder="What's going on?"
         class="w-full bg-transparent text-gray-900 dark:text-white placeholder-gray-500 dark:placeholder-gray-400 text-lg border-none focus:outline-none resize-none"
       ></textarea>
 
@@ -2141,7 +2141,7 @@ body.dark-mode textarea::placeholder {
 
         <label class="flex flex-col text-gray-700 font-medium">
           Caption
-          <textarea id="postCaption" placeholder="What’s buzzing now ? " rows="3" class="mt-1 p-2 border border-gray-300 rounded resize-none focus:outline-none focus:ring-2 focus:ring-[#FF7D1E]"></textarea>
+          <textarea id="postCaption" placeholder="What’s going on ? " rows="3" class="mt-1 p-2 border border-gray-300 rounded resize-none focus:outline-none focus:ring-2 focus:ring-[#FF7D1E]"></textarea>
         </label>
         <button type="submit" class="bg-[#e6680f] text-white py-2 rounded font-semibold hover:bg-[#cc5900] transition">Clide Post</button>
       </form>
@@ -2214,7 +2214,7 @@ body.dark-mode textarea::placeholder {
 
 <!-- Left panel -->
 <div class="hidden md:flex flex-col items-center justify-center w-1/2 bg-black text-center px-4 space-y-8">
-  <h1 class="text-5xl font-extrabold leading-tight text-orange-500">It's what's buzzing</h1>
+  <h1 class="text-5xl font-extrabold leading-tight text-orange-500">It's what's going</h1>
   <img src="https://i.ibb.co/T6n1yfk/Clidder.png" alt="Clidder Logo" class="w-52 h-52" />
 </div>
 
@@ -6242,77 +6242,6 @@ document.addEventListener('DOMContentLoaded', function () {
 
 
 
-<script>
-  const originalFaviconURL = "https://i.ibb.co/T6n1yfk/Clidder.png";
-  const faviconElement = document.querySelector("link[rel~='icon']");
-  let currentCount = 0;
-
-  function updateFaviconWithCount(count) {
-    if (!faviconElement) return;
-
-    const canvas = document.createElement("canvas");
-    const size = 64;
-    canvas.width = size;
-    canvas.height = size;
-    const ctx = canvas.getContext("2d");
-
-    const img = new Image();
-    img.crossOrigin = "anonymous";
-    img.src = originalFaviconURL;
-
-    img.onload = function () {
-      // Draw original icon
-      ctx.drawImage(img, 0, 0, size, size);
-
-      // Notification dot
-      ctx.beginPath();
-      ctx.arc(size - 10, 10, 14, 0, 2 * Math.PI);
-      ctx.fillStyle = "#FF7D1E";
-      ctx.fill();
-
-      // Text count
-      ctx.fillStyle = "#fff";
-      ctx.font = "bold 24px Arial";
-      ctx.textAlign = "center";
-      ctx.textBaseline = "middle";
-      ctx.fillText(count > 99 ? "99+" : count.toString(), size - 10, 10);
-
-      faviconElement.href = canvas.toDataURL("image/png");
-    };
-  }
-
-  function resetFavicon() {
-    faviconElement.href = originalFaviconURL;
-    currentCount = 0;
-    document.title = "Clidder";
-  }
-
-  function getNotificationCount() {
-    const badgeLeft = document.getElementById("notificationBadgeLeft");
-    const badgeTop = document.getElementById("notificationBadge");
-    const parse = el => el && el.style.display !== "none" ? parseInt(el.textContent.trim()) || 0 : 0;
-    return parse(badgeLeft) || parse(badgeTop);
-  }
-
-  function checkAndUpdateFavicon() {
-    const count = getNotificationCount();
-    if (count > 0 && count !== currentCount) {
-      currentCount = count;
-      updateFaviconWithCount(count);
-      document.title = `(${count}) Clidder`;
-    } else if (count === 0 && currentCount !== 0) {
-      resetFavicon();
-    }
-  }
-
-  // Run every 5 seconds
-  setInterval(checkAndUpdateFavicon, 5000);
-  checkAndUpdateFavicon();
-
-  // Clear on notification click
-  document.getElementById("sidebarNotificationsLeft")?.addEventListener("click", resetFavicon);
-  document.getElementById("sidebarNotifications")?.addEventListener("click", resetFavicon);
-</script>
 
 
 <!-- Fullscreen Image Modal -->
@@ -7316,7 +7245,7 @@ function getMoonPhaseSymbol(phaseName) {
 
 /* Time-based background gradients with animation */
 .morning-bg {
-  background: linear-gradient(270deg, #fff0b3, #ffe680, #ffd11a);
+  background: linear-gradient(270deg, #1A3DFE, #1786FE, #0D21FE);
   background-size: 600% 600%;
   animation: gradientShift 10s ease infinite;
 }
