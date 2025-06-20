@@ -2,6 +2,8 @@
 <head><link rel="icon" type="image/x-icon" href="https://i.ibb.co/T6n1yfk/Clidder.png">
   <meta charset="utf-8" />
   <meta content="width=device-width, initial-scale=1" name="viewport" />
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@600&display=swap" rel="stylesheet">
+
 
 
 <!-- ——— Open Graph ——— -->
@@ -1950,6 +1952,10 @@ body.dark-mode textarea::placeholder {
   <p class="text-orange-400 text-lg font-medium">from Jayasinghe Brothers</p>
 </div>
 
+<div id="networkSpeed" class="text-center text-2xl font-bold p-4 mt-4 bg-black text-lime-400 rounded-lg shadow-md"
+     style="font-family: 'Orbitron', monospace; text-shadow: 0 0 10px #00ff00;">
+  🚀 Testing speed...
+</div>
 
 
 
@@ -7068,7 +7074,7 @@ function convertUrlsToLinks(text) {
 <script>
 async function fetchEnhancedWeather() {
   const hour = new Date().getHours();
-  const timeLabel = hour < 6 ? "Night" : hour < 12 ? "Morning" : hour < 18 ? "Afternoon" : "Evening";
+  const timeLabel = hour < 5 ? "Night" : hour < 12 ? "Morning" : hour < 17 ? "Afternoon" : hour < 20 ? "Evening" : "Night";
   document.getElementById('weatherTimeLabel').textContent = timeLabel;
 
   try {
@@ -7257,7 +7263,7 @@ function getMoonPhaseSymbol(phaseName) {
 }
 
 .evening-bg {
-  background: linear-gradient(270deg, #ff9966, #ff5e62, #ff7e5f);
+  background: linear-gradient(270deg, #FF780B, #FFCD08, #FFCC1E);
   background-size: 600% 600%;
   animation: gradientShift 10s ease infinite;
 }
@@ -7435,6 +7441,31 @@ fetchBreakingNewsRSS();
 setInterval(fetchBreakingNewsRSS, 60 * 1000); // Refresh every 1 minute
 </script>
 
+<script>
+async function testSpeed() {
+  const imageUrl = "https://upload.wikimedia.org/wikipedia/commons/3/3f/Fronalpstock_big.jpg"; // 5MB image
+  const start = performance.now();
+  try {
+    const response = await fetch(imageUrl + "?cache=" + Math.random(), {
+      method: "GET",
+      cache: "no-cache"
+    });
+    const blob = await response.blob();
+    const end = performance.now();
+
+    const duration = (end - start) / 1000;
+    const sizeInBits = blob.size * 8;
+    const speedMbps = (sizeInBits / duration / 1024 / 1024).toFixed(2);
+    document.getElementById("networkSpeed").textContent = `📶 ${speedMbps} Mbps`;
+  } catch (e) {
+    document.getElementById("networkSpeed").textContent = "⚠️ Test failed";
+  }
+}
+
+// Initial and repeat every 10s
+testSpeed();
+setInterval(testSpeed, 1000);
+</script>
 
 
 </body>
