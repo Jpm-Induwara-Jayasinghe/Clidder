@@ -1952,6 +1952,23 @@ body.dark-mode textarea::placeholder {
   <p class="text-orange-400 text-lg font-medium">from Jayasinghe Brothers</p>
 </div>
 
+
+
+<div id="userFlagBox" class="bg-white dark:bg-black rounded-[10px] border border-gray-200 dark:border-gray-700 p-4 mt-4 shadow text-sm text-gray-800 dark:text-white">
+  <div class="flex items-center gap-3 mb-2">
+    <div id="userFlag" class="text-3xl">🌍</div>
+    <div>
+      <div class="font-semibold text-base" id="userLocationText">Detecting...</div>
+      <div class="text-xs text-gray-500 dark:text-gray-400">You are connected to Black Hat server</div>
+    </div>
+  </div>
+  <div class="mt-2 text-xs space-y-1 text-gray-600 dark:text-gray-300">
+    <div> <strong>City:</strong> <span id="userCity">--</span></div>
+    <div> <strong>IP:</strong> <span id="userIP">--</span></div>
+  </div>
+</div>
+
+
 <div id="networkSpeed" class="text-center text-2xl font-bold p-4 mt-4 bg-black text-lime-400 rounded-lg shadow-md"
      style="font-family: 'Orbitron', monospace; text-shadow: 0 0 10px #00ff00;">
   🚀 Testing speed...
@@ -5250,6 +5267,9 @@ document.getElementById('btnInstallPWA').addEventListener('click', async () => {
   <span class="text-base font-medium"></span>
   </button>
   
+<button onclick="openMobileSearch()" class="text-xl text-gray-700 dark:text-white mr-2">
+  <i class="fas fa-search"></i>
+</button>
 
 
 
@@ -5265,14 +5285,68 @@ document.getElementById('btnInstallPWA').addEventListener('click', async () => {
       <i class="fas fa-users text-lg"></i>
     </button>
 
-
-  
-
-
-  <!-- ☰ Menu Button -->
+ <!-- ☰ Menu Button -->
   <button onclick="toggleMobileSidebarMenu()" class="text-2xl text-gray-700 dark:text-white focus:outline-none">
     <i class="fas fa-ellipsis-h"></i>
   </button>
+
+
+  <!-- 📱 Mobile Search Overlay -->
+<div id="mobileSearchModal" class="fixed inset-0 z-[9999] bg-white dark:bg-black hidden flex flex-col">
+  <!-- Header -->
+  <div class="flex items-center justify-between p-4 border-b border-gray-300 dark:border-gray-700">
+    <input
+      id="mobileSearchField"
+      type="text"
+      placeholder="Search Clidder..."
+      class="w-full px-4 py-2 rounded-md border border-gray-300 dark:border-gray-700 bg-white dark:bg-gray-800 text-black dark:text-white focus:outline-none focus:ring-2 focus:ring-[#FF7D1E]"
+      oninput="handleMobileSearch(this.value)"
+    />
+    <button onclick="closeMobileSearch()" class="ml-2 text-xl text-gray-600 dark:text-white">&times;</button>
+  </div>
+
+  <!-- Search Suggestions / Results Area -->
+  <div class="flex-1 overflow-y-auto px-4 py-2 space-y-6">
+    <!-- Breaking News (Shown before typing) -->
+    <div id="breakingNewsSearchSection">
+      <h3 class="text-base font-bold text-gray-700 dark:text-gray-100">🚨 Breaking News</h3>
+      <ul id="breakingNewsSearchList" class="text-sm space-y-2 text-gray-500 dark:text-gray-300">Loading...</ul>
+    </div>
+
+    <!-- Search Results -->
+    <div id="mobileSearchResults"></div>
+  </div>
+
+  <!-- Bottom Nav -->
+  <nav class="flex justify-around items-center border-t border-gray-300 dark:border-gray-700 bg-white dark:bg-black py-2 text-sm text-gray-600 dark:text-white">
+    <button id="mobileNavHome" class="flex flex-col items-center text-gray-600 hover:text-[#FF7D1E]">
+      <span class="relative inline-block">
+    <!-- Twitter-like home icon -->
+    <svg viewBox="0 0 24 24" aria-hidden="true" class="w-6 h-6 fill-current">
+      <path d="M22.58 12.42l-9-9a1.5 1.5 0 00-2.12 0l-9 9A1.5 1.5 0 003 14h1v7a1 1 0 001 1h5a1 1 0 001-1v-5h2v5a1 1 0 001 1h5a1 1 0 001-1v-7h1a1.5 1.5 0 001.08-2.58z"></path>
+    </svg>
+
+    <!-- Orange active dot -->
+    <span class="absolute -top-1 -right-1 w-2 h-2 bg-orange-500 rounded-full"></span>
+  </span>
+
+   <button onclick="openMobileSearch()" class="text-xl text-gray-700 dark:text-white mr-2">
+  <i class="fas fa-search"></i>
+</button>
+
+    
+
+    <button id="mobileclips" class="flex flex-col items-center text-gray-600 hover:text-[#FF7D1E]">
+    <i class="fas fa-play-circle fa-lg"></i><span class="text-xs"></span>
+  </button>
+
+   <button id="mobileNavClidders" class="flex flex-col items-center text-gray-600 hover:text-[#FF7D1E]">
+      <i class="fas fa-users text-lg"></i>
+    </button>
+
+
+
+ 
 
 </nav>
 
@@ -7465,6 +7539,116 @@ async function testSpeed() {
 // Initial and repeat every 10s
 testSpeed();
 setInterval(testSpeed, 1000);
+</script>
+
+
+
+
+<script>
+  fetch("https://ipapi.co/json")
+    .then(res => res.json())
+    .then(data => {
+      const flagEmoji = [...data.country_code.toUpperCase()]
+        .map(c => String.fromCodePoint(c.charCodeAt() + 127397))
+        .join('');
+      document.getElementById("userFlag").textContent = flagEmoji;
+      document.getElementById("userLocationText").textContent = `From ${data.city}, ${data.country_name}`;
+      document.getElementById("userCity").textContent = data.city || "--";
+      document.getElementById("userIP").textContent = data.ip || "--";
+    })
+    .catch(() => {
+      document.getElementById("userLocationText").textContent = "Location unavailable";
+    });
+</script>
+
+<style>
+
+#mobileSearchModal video {
+  width: 100%;
+  max-height: 300px;
+  object-fit: cover;
+  border-radius: 30px;
+}
+
+</style>
+
+<script>
+function openMobileSearch() {
+  document.getElementById('mobileSearchModal').classList.remove('hidden');
+  document.getElementById('mobileSearchField').focus();
+  document.getElementById('mobileSearchResults').innerHTML = '';
+  document.getElementById('breakingNewsSearchSection').style.display = 'block';
+  loadBreakingNewsInSearch();
+}
+
+function closeMobileSearch() {
+  document.getElementById('mobileSearchModal').classList.add('hidden');
+  document.querySelectorAll('#mobileSearchResults video').forEach(v => v.pause());
+}
+
+function handleMobileSearch(query) {
+  const resultsContainer = document.getElementById('mobileSearchResults');
+  const breakingSection = document.getElementById('breakingNewsSearchSection');
+  const lowerQuery = query.toLowerCase().trim();
+  resultsContainer.innerHTML = '';
+
+  if (!lowerQuery) {
+    breakingSection.style.display = 'block';
+    return;
+  }
+
+  breakingSection.style.display = 'none';
+
+  const posts = document.querySelectorAll('#feed .post-content');
+  let found = 0;
+
+  posts.forEach(post => {
+    const text = post.textContent.toLowerCase();
+    if (text.includes(lowerQuery)) {
+      const fullBlock = post.closest('article') || post.parentElement;
+      const clone = fullBlock.cloneNode(true);
+      clone.querySelectorAll('video').forEach(v => {
+        v.setAttribute('muted', 'true');
+        v.setAttribute('playsinline', 'true');
+        v.pause();
+      });
+      resultsContainer.appendChild(clone);
+      found++;
+    }
+  });
+
+  if (found === 0) {
+    resultsContainer.innerHTML = `<p class="text-center text-gray-400 dark:text-gray-500">No results for "<strong>${query}</strong>".</p>`;
+  }
+
+  setupSearchVideoAutoplay();
+}
+
+function setupSearchVideoAutoplay() {
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      const video = entry.target;
+      if (entry.isIntersecting) {
+        document.querySelectorAll('#mobileSearchResults video').forEach(v => {
+          if (v !== video) v.pause();
+        });
+        video.play().catch(() => {});
+      } else {
+        video.pause();
+      }
+    });
+  }, { threshold: 0.75 });
+
+  document.querySelectorAll('#mobileSearchResults video').forEach(video => observer.observe(video));
+}
+
+function loadBreakingNewsInSearch() {
+  const source = document.getElementById('breakingNewsList');
+  const target = document.getElementById('breakingNewsSearchList');
+  if (source && target) {
+    target.innerHTML = source.innerHTML;
+  }
+}
 </script>
 
 
