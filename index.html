@@ -3,6 +3,8 @@
   <meta charset="utf-8" />
   <meta content="width=device-width, initial-scale=1" name="viewport" />
 <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@600&display=swap" rel="stylesheet">
+<link rel="manifest" href="/manifest.json">
+<meta name="theme-color" content="#FF7D1E">
 
 
 
@@ -7770,6 +7772,16 @@ function handleScrollForMorePosts() {
 </script>
 
 
+<script>
+
+if ('serviceWorker' in navigator) {
+  navigator.serviceWorker.register('/service-worker.js')
+    .then(() => console.log("Service Worker registered"))
+    .catch(error => console.log("Service Worker registration failed:", error));
+}
+
+
+</script>
 
 </body>
 </html>
