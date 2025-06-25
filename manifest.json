@@ -1,12 +1,18 @@
 {
   "name": "Clidde",
   "short_name": "Clidde",
+  "description": "Clidde is a social platform to share and explore content in a fast and elegant way.",
   "start_url": "/",
   "display": "standalone",
   "background_color": "#ffffff",
   "theme_color": "#FF7D1E",
   "orientation": "portrait",
-  "scope": "/",
+  "dir": "ltr",
+  "lang": "en",
+  "id": "com.clidde.app",
+  "launch_handler": {
+    "client_mode": "navigate-existing"
+  },
   "icons": [
     {
       "src": "/icon-192.png",
@@ -18,5 +24,24 @@
       "type": "image/png",
       "sizes": "512x512"
     }
-  ]
+  ],
+  "screenshots": [
+    {
+      "src": "/screenshots/home.png",
+      "type": "image/png",
+      "sizes": "540x960",
+      "label": "Home screen"
+    },
+    {
+      "src": "/screenshots/profile.png",
+      "type": "image/png",
+      "sizes": "540x960",
+      "label": "User profile"
+    }
+  ],
+  "categories": ["social", "entertainment"],
+  "iarc_rating_id": "e10plus", 
+  "prefer_related_applications": false,
+  "related_applications": [],
+  "scope_extensions": []
 }
