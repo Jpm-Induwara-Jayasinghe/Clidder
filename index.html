@@ -7769,7 +7769,65 @@ function handleScrollForMorePosts() {
 }
 </script>
 
+<script>
 
+import { getFirestore, collection, query, where, getDocs } from "firebase/firestore";
+import { initializeApp } from "firebase/app";
+
+// Firebase config (already initialized in your project)
+const firebaseConfig = { /* your config */ };
+const app = initializeApp(firebaseConfig);
+const db = getFirestore(app);
+
+// 🔍 Extract username from path
+const pathParts = window.location.pathname.split('/');
+const username = pathParts[1]; // e.g., "/john" → "john"
+
+if (username) {
+  checkAndDisplayUserProfile(username);
+}
+
+async function checkAndDisplayUserProfile(username) {
+  try {
+    // 🔍 Search Firestore collection for a matching username field
+    const usersRef = collection(db, "users"); // change to your collection name
+    const q = query(usersRef, where("username", "==", username)); // assumes 'username' is a field
+    const querySnapshot = await getDocs(q);
+
+    if (!querySnapshot.empty) {
+      const userData = querySnapshot.docs[0].data();
+      renderUserProfile(userData);
+    } else {
+      renderNotFound(username);
+    }
+  } catch (error) {
+    console.error("Error fetching user:", error);
+    renderNotFound(username);
+  }
+}
+
+// 🖼️ Render functions
+function renderUserProfile(user) {
+  document.getElementById("feed").innerHTML = `
+    <div class="p-4">
+      <h2 class="text-2xl font-bold">${user.displayName || user.username}</h2>
+      <p>@${user.username}</p>
+      <img src="${user.profilePicUrl || 'default.jpg'}" alt="Profile" class="rounded-full w-24 h-24 mt-4"/>
+      <p class="mt-4">${user.bio || ''}</p>
+    </div>
+  `;
+}
+
+function renderNotFound(username) {
+  document.getElementById("feed").innerHTML = `
+    <div class="p-4 text-red-500">
+      <h2 class="text-xl font-bold">User "${username}" not found.</h2>
+    </div>
+  `;
+}
+
+
+</script>
 
 </body>
 </html>
