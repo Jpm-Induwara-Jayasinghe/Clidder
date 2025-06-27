@@ -311,7 +311,7 @@ body.dark-mode #centerContent,
   flex-direction: column;
   gap: 0rem;
   scroll-behavior: smooth;
-  border-left: none;
+  
 }
 
     #tweetBox {
@@ -402,16 +402,18 @@ body.dark-mode .reply-list::before {
       width: 22rem;
       z-index: 10;
     }
-    #rightSidebar {
-      right: 318.7px;
-      border-right: none;
-      border-left:1px solid #374151 ;
-    }
-    #leftSidebar {
-      left: 383px;
-      border-right: 1px solid #374151;
-      border-left: none;
-    }
+#leftSidebar {
+  left: 0;
+  border-right: 1px solid #374151;
+  border-left: none;
+}
+
+#rightSidebar {
+  right: 0;
+  border-left: 1px solid #374151;
+  border-right: none;
+}
+
 
 
 #sidebarMessages,
@@ -422,22 +424,23 @@ body.dark-mode .reply-list::before {
 
 
 #leftSidebar button {
-  padding: 0.4rem 0.6rem;
+  padding: 0.3rem 0.5rem;
   border-radius: 9999px;
   display: flex;
   align-items: center;
-  gap: 0.3rem;
-  font-size: 1.25rem;
+  gap: 0.25rem;
+  font-size: 0.875rem; /* 14px like Facebook */
   font-weight: 500;
   white-space: nowrap;
 }
 
 
 #leftSidebar button i {
-  font-size: 1.25rem;
-  min-width: 24px;
+  font-size: 1.5rem; /* Increased from 1.25rem */
+  min-width: 28px;   /* Optional: ensures spacing */
   text-align: center;
 }
+
 
 #leftSidebar button:hover {
   background-color: rgba(59, 130, 246, 0.1); /* Tailwind blue-500 light */
@@ -729,11 +732,18 @@ body.dark-mode #rightSidebar .bg-white {
 
 
 
-body.light-mode #tweetBox,
-body.dark-mode #tweetBox {
-  border: none !important;
-  box-shadow: none !important;
+/* Light mode border */
+body.light-mode #tweetBox {
+  border: 1px solid #E5E7EB; /* Tailwind gray-200 */
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
 }
+
+/* Dark mode border */
+body.dark-mode #tweetBox {
+  border: 1px solid #374151; /* Tailwind gray-700 */
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.4);
+}
+
 
 
 
@@ -1485,6 +1495,38 @@ body.dark-mode textarea::placeholder {
   display: none !important;
 }
 
+#leftSidebar {
+  border: none !important;
+}
+
+body.light-mode #leftSidebar,
+body.dark-mode #leftSidebar {
+  border: none !important;
+}
+
+#rightSidebar {
+  border: none !important;
+}
+
+body.light-mode #rightSidebar,
+body.dark-mode #rightSidebar {
+  border: none !important;
+}
+
+
+
+
+/* Light mode */
+body.light-mode #centerContent .bg-white {
+  border-left: 1px solid #E5E7EB;
+  border-right: 1px solid #E5E7EB;
+}
+
+/* Dark mode */
+body.dark-mode #centerContent .bg-white {
+  border-left: 1px solid #374151; /* Tailwind gray-700 */
+  border-right: 1px solid #374151;
+}
 
 
   </style>
@@ -1620,12 +1662,7 @@ body.dark-mode textarea::placeholder {
 
 
 
-<!-- Left-aligned clickable logo, aligned with sidebar buttons -->
-<div class="mb-2 pl-[0rem]">
-  <button>
-    <img src="https://i.ibb.co/T6n1yfk/Clidder.png" alt="Clidder Logo" class="w-8 h-8" />
-  </button>
-</div>
+
 
 
 
@@ -1634,8 +1671,9 @@ body.dark-mode textarea::placeholder {
       <nav class="flex flex-col space-y-4">
         <button class="flex items-center space-x-3 hover:text-[#FF7D1E] focus:outline-none focus:text-[#FF7D1E]" id="sidebarHome">
   <span class="relative inline-block">
-    <i class="fas fa-home text-black dark:text-white" 
-       style="text-shadow: -1px -1px 0 black, 1px -1px 0 black, -1px 1px 0 black, 1px 1px 0 black;"></i>
+    <i class="fas fa-store text-transparent bg-clip-text bg-gradient-to-r from-blue-500 via-indigo-500 to-pink-500"></i>
+
+
     <!-- Always-visible orange dot -->
     <span class="absolute -top-1 -right-1 w-2 h-2 bg-orange-500 rounded-full"></span>
   </span>
@@ -1644,33 +1682,33 @@ body.dark-mode textarea::placeholder {
 
 
         <button class="flex items-center space-x-3 hover:text-[#FF7D1E] focus:outline-none focus:text-[#FF7D1E]" id="sidebarExplore" style="">
-          <i class="fas fa-hashtag text-black dark:text-white" 
-   style="text-shadow: -1px -1px 0 black, 1px -1px 0 black, -1px 1px 0 black, 1px 1px 0 black;"></i>
+          <i class="fas fa-hashtag text-transparent bg-clip-text bg-gradient-to-r from-pink-500 via-yellow-400 to-purple-600 transition duration-300 ease-in-out"></i>
+
           <span>Discover</span>
         </button>
 
         <button class="flex items-center space-x-3 hover:text-[#FF7D1E] focus:outline-none focus:text-[#FF7D1E]" id="sidebarNotificationsLeft">
-          <i class="fas fa-bell text-black dark:text-white" 
-   style="text-shadow: -1px -1px 0 black, 1px -1px 0 black, -1px 1px 0 black, 1px 1px 0 black;"></i>
+          <i class="fas fa-bell text-transparent bg-clip-text bg-gradient-to-r from-red-500 via-pink-500 to-yellow-400 transition duration-300 ease-in-out"></i>
+
           <span>Notifications</span>
           <span id="notificationBadgeLeft" class="ml-1 bg-red-500 text-white rounded-full px-2 text-xs font-semibold" style="display:none;"></span>
         </button>
 
 <button class="flex items-center space-x-3 hover:text-[#FF7D1E] focus:outline-none focus:text-[#FF7D1E]" id="sidebarClips">
-  <i class="fas fa-play-circle text-black dark:text-white" 
-   style="text-shadow: -1px -1px 0 black, 1px -1px 0 black, -1px 1px 0 black, 1px 1px 0 black;"></i>
+  <i class="fas fa-play-circle text-transparent bg-clip-text bg-gradient-to-r from-indigo-500 via-sky-400 to-lime-400 transition duration-300 ease-in-out"></i>
+
   <span>Clips</span>
 </button>
 
         <button class="flex items-center space-x-3 hover:text-[#FF7D1E] focus:outline-none focus:text-[#FF7D1E]" id="sidebarMessages">
-          <i class="fas fa-envelope text-black dark:text-white" 
-   style="text-shadow: -1px -1px 0 black, 1px -1px 0 black, -1px 1px 0 black, 1px 1px 0 black;"></i>
+          <i class="fas fa-envelope text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 via-blue-500 to-indigo-500 transition duration-300 ease-in-out"></i>
+
           <span>Messages</span>
         </button>
 
         <button class="flex items-center space-x-3 hover:text-[#FF7D1E] focus:outline-none focus:text-[#FF7D1E]" id="sidebarBookmarks">
-          <i class="fas fa-bookmark text-black dark:text-white" 
-   style="text-shadow: -1px -1px 0 black, 1px -1px 0 black, -1px 1px 0 black, 1px 1px 0 black;"></i>
+          <i class="fas fa-bookmark text-transparent bg-clip-text bg-gradient-to-r from-fuchsia-500 via-violet-600 to-cyan-400 transition duration-300 ease-in-out"></i>
+
           <span>Saved</span>
         </button>
 
@@ -1680,14 +1718,16 @@ body.dark-mode textarea::placeholder {
         </button>
 
         <button class="flex items-center space-x-3 hover:text-[#FF7D1E] focus:outline-none focus:text-[#FF7D1E]" id="sidebarFavorites">
-          <i class="fas fa-star text-black dark:text-white" 
-   style="text-shadow: -1px -1px 0 black, 1px -1px 0 black, -1px 1px 0 black, 1px 1px 0 black;"></i>
+          <i class="fas fa-star text-transparent bg-clip-text bg-gradient-to-r from-yellow-400 via-amber-500 to-rose-500 transition duration-300 ease-in-out"></i>
+
           <span>Favorites</span>
         </button>
 
         <button class="flex items-center space-x-3 hover:text-[#FF7D1E] focus:outline-none focus:text-[#FF7D1E]" id="sidebarFromMe">
-          	<i class="fas fa-history text-black dark:text-white" 
-   style="text-shadow: -1px -1px 0 black, 1px -1px 0 black, -1px 1px 0 black, 1px 1px 0 black;"></i>
+          	<i class="fas fa-history text-transparent bg-clip-text bg-gradient-to-r from-stone-400 via-amber-600 to-yellow-600 transition duration-300 ease-in-out"></i>
+
+
+
 
           <span>My Activity</span>
         </button>
@@ -1695,8 +1735,8 @@ body.dark-mode textarea::placeholder {
        
 
         <button class="flex items-center space-x-3 hover:text-[#FF7D1E] focus:outline-none focus:text-[#FF7D1E]" id="sidebarMore" style="">
-          <i class="fas fa-users text-black dark:text-white" 
-   style="text-shadow: -1px -1px 0 black, 1px -1px 0 black, -1px 1px 0 black, 1px 1px 0 black;"></i>
+          <i class="fas fa-users text-transparent bg-clip-text bg-gradient-to-r from-lime-400 via-emerald-400 to-cyan-500 transition duration-300 ease-in-out"></i>
+
           <span>Who  to Follow</span>
         </button>
 
@@ -1705,23 +1745,23 @@ body.dark-mode textarea::placeholder {
 
 <!-- Add this in the left sidebar navigation -->
 <button id="sidebarSettings" class="flex items-center space-x-3 hover:text-[#FF7D1E] focus:outline-none focus:text-[#FF7D1E]">
-  <i class="fas fa-cog text-black dark:text-white" 
-   style="text-shadow: -1px -1px 0 black, 1px -1px 0 black, -1px 1px 0 black, 1px 1px 0 black;"></i>
+  <i class="fas fa-cog text-transparent bg-clip-text bg-gradient-to-r from-zinc-400 via-blue-gray-500 to-slate-600 transition duration-300 ease-in-out"></i>
+
   <span>Settings</span>
 </button>
 
 
  <button class="flex items-center space-x-3 hover:text-[#FF7D1E] focus:outline-none focus:text-[#FF7D1E]" id="sidebarProfile" style="">
-           <i class="fas fa-user-cog text-black dark:text-white" 
-     style="text-shadow: -1px -1px 0 black, 1px -1px 0 black, -1px 1px 0 black, 1px 1px 0 black;"></i>
+           <i class="fas fa-user-cog text-transparent bg-clip-text bg-gradient-to-r from-amber-700 via-lime-600 to-emerald-700 transition duration-300 ease-in-out"></i>
+
           <span>Account</span>
         </button>
 
 
 
 <button id="sidebarTheme" class="flex items-center space-x-3 hover:text-[#FF7D1E] focus:outline-none focus:text-[#FF7D1E]">
-  <i class="fas fa-palette text-black dark:text-white" 
-   style="text-shadow: -1px -1px 0 black, 1px -1px 0 black, -1px 1px 0 black, 1px 1px 0 black;"></i>
+<i class="fas fa-palette text-transparent bg-clip-text bg-gradient-to-r from-pink-300 via-orange-300 to-red-400 transition duration-300 ease-in-out"></i>
+
   <span>Theme</span>
 </button>
 
@@ -5113,10 +5153,7 @@ const scrollTopBtn = document.getElementById("scrollTopBtn");
 
     // ... (rest of your existing code remains unchanged)
   </script>
-<button id="scrollTopBtn" title="Go to top" aria-label="Scroll to top"
-  class="hidden fixed bottom-6 left-1/2 transform -translate-x-1/2 z-50 p-3 bg-purple-600 text-white rounded-full shadow-lg hover:bg-purple-600 transition">
-  <i class="fas fa-arrow-up"></i>
-</button>
+
 
 <script>
 function wrapText(type, value = null) {
@@ -6675,7 +6712,8 @@ renderPost = function (post, id) {
     const wallpaperBtn = document.createElement("button");
     wallpaperBtn.className = "flex items-center space-x-3 hover:text-[#FF7D1E]";
     wallpaperBtn.id = "sidebarWallpaper";
-    wallpaperBtn.innerHTML = `<i class="far fa-image text-gray-900 dark:text-white"></i><span>Wallpaper</span>`;
+    wallpaperBtn.innerHTML = `<i class="far fa-image text-transparent bg-clip-text bg-gradient-to-r from-teal-400 via-cyan-500 to-indigo-400 transition duration-300 ease-in-out"></i>
+<span>Wallpaper</span>`;
     document.querySelector("#leftSidebar nav").appendChild(wallpaperBtn);
 
     // Modal layout
@@ -7334,44 +7372,7 @@ function getMoonPhaseSymbol(phaseName) {
   });
 </script>
 
-<!-- 🕵️ Pulsing Spy Icon (Desktop Only) -->
-<style>
-  @keyframes pulseSpy {
-    0% { box-shadow: 0 0 0 0 rgba(255, 125, 30, 0.6); }
-    70% { box-shadow: 0 0 0 12px rgba(255, 125, 30, 0); }
-    100% { box-shadow: 0 0 0 0 rgba(255, 125, 30, 0); }
-  }
 
-  .spy-icon {
-    position: fixed;
-    bottom: 20px;
-    right: 20px;
-    width: 60px;
-    height: 60px;
-    border-radius: 10px;
-    object-fit: cover;
-    z-index: 9999;
-    cursor: pointer;
-    animation: pulseSpy 2s infinite;
-    transition: transform 0.3s ease;
-  }
-
-  .spy-icon:hover {
-    transform: scale(1.1);
-  }
-
-  @media (max-width: 767px) {
-    .spy-icon {
-      display: none;
-    }
-  }
-</style>
-
-<a href="https://blackhatai.nicepage.io/" target="_blank">
-  <img src="https://www.shutterstock.com/image-vector/spy-agent-hacker-anonymous-white-600nw-1722014434.jpg" 
-       alt="Spy Icon"
-       class="spy-icon" />
-</a>
 
 
 <script>
@@ -7769,20 +7770,6 @@ function handleScrollForMorePosts() {
 }
 </script>
 
-<script>
-  // Save scroll position before navigating away
-  window.addEventListener("beforeunload", () => {
-    localStorage.setItem("scrollY", window.scrollY);
-  });
-
-  // Restore scroll position when page loads
-  window.addEventListener("load", () => {
-    const scrollY = localStorage.getItem("scrollY");
-    if (scrollY !== null) {
-      window.scrollTo(0, parseInt(scrollY));
-    }
-  });
-</script>
 
 
 
