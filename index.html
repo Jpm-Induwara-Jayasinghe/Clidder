@@ -1529,6 +1529,9 @@ body.dark-mode #centerContent .bg-white {
 }
 
 
+
+
+
   </style>
 
 
@@ -7770,6 +7773,124 @@ function handleScrollForMorePosts() {
 }
 </script>
 
+
+<script>
+function triggerEmojiRain(emojis) {
+  for (let i = 0; i < 30; i++) {
+    const emoji = document.createElement("div");
+    emoji.textContent = emojis[Math.floor(Math.random() * emojis.length)];
+    emoji.style.position = "fixed";
+    emoji.style.left = Math.random() * window.innerWidth + "px";
+    emoji.style.top = "-2rem";
+    emoji.style.fontSize = (Math.random() * 1.5 + 1.2) + "rem";
+    emoji.style.zIndex = "9999";
+    emoji.style.opacity = "0.8";
+    emoji.style.pointerEvents = "none";
+    emoji.style.animation = `emojiFall ${Math.random() * 2 + 3}s linear forwards`;
+    document.body.appendChild(emoji);
+    setTimeout(() => emoji.remove(), 5000);
+  }
+}
+
+document.getElementById("btnSubmitTweet")?.addEventListener("click", () => {
+  const textarea = document.getElementById("tweetInput");
+  if (!textarea) return;
+
+  const content = textarea.value.trim().toLowerCase();
+  console.log("User Post:", content);
+
+  let emojis = ["✨", "💬", "🌟", "🔥"]; // default
+
+  const matchMap = [
+    { keywords: ["love", "❤️", "💕"], emojis: ["❤️", "💘", "💕", "😍", "💖"] },
+    { keywords: ["happy", "yay", "😊", "good"], emojis: ["😄", "🎉", "🥳", "💃", "😁"] },
+    { keywords: ["sad", "cry", "💔", "😭", "😢"], emojis: ["😭", "🥺", "😢", "💔"] },
+    { keywords: ["win", "success", "victory"], emojis: ["🏆", "🎯", "🥇", "🔥"] },
+    { keywords: ["news", "update", "breaking"], emojis: ["📰", "📢", "🚨", "🔔"] },
+    { keywords: ["funny", "lol", "😂", "🤣"], emojis: ["😂", "🤣", "🙃", "😹"] },
+    { keywords: ["fire", "🔥", "lit"], emojis: ["🔥", "💥", "⚡", "🚀"] },
+    { keywords: ["music", "song", "🎧"], emojis: ["🎵", "🎶", "🎧", "🎤"] },
+    { keywords: ["food", "hungry", "🍕", "🍔"], emojis: ["🍕", "🍔", "🍟", "🍩", "🍫"] },
+    { keywords: ["weather", "sun", "☀️", "rain"], emojis: ["🌞", "⛅", "🌧", "☁️", "🌦"] },
+    { keywords: ["ai", "bot", "gpt"], emojis: ["🤖", "📡", "🧠", "⚙️"] },
+
+    // Extra 10 sets 👇
+    { keywords: ["school", "exam", "study"], emojis: ["📚", "📝", "📖", "🎓"] },
+    { keywords: ["game", "play", "gamer"], emojis: ["🎮", "🕹️", "🏆", "🔥"] },
+    { keywords: ["sports", "football", "soccer"], emojis: ["⚽", "🏀", "🏈", "🎯"] },
+    { keywords: ["travel", "trip", "flight"], emojis: ["✈️", "🌍", "🧳", "📸"] },
+    { keywords: ["nature", "tree", "forest"], emojis: ["🌳", "🍃", "🌲", "🍀"] },
+    { keywords: ["sleep", "tired", "zzz"], emojis: ["😴", "🛌", "🌙", "💤"] },
+    { keywords: ["coding", "dev", "code"], emojis: ["💻", "🧑‍💻", "👨‍💻", "🖥️"] },
+    { keywords: ["movie", "film", "cinema"], emojis: ["🎬", "🍿", "📽️", "🎞️"] },
+    { keywords: ["party", "dance", "club"], emojis: ["💃", "🕺", "🎉", "🎊"] },
+    { keywords: ["money", "rich", "💰"], emojis: ["💰", "💸", "🤑", "💳"] }
+  ];
+
+  for (const match of matchMap) {
+    if (match.keywords.some(word => content.includes(word))) {
+      emojis = match.emojis;
+      break;
+    }
+  }
+
+  console.log("Selected emojis:", emojis);
+  triggerEmojiRain(emojis);
+});
+</script>
+
+<style>
+@keyframes emojiFall {
+  0% { transform: translateY(0); opacity: 0.9; }
+  100% { transform: translateY(100vh); opacity: 0; }
+}
+</style>
+
+
+
+
+
+
+<script>
+const tweet = document.getElementById("tweetInput");
+const prompts = [
+  "Summarize an insight you've learned recently",
+  "Share a thought you've been reflecting on",
+  "What’s a question you'd like others to consider?",
+  "Describe a moment of clarity you had today",
+  "Outline a small habit that improved your routine",
+  "Note a challenge you’re currently working through",
+  "What’s a mindset that drives your progress?",
+  "Explain a decision you’ve made and why",
+  "Highlight something that deserves more attention",
+  "Document a method that improves your productivity",
+  "Describe a recent lesson from failure",
+  "What are you prioritizing right now?",
+  "Share a principle that guides your work",
+  "Explain a strategy that worked for you",
+  "Describe a quiet win you had this week",
+  "Outline a goal you’re moving toward",
+  "What are you optimizing for right now?",
+  "Share a quote that shifted your perspective",
+  "Describe a risk that paid off",
+  "What makes today meaningful for you?",
+  "Clarify something you believe but rarely say",
+  "Note a pattern you’ve observed in others",
+  "What’s one thing you consistently return to?",
+  "Capture a reflection from recent reading",
+  "Describe how you approach uncertainty",
+  "Share how you structure deep work sessions",
+  "What belief has helped you grow most?",
+  "Note a decision that helped you simplify",
+  "Describe a system that keeps you grounded",
+  "What’s a metric you actually care about?"
+];
+let i = 0;
+setInterval(() => {
+  tweet.placeholder = prompts[i % prompts.length];
+  i++;
+}, 5000);
+</script>
 
 
 
