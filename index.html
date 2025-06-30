@@ -1690,6 +1690,13 @@ body.dark-mode #centerContent .bg-white {
           <span>Discover</span>
         </button>
 
+<button class="flex items-center space-x-3 hover:text-[#FF7D1E]" onclick="toggleClidderAIModal()">
+  <img src="https://i.ibb.co/zVgvTJRF/clidder-ai.png" alt="AI Icon" class="w-8 h-8" />
+  <span class="text-base font-medium">Clidder AI</span>
+</button>
+
+
+
         <button class="flex items-center space-x-3 hover:text-[#FF7D1E] focus:outline-none focus:text-[#FF7D1E]" id="sidebarNotificationsLeft">
           <i class="fas fa-bell text-transparent bg-clip-text bg-gradient-to-r from-red-500 via-pink-500 to-yellow-400 transition duration-300 ease-in-out"></i>
 
@@ -1744,6 +1751,10 @@ body.dark-mode #centerContent .bg-white {
         </button>
 
 
+<button id="sidebarBirthdays" class="flex items-center space-x-3 hover:text-[#FF7D1E] focus:outline-none focus:text-[#FF7D1E]">
+  <i class="fas fa-birthday-cake text-pink-500"></i>
+  <span>Birthdays</span>
+</button>
 
 
 <!-- Add this in the left sidebar navigation -->
@@ -1907,11 +1918,16 @@ body.dark-mode #centerContent .bg-white {
 
 
 
-<div id="birthdayBanner" style="display:none;" class="birthday-banner-container">
-  <div class="birthday-banner-title">It's Their Big Day – Say Happy Birthday!</div>
-  <div id="birthdayBannerUsers" class="birthday-users-list"></div>
-</div>
-
+<section id="birthdayUsersSection" class="hidden flex-col space-y-4 mt-4 px-4">
+  <div>
+    <h2 class="birthday-banner-title">🎉 Today's Birthdays</h2>
+    <div id="todayBirthdayList" class="birthday-users-list flex-wrap"></div>
+  </div>
+  <div>
+    <h2 class="birthday-banner-title">📅 Upcoming Birthdays</h2>
+    <div id="upcomingBirthdayList" class="birthday-users-list flex-wrap"></div>
+  </div>
+</section>
 
 
 
@@ -7891,6 +7907,248 @@ setInterval(() => {
   i++;
 }, 5000);
 </script>
+
+
+
+
+
+
+
+<!-- 🔮 Clidder AI Modal -->
+<div id="clidderAIModal"
+     class="fixed inset-0 bg-black/50 backdrop-blur-sm z-[9999] hidden p-4 flex items-center justify-center">
+  <div class="bg-white dark:bg-[#111827] rounded-2xl shadow-2xl w-full max-w-3xl h-[80vh] relative flex flex-col overflow-hidden">
+
+    <!-- Close Button -->
+    <button onclick="toggleClidderAIModal()" class="absolute top-3 right-4 text-gray-500 hover:text-red-500 text-2xl z-10">
+      &times;
+    </button>
+
+    <!-- Clidder AI Chat -->
+    <div style="position: relative; height: 100%;">
+      <iframe
+        src="https://app.thinkstack.ai/bot/index.html?chatbot_id=685de92a53177c5dd5a47e9a&type=inline&theme=dark"
+        class="w-full h-full border-0"
+        style="position: relative; z-index: 0; color-scheme: light dark;"></iframe>
+
+      <!-- Hide Thinkstack branding (overlay bar) -->
+      <div style="position: absolute; bottom: 0; left: 0; right: 0; height: 30px; background: #111827; z-index: 1;"></div>
+    </div>
+
+    <!-- Custom Footer Bar -->
+    <div class="bg-black text-white text-sm text-center py-2">
+      Clidder AI  – Powered by Induwara Jayasinghe
+    </div>
+
+  </div>
+</div>
+
+<!-- 🔁 JS to Toggle Modal -->
+<script>
+  function toggleClidderAIModal() {
+    const modal = document.getElementById("clidderAIModal");
+    modal.classList.toggle("hidden");
+  }
+</script>
+
+
+
+
+
+
+
+
+<!-- PROFILE MODAL -->
+<div id="profileModal" class="fixed inset-0 bg-black/50 z-[9999] hidden flex items-center justify-center">
+  <div class="bg-white dark:bg-[#111827] rounded-xl shadow-xl max-w-lg w-full p-6 relative">
+    <button onclick="document.getElementById('profileModal').classList.add('hidden')"
+            class="absolute top-2 right-3 text-gray-500 hover:text-red-500">×</button>
+    <div id="profileModalContent"></div>
+    <div class="mt-6">
+      <div class="flex justify-around border-b border-gray-300 dark:border-gray-600 text-sm font-semibold text-gray-600 dark:text-gray-300">
+        <button class="tab-btn" onclick="showTab('posts')">Posts</button>
+        <button class="tab-btn" onclick="showTab('about')">About</button>
+        <button class="tab-btn" onclick="showTab('media')">Media</button>
+      </div>
+      <div id="profileTabContent" class="mt-4 text-gray-800 dark:text-gray-100 text-sm">
+        <!-- dynamic content here -->
+      </div>
+    </div>
+  </div>
+</div>
+
+<script type="module">
+import {
+  getFirestore,
+  collection,
+  getDocs,
+  doc,
+  getDoc,
+  query,
+  where,
+  orderBy
+} from "https://www.gstatic.com/firebasejs/10.11.0/firebase-firestore.js";
+
+const db = getFirestore();
+let activeProfileUID = null;
+
+const sidebarBirthdays = document.getElementById("sidebarBirthdays");
+const sidebarHome = document.getElementById("sidebarHome");
+const birthdayUsersSection = document.getElementById("birthdayUsersSection");
+const todayBirthdayList = document.getElementById("todayBirthdayList");
+const upcomingBirthdayList = document.getElementById("upcomingBirthdayList");
+const feed = document.getElementById("feed");
+
+function getMonthName(monthIndex) {
+  return new Date(2000, monthIndex, 1).toLocaleString('default', { month: 'long' });
+}
+
+function formatBirthday(dateStr) {
+  const date = new Date(dateStr);
+  return `${getMonthName(date.getMonth())} ${date.getDate()}`;
+}
+
+sidebarBirthdays.addEventListener("click", async () => {
+  birthdayUsersSection.style.display = "flex";
+  feed.style.display = "none";
+
+  todayBirthdayList.innerHTML = "";
+  upcomingBirthdayList.innerHTML = "";
+
+  const snapshot = await getDocs(collection(db, "users"));
+  const today = new Date();
+  const mmddToday = `${today.getMonth() + 1}`.padStart(2, '0') + "-" + `${today.getDate()}`.padStart(2, '0');
+
+  const upcoming = [], past = [];
+
+  snapshot.forEach(docSnap => {
+    const user = docSnap.data();
+    if (!user.birthday) return;
+
+    const date = new Date(user.birthday);
+    const mmdd = `${date.getMonth() + 1}`.padStart(2, '0') + "-" + `${date.getDate()}`.padStart(2, '0');
+    const daysDiff = Math.floor((date.setFullYear(today.getFullYear()) - today) / (1000 * 60 * 60 * 24));
+
+    if (mmdd === mmddToday) {
+      todayBirthdayList.appendChild(renderUserCard(user, docSnap.id));
+    } else if (daysDiff > 0 && daysDiff <= 30) {
+      upcoming.push({ ...user, id: docSnap.id, daysLeft: daysDiff });
+    } else if (daysDiff < 0 && Math.abs(daysDiff) <= 30) {
+      past.push({ ...user, id: docSnap.id, daysAgo: Math.abs(daysDiff) });
+    }
+  });
+
+  if (todayBirthdayList.children.length === 0) {
+    todayBirthdayList.innerHTML = "<p>No birthdays today.</p>";
+  }
+
+  [...upcoming.sort((a,b)=>a.daysLeft-b.daysLeft), ...past.sort((a,b)=>a.daysAgo-b.daysAgo)]
+    .forEach(user => {
+      const tag = user.daysLeft ? `in ${user.daysLeft} days` : `${user.daysAgo} days ago`;
+      upcomingBirthdayList.appendChild(renderUserCard(user, user.id, tag));
+    });
+});
+
+sidebarHome?.addEventListener("click", () => {
+  birthdayUsersSection.style.display = "none";
+  feed.style.display = "flex";
+});
+
+function renderUserCard(user, uid, extra = "") {
+  const div = document.createElement("div");
+  div.className = "birthday-user-card";
+  div.innerHTML = `
+    <img src="${user.profilePic || 'https://i.ibb.co/0VqN92C4/clidder-off-dark.png'}" alt="${user.fullName}" />
+    <div>
+      <div class="inline-flex items-center gap-1 font-medium flex-wrap">
+        ${user.fullName || 'Unknown'}
+        ${getPremiumHTML(user.premium)}
+        ${getVerifiedHTML(user.verified)}
+        ${getProHTML(user.pro)}
+        ${getCompanyHTML(user.company)}
+        ${getAIHTML(user.AI)}
+        ${getClidderHTML(user.Clidder)}
+      </div>
+      <div class="text-sm text-gray-500">${user.birthday ? formatBirthday(user.birthday) : ''} ${extra}</div>
+    </div>
+  `;
+  div.style.cursor = "pointer";
+  div.onclick = () => showProfileModal(uid);
+  return div;
+}
+
+async function showProfileModal(uid) {
+  activeProfileUID = uid;
+  const snap = await getDoc(doc(db, "users", uid));
+  if (!snap.exists()) return;
+  const user = snap.data();
+
+  document.getElementById("profileModalContent").innerHTML = `
+    <div class="text-center">
+      <img src="${user.profilePic || 'https://placehold.co/100'}" class="w-24 h-24 rounded-full mx-auto mb-2" />
+      <h3 class="text-xl font-semibold inline-flex items-center gap-1 justify-center flex-wrap">
+        ${user.fullName || "User"}
+        ${getPremiumHTML(user.premium)}
+        ${getVerifiedHTML(user.verified)}
+        ${getProHTML(user.pro)}
+        ${getCompanyHTML(user.company)}
+        ${getAIHTML(user.AI)}
+        ${getClidderHTML(user.Clidder)}
+      </h3>
+      <p class="text-sm text-gray-500">@𝓬𝓹${user.username}</p>
+    </div>
+  `;
+
+  showTab('about');
+  document.getElementById("profileModal").classList.remove("hidden");
+}
+
+async function showTab(tab) {
+  const content = document.getElementById("profileTabContent");
+
+  if (tab === 'posts') {
+    const q = query(collection(db, 'posts'), where('uid', '==', activeProfileUID), orderBy('createdAt', 'desc'));
+    const snapshot = await getDocs(q);
+    if (snapshot.empty) {
+      content.innerHTML = "<p class='text-center text-gray-500'>No posts found.</p>";
+    } else {
+      content.innerHTML = Array.from(snapshot.docs).map(doc => {
+        const post = doc.data();
+        return `<div class='p-2 border-b dark:border-gray-700'><p>${post.content || "(No content)"}</p></div>`;
+      }).join('');
+    }
+  } else if (tab === 'about') {
+    const snap = await getDoc(doc(db, "users", activeProfileUID));
+    const user = snap.data();
+    content.innerHTML = `
+      <div class='text-center'>
+        <p class='mb-2'>${user.bio || "No bio available."}</p>
+        <p class='text-sm text-gray-500'>Birthday: ${formatBirthday(user.birthday)}</p>
+      </div>
+    `;
+  } else if (tab === 'media') {
+    const q = query(collection(db, 'posts'), where('uid', '==', activeProfileUID));
+    const snapshot = await getDocs(q);
+    const mediaPosts = snapshot.docs.filter(doc => {
+      const post = doc.data();
+      return post.imageUrl || post.videoUrl;
+    });
+
+    if (mediaPosts.length === 0) {
+      content.innerHTML = "<p class='text-center text-gray-500'>No media found.</p>";
+    } else {
+      content.innerHTML = mediaPosts.map(doc => {
+        const post = doc.data();
+        return `<div class='p-2'>
+          ${post.imageUrl ? `<img src='${post.imageUrl}' class='rounded-lg max-h-60 mb-2' />` : ""}
+          ${post.videoUrl ? `<video src='${post.videoUrl}' controls class='w-full max-h-60 mb-2'></video>` : ""}
+        </div>`;
+      }).join('');
+    }
+  }
+}
+</script>
+
 
 
 
