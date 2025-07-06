@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en" class="dark-mode">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Jobs / Clidder</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+  <style>
+    body {
+      background-color: #000000;
+      color: #f9fafb;
+      font-family: 'Segoe UI', sans-serif;
+    }
+    .job-card {
+      background-color: #000000;
+      border: 1px solid #374151;
+      border-radius: 1rem;
+    }
+    .job-card:hover {
+      border-color: #FF7D1E;
+    }
+    .gradient-title {
+      background: linear-gradient(to right, #6366f1, #FF7D1E, #ec4899);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      font-weight: 800;
+    }
+    .tag {
+      background-color: #1f2937;
+      color: #f9fafb;
+      font-size: 0.75rem;
+      padding: 2px 8px;
+      border-radius: 9999px;
+      margin-right: 0.5rem;
+      margin-bottom: 0.5rem;
+    }
+    .highlight {
+      background-color: #FF7D1E;
+      color: black;
+      padding: 0 2px;
+      border-radius: 4px;
+    }
+    .sticky-header {
+      position: sticky;
+      top: 0;
+      z-index: 50;
+      background-color: #000000;
+      border-bottom: 1px solid #374151;
+      padding-top: 1rem;
+      padding-bottom: 1rem;
+    }
+  </style>
+</head>
+<body class="px-4 py-6">
+  <div class="max-w-4xl mx-auto">
+    <!-- Sticky Header -->
+    <div class="sticky-header mb-6">
+      <div class="flex items-center justify-between">
+        <div class="flex items-center space-x-3">
+          <img src="https://i.ibb.co/HDNMpNL5/clidder-new-icon.png" alt="Clidder Icon" class="w-10 h-10 rounded-full border border-gray-700" />
+          <h1 class="text-3xl gradient-title">Clidder Jobs</h1>
+        </div>
+        <button onclick="window.location.href='index.html'" class="px-4 py-2 rounded-full bg-[#FF7D1E] text-white hover:bg-orange-600">← Back</button>
+      </div>
+      <div class="flex flex-col md:flex-row gap-4 mt-4">
+        <input id="searchInput" type="text" placeholder="Search jobs..." class="flex-1 px-4 py-2 rounded-md border border-gray-700 bg-gray-900 text-white" />
+        <select id="categoryFilter" class="px-4 py-2 rounded-md border border-gray-700 bg-gray-900 text-white">
+          <option value="">All Categories</option>
+          <option value="tech">Tech</option>
+          <option value="marketing">Marketing</option>
+          <option value="design">Design</option>
+          <option value="other">Other</option>
+        </select>
+      </div>
+      <div class="mt-4 text-sm text-gray-400">
+        <span id="jobCount">0</span> jobs matched.
+      </div>
+    </div>
+
+    <div id="jobList" class="flex flex-col gap-6"></div>
+    <div id="loader" class="text-center py-6 hidden">
+      <i class="fas fa-spinner fa-spin text-[#FF7D1E] text-2xl"></i>
+    </div>
+    <p id="errorMsg" class="text-red-500 mt-6 hidden">⚠️ Failed to load jobs.</p>
+  </div>
+
+  <script>
+    let loading = false;
+    let allJobs = [];
+
+    async function loadJobs() {
+      if (loading) return;
+      loading = true;
+      document.getElementById('loader').classList.remove('hidden');
+
+      try {
+        const res = await fetch('https://remoteok.com/api');
+        const data = await res.json();
+        const jobs = data.slice(1);
+        allJobs = jobs;
+        applyFilters();
+      } catch (e) {
+        document.getElementById('errorMsg').classList.remove('hidden');
+      }
+
+      document.getElementById('loader').classList.add('hidden');
+      loading = false;
+    }
+
+    function highlight(text, keyword) {
+      if (!keyword) return text;
+      const pattern = new RegExp(`(${keyword})`, 'gi');
+      return text.replace(pattern, '<span class="highlight">$1</span>');
+    }
+
+    function renderJobs(jobs, keyword = '') {
+      const container = document.getElementById("jobList");
+      container.innerHTML = "";
+      document.getElementById("jobCount").innerText = jobs.length;
+
+      jobs.forEach(job => {
+        const div = document.createElement("div");
+        div.className = "job-card p-5 shadow-md";
+
+        const position = highlight(job.position, keyword);
+        const company = highlight(job.company, keyword);
+
+        div.innerHTML = `
+          <div class="flex justify-between items-center">
+            <div>
+              <h2 class="text-xl font-bold">${position}</h2>
+              <p class="text-sm text-gray-400">${company}</p>
+            </div>
+            <img src="${job.logo || 'https://i.ibb.co/HDNMpNL5/clidder-new-icon.png'}" class="w-10 h-10 object-contain rounded-full border border-gray-700" />
+          </div>
+          <p class="text-sm mt-2 text-gray-300">${job.description?.substring(0, 180) || ''}...</p>
+          <div class="mt-3 flex flex-wrap text-sm">
+            ${(job.tags || []).map(tag => `<span class='tag'>${tag}</span>`).join('')}
+          </div>
+          <div class="flex justify-between items-center mt-3 text-xs text-gray-500">
+            <span>${job.location}</span>
+            <span>${job.date}</span>
+          </div>
+          <a href="${job.url}" target="_blank" class="inline-block mt-3 px-4 py-2 bg-[#FF7D1E] text-white rounded-full font-medium hover:bg-orange-600 transition">
+            Apply Now
+          </a>
+          <p class="text-xs text-gray-500 mt-2 italic">Clidder Jobs</p>
+        `;
+        container.appendChild(div);
+      });
+    }
+
+    function applyFilters() {
+      const query = document.getElementById("searchInput").value.toLowerCase();
+      const category = document.getElementById("categoryFilter").value;
+      const filtered = allJobs.filter(job => {
+        const matchesText = job.position.toLowerCase().includes(query) || job.company.toLowerCase().includes(query);
+        const matchesCategory = !category || (job.tags && job.tags.some(t => t.toLowerCase().includes(category)));
+        return matchesText && matchesCategory;
+      });
+      renderJobs(filtered, query);
+    }
+
+    document.getElementById("searchInput").addEventListener("input", applyFilters);
+    document.getElementById("categoryFilter").addEventListener("change", applyFilters);
+
+    window.addEventListener('scroll', () => {
+      if (window.innerHeight + window.scrollY >= document.body.offsetHeight - 100) {
+        loadJobs();
+      }
+    });
+
+    loadJobs();
+  </script>
+</body>
+</html>

@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Stock Dashboard Pro</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+<style>
+  html, body {
+    overflow: hidden;
+  }
+
+  * {
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+  }
+
+  *::-webkit-scrollbar {
+    display: none;
+  }
+
+  .tooltip::after {
+    content: attr(data-tooltip);
+    position: absolute;
+    background: #1f2937;
+    color: white;
+    padding: 0.25rem 0.5rem;
+    border-radius: 0.375rem;
+    top: 120%;
+    white-space: nowrap;
+    font-size: 0.75rem;
+    display: none;
+  }
+  .tooltip:hover::after {
+    display: block;
+  }
+</style>
+
+</head>
+<body class="bg-[#0f172a] text-white min-h-screen flex flex-col">
+
+  <!-- Header Controls -->
+  <div class="absolute top-4 left-0 w-full flex justify-between items-center px-4 z-50">
+    <a href="index.html"
+       class="text-white bg-blue-600 hover:bg-blue-700 px-4 py-2 rounded-full text-sm font-semibold shadow transition">
+      ← Go Back
+    </a>
+    <span class="text-gray-400 text-sm">&copy; Black Hat Inc | A Jayasinghe Brothers Holdings Company Limited.</span>
+  </div>
+
+  <main class="flex-grow pt-20 px-6 max-w-7xl mx-auto">
+    <h1 class="text-4xl font-bold text-center text-blue-500 mb-6 tracking-tight"></h1>
+
+    <!-- Filter & Sort Bar -->
+    <div class="flex flex-col sm:flex-row items-center justify-between gap-4 mb-6">
+      <input id="searchInput" type="text" placeholder="Search stocks..." class="w-full sm:w-64 px-4 py-2 rounded bg-[#1e293b] text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500" />
+      <select id="sortSelect" class="bg-[#1e293b] text-white px-4 py-2 rounded focus:outline-none border border-gray-600">
+        <option value="">Sort by...</option>
+        <option value="price">Price ↑</option>
+        <option value="change">% Change ↑</option>
+        <option value="change-desc">% Change ↓</option>
+      </select>
+    </div>
+
+    <!-- Timestamp -->
+    <div id="lastUpdated" class="text-sm text-gray-400 mb-4 text-center">Last updated: --</div>
+
+    <!-- Stock Grid -->
+    <div id="stocksContainer" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5 gap-6">
+      <!-- Cards injected here -->
+    </div>
+  </main>
+
+  <script>
+    const apiKey = "d1hk5l1r01qsvr2am7bgd1hk5l1r01qsvr2am7c0";
+    const companies = [
+      "AAPL", "MSFT", "GOOGL", "AMZN", "TSLA", "META", "NVDA", "NFLX", "ADBE", "PYPL",
+      "INTC", "CSCO", "PEP", "KO", "NKE", "CRM", "ORCL", "IBM", "AVGO", "AMD",
+      "QCOM", "TXN", "HON", "GE", "UPS", "FDX", "T", "VZ", "BA", "LMT",
+      "SPY", "BABA", "UBER", "LYFT", "PINS", "SHOP", "SQ", "ZM", "ROKU", "PLTR",
+      "SOFI", "DIS", "WMT", "COST", "MCD", "SBUX", "JNJ", "PFE", "MRNA", "CVX",
+      "XOM", "WFC", "BAC", "JPM", "GS", "BLK", "AXP", "TGT", "LOW", "HD"
+    ];
+
+    const stockData = {};
+    const container = document.getElementById("stocksContainer");
+
+    function createCard(symbol) {
+      const div = document.createElement("div");
+      div.id = `card-${symbol}`;
+      div.className = "bg-[#1e293b] rounded-xl shadow-lg p-5 border-l-4 border-transparent hover:border-blue-500 transition transform hover:scale-[1.02]";
+      div.innerHTML = `
+        <div class="flex items-center gap-4 mb-4">
+          <img src="https://logo.clearbit.com/${symbol.toLowerCase()}.com"
+            onerror="this.src='https://via.placeholder.com/40x40?text=${symbol}'"
+            class="w-10 h-10 bg-white rounded-full p-1 border border-gray-200" />
+          <div>
+            <h2 class="text-xl font-semibold">${symbol}</h2>
+            <p id="price-${symbol}" class="text-2xl font-mono mt-1">--</p>
+          </div>
+        </div>
+        <div class="text-sm text-gray-300 space-y-1">
+          <p id="change-${symbol}" class="font-medium">Change: --</p>
+          <p id="open-${symbol}" class="tooltip" data-tooltip="Opening price">Open: --</p>
+          <p id="highlow-${symbol}" class="tooltip" data-tooltip="Day's high and low">High / Low: --</p>
+          <p id="prevclose-${symbol}" class="tooltip" data-tooltip="Previous close">Prev Close: --</p>
+        </div>
+      `;
+      container.appendChild(div);
+    }
+
+    companies.forEach(createCard);
+
+    let index = 0;
+    function updateTimestamp() {
+      const now = new Date();
+      document.getElementById("lastUpdated").textContent = `Last updated: ${now.toLocaleTimeString()}`;
+    }
+
+    async function fetchAndUpdate(symbol) {
+      try {
+        const res = await fetch(`https://finnhub.io/api/v1/quote?symbol=${symbol}&token=${apiKey}`);
+        const data = await res.json();
+
+        stockData[symbol] = {
+          symbol,
+          price: data.c?.toFixed(2),
+          change: data.d?.toFixed(2),
+          percent: data.dp?.toFixed(2),
+          open: data.o?.toFixed(2),
+          high: data.h?.toFixed(2),
+          low: data.l?.toFixed(2),
+          prev: data.pc?.toFixed(2),
+        };
+
+        renderCard(symbol);
+        updateTimestamp();
+      } catch (e) {
+        console.warn("Fetch failed for", symbol, e);
+      }
+    }
+
+    function renderCard(symbol) {
+      const d = stockData[symbol];
+      if (!d) return;
+      const up = parseFloat(d.change) >= 0;
+
+      document.getElementById(`price-${symbol}`).textContent = `$${d.price}`;
+      document.getElementById(`change-${symbol}`).innerHTML =
+        `Change: <span class="${up ? "text-green-400" : "text-red-400"}">${up ? "▲" : "▼"} ${d.change} (${d.percent}%)</span>`;
+      document.getElementById(`open-${symbol}`).textContent = `Open: $${d.open}`;
+      document.getElementById(`highlow-${symbol}`).textContent = `High / Low: $${d.high} / $${d.low}`;
+      document.getElementById(`prevclose-${symbol}`).textContent = `Prev Close: $${d.prev}`;
+    }
+
+    setInterval(() => {
+      const symbol = companies[index];
+      fetchAndUpdate(symbol);
+      index = (index + 1) % companies.length;
+    }, 1000);
+
+    // Search & Sort
+    document.getElementById("searchInput").addEventListener("input", filterStocks);
+    document.getElementById("sortSelect").addEventListener("change", filterStocks);
+
+    function filterStocks() {
+      const query = document.getElementById("searchInput").value.toUpperCase();
+      const sort = document.getElementById("sortSelect").value;
+
+      const filtered = companies
+        .filter(sym => sym.includes(query))
+        .sort((a, b) => {
+          const aVal = stockData[a]?.[sort === "price" ? "price" : "percent"] || 0;
+          const bVal = stockData[b]?.[sort === "price" ? "price" : "percent"] || 0;
+          if (sort === "change-desc") return bVal - aVal;
+          return sort ? aVal - bVal : 0;
+        });
+
+      container.innerHTML = "";
+      filtered.forEach(createCard);
+      filtered.forEach(renderCard);
+    }
+  </script>
+</body>
+</html>

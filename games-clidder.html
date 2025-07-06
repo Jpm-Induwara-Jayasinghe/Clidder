@@ -1,0 +1,316 @@
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Memory Card Matching Game - Orange & Black</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link
+    rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"
+  />
+  <style>
+    /* Card flip styles */
+    .card {
+      perspective: 1000px;
+    }
+    .card-inner {
+      position: relative;
+      width: 100%;
+      height: 100%;
+      text-align: center;
+      transition: transform 0.6s;
+      transform-style: preserve-3d;
+      cursor: pointer;
+      border-radius: 0.5rem;
+      box-shadow: 0 4px 8px rgba(255 165 0 / 0.5);
+    }
+    .card.flipped .card-inner {
+      transform: rotateY(180deg);
+      cursor: default;
+    }
+    .card-front,
+    .card-back {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      border-radius: 0.5rem;
+      backface-visibility: hidden;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 2.5rem;
+      user-select: none;
+    }
+    .card-front {
+      background-color: #000000;
+      color: #ff7f11;
+      transform: rotateY(180deg);
+      box-shadow: inset 0 0 10px #ff7f11;
+    }
+    .card-back {
+      background-color: #ff7f11;
+      color: #000000;
+      font-weight: 700;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      box-shadow: inset 0 0 10px #000000;
+    }
+
+    /* Confetti container */
+    #confetti-container {
+      pointer-events: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      overflow: visible;
+      z-index: 9999;
+    }
+
+    /* Confetti pieces */
+    .confetti {
+      position: absolute;
+      width: 10px;
+      height: 10px;
+      background-color: #ff7f11;
+      opacity: 0.9;
+      border-radius: 2px;
+      animation-name: confetti-fall;
+      animation-timing-function: linear;
+      animation-iteration-count: 1;
+      will-change: transform, opacity;
+    }
+
+    @keyframes confetti-fall {
+      0% {
+        transform: translateY(0) rotate(0deg);
+        opacity: 1;
+      }
+      100% {
+        transform: translateY(100vh) rotate(360deg);
+        opacity: 0;
+      }
+    }
+  </style>
+</head>
+<body class="bg-black text-orange-500 min-h-screen flex flex-col items-center justify-center p-6 select-none" style="font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;">
+  <h1 class="text-5xl font-extrabold mb-8 text-center tracking-wide drop-shadow-[0_0_5px_rgba(255,127,17,0.8)]">
+    Memory Card Matching Game
+  </h1>
+  <p class="mb-8 max-w-xl text-center text-orange-400/80 text-lg leading-relaxed">
+    Flip cards to find matching pairs. Try to match all pairs with the fewest moves possible!
+  </p>
+
+  <div id="game" class="grid grid-cols-4 gap-5 max-w-xl w-full"></div>
+
+  <div class="mt-10 flex flex-col items-center space-y-5">
+    <div class="text-xl font-semibold tracking-wide">
+      Moves: <span id="moves" class="font-extrabold text-orange-400">0</span>
+    </div>
+    <button
+      id="restartBtn"
+      class="px-8 py-3 bg-orange-600 hover:bg-orange-700 rounded-lg font-semibold transition-shadow shadow-md shadow-orange-600/70 focus:outline-none focus:ring-4 focus:ring-orange-500"
+      aria-label="Restart Game"
+    >
+      Restart Game
+    </button>
+  </div>
+
+  <div id="confetti-container" aria-hidden="true"></div>
+
+  <script>
+    const cardsData = [
+      { icon: "fas fa-cat", alt: "A cute cartoon orange cat with big eyes" },
+      { icon: "fas fa-dog", alt: "A happy cartoon brown dog with floppy ears" },
+      { icon: "fas fa-apple-alt", alt: "A bright red apple with a green leaf" },
+      { icon: "fas fa-fish", alt: "A colorful tropical fish swimming" },
+      { icon: "fas fa-ghost", alt: "A friendly white ghost with big eyes" },
+      { icon: "fas fa-rocket", alt: "A sleek silver rocket blasting off" },
+      { icon: "fas fa-leaf", alt: "A green leaf with visible veins" },
+      { icon: "fas fa-bolt", alt: "A yellow lightning bolt with jagged edges" },
+    ];
+
+    let cards = [];
+    let firstCard = null;
+    let secondCard = null;
+    let lockBoard = false;
+    let moves = 0;
+    let matchesFound = 0;
+
+    const gameContainer = document.getElementById("game");
+    const movesCounter = document.getElementById("moves");
+    const restartBtn = document.getElementById("restartBtn");
+    const confettiContainer = document.getElementById("confetti-container");
+
+    function shuffle(array) {
+      for (let i = array.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [array[i], array[j]] = [array[j], array[i]];
+      }
+      return array;
+    }
+
+    function createCardElement(card, index) {
+      const cardElement = document.createElement("div");
+      cardElement.className = "card aspect-square";
+      cardElement.setAttribute("role", "button");
+      cardElement.setAttribute("tabindex", "0");
+      cardElement.setAttribute("aria-label", "Memory card");
+      cardElement.setAttribute("data-index", index);
+      cardElement.setAttribute("aria-pressed", "false");
+
+      const cardInner = document.createElement("div");
+      cardInner.className = "card-inner";
+
+      const cardFront = document.createElement("div");
+      cardFront.className = "card-front";
+      cardFront.setAttribute("aria-hidden", "true");
+      cardFront.innerHTML = `<i class="${card.icon}" aria-hidden="true" title="${card.alt}"></i>`;
+
+      const cardBack = document.createElement("div");
+      cardBack.className = "card-back";
+      cardBack.setAttribute("aria-hidden", "true");
+      cardBack.textContent = "🧡";
+
+      cardInner.appendChild(cardFront);
+      cardInner.appendChild(cardBack);
+      cardElement.appendChild(cardInner);
+
+      function flip() {
+        if (lockBoard) return;
+        if (cardElement === firstCard) return;
+        if (cardElement.classList.contains("flipped")) return;
+
+        cardElement.classList.add("flipped");
+
+        if (!firstCard) {
+          firstCard = cardElement;
+          return;
+        }
+
+        secondCard = cardElement;
+        lockBoard = true;
+        moves++;
+        movesCounter.textContent = moves;
+
+        const firstIndex = firstCard.getAttribute("data-index");
+        const secondIndex = secondCard.getAttribute("data-index");
+
+        if (cards[firstIndex].icon === cards[secondIndex].icon) {
+          matchesFound++;
+          firstCard.setAttribute("aria-pressed", "true");
+          secondCard.setAttribute("aria-pressed", "true");
+          firstCard.style.cursor = "default";
+          secondCard.style.cursor = "default";
+          resetBoard();
+
+          if (matchesFound === cardsData.length) {
+            setTimeout(() => {
+              triggerWinEffect();
+            }, 400);
+          }
+        } else {
+          setTimeout(() => {
+            firstCard.classList.remove("flipped");
+            secondCard.classList.remove("flipped");
+            resetBoard();
+          }, 1200);
+        }
+      }
+
+      cardElement.addEventListener("click", flip);
+      cardElement.addEventListener("keydown", (e) => {
+        if (e.key === "Enter" || e.key === " " || e.key === "Spacebar") {
+          e.preventDefault();
+          flip();
+        }
+      });
+
+      return cardElement;
+    }
+
+    function resetBoard() {
+      [firstCard, secondCard, lockBoard] = [null, null, false];
+    }
+
+    function startGame() {
+      cards = [...cardsData, ...cardsData];
+      shuffle(cards);
+      gameContainer.innerHTML = "";
+      moves = 0;
+      matchesFound = 0;
+      movesCounter.textContent = moves;
+      resetBoard();
+
+      cards.forEach((card, index) => {
+        const cardElement = createCardElement(card, index);
+        gameContainer.appendChild(cardElement);
+      });
+    }
+
+    restartBtn.addEventListener("click", () => {
+      startGame();
+    });
+
+    // Confetti effect on win
+    function triggerWinEffect() {
+      // Create 100 confetti pieces
+      const confettiCount = 100;
+      const colors = ["#ff7f11", "#ffa94d", "#cc6600", "#ffb366"];
+      const width = window.innerWidth;
+      const height = window.innerHeight;
+
+      for (let i = 0; i < confettiCount; i++) {
+        const confetti = document.createElement("div");
+        confetti.classList.add("confetti");
+        confetti.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
+        confetti.style.left = Math.random() * width + "px";
+        confetti.style.top = -20 + "px";
+        confetti.style.width = 6 + Math.random() * 6 + "px";
+        confetti.style.height = 6 + Math.random() * 6 + "px";
+        confetti.style.opacity = 0.9;
+        confetti.style.transform = `rotate(${Math.random() * 360}deg)`;
+        confetti.style.animationDuration = 3000 + Math.random() * 2000 + "ms";
+        confetti.style.animationDelay = Math.random() * 1000 + "ms";
+
+        confettiContainer.appendChild(confetti);
+
+        // Remove confetti after animation
+        confetti.addEventListener("animationend", () => {
+          confetti.remove();
+        });
+      }
+
+      // Show congratulatory message with orange glowing effect
+      const congrats = document.createElement("div");
+      congrats.textContent = `🎉 Congratulations! You matched all pairs in ${moves} moves! 🎉`;
+      congrats.className =
+        "fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 bg-black bg-opacity-90 text-orange-400 text-3xl font-extrabold px-8 py-6 rounded-lg shadow-[0_0_20px_5px_rgba(255,127,17,0.8)] z-50 select-none animate-fadeInOut";
+      congrats.style.textShadow = "0 0 10px #ff7f11, 0 0 20px #ff7f11, 0 0 30px #ff7f11";
+
+      document.body.appendChild(congrats);
+
+      setTimeout(() => {
+        congrats.remove();
+      }, 5000);
+    }
+
+    // Fade in/out animation for congrats message
+    const styleSheet = document.createElement("style");
+    styleSheet.textContent = `
+      @keyframes fadeInOut {
+        0% {opacity: 0; transform: translate(-50%, -60%) scale(0.8);}
+        10% {opacity: 1; transform: translate(-50%, -50%) scale(1);}
+        90% {opacity: 1; transform: translate(-50%, -50%) scale(1);}
+        100% {opacity: 0; transform: translate(-50%, -40%) scale(0.8);}
+      }
+      .animate-fadeInOut {
+        animation: fadeInOut 5s ease forwards;
+      }
+    `;
+    document.head.appendChild(styleSheet);
+
+    startGame();
+  </script>
+</body>
+</html>
