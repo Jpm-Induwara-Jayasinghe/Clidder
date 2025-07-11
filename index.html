@@ -1584,9 +1584,49 @@ body.dark-mode #centerContent .bg-white {
 </head>
 <body class="bg-gray-50 min-h-screen flex flex-col">
 
-<div id="splashScreen" style="position:fixed; top:0; left:0; width:100%; height:100vh; display:flex; align-items:center; justify-content:center; z-index:99999; background:#fff;">
-  <img id="splashImage" src="https://i.ibb.co/HDNMpNL5/clidder-new-icon.png" alt="Clidder Splash" style="width: 100px; height: 100px;" />
+<div id="splashScreen" style="
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100vh;
+  background: #fff;
+  z-index: 99999;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  transition: opacity 0.5s ease;
+">
+
+  <!-- Logo -->
+  <img src="https://i.ibb.co/HDNMpNL5/clidder-new-icon.png"
+       alt="Clidder Logo"
+       style="width: 100px; height: 100px;" />
+
+  <!-- Two-line text -->
+  <div style="
+    position: absolute;
+    bottom: 40px;
+    text-align: center;
+    font-family: 'Helvetica Neue', sans-serif;
+    font-size: 1rem;
+    font-weight: 600;
+    line-height: 1.4;
+  ">
+    <div style="color: #555;">from</div>
+    <div style="
+      background: linear-gradient(90deg, #6366f1, #FF7D1E, #ec4899);
+      background-clip: text;
+      -webkit-background-clip: text;
+      color: transparent;
+      -webkit-text-fill-color: transparent;
+    ">
+      Jayasinghe Brothers
+    </div>
+  </div>
 </div>
+
 
 
 
@@ -3386,39 +3426,46 @@ function timeAgo(date) {
 
 
     function renderPost(post, id) {
-      const div = document.createElement("article");
+  const div = document.createElement("article");
+  div.className = "bg-white shadow-md p-6 flex flex-col space-y-3 cursor-pointer select-none relative";
 
+  // ✅ Repost banner — must come first
+  if (post.reposted === true && post.repostedBy?.name) {
+    const repostBanner = document.createElement("div");
+    repostBanner.className = "text-sm text-gray-500 mb-2 pl-1";
+    repostBanner.textContent = `🔁 Reposted by ${post.repostedBy.name}`;
+    div.appendChild(repostBanner);
+  }
 
-// 🧠 Clidder AI Icon
-const aiIcon = document.createElement("img");
-aiIcon.src = "https://i.ibb.co/zVgvTJRF/clidder-ai.png";
-aiIcon.alt = "Clidder AI";
-aiIcon.title = "Clidder AI";
-aiIcon.className = "absolute top-8 right-8 w-5 h-5 cursor-pointer hover:opacity-80 z-10";
-aiIcon.onclick = () => toggleClidderAIModal();
+  // 🧠 Clidder AI Icon
+  const aiIcon = document.createElement("img");
+  aiIcon.src = "https://i.ibb.co/zVgvTJRF/clidder-ai.png";
+  aiIcon.alt = "Clidder AI";
+  aiIcon.title = "Clidder AI";
+  aiIcon.className = "absolute top-8 right-8 w-5 h-5 cursor-pointer hover:opacity-80 z-10";
+  aiIcon.onclick = () => toggleClidderAIModal();
 
+  // ⋮ Button
+  const menuButton = document.createElement("button");
+  menuButton.className = "post-options-btn absolute top-2 right-2 text-gray-500 hover:text-gray-700 text-xl focus:outline-none";
+  menuButton.innerHTML = "...";
 
-// ⋮ Button
-const menuButton = document.createElement("button");
-menuButton.className = "post-options-btn absolute top-2 right-2 text-gray-500 hover:text-gray-700 text-xl focus:outline-none";
-menuButton.innerHTML = "...";
-
-// Dropdown menu
-const menu = document.createElement("div");
-menu.className = "post-options-menu hidden absolute top-10 right-2 bg-white border border-gray-200 shadow-md rounded-md z-50 w-64 text-sm";
-menu.innerHTML = `
-  <ul class="divide-y divide-gray-100">
-    <li><button class="w-full text-left px-4 py-2 hover:bg-gray-100">Not interested in this post</button></li>
-    <li><button class="w-full text-left px-4 py-2 hover:bg-gray-100">Follow @${post.userName}</button></li>
-    <li><button class="w-full text-left px-4 py-2 hover:bg-gray-100">Add/remove @${post.userName} from Lists</button></li>
-    <li><button class="w-full text-left px-4 py-2 hover:bg-gray-100">Mute @${post.userName}</button></li>
-    <li><button class="w-full text-left px-4 py-2 hover:bg-gray-100">Block @${post.userName}</button></li>
-    <li><button class="w-full text-left px-4 py-2 hover:bg-gray-100">View post engagements</button></li>
-    <li><button class="w-full text-left px-4 py-2 hover:bg-gray-100">Embed post</button></li>
-    <li><button class="w-full text-left px-4 py-2 hover:bg-gray-100">Report post</button></li>
-    <li><button class="w-full text-left px-4 py-2 hover:bg-gray-100">Request Community Note</button></li>
-  </ul>
-`;
+  // Dropdown menu
+  const menu = document.createElement("div");
+  menu.className = "post-options-menu hidden absolute top-10 right-2 bg-white border border-gray-200 shadow-md rounded-md z-50 w-64 text-sm";
+  menu.innerHTML = `
+    <ul class="divide-y divide-gray-100">
+      <li><button class="w-full text-left px-4 py-2 hover:bg-gray-100">Not interested in this post</button></li>
+      <li><button class="w-full text-left px-4 py-2 hover:bg-gray-100">Follow @${post.userName}</button></li>
+      <li><button class="w-full text-left px-4 py-2 hover:bg-gray-100">Add/remove @${post.userName} from Lists</button></li>
+      <li><button class="w-full text-left px-4 py-2 hover:bg-gray-100">Mute @${post.userName}</button></li>
+      <li><button class="w-full text-left px-4 py-2 hover:bg-gray-100">Block @${post.userName}</button></li>
+      <li><button class="w-full text-left px-4 py-2 hover:bg-gray-100">View post engagements</button></li>
+      <li><button class="w-full text-left px-4 py-2 hover:bg-gray-100">Embed post</button></li>
+      <li><button class="w-full text-left px-4 py-2 hover:bg-gray-100">Report post</button></li>
+      <li><button class="w-full text-left px-4 py-2 hover:bg-gray-100">Request Community Note</button></li>
+    </ul>
+  `;
 
 // Add to the post div
 div.appendChild(aiIcon); 
@@ -3887,34 +3934,71 @@ actions.className = "post-actions flex justify-around flex-wrap text-gray-500 mt
         }
       });
 
-      const retweetBtn = document.createElement("button");
-      retweetBtn.className = "flex items-center space-x-3 tweet-action-btn";
-      retweetBtn.innerHTML = `<i class="fas fa-retweet fa-lg"></i><span></span>`;
-      retweetBtn.addEventListener("click", async () => {
-        if (!currentUser) {
-          alert("Please sign in or create an account before reclidding.");
-          showAuthModal();
-          return;
-        }
-        const userName = currentUser.username;
-        const postRef = doc(db, "posts", id);
-        const hasRetweeted = post.retweets?.includes(userName);
-        try {
-          if (hasRetweeted) {
-            await updateDoc(postRef, {
-              retweets: arrayRemove(userName),
-            });
-            alert("Reclidde removed");
-          } else {
-            await updateDoc(postRef, {
-              retweets: arrayUnion(userName),
-            });
-            alert("Reclidded!");
-          }
-        } catch (err) {
-          alert("Error updating retweet: " + err.message);
-        }
-      });
+const retweetBtn = document.createElement("button");
+retweetBtn.className = "flex items-center space-x-3 tweet-action-btn";
+retweetBtn.innerHTML = `<i class="fas fa-retweet fa-lg"></i><span></span>`;
+
+retweetBtn.addEventListener("click", async () => {
+  if (!currentUser) {
+    alert("Please sign in or create an account to repost.");
+    showAuthModal?.();
+    return;
+  }
+
+  try {
+    const {
+      getFirestore,
+      getDoc,
+      doc,
+      collection,
+      addDoc,
+      updateDoc,
+      increment
+    } = await import("https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js");
+
+    const db = getFirestore();
+
+    // Get the original post
+    const originalRef = doc(db, "posts", id);
+    const originalSnap = await getDoc(originalRef);
+
+    if (!originalSnap.exists()) {
+      alert("Original post not found.");
+      return;
+    }
+
+    const originalData = originalSnap.data();
+
+    // Create new repost data (keep author, add repost info)
+    const repostData = {
+      ...originalData,
+      reposted: true,
+      originalPostId: id,
+      repostedBy: {
+        name: currentUser.fullName,
+        userId: currentUser.id,
+        handle: "𝓬𝓹" + currentUser.username.toLowerCase(),
+        profilePic: currentUser.profilePic || ""
+      },
+      createdAt: new Date().toISOString()
+    };
+
+    // Add repost as a new post
+    await addDoc(collection(db, "posts"), repostData);
+
+    // Increase repost count on the original post
+    await updateDoc(originalRef, {
+      recliddeCount: increment(1)
+    });
+
+    alert("Reposted successfully!");
+  } catch (err) {
+    console.error("Repost error:", err);
+    alert("Something went wrong while reposting.");
+  }
+});
+
+
 
       const likeBtn = document.createElement("button");
       likeBtn.className = "flex items-center space-x-3 tweet-action-btn";
@@ -8336,9 +8420,9 @@ async function showTab(tab) {
     return text
       .replace(/(https?:\/\/[^\s]+)/g,
         '<a href="$1" target="_blank" class="text-orange-500 underline break-words">$1</a>')
-      .replace(/(^|\\s)#(\\w+)/g,
+      .replace(/(^|\s)#(\w+)/g,
         '$1<span class="text-orange-500">#$2</span>')
-      .replace(/(^|\\s)@(\\w+)/g,
+      .replace(/(^|\s)@(\w+)/g,
         '$1<span class="text-orange-500">@$2</span>');
   }
 
@@ -8350,15 +8434,28 @@ async function showTab(tab) {
     const postedDate = post.createdAt?.toDate?.() || new Date(post.createdAt || Date.now());
     const dateString = postedDate.toLocaleString();
 
-    const mediaHTML = post.imageUrl
-      ? `<div class="mt-4"><img src="${post.imageUrl}" alt="Post Media" class="w-full max-h-80 rounded-lg object-cover" /></div>`
-      : "";
-
     const captionHTML = parseContentWithLinks(post.caption || "(No content)");
 
+    // 🔁 Reposted banner if applicable
+    const repostBannerHTML = (post.reposted && post.repostedBy?.name)
+      ? `<div class="text-sm text-gray-500 mb-2 px-2">🔁 Reposted by ${post.repostedBy.name}</div>`
+      : "";
+
+    // 🖼 Media (responsive fix)
+    const mediaHTML = post.imageUrl
+      ? `
+      <div class="mt-4 w-full max-h-[60vh] overflow-hidden rounded-lg">
+        <img src="${post.imageUrl}" alt="Post Media"
+             class="w-full h-auto rounded-md object-contain max-h-[60vh] mx-auto" />
+      </div>`
+      : "";
+
+    // 🧱 Build full modal content
     content.innerHTML = `
+      ${repostBannerHTML}
+
       <!-- 👤 User Info -->
-      <div class="flex items-center gap-3 mb-4 text-left">
+      <div class="flex items-center gap-3 mb-4 text-left px-2">
         <img src="${post.profilePic || 'https://placehold.co/40x40?text=U'}"
              class="w-10 h-10 rounded-full object-cover border border-orange-400" />
         <div class="flex flex-col">
@@ -8376,7 +8473,7 @@ async function showTab(tab) {
       </div>
 
       <!-- 📝 Caption + Media -->
-      <div class="overflow-y-auto pr-1 max-h-[50vh] text-left">
+      <div class="overflow-y-auto px-2 pr-1 max-h-[55vh] text-left">
         <div class="text-gray-900 dark:text-gray-100 text-base whitespace-pre-wrap break-words mb-4">
           ${captionHTML}
         </div>
@@ -8384,7 +8481,7 @@ async function showTab(tab) {
       </div>
 
       <!-- 📅 Timestamp + Clidder -->
-      <div class="flex justify-between items-center mt-4 text-xs">
+      <div class="flex justify-between items-center mt-4 px-2 text-xs">
         <span class="text-gray-500 dark:text-gray-400">Posted on: ${dateString}</span>
         <span class="flex items-center gap-1 text-orange-500 font-semibold">
           Clidder | 
@@ -8405,7 +8502,16 @@ async function showTab(tab) {
   }
 </script>
 
-
+<script>
+  // Hide splash screen after 3 seconds
+  setTimeout(() => {
+    const splash = document.getElementById("splashScreen");
+    if (splash) {
+      splash.style.opacity = 0;
+      setTimeout(() => splash.style.display = "none", 500); // wait for fade
+    }
+  }, 3000);
+</script>
 
 
 </body>
