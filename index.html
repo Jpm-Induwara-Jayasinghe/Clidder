@@ -1827,6 +1827,10 @@ body.dark-mode #centerContent .bg-white {
   <span>Earnings</span>
 </button>
 
+
+
+
+
         
        <button onclick="window.location.href='my-calendar.html'" class="flex items-center space-x-3 hover:text-[#FF7D1E] focus:outline-none focus:text-[#FF7D1E]">
   <i class="fas fa-calendar-alt text-indigo-500"></i>
@@ -1839,6 +1843,10 @@ body.dark-mode #centerContent .bg-white {
   <span>Games</span>
 </button>
 
+<button id="sidebarAccessibility" class="flex items-center space-x-3 hover:text-[#FF7D1E] focus:outline-none focus:text-[#FF7D1E]">
+  <i class="fas fa-universal-access text-purple-500"></i>
+  <span class="font-semibold">Accessibility</span>
+</button>
 
 <button onclick="window.location.href='climate-weather-data-center-black-hat.html'" class="flex items-center space-x-3 hover:text-[#FF7D1E] focus:outline-none focus:text-[#FF7D1E]">
   <i class="fas fa-globe text-orange-400"></i>
@@ -1881,6 +1889,11 @@ body.dark-mode #centerContent .bg-white {
   <span>Theme</span>
 </button>
 
+
+<button id="sidebarBGPatterns" class="flex items-center space-x-3 hover:text-[#FF7D1E] focus:outline-none focus:text-[#FF7D1E]">
+  <i class="fas fa-fill-drip text-sky-600"></i>
+  <span>BG Patterns</span>
+</button>
 
 
       </nav>
@@ -8511,6 +8524,337 @@ async function showTab(tab) {
       setTimeout(() => splash.style.display = "none", 500); // wait for fade
     }
   }, 3000);
+</script>
+
+<!-- Accessibility Modal -->
+<div id="accessibilityModal" class="fixed inset-0 bg-black bg-opacity-60 hidden z-50 items-center justify-center p-4 sm:p-6 lg:p-8">
+  <div id="accessibilityModalContent" class="relative bg-white dark:bg-gray-900 rounded-2xl shadow-2xl w-full max-w-5xl max-h-[90vh] overflow-y-auto p-6 text-gray-800 dark:text-gray-100">
+    <div class="flex flex-wrap justify-between items-center gap-4 mb-6">
+      <h2 class="text-2xl font-bold">Accessibility Settings</h2>
+      <button id="closeAccessibilityModal" class="text-2xl font-bold">&times;</button>
+    </div>
+
+    <!-- Accessibility Sections -->
+    <div class="space-y-8">
+      <div>
+        <h3 class="text-lg font-semibold mb-2">Text</h3>
+        <div id="textFeatures" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4"></div>
+      </div>
+      <div>
+        <h3 class="text-lg font-semibold mb-2">Visual</h3>
+        <div id="visualFeatures" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4"></div>
+      </div>
+      <div>
+        <h3 class="text-lg font-semibold mb-2">Input</h3>
+        <div id="inputFeatures" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4"></div>
+      </div>
+    </div>
+
+    <!-- Additional Controls -->
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 mt-8">
+      <label class="flex flex-col gap-1 font-medium">
+        <span><i class="fas fa-text-height mr-2"></i>Line Height</span>
+        <input type="range" id="lineHeightSlider" min="1" max="3" step="0.1" value="1.5">
+      </label>
+      <label class="flex flex-col gap-1 font-medium">
+        <span><i class="fas fa-align-left mr-2"></i>Text Align</span>
+        <select id="textAlignSelect" class="w-full p-1 rounded border dark:bg-gray-800">
+          <option value="left">Left</option>
+          <option value="center">Center</option>
+          <option value="right">Right</option>
+        </select>
+      </label>
+      <label class="flex flex-col gap-1 font-medium">
+        <span><i class="fas fa-tint mr-2"></i>Saturation</span>
+        <input type="range" id="saturationSlider" min="0" max="2" step="0.1" value="1">
+      </label>
+    </div>
+
+    <!-- Footer Buttons -->
+    <div class="flex flex-col sm:flex-row justify-end gap-4 mt-6">
+      <button onclick="resetAccessibility()" class="access-btn bg-red-500 hover:bg-red-600 text-white">Reset</button>
+      <button onclick="saveAccessibility()" class="access-btn bg-green-500 hover:bg-green-600 text-white">Save</button>
+    </div>
+  </div>
+</div>
+
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    const modal = document.getElementById('accessibilityModal');
+    const modalContent = document.getElementById('accessibilityModalContent');
+    const openBtn = document.getElementById('sidebarAccessibility');
+    const closeBtn = document.getElementById('closeAccessibilityModal');
+
+    openBtn?.addEventListener('click', () => modal.classList.remove('hidden'));
+    closeBtn?.addEventListener('click', () => modal.classList.add('hidden'));
+    modal.addEventListener('click', (e) => {
+      if (!modalContent.contains(e.target)) {
+        modal.classList.add('hidden');
+      }
+    });
+
+    const allFeatures = [
+      { id: 'screenReaderToggle', icon: 'fa-audio-description', label: 'Screen Reader', category: 'input', action: () => alert('Screen reader is managed by OS/browser.') },
+      { id: 'contrastToggle', icon: 'fa-adjust', label: 'Contrast +', category: 'visual', prop: 'filter', value: 'contrast(1.5)' },
+      { id: 'smartContrastToggle', icon: 'fa-low-vision', label: 'Smart Contrast', category: 'visual', prop: 'backgroundColor', value: '#1a1a1a' },
+      { id: 'highlightLinksToggle', icon: 'fa-link', label: 'Highlight Links', category: 'visual', action: () => document.querySelectorAll('a').forEach(a => a.style.textDecoration = 'underline') },
+      { id: 'biggerTextToggle', icon: 'fa-text-height', label: 'Bigger Text', category: 'text', prop: 'fontSize', value: '18px' },
+      { id: 'textSpacingToggle', icon: 'fa-text-width', label: 'Text Spacing', category: 'text', action: () => {
+        document.body.style.letterSpacing = '0.075em';
+        document.body.style.wordSpacing = '0.2em';
+      }},
+      { id: 'pauseAnimationsToggle', icon: 'fa-pause-circle', label: 'Pause Animations', category: 'visual', action: () => document.querySelectorAll('*').forEach(el => el.style.animationPlayState = 'paused') },
+      { id: 'hideImagesToggle', icon: 'fa-image', label: 'Hide Images', category: 'visual', action: () => document.querySelectorAll('img').forEach(img => img.style.display = 'none') },
+      { id: 'dyslexiaToggle', icon: 'fa-font', label: 'Dyslexia Friendly', category: 'text', prop: 'fontFamily', value: 'OpenDyslexic, Arial, sans-serif' },
+      { id: 'cursorToggle', icon: 'fa-mouse-pointer', label: 'Enhanced Cursor', category: 'input', prop: 'cursor', value: 'pointer' },
+      { id: 'tooltipsToggle', icon: 'fa-info-circle', label: 'Tooltips', category: 'input', action: () => document.querySelectorAll('[title]').forEach(el => el.setAttribute('data-tooltip', el.getAttribute('title'))) },
+      { id: 'structureToggle', icon: 'fa-sitemap', label: 'Page Structure', category: 'visual', action: () => document.querySelectorAll('h1,h2,h3,h4,h5,h6').forEach(h => h.style.outline = '2px dashed #f59e0b') },
+      { id: 'dictionaryToggle', icon: 'fa-book', label: 'Dictionary', category: 'input', action: () => alert('Dictionary support coming soon.') }
+    ];
+
+    allFeatures.forEach(({ id, icon, label, category, prop, value, action }) => {
+      const container = document.getElementById(`${category}Features`);
+      const wrapper = document.createElement('label');
+      wrapper.className = 'flex flex-col gap-1 font-medium';
+      const span = document.createElement('span');
+      span.innerHTML = `<i class='fas ${icon} mr-2'></i>${label}`;
+      const button = document.createElement('button');
+      button.id = id;
+      button.className = 'access-btn';
+      button.textContent = 'Toggle';
+
+      const isActive = localStorage.getItem(id);
+      if (isActive && prop) {
+        document.body.style[prop] = isActive;
+        button.classList.add('bg-blue-600');
+      }
+
+      button.addEventListener('click', () => {
+        if (prop) {
+          const applied = document.body.style[prop] === value;
+          document.body.style[prop] = applied ? '' : value;
+          localStorage.setItem(id, applied ? '' : value);
+          button.classList.toggle('bg-blue-600', !applied);
+        } else if (action) {
+          action();
+          localStorage.setItem(id, 'true');
+          button.classList.add('bg-blue-600');
+        }
+      });
+
+      wrapper.appendChild(span);
+      wrapper.appendChild(button);
+      container.appendChild(wrapper);
+    });
+
+    document.getElementById('lineHeightSlider')?.addEventListener('input', e => {
+      document.body.style.lineHeight = e.target.value;
+      localStorage.setItem('lineHeightSlider', e.target.value);
+    });
+    document.getElementById('saturationSlider')?.addEventListener('input', e => {
+      document.body.style.filter = `saturate(${e.target.value})`;
+      localStorage.setItem('saturationSlider', e.target.value);
+    });
+    document.getElementById('textAlignSelect')?.addEventListener('change', e => {
+      document.body.style.textAlign = e.target.value;
+      localStorage.setItem('textAlignSelect', e.target.value);
+    });
+
+    window.resetAccessibility = () => {
+      localStorage.clear();
+      location.reload();
+    };
+
+    window.saveAccessibility = () => alert('Accessibility settings saved.');
+
+    document.body.style.lineHeight = localStorage.getItem('lineHeightSlider') || '1.5';
+    document.body.style.filter = `saturate(${localStorage.getItem('saturationSlider') || '1'})`;
+    document.body.style.textAlign = localStorage.getItem('textAlignSelect') || 'left';
+  });
+</script>
+
+<style>
+  .access-btn {
+    background: linear-gradient(to top left, #4b5563, #9ca3af);
+    color: white;
+    padding: 0.5rem 1rem;
+    border-radius: 0.75rem;
+    font-weight: 600;
+    box-shadow: inset 0 -2px 0 #00000033;
+    transition: transform 0.2s, box-shadow 0.2s;
+  }
+  .access-btn.bg-blue-600 {
+    background: #2563eb;
+  }
+  .access-btn:hover {
+    transform: translateY(-1px);
+    box-shadow: inset 0 -1px 0 #00000033, 0 4px 8px rgba(0,0,0,0.1);
+  }
+  [data-tooltip]:hover::after {
+    content: attr(data-tooltip);
+    position: absolute;
+    background: #111;
+    color: white;
+    padding: 4px 8px;
+    font-size: 0.75rem;
+    border-radius: 4px;
+    white-space: nowrap;
+    transform: translateY(-150%);
+  }
+  @import url('https://cdn.jsdelivr.net/npm/open-dyslexic@1.0.0/open-dyslexic.min.css');
+</style>
+
+
+
+
+<div id="patternModal" class="fixed inset-0 z-50 bg-black/50 hidden items-center justify-center px-4">
+  <div class="bg-white dark:bg-gray-900 p-4 rounded-lg w-full max-w-xl max-h-[90vh] overflow-y-auto shadow-lg">
+    <h2 class="text-xl font-bold mb-3 text-center text-gray-800 dark:text-white">Choose a Background Pattern</h2>
+
+    <!-- Grid of patterns -->
+    <div class="grid grid-cols-2 sm:grid-cols-3 gap-3 mb-4" id="patternGrid"></div>
+
+    <!-- Custom pattern input -->
+    <div class="mt-4">
+      <input type="url" id="customPatternUrl"
+        class="w-full border border-gray-300 rounded px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-[#FF7D1E] dark:bg-gray-800 dark:text-white"
+        placeholder="Paste background image URL (e.g. https://example.com/bg.png)">
+      <button onclick="applyCustomPattern()" class="mt-2 w-full bg-sky-600 hover:bg-sky-700 text-white font-semibold py-2 rounded">Apply Custom Pattern</button>
+    </div>
+
+    <!-- Actions -->
+    <div class="flex flex-col sm:flex-row gap-2 mt-4">
+      <button onclick="resetPattern()" class="w-full bg-gray-500 hover:bg-gray-600 text-white font-semibold py-2 rounded">Reset Background</button>
+      <button onclick="closePatternModal()" class="w-full bg-[#FF7D1E] hover:bg-[#e6680f] text-white font-semibold py-2 rounded">Close</button>
+    </div>
+  </div>
+</div>
+
+
+
+
+<style>
+.pattern-background {
+  background-size: cover !important;
+  background-repeat: repeat !important;
+  background-position: center !important;
+  transition: background-image 0.3s ease;
+}
+
+.animated-bg {
+  animation: movePattern 10s linear infinite;
+  background-size: 300% 300% !important;
+}
+
+@keyframes movePattern {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+
+</style>
+
+<script>
+const patterns = [
+  // Original 30 (replacing broken one & adding 10 more)
+  'https://www.toptal.com/designers/subtlepatterns/uploads/purty_wood.png',
+  'https://www.toptal.com/designers/subtlepatterns/uploads/diagmonds.png',
+  'https://www.toptal.com/designers/subtlepatterns/uploads/concrete_wall.png',
+  'https://www.toptal.com/designers/subtlepatterns/uploads/brickwall.png',
+  'https://www.toptal.com/designers/subtlepatterns/uploads/pw_maze_white.png',
+  'https://www.toptal.com/designers/subtlepatterns/uploads/lined_paper.png',
+  'https://www.toptal.com/designers/subtlepatterns/uploads/graphy.png',
+  'https://www.toptal.com/designers/subtlepatterns/uploads/subtle_zebra_3d.png',
+  'https://www.toptal.com/designers/subtlepatterns/uploads/gplaypattern.png',
+  'https://www.toptal.com/designers/subtlepatterns/uploads/dark_fish_skin.png',
+  'https://www.toptal.com/designers/subtlepatterns/uploads/black_lozenge.png',
+  'https://www.toptal.com/designers/subtlepatterns/uploads/carbon_fibre.png',
+  'https://www.toptal.com/designers/subtlepatterns/uploads/dark_geometric.png',
+  'https://www.toptal.com/designers/subtlepatterns/uploads/grey.png',
+  'https://www.toptal.com/designers/subtlepatterns/uploads/crossword.png',
+  'https://www.toptal.com/designers/subtlepatterns/uploads/hexellence.png',
+  'https://www.toptal.com/designers/subtlepatterns/uploads/gray_jean.png',
+  'https://www.toptal.com/designers/subtlepatterns/uploads/retina_wood.png',
+  'https://www.toptal.com/designers/subtlepatterns/uploads/navy_blue.png',
+  'https://www.toptal.com/designers/subtlepatterns/uploads/triangles_pattern.png',
+  'https://www.toptal.com/designers/subtlepatterns/uploads/shattered.png',
+  'https://www.toptal.com/designers/subtlepatterns/uploads/topography.png',
+  'https://www.toptal.com/designers/subtlepatterns/uploads/arches.png',
+  'https://www.toptal.com/designers/subtlepatterns/uploads/xv.png',
+  'https://www.toptal.com/designers/subtlepatterns/uploads/subtle_grunge.png',
+  'https://www.toptal.com/designers/subtlepatterns/uploads/wood_pattern.png',
+  'https://www.toptal.com/designers/subtlepatterns/uploads/dots.png',
+  'https://www.toptal.com/designers/subtlepatterns/uploads/light_wool.png',
+  'https://www.toptal.com/designers/subtlepatterns/uploads/symphony.png',
+  'https://www.toptal.com/designers/subtlepatterns/uploads/fabric_plaid.png',
+];
+
+const patternModal = document.getElementById('patternModal');
+const patternGrid = document.getElementById('patternGrid');
+const postSelector = '#centerContent .bg-white, #modalCliddersContent';
+const input = document.getElementById('customPatternUrl');
+
+document.getElementById('sidebarBGPatterns').addEventListener('click', () => {
+  patternGrid.innerHTML = '';
+  patterns.forEach((url, i) => {
+    const div = document.createElement('div');
+    div.className = 'cursor-pointer border-2 border-transparent rounded-lg hover:border-[#FF7D1E] transition';
+    div.innerHTML = `<img src="${url}" alt="Pattern ${i + 1}" class="w-full h-24 object-cover rounded-lg" />`;
+    div.onclick = () => applyPattern(url, i >= 20); // Last 10 are animated
+    patternGrid.appendChild(div);
+  });
+  patternModal.classList.remove('hidden');
+  patternModal.classList.add('flex');
+});
+
+function closePatternModal() {
+  patternModal.classList.add('hidden');
+  patternModal.classList.remove('flex');
+}
+
+function applyPattern(url, animated = false) {
+  document.querySelectorAll(postSelector).forEach(el => {
+    el.classList.add('pattern-background');
+    el.style.backgroundImage = `url(${url})`;
+    el.classList.toggle('animated-bg', animated);
+  });
+  localStorage.setItem('postPatternBG', url);
+  localStorage.setItem('postPatternIsAnimated', animated);
+  closePatternModal();
+}
+
+function resetPattern() {
+  document.querySelectorAll(postSelector).forEach(el => {
+    el.classList.remove('pattern-background', 'animated-bg');
+    el.style.backgroundImage = '';
+  });
+  localStorage.removeItem('postPatternBG');
+  localStorage.removeItem('postPatternIsAnimated');
+  closePatternModal();
+}
+
+function applyCustomPattern() {
+  const url = input.value.trim();
+  if (!url || !/^https?:\/\/.+\.(jpg|jpeg|png|gif|webp|svg)$/.test(url)) {
+    alert('Enter a valid image URL (jpg/png/gif/svg)');
+    return;
+  }
+  applyPattern(url, false);
+}
+
+// Load saved pattern on start
+window.addEventListener('DOMContentLoaded', () => {
+  const saved = localStorage.getItem('postPatternBG');
+  const isAnimated = localStorage.getItem('postPatternIsAnimated') === 'true';
+  if (saved) {
+    document.querySelectorAll(postSelector).forEach(el => {
+      el.classList.add('pattern-background');
+      el.style.backgroundImage = `url(${saved})`;
+      el.classList.toggle('animated-bg', isAnimated);
+    });
+  }
+});
 </script>
 
 
