@@ -1567,6 +1567,69 @@ body.dark-mode #centerContent .bg-white {
 
 
 
+.liked {
+  color: #FF7D1E !important; /* Bright orange when liked */
+}
+
+@keyframes burst {
+  0% {
+    transform: scale(1);
+  }
+  30% {
+    transform: scale(1.4);
+  }
+  60% {
+    transform: scale(0.95);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+.like-burst i {
+  animation: burst 0.4s ease;
+}
+
+.tweet-action-btn i.fa-retweet + span + span {
+  display: none;
+}
+
+
+html, body {
+  height: 100%;
+  overflow: hidden;
+}
+
+#leftSidebar,
+#centerContent,
+#rightSidebar,
+#modalAuth > div,
+#modalCliddersContent {
+  overflow-y: auto;
+  height: 100vh;
+}
+
+
+#leftSidebar {
+  padding-top: 3.5rem; /* Prevent header overlap */
+}
+
+
+::selection {
+  background-color: #FF7D1E;
+  color: white;
+}
+
+::-moz-selection {
+  background-color: #FF7D1E;
+  color: white;
+}
+
+body.dark-mode ::selection {
+  background-color: #FF7D1E;
+  color: black;
+}
+
 
 
   </style>
@@ -1630,7 +1693,41 @@ body.dark-mode #centerContent .bg-white {
 
 
 
- <header class="bg-white border-b border-gray-300 sticky top-0 z-50">
+
+
+
+
+
+
+<!-- Facebook-Style Pinned Top Header -->
+<header id="facebookStyleHeader" class="hidden md:flex fixed top-0 left-0 w-full bg-white dark:bg-black border-b border-gray-200 dark:border-gray-700 shadow z-[60] h-14 items-center px-4 justify-between">
+  <div class="flex items-center space-x-4">
+    <img src="https://i.ibb.co/HDNMpNL5/clidder-new-icon.png" alt="Logo" class="w-8 h-8" />
+    <span class="text-lg font-bold text-gray-800 dark:text-white">Clidder</span>
+  </div>
+  <nav class="flex space-x-6 text-gray-700 dark:text-gray-300">
+    <button><i class="fas fa-home"></i></button>
+    <button><i class="fas fa-user-friends"></i></button>
+    <button><i class="fas fa-bell"></i></button>
+    <button><i class="fas fa-cog"></i></button>
+  </nav>
+</header>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ <header class="sticky top-0 z-50">
+
 <!-- ✅ MOBILE HEADER — updated -->
 <!-- ✅ MOBILE HEADER with inline search -->
 <div class="flex items-center justify-between p-4 md:hidden relative w-full">
@@ -1673,64 +1770,117 @@ body.dark-mode #centerContent .bg-white {
 
 
 
-  <!-- ✅ DESKTOP HEADER -->
-  <div class="max-w-5xl mx-auto hidden md:flex items-center justify-between p-4 space-x-6">
-    <!-- Left: Clidder Logo -->
-    <div class="flex items-center flex-shrink-0">
-      <h1 class="text-2xl font-bold select-none bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 text-transparent bg-clip-text animate-gradient bg-[length:200%_200%]">
-        𝓬𝓵𝓲𝓭𝓭𝓮𝓻
-      </h1>
-    </div>
+ <!-- ✅ DESKTOP HEADER -->
+<div class="w-full hidden md:flex items-center px-4 py-2 relative">
 
-      
-      <nav class="hidden md:flex space-x-6 text-gray-700 relative">
-        <button aria-label="Home" class="hover:text-gray-900 focus:outline-none focus:text-gray-900" id="btnHome">
-          <i class="fas fa-home fa-lg"></i>
-        </button>
-        <button aria-label="Add new hat post" class="hover:text-gray-900 focus:outline-none focus:text-gray-900" id="btnAddPost">
-          <i class="fas fa-plus-square fa-lg"></i>
-        </button>
-        
-        <button aria-label="Favorites" class="hover:text-gray-900 focus:outline-none focus:text-gray-900" id="btnFavorites">
-          <i class="fas fa-star fa-lg"></i>
-        </button>
-        <button class="flex items-center space-x-1 hover:text-[#FF7D1E] focus:outline-none focus:text-[#FF7D1E] relative" id="sidebarNotifications" style="position: relative;">
-          <i class="fas fa-bell fa-lg"></i>
-        
-          <span id="notificationBadge" style="display:none;">0</span>
-        </button>
+  <!-- Left: Logo + Search -->
+  <div class="flex items-center space-x-4 flex-shrink-0">
+    <!-- Logo -->
+    <img
+      src="https://i.ibb.co/HDNMpNL5/clidder-new-icon.png"
+      alt="Clidder Logo"
+      class="w-10 h-10 object-contain cursor-pointer select-none"
+    />
 
-<button aria-label="User profile" class="hover:text-gray-900 focus:outline-none focus:text-gray-900" id="btnProfileTop">
-          <i class="fas fa-user-circle fa-lg"></i>
-        </button>
-
-<!-- ⋮⋮⋮ More Options -->
-<button id="btnMoreOptions" aria-label="More options" class="hover:text-gray-900 focus:outline-none focus:text-gray-900 relative">
-  <i class="fas fa-ellipsis-v fa-lg"></i>
-</button>
-<div id="moreOptionsDropdown" role="menu" aria-hidden="true">
-  <button id="moreAccount"    role="menuitem">Account</button>
-  <button id="morePages"      role="menuitem">Pages</button>
-  <button id="moreSettings"   role="menuitem">Settings</button>
-  <button id="moreLogout"     role="menuitem">Logout</button>
-</div>
-
-
-
-<!-- Dark/Light mode toggle in header -->
-        <button id="headerModeToggle" aria-label="Toggle dark/light mode" title="Toggle dark/light mode" type="button" class="ml-4">
-          <i class="fas fa-moon"></i>
-        </button>
-
-        <div id="notificationsDropdown" role="region" aria-label="Notifications list" tabindex="-1">
-          <h3>Notifications</h3>
-          <ul id="notificationsList"></ul>
-        </div>
-      </nav>
-      <button aria-label="Open menu" class="md:hidden text-gray-700 focus:outline-none" id="btnMenu">
-        <i class="fas fa-bars fa-lg"></i>
+    <!-- Search Bar with right-side icon -->
+    <div class="relative">
+      <input
+        type="text"
+        placeholder="Search Clidder"
+        id="searchInput"
+        class="w-64 pl-4 pr-10 py-1.5 rounded-full bg-gray-100 text-sm focus:outline-none focus:ring-2 focus:ring-[#FF7D1E] dark:bg-gray-800 dark:text-white"
+      />
+      <button class="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400 text-sm focus:outline-none">
+        <i class="fas fa-search"></i>
       </button>
     </div>
+  </div>
+
+  <!-- Centered Buttons -->
+  <div class="absolute left-1/2 transform -translate-x-1/2 top-1/2 -translate-y-1/2 z-10">
+    <div class="flex items-center space-x-16 text-gray-600">
+      <button id="btnHome" class="hover:text-blue-500 focus:outline-none">
+        <i class="fas fa-home fa-lg text-blue-500"></i>
+      </button>
+      <button id="btnAddPost" class="hover:text-green-500 focus:outline-none">
+        <i class="fas fa-plus-square fa-lg text-green-500"></i>
+      </button>
+      <button id="btnFavorites" class="hover:text-yellow-500 focus:outline-none">
+        <i class="fas fa-star fa-lg text-yellow-500"></i>
+      </button>
+
+      <!-- Notifications -->
+      <div class="relative">
+        <button id="sidebarNotifications" class="hover:text-pink-500 focus:outline-none">
+          <i class="fas fa-bell fa-lg text-pink-500"></i>
+          <span id="notificationBadge" style="display:none;" class="absolute -top-1 -right-1 text-xs bg-red-500 text-white rounded-full w-4 h-4 flex items-center justify-center">0</span>
+        </button>
+        <!-- Dropdown -->
+        <div id="notificationsDropdown" class="absolute top-10 right-0 mt-2 w-64 bg-white dark:bg-gray-800 shadow-lg rounded-md p-2 hidden z-50">
+          <h3 class="text-sm font-semibold text-gray-700 dark:text-gray-200 mb-2">Notifications</h3>
+          <ul id="notificationsList" class="text-sm text-gray-600 dark:text-gray-300"></ul>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Right: AI, Climate, Profile, More -->
+  <div class="flex items-center space-x-4 text-gray-700 ml-auto">
+
+    <!-- Clidder AI Button -->
+    <button onclick="toggleClidderAIModal()" title="Clidder AI" class="focus:outline-none">
+      <img
+        src="https://i.ibb.co/zVgvTJRF/clidder-ai.png"
+        alt="Clidder AI"
+        class="w-8 h-8 object-contain rounded-full"
+      />
+    </button>
+
+    <!-- Climate Icon Button -->
+    <button onclick="window.location.href='climate-weather-data-center-black-hat.html'" title="Climate Data" class="focus:outline-none">
+      <img
+        src="https://i.ibb.co/4RrwRxM5/climate.png"
+        alt="Climate"
+        class="w-8 h-8 object-contain rounded"
+      />
+    </button>
+
+    <!-- User Profile Avatar -->
+    <button id="btnProfileTop" aria-label="User profile" class="focus:outline-none relative">
+      <img
+        id="userAvatar"
+        src=""
+        alt="User Profile"
+        class="w-9 h-9 rounded-full object-cover border border-gray-300 dark:border-gray-600 hidden"
+      />
+      <i id="defaultUserIcon" class="fas fa-user-circle fa-lg text-gray-600"></i>
+    </button>
+
+    <!-- More Options -->
+    <div class="relative">
+      <button id="btnMoreOptions" aria-label="More options" class="hover:text-gray-900 focus:outline-none">
+        <i class="fas fa-ellipsis-v fa-lg"></i>
+      </button>
+      <div id="moreOptionsDropdown" role="menu" aria-hidden="true" class="absolute right-0 mt-2 w-40 bg-white dark:bg-gray-800 shadow-lg rounded-md p-2 hidden z-50">
+        <button id="moreAccount" role="menuitem" class="block w-full text-left px-2 py-1 hover:bg-gray-100 dark:hover:bg-gray-700">Account</button>
+        <button id="morePages" role="menuitem" class="block w-full text-left px-2 py-1 hover:bg-gray-100 dark:hover:bg-gray-700">Pages</button>
+        <button id="moreSettings" role="menuitem" class="block w-full text-left px-2 py-1 hover:bg-gray-100 dark:hover:bg-gray-700">Settings</button>
+        <button id="moreLogout" role="menuitem" class="block w-full text-left px-2 py-1 hover:bg-gray-100 dark:hover:bg-gray-700">Logout</button>
+      </div>
+    </div>
+
+    <!-- Dark Mode Toggle -->
+    <button id="headerModeToggle" aria-label="Toggle dark/light mode" title="Toggle dark/light mode" type="button">
+      <i class="fas fa-moon"></i>
+    </button>
+  </div>
+
+  <!-- Mobile Menu -->
+  <button aria-label="Open menu" class="md:hidden text-gray-700 focus:outline-none ml-4" id="btnMenu">
+    <i class="fas fa-bars fa-lg"></i>
+  </button>
+</div>
+
 
 
 
@@ -2100,7 +2250,7 @@ body.dark-mode #centerContent .bg-white {
 
   <!-- Search Input -->
   <input
-    id="searchInput"
+    id="searchInput1"
     type="search"
     placeholder="Discover on Clidder"
     class="w-full pl-10 pr-8 py-2 rounded-md 
@@ -2125,14 +2275,39 @@ body.dark-mode #centerContent .bg-white {
 
 
 
-<div class="rounded-[10px] border border-white/30 backdrop-blur-md shadow p-6 flex flex-col items-center space-y-4 text-orange-500 text-center
-            bg-white dark:bg-black">
-  <h2 class="text-2xl font-bold">Clidder</h2>
+<div class="rounded-[10px] border border-white/30 backdrop-blur-md shadow p-6 flex flex-col items-center space-y-4 text-orange-500 text-center bg-white dark:bg-black">
+  <h1 class="text-2xl font-bold">
+    Clidder<sup id="countryCode" class="text-xs align-super opacity-80"></sup>
+  </h1>
 
-  <img src="https://i.ibb.co/HDNMpNL5/clidder-new-icon.png" width="100" alt="Security Shield Icon" class="mx-auto" />
+  <img id="clidderLogo"
+       src="https://i.ibb.co/HDNMpNL5/clidder-new-icon.png"
+       width="100"
+       alt="Clidder Icon"
+       class="mx-auto cursor-pointer transition-transform duration-[2000ms]" />
 
   <p class="text-orange-400 text-lg font-medium">from Jayasinghe Brothers</p>
 </div>
+
+<script>
+  // Rotate icon on click
+  const logo = document.getElementById("clidderLogo");
+  logo.addEventListener("click", () => {
+    logo.style.transform = "rotate(1800deg)";
+    setTimeout(() => logo.style.transform = "rotate(0deg)", 2000);
+  });
+
+  // Fetch 2-letter country code and set in <sup>
+  fetch("https://ipapi.co/country/")
+    .then(res => res.text())
+    .then(code => {
+      document.getElementById("countryCode").textContent = code;
+    })
+    .catch(() => {
+      document.getElementById("countryCode").textContent = "--";
+    });
+</script>
+
 
 
 
@@ -2141,7 +2316,7 @@ body.dark-mode #centerContent .bg-white {
     <div id="userFlag" class="text-3xl">🌍</div>
     <div>
       <div class="font-semibold text-base" id="userLocationText">Detecting...</div>
-      <div class="text-xs text-gray-500 dark:text-gray-400">You are connected to Black Hat server</div>
+      <div class="text-xs text-gray-500 dark:text-gray-400">You are connected to Black Hat server in 1 Black Hat Way, Jayasinghe Park</div>
     </div>
   </div>
   <div class="mt-2 text-xs space-y-1 text-gray-600 dark:text-gray-300">
@@ -3951,6 +4126,24 @@ const retweetBtn = document.createElement("button");
 retweetBtn.className = "flex items-center space-x-3 tweet-action-btn";
 retweetBtn.innerHTML = `<i class="fas fa-retweet fa-lg"></i><span></span>`;
 
+// Load current repost count initially
+(async () => {
+  const {
+    getFirestore,
+    getDoc,
+    doc
+  } = await import("https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js");
+
+  const db = getFirestore();
+  const originalRef = doc(db, "posts", id);
+  const originalSnap = await getDoc(originalRef);
+
+  if (originalSnap.exists()) {
+    const data = originalSnap.data();
+    retweetBtn.querySelector("span").textContent = data.recliddeCount || 0;
+  }
+})();
+
 retweetBtn.addEventListener("click", async () => {
   if (!currentUser) {
     alert("Please sign in or create an account to repost.");
@@ -3966,12 +4159,12 @@ retweetBtn.addEventListener("click", async () => {
       collection,
       addDoc,
       updateDoc,
-      increment
+      increment,
+      serverTimestamp
     } = await import("https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js");
 
     const db = getFirestore();
 
-    // Get the original post
     const originalRef = doc(db, "posts", id);
     const originalSnap = await getDoc(originalRef);
 
@@ -3982,7 +4175,7 @@ retweetBtn.addEventListener("click", async () => {
 
     const originalData = originalSnap.data();
 
-    // Create new repost data (keep author, add repost info)
+    // Create reposted version
     const repostData = {
       ...originalData,
       reposted: true,
@@ -3993,16 +4186,24 @@ retweetBtn.addEventListener("click", async () => {
         handle: "𝓬𝓹" + currentUser.username.toLowerCase(),
         profilePic: currentUser.profilePic || ""
       },
-      createdAt: new Date().toISOString()
+      createdAt: serverTimestamp()
     };
 
-    // Add repost as a new post
+    // Add repost to collection
     await addDoc(collection(db, "posts"), repostData);
 
-    // Increase repost count on the original post
+    // Increment original's repost count
     await updateDoc(originalRef, {
       recliddeCount: increment(1)
     });
+
+    // Fetch updated count and show it
+    const updatedSnap = await getDoc(originalRef);
+    if (updatedSnap.exists()) {
+      const updatedData = updatedSnap.data();
+      const newCount = updatedData.recliddeCount || 0;
+      retweetBtn.querySelector("span").textContent = newCount;
+    }
 
     alert("Reposted successfully!");
   } catch (err) {
@@ -4013,43 +4214,49 @@ retweetBtn.addEventListener("click", async () => {
 
 
 
-      const likeBtn = document.createElement("button");
-      likeBtn.className = "flex items-center space-x-3 tweet-action-btn";
-      likeBtn.innerHTML = `<i class="far fa-heart fa-lg"></i><span></span>`;
-      let liked = false;
-      if (currentUser && post.likes?.includes(currentUser.username)) {
-        liked = true;
-        likeBtn.classList.add("liked");
-        likeBtn.querySelector("i").className = "fas fa-heart fa-lg";
-      }
-      likeBtn.addEventListener("click", async () => {
-        if (!currentUser) {
-          alert("Please sign in or create an account before liking.");
-          showAuthModal();
-          return;
-        }
-        const userName = currentUser.username;
-        const postRef = doc(db, "posts", id);
-        try {
-          if (liked) {
-            await updateDoc(postRef, {
-              likes: arrayRemove(userName),
-            });
-            liked = false;
-            likeBtn.classList.remove("liked");
-            likeBtn.querySelector("i").className = "far fa-heart fa-lg";
-          } else {
-            await updateDoc(postRef, {
-              likes: arrayUnion(userName),
-            });
-            liked = true;
-            likeBtn.classList.add("liked");
-            likeBtn.querySelector("i").className = "fas fa-heart fa-lg";
-          }
-        } catch (err) {
-          alert("Error updating like: " + err.message);
-        }
-      });
+
+    const likeBtn = document.createElement("button");
+likeBtn.className = "flex items-center space-x-3 tweet-action-btn";
+likeBtn.innerHTML = `<i class="far fa-thumbs-up fa-lg"></i><span></span>`;
+let liked = false;
+
+if (currentUser && post.likes?.includes(currentUser.username)) {
+  liked = true;
+  likeBtn.classList.add("liked");
+  likeBtn.querySelector("i").className = "fas fa-thumbs-up fa-lg";
+}
+
+likeBtn.addEventListener("click", async () => {
+  if (!currentUser) {
+    alert("Please sign in or create an account before liking.");
+    showAuthModal();
+    return;
+  }
+
+  const userName = currentUser.username;
+  const postRef = doc(db, "posts", id);
+
+  // Add animated effect
+  likeBtn.classList.add("like-burst");
+  setTimeout(() => likeBtn.classList.remove("like-burst"), 400);
+
+  try {
+    if (liked) {
+      await updateDoc(postRef, { likes: arrayRemove(userName) });
+      liked = false;
+      likeBtn.classList.remove("liked");
+      likeBtn.querySelector("i").className = "far fa-thumbs-up fa-lg";
+    } else {
+      await updateDoc(postRef, { likes: arrayUnion(userName) });
+      liked = true;
+      likeBtn.classList.add("liked");
+      likeBtn.querySelector("i").className = "fas fa-thumbs-up fa-lg";
+    }
+  } catch (err) {
+    alert("Error updating like: " + err.message);
+  }
+});
+
 
       const likeCountSpan = document.createElement("span");
       likeCountSpan.className = "text-sm text-gray-600 ml-1";
@@ -8856,6 +9063,37 @@ window.addEventListener('DOMContentLoaded', () => {
   }
 });
 </script>
+
+<script>
+  // Example signed-in user (replace with real data)
+  const signedInUser = {
+    name: "Jane Doe",
+    profilePicURL: "https://i.ibb.co/HDNMpNL5/clidder-new-icon.png"
+  };
+
+  window.addEventListener("DOMContentLoaded", () => {
+    const avatar = document.getElementById("userAvatar");
+    const icon = document.getElementById("defaultUserIcon");
+
+    // Show avatar if signed in
+    if (signedInUser && signedInUser.profilePicURL) {
+      avatar.src = signedInUser.profilePicURL;
+      avatar.classList.remove("hidden");
+      icon.classList.add("hidden");
+    }
+
+    // Dropdown toggles
+    document.getElementById('sidebarNotifications').addEventListener('click', () => {
+      document.getElementById('notificationsDropdown').classList.toggle('hidden');
+    });
+
+    document.getElementById('btnMoreOptions').addEventListener('click', () => {
+      document.getElementById('moreOptionsDropdown').classList.toggle('hidden');
+    });
+  });
+</script>
+
+
 
 
 </body>
