@@ -1780,9 +1780,10 @@ body.dark-mode ::selection {
 
 <div class="fixed top-0 left-0 right-0 z-50 bg-white dark:bg-black md:hidden px-4 h-14 flex items-center justify-between" style="font-family: 'Oswald', sans-serif;">
   <!-- Left: Clidder Logo -->
-  <div class="text-2xl font-semibold text-[#FF7D1E] select-none">
-    Clidder
-  </div>
+ <button id="clidderLogoMobile" class="text-2xl font-semibold text-[#FF7D1E] select-none focus:outline-none">
+  Clidder
+</button>
+
 
   <!-- Right: Icons (pure lines, orange color) -->
   <div class="flex items-center space-x-5 text-[#FF7D1E]">
@@ -1858,28 +1859,31 @@ body.dark-mode ::selection {
  <!-- ✅ DESKTOP HEADER -->
 <div class="w-full hidden md:flex items-center px-4 py-2 relative">
 
-  <!-- Left: Logo + Search -->
-  <div class="flex items-center space-x-4 flex-shrink-0">
-    <!-- Logo -->
-    <img
-      src="https://i.ibb.co/HDNMpNL5/clidder-new-icon.png"
-      alt="Clidder Logo"
-      class="w-10 h-10 object-contain cursor-pointer select-none"
-    />
+  <!-- ✅ Left: Logo + Search (Desktop) -->
+<div class="flex items-center space-x-4 flex-shrink-0">
+  <!-- Logo Image (Clickable for scroll + animation) -->
+  <img
+    id="clidderLogoImage"
+    src="https://i.ibb.co/HDNMpNL5/clidder-new-icon.png"
+    alt="Clidder Logo"
+    class="w-10 h-10 object-contain cursor-pointer select-none"
+    title="Back to Top"
+  />
 
-    <!-- Search Bar with right-side icon -->
-    <div class="relative">
-      <input
-        type="text"
-        placeholder="Search Clidder"
-        id="searchInput"
-        class="w-64 pl-4 pr-10 py-1.5 rounded-full bg-gray-100 text-sm focus:outline-none focus:ring-2 focus:ring-[#FF7D1E] dark:bg-gray-800 dark:text-white"
-      />
-      <button class="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400 text-sm focus:outline-none">
-        <i class="fas fa-search"></i>
-      </button>
-    </div>
+  <!-- Search Bar -->
+  <div class="relative">
+    <input
+      type="text"
+      placeholder="Search Clidder"
+      id="searchInput"
+      class="w-64 pl-4 pr-10 py-1.5 rounded-full bg-gray-100 text-sm focus:outline-none focus:ring-2 focus:ring-[#FF7D1E] dark:bg-gray-800 dark:text-white"
+    />
+    <button class="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400 text-sm focus:outline-none">
+      <i class="fas fa-search"></i>
+    </button>
   </div>
+</div>
+
 
   <!-- Centered Buttons -->
   <div class="absolute left-1/2 transform -translate-x-1/2 top-1/2 -translate-y-1/2 z-10">
@@ -9241,6 +9245,77 @@ window.addEventListener('DOMContentLoaded', () => {
     }
   });
 </script>
+
+
+
+
+
+
+
+
+<!-- Smooth Animated Orange Bar -->
+<div id="logoBarAnimation" style="
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 3px;
+  width: 0%;
+  background-color: #FF7D1E;
+  z-index: 9999;
+  transition: width 2s ease-in-out;
+"></div>
+
+
+<script>
+  function scrollCenterContentToTopWithBar() {
+    const bar = document.getElementById("logoBarAnimation");
+    const centerContent = document.getElementById("centerContent");
+
+    if (bar) {
+      bar.style.transition = "none";
+      bar.style.width = "0%";
+      bar.offsetHeight; // force reflow
+      bar.style.transition = "width 2s ease";
+      bar.style.width = "100%";
+    }
+
+    // Scroll #centerContent to top
+    if (centerContent) {
+      centerContent.scrollTo({
+        top: 0,
+        behavior: "smooth"
+      });
+    }
+
+    // Scroll window too (for mobile or cases where centerContent is short)
+    window.scrollTo({ top: 0, behavior: "smooth" });
+
+    // Reset bar
+    setTimeout(() => {
+      if (bar) {
+        bar.style.transition = "none";
+        bar.style.width = "0%";
+      }
+    }, 1400);
+  }
+
+  document.addEventListener("DOMContentLoaded", () => {
+    const imgLogo = document.getElementById("clidderLogoImage");
+    const mobileTextBtn = document.getElementById("clidderLogoMobile");
+    const desktopTextBtn = document.getElementById("clidderLogoDesktop");
+
+    [imgLogo, mobileTextBtn, desktopTextBtn].forEach(btn => {
+      if (btn) {
+        btn.style.cursor = "pointer";
+        btn.addEventListener("click", scrollCenterContentToTopWithBar);
+      }
+    });
+  });
+</script>
+
+
+
+
 
 </body>
 </html>
