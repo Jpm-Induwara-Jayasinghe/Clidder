@@ -9253,29 +9253,29 @@ window.addEventListener('DOMContentLoaded', () => {
 
 
 
-<!-- Smooth Animated Orange Bar -->
 <div id="logoBarAnimation" style="
   position: fixed;
-  top: 0;
+  top: 56px; /* 👈 exactly below your header (h-14 = 56px) */
   left: 0;
   height: 3px;
   width: 0%;
   background-color: #FF7D1E;
   z-index: 9999;
-  transition: width 2s ease-in-out;
+  pointer-events: none;
+  transition: width 2s ease;
 "></div>
-
 
 <script>
   function scrollCenterContentToTopWithBar() {
     const bar = document.getElementById("logoBarAnimation");
     const centerContent = document.getElementById("centerContent");
 
+    // Animate the orange bar
     if (bar) {
       bar.style.transition = "none";
       bar.style.width = "0%";
-      bar.offsetHeight; // force reflow
-      bar.style.transition = "width 2s ease";
+      bar.offsetHeight; // Force reflow
+      bar.style.transition = "width 2s ease"; // 👈 slow speed
       bar.style.width = "100%";
     }
 
@@ -9287,31 +9287,35 @@ window.addEventListener('DOMContentLoaded', () => {
       });
     }
 
-    // Scroll window too (for mobile or cases where centerContent is short)
-    window.scrollTo({ top: 0, behavior: "smooth" });
+    // Also scroll window if needed
+    window.scrollTo({
+      top: 0,
+      behavior: "smooth"
+    });
 
-    // Reset bar
+    // Hide bar again after animation
     setTimeout(() => {
       if (bar) {
         bar.style.transition = "none";
         bar.style.width = "0%";
       }
-    }, 1400);
+    }, 2200);
   }
 
   document.addEventListener("DOMContentLoaded", () => {
-    const imgLogo = document.getElementById("clidderLogoImage");
-    const mobileTextBtn = document.getElementById("clidderLogoMobile");
-    const desktopTextBtn = document.getElementById("clidderLogoDesktop");
+    const desktop = document.getElementById("clidderLogoDesktop");
+    const mobile = document.getElementById("clidderLogoMobile");
+    const image = document.getElementById("clidderLogoImage");
 
-    [imgLogo, mobileTextBtn, desktopTextBtn].forEach(btn => {
-      if (btn) {
-        btn.style.cursor = "pointer";
-        btn.addEventListener("click", scrollCenterContentToTopWithBar);
+    [desktop, mobile, image].forEach(el => {
+      if (el) {
+        el.style.cursor = "pointer";
+        el.addEventListener("click", scrollCenterContentToTopWithBar);
       }
     });
   });
 </script>
+
 
 
 
