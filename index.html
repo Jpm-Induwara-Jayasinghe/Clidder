@@ -1632,6 +1632,25 @@ body.dark-mode ::selection {
 
 
 
+#mobileBottomNav {
+  display: none !important;
+}
+
+
+
+
+
+
+
+  #notifPopup {
+    animation: fadeIn 0.2s ease-in-out;
+  }
+
+  @keyframes fadeIn {
+    from { opacity: 0; transform: translateY(-5px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
   </style>
 
 
@@ -1728,38 +1747,66 @@ body.dark-mode ::selection {
 
  <header class="sticky top-0 z-50">
 
-<!-- ✅ MOBILE HEADER — updated -->
-<!-- ✅ MOBILE HEADER with inline search -->
-<div class="flex items-center justify-between p-4 md:hidden relative w-full">
-  <!-- Left: Logo and Search -->
-  <div class="flex items-center space-x-2 w-full">
-    <!-- Logo -->
-    <h1 class="text-xl font-extrabold select-none text-transparent bg-clip-text animated-gradient">
-      𝓬𝓵𝓲𝓭𝓭𝓮𝓻
-    </h1>
+<!-- ✅ Clidder Mobile Header - Oswald Font + Clean Icons -->
+<!-- Oswald Font -->
+<link href="https://fonts.googleapis.com/css2?family=Oswald:wght@600&display=swap" rel="stylesheet">
 
-    <!-- Search Bar (Hidden by Default) -->
-    <div id="mobileSearchContainer" class="flex-grow hidden">
-      <input type="search" id="mobileSearchInput"
-        placeholder="Search Clidder..."
-        class="w-full rounded-md border border-gray-300 px-3 py-1 text-sm focus:outline-none focus:ring-2 focus:ring-[#FF7D1E] dark:bg-gray-800 dark:text-white" />
-    </div>
+<div class="fixed top-0 left-0 right-0 z-50 bg-white dark:bg-black md:hidden px-4 h-14 flex items-center justify-between" style="font-family: 'Oswald', sans-serif;">
+  <!-- Left: Clidder Logo -->
+  <div class="text-2xl font-semibold text-[#FF7D1E] select-none">
+    Clidder
   </div>
 
-  <!-- Right: Controls -->
-  <div class="flex items-center space-x-3 ml-2 flex-shrink-0">
-    
+  <!-- Right: Icons (pure lines, orange color) -->
+  <div class="flex items-center space-x-5 text-[#FF7D1E]">
+    <!-- Home Icon (clean version) -->
+    <button id="mobileNavHome" aria-label="Home" class="focus:outline-none">
+      <svg viewBox="0 0 24 24" fill="none" stroke="#FF7D1E" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" class="w-6 h-6">
+        <path d="M4 12L12 4l8 8"></path>
+        <path d="M5 12v7a1 1 0 001 1h4v-5h4v5h4a1 1 0 001-1v-7"></path>
+      </svg>
+    </button>
 
-    <!-- Dark Mode -->
-  
+<!-- Search Icon (appearance updated to match others) -->
+<button onclick="openMobileSearch()" aria-label="Search" class="focus:outline-none">
+  <svg viewBox="0 0 24 24" fill="none" stroke="#FF7D1E" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" class="w-6 h-6">
+    <circle cx="11" cy="11" r="8"></circle>
+    <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+  </svg>
+</button>
 
-    <!-- Clidders -->
- 
-<!-- Search Icon -->
- 
-    <!-- Menu -->
-    <button onclick="toggleMobileSidebarMenu()" class="text-gray-700 dark:text-white text-xl focus:outline-none">
-      ☰
+    <button id="mobileNavClidders" aria-label="Clidders" class="focus:outline-none">
+      <svg viewBox="0 0 24 24" fill="none" stroke="#FF7D1E" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" class="w-6 h-6">
+        <path d="M17 21v-2a4 4 0 0 0-3-3.87"></path>
+        <path d="M7 21v-2a4 4 0 0 1 3-3.87"></path>
+        <circle cx="12" cy="7" r="4"></circle>
+      </svg>
+    </button>
+
+
+    <!-- Notifications -->
+    <div class="relative">
+      <button id="notificationBtn" aria-label="Notifications" class="focus:outline-none">
+        <svg viewBox="0 0 24 24" fill="none" stroke="#FF7D1E" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" class="w-6 h-6">
+          <path d="M18 8a6 6 0 00-12 0c0 7-3 9-3 9h18s-3-2-3-9z"></path>
+          <path d="M13.73 21a2 2 0 01-3.46 0"></path>
+        </svg>
+      </button>
+
+      <!-- Notification Popup -->
+      <div id="notifPopup" class="hidden absolute right-0 mt-2 w-64 bg-white dark:bg-gray-900 border border-[#FF7D1E] text-gray-700 dark:text-white text-sm rounded-lg shadow-lg px-4 py-3 z-50">
+        <div>You haven't any notifications...</div>
+        <div class="absolute top-0 right-4 w-3 h-3 transform -translate-y-1/2 rotate-45 bg-white dark:bg-gray-900 border-l border-t border-[#FF7D1E]"></div>
+      </div>
+    </div>
+
+    <!-- Menu Icon -->
+    <button onclick="toggleMobileSidebarMenu()" aria-label="Menu" class="focus:outline-none">
+      <svg viewBox="0 0 24 24" fill="none" stroke="#FF7D1E" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" class="w-6 h-6">
+        <line x1="3" y1="6" x2="21" y2="6"></line>
+        <line x1="3" y1="12" x2="21" y2="12"></line>
+        <line x1="3" y1="18" x2="21" y2="18"></line>
+      </svg>
     </button>
   </div>
 </div>
@@ -2592,16 +2639,14 @@ body.dark-mode ::selection {
   <!-- Main Content -->
   <div class="flex flex-col md:flex-row w-full h-full overflow-y-auto">
 
-<!-- Left panel -->
-<div class="hidden md:flex flex-col items-center justify-center w-1/2 bg-black text-center px-4 space-y-8">
-  <h1 class="text-5xl font-extrabold leading-tight text-orange-500">It's what's going</h1>
-  <img src="https://i.ibb.co/HDNMpNL5/clidder-new-icon.png" alt="Clidder Logo" class="w-52 h-52" />
-</div>
-
+    <!-- Left panel -->
+    <div class="hidden md:flex flex-col items-center justify-center w-1/2 bg-black text-center px-4 space-y-8">
+      <h1 class="text-5xl font-extrabold leading-tight text-orange-500">It's what's going</h1>
+      <img src="https://i.ibb.co/HDNMpNL5/clidder-new-icon.png" alt="Clidder Logo" class="w-52 h-52" />
+    </div>
 
     <!-- Right panel -->
     <div class="flex flex-col justify-center items-center w-full md:w-1/2 px-6 sm:px-10 py-10 relative">
-
       <div id="authForms" class="w-full max-w-md space-y-8">
 
         <!-- 🔐 Sign In Form -->
@@ -2609,7 +2654,14 @@ body.dark-mode ::selection {
           <h2 class="text-3xl font-bold text-center">join today.</h2>
 
           <input id="signInUserInput" type="text" placeholder="Username or Email" maxlength="100" class="twitter-input" />
-          <input id="signInPassword" type="password" placeholder="Password" maxlength="100" class="twitter-input" />
+
+          <!-- Sign In Password Field with toggle -->
+          <div class="relative">
+            <input id="signInPassword" type="password" placeholder="Password" maxlength="100" class="twitter-input pr-10" />
+            <button type="button" onclick="togglePassword('signInPassword', this)" class="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400 hover:text-white">
+              <i class="fas fa-eye"></i>
+            </button>
+          </div>
 
           <div class="flex justify-end">
             <a href="https://blackhatai.nicepage.io/" target="_blank" class="text-blue-400 text-sm hover:underline">
@@ -2635,8 +2687,23 @@ body.dark-mode ::selection {
           <input id="signUpFullName" type="text" placeholder="Full Name" maxlength="100" class="twitter-input" />
           <input id="signUpEmail" type="text" placeholder="Email or Phone (e.g. +94712345678)" maxlength="100" class="twitter-input" />
           <input id="signUpUserName" type="text" placeholder="Username Without @" maxlength="50" class="twitter-input" />
-          <input id="signUpPassword" type="password" placeholder="Password" maxlength="100" class="twitter-input" />
-          <input id="signUpPasswordConfirm" type="password" placeholder="Confirm Password" maxlength="100" class="twitter-input" />
+
+          <!-- Sign Up Password Field with toggle -->
+          <div class="relative">
+            <input id="signUpPassword" type="password" placeholder="Password" maxlength="100" class="twitter-input pr-10" />
+            <button type="button" onclick="togglePassword('signUpPassword', this)" class="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400 hover:text-white">
+              <i class="fas fa-eye"></i>
+            </button>
+          </div>
+
+          <!-- Confirm Password Field with toggle -->
+          <div class="relative">
+            <input id="signUpPasswordConfirm" type="password" placeholder="Confirm Password" maxlength="100" class="twitter-input pr-10" />
+            <button type="button" onclick="togglePassword('signUpPasswordConfirm', this)" class="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400 hover:text-white">
+              <i class="fas fa-eye"></i>
+            </button>
+          </div>
+
           <textarea id="signUpBio" placeholder="Bio" rows="3" maxlength="280" class="twitter-input resize-none"></textarea>
           <input id="signUpBirthday" type="date" class="twitter-input" />
           <select id="signUpGender" class="twitter-input">
@@ -2676,34 +2743,30 @@ body.dark-mode ::selection {
   <footer class="text-xs text-gray-500 px-4 py-6 text-center space-y-2 font-normal">
     <div class="flex flex-wrap justify-center gap-2 sm:gap-4">
       <a href="about.html" class="hover:underline">About</a> |
-      <a href="#" class="hover:underline">Download the Clidder app</a> |
-      <a href="#" class="hover:underline">Clibra</a> |
-      <a href="#" class="hover:underline">Help Centre</a> |
-      <a href="terms.html" class="hover:underline">Terms of Service</a> |
-      <a href="privacy.html" class="hover:underline">Privacy Policy</a> |
-      <a href="cookies.html" class="hover:underline">Cookie Policy</a> |
-      <a href="accessibility.html" class="hover:underline">Accessibility</a> |
-      <a href="ads-info.html" class="hover:underline">Ads info</a> |
-      <a href="blog.html" class="hover:underline">Blog</a> |
-      <a href="careers.html" class="hover:underline">Careers</a> |
-      <a href="brand.html" class="hover:underline">Brand Resources</a> |
-      <a href="advertise.html" class="hover:underline">Advertising</a> |
-      <a href="marketing.html" class="hover:underline">Marketing</a> |
-      <a href="business.html" class="hover:underline">Clidder for Business</a> |
-      <a href="developers.html" class="hover:underline">Developers</a> |
-      <a href="#" class="hover:underline">Directory</a> |
-      <a href="#" class="hover:underline">Settings</a>
+      <a href="#">Download the Clidder app</a> |
+      <a href="#">Clibra</a> |
+      <a href="#">Help Centre</a> |
+      <a href="terms.html">Terms of Service</a> |
+      <a href="privacy.html">Privacy Policy</a> |
+      <a href="cookies.html">Cookie Policy</a> |
+      <a href="accessibility.html">Accessibility</a> |
+      <a href="ads-info.html">Ads info</a> |
+      <a href="blog.html">Blog</a> |
+      <a href="careers.html">Careers</a> |
+      <a href="brand.html">Brand Resources</a> |
+      <a href="advertise.html">Advertising</a> |
+      <a href="marketing.html">Marketing</a> |
+      <a href="business.html">Clidder for Business</a> |
+      <a href="developers.html">Developers</a> |
+      <a href="#">Directory</a> |
+      <a href="#">Settings</a>
     </div>
     <p class="mt-2">&copy; 2025 Clidder Corp.</p>
   </footer>
 </div>
 
-<!-- Font + Input Styles -->
+<!-- Input Styles -->
 <style>
-  body, .font-sans {
-    font-family: "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
-  }
-
   .twitter-input {
     width: 100%;
     background-color: #16181c;
@@ -2730,7 +2793,7 @@ body.dark-mode ::selection {
   }
 </style>
 
-<!-- Toggle Script -->
+<!-- Toggle Logic Script -->
 <script>
   const showSignUpBtn = document.getElementById('showSignUp');
   const showSignInBtn = document.getElementById('showSignIn');
@@ -2752,6 +2815,15 @@ body.dark-mode ::selection {
   closeBtn?.addEventListener('click', () => {
     modal.classList.add('hidden');
   });
+
+  function togglePassword(inputId, button) {
+    const input = document.getElementById(inputId);
+    const icon = button.querySelector('i');
+    const isPassword = input.type === 'password';
+    input.type = isPassword ? 'text' : 'password';
+    icon.classList.toggle('fa-eye');
+    icon.classList.toggle('fa-eye-slash');
+  }
 </script>
 
 
@@ -4286,6 +4358,9 @@ likeBtn.addEventListener("click", async () => {
         }
       });
 
+
+
+
       actions.appendChild(replyBtn);
       actions.appendChild(retweetBtn);
       actions.appendChild(likeBtn);
@@ -5711,9 +5786,7 @@ document.getElementById('btnInstallPWA').addEventListener('click', async () => {
   <span class="text-base font-medium"></span>
   </button>
   
-<button onclick="openMobileSearch()" class="text-xl text-gray-700 dark:text-white mr-2">
-  <i class="fas fa-search"></i>
-</button>
+
 
 
   <button id="mobileNavFavs" class="flex flex-col items-center text-gray-600 hover:text-[#FF7D1E]">
@@ -7924,10 +7997,13 @@ setInterval(testSpeed, 1000);
 
 
 <!-- 📱 Mobile Search Page -->
-<div id="mobileSearchModal" class="fixed inset-0 z-[9999] bg-white dark:bg-black hidden flex flex-col">
-  <!-- 🔍 Only Search Bar + Settings (Twitter-style) -->
+<div id="mobileSearchModal"
+     class="fixed top-14 bottom-0 left-0 right-0 z-[9999] bg-white dark:bg-black hidden flex flex-col">
+
+  <!-- 🔍 Search Bar + Close -->
   <div class="flex items-center gap-2 px-4 py-3 border-b border-gray-200 dark:border-gray-700 bg-white dark:bg-black">
-    <!-- Search Bar -->
+    
+    <!-- Search Input -->
     <div class="flex-1 relative">
       <input
         id="mobileSearchField"
@@ -7936,78 +8012,38 @@ setInterval(testSpeed, 1000);
         class="w-full px-4 py-2 rounded-full bg-gray-100 dark:bg-gray-800 text-black dark:text-white placeholder-gray-500 dark:placeholder-gray-400 border border-gray-300 dark:border-gray-600 focus:outline-none focus:ring-2 focus:ring-[#FF7D1E]"
         oninput="handleMobileSearch(this.value)"
       />
-      <!-- Suggestions -->
-      <div id="searchSuggestions" class="absolute z-10 w-full bg-white dark:bg-gray-900 mt-1 rounded-lg shadow border border-gray-200 dark:border-gray-700 hidden max-h-64 overflow-y-auto text-sm"></div>
+      <!-- Suggestions Dropdown -->
+      <div id="searchSuggestions"
+           class="absolute z-10 w-full bg-white dark:bg-gray-900 mt-1 rounded-lg shadow border border-gray-200 dark:border-gray-700 hidden max-h-64 overflow-y-auto text-sm">
+      </div>
     </div>
-    <!-- Settings Icon -->
-    <button onclick="alert('Filter options coming soon')" class="text-lg text-gray-700 dark:text-white">
-      <i class="fas fa-sliders-h"></i>
+
+    <!-- ❌ Close Button -->
+    <button onclick="closeMobileSearchModal()" class="text-gray-500 dark:text-gray-400 text-xl ml-2 focus:outline-none">
+      <i class="fas fa-times"></i>
     </button>
   </div>
 
   <!-- 🔽 Content Area -->
   <div class="flex-1 overflow-y-auto px-4 py-4 space-y-8 bg-white dark:bg-black" onscroll="handleScrollForMorePosts()">
-    <!-- Breaking News -->
+    
+    <!-- 🚨 Breaking News -->
     <div id="breakingNewsSearchSection">
-      <h3 class="text-lg font-bold text-gray-900 dark:text-white mb-3">🚨 What’sgoing on?</h3>
+      <h3 class="text-lg font-bold text-gray-900 dark:text-white mb-3">🚨 What’s going on?</h3>
       <div id="breakingNewsSearchList" class="space-y-4"></div>
     </div>
 
-    <!-- Trending -->
+    <!-- 🔥 Trending -->
     <div id="trendingSearchSection">
       <h3 class="text-lg font-bold text-gray-900 dark:text-white mb-3">🔥 Trends for you</h3>
       <div id="trendingSearchList" class="space-y-4"></div>
     </div>
 
-    <!-- Weather (cloned) -->
+    <!-- 🌤️ Weather -->
     <div id="weatherSearchBox" class="space-y-2"></div>
 
-    <!-- Posts -->
+    <!-- 📄 Posts -->
     <div id="mobileSearchResults" class="space-y-6"></div>
-  </div>
-
-  <!-- ✅ Existing Bottom Bar -->
-  <div class="fixed bottom-0 left-0 right-0 z-50 bg-white dark:bg-black border-t border-gray-200 dark:border-gray-700">
-    <div class="flex justify-around items-center py-2 text-sm text-gray-700 dark:text-white">
-      <button id="mobileNavHome" class="flex flex-col items-center text-gray-600 hover:text-[#FF7D1E]">
-      <span class="relative inline-block">
-    <!-- Twitter-like home icon -->
-    <svg viewBox="0 0 24 24" aria-hidden="true" class="w-6 h-6 fill-current">
-      <path d="M22.58 12.42l-9-9a1.5 1.5 0 00-2.12 0l-9 9A1.5 1.5 0 003 14h1v7a1 1 0 001 1h5a1 1 0 001-1v-5h2v5a1 1 0 001 1h5a1 1 0 001-1v-7h1a1.5 1.5 0 001.08-2.58z"></path>
-    </svg>
-
-    <!-- Orange active dot -->
-    <span class="absolute -top-1 -right-1 w-2 h-2 bg-orange-500 rounded-full"></span>
-  </span>
-  <span class="text-base font-medium"></span>
-  </button>
-
-
-
-     <button onclick="openMobileSearch()" class="text-xl text-gray-700 dark:text-white mr-2">
-  <i class="fas fa-search"></i>
-</button>
-
-
-       <button id="mobileNavFavs" class="flex flex-col items-center text-gray-600 hover:text-[#FF7D1E]">
-    <i class="fas fa-star text-xl"></i><span class="text-xs"></span>
-  </button>
-
-
-<button id="mobileclips" class="flex flex-col items-center text-gray-600 hover:text-[#FF7D1E]">
-    <i class="fas fa-play-circle fa-lg"></i><span class="text-xs"></span>
-  </button>
-
-
-   <button id="mobileNavClidders" class="flex flex-col items-center text-gray-600 hover:text-[#FF7D1E]">
-      <i class="fas fa-users text-lg"></i>
-    </button>
-
-  <button onclick="toggleMobileSidebarMenu()" class="text-2xl text-gray-700 dark:text-white focus:outline-none">
-    <i class="fas fa-ellipsis-h"></i>
-  </button>
-
-    </div>
   </div>
 </div>
 
@@ -9093,8 +9129,34 @@ window.addEventListener('DOMContentLoaded', () => {
   });
 </script>
 
+<script>
+  function openMobileSearchModal() {
+    document.getElementById("mobileSearchModal").classList.remove("hidden");
+  }
+
+  function closeMobileSearchModal() {
+    document.getElementById("mobileSearchModal").classList.add("hidden");
+  }
+</script>
 
 
+
+<script>
+  // Toggle notification popup
+  const notifBtn = document.getElementById("notificationBtn");
+  const notifPopup = document.getElementById("notifPopup");
+
+  notifBtn.addEventListener("click", (e) => {
+    e.stopPropagation();
+    notifPopup.classList.toggle("hidden");
+  });
+
+  document.addEventListener("click", function (e) {
+    if (!notifPopup.contains(e.target) && !notifBtn.contains(e.target)) {
+      notifPopup.classList.add("hidden");
+    }
+  });
+</script>
 
 </body>
 </html>
