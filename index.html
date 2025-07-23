@@ -4284,7 +4284,47 @@ retweetBtn.addEventListener("click", async () => {
   }
 });
 
+ const viewBtn = document.createElement("button");
+viewBtn.className = "flex items-center space-x-3 tweet-action-btn";
+viewBtn.innerHTML = `<i class="fas fa-chart-bar fa-lg"></i><span></span>`;
+let viewd = false;
 
+if (currentUser && post.views?.includes(currentUser.username)) {
+  viewd = true;
+  viewBtn.classList.add("viewd");
+  viewBtn.querySelector("i").className = "fas fa-chart-bar fa-lg";
+}
+
+viewBtn.addEventListener("click", async () => {
+  if (!currentUser) {
+    alert("Please sign in or create an account before liking.");
+    showAuthModal();
+    return;
+  }
+
+  const userName = currentUser.username;
+  const postRef = doc(db, "posts", id);
+
+  // Add animated effect
+  viewBtn.classList.add("view-burst");
+  setTimeout(() => viewBtn.classList.remove("view-burst"), 400);
+
+  try {
+    if (viewd) {
+      await updateDoc(postRef, { views: arrayRemove(userName) });
+      viewd = false;
+      viewBtn.classList.remove("viewd");
+      viewBtn.querySelector("i").className = "fas fa-chart-bar fa-lg";
+    } else {
+      await updateDoc(postRef, { views: arrayUnion(userName) });
+      viewd = true;
+      viewBtn.classList.add("viewd");
+      viewBtn.querySelector("i").className = "fas fa-chart-bar fa-lg";
+    }
+  } catch (err) {
+    alert("Error updating view: " + err.message);
+  }
+});
 
 
     const likeBtn = document.createElement("button");
@@ -4330,6 +4370,11 @@ likeBtn.addEventListener("click", async () => {
 });
 
 
+      const viewCountSpan = document.createElement("span");
+      viewCountSpan.className = "text-sm text-gray-600 ml-1";
+      viewCountSpan.textContent = post.views ? post.views.length : 0;
+      viewBtn.appendChild(viewCountSpan);
+
       const likeCountSpan = document.createElement("span");
       likeCountSpan.className = "text-sm text-gray-600 ml-1";
       likeCountSpan.textContent = post.likes ? post.likes.length : 0;
@@ -4364,6 +4409,7 @@ likeBtn.addEventListener("click", async () => {
       actions.appendChild(replyBtn);
       actions.appendChild(retweetBtn);
       actions.appendChild(likeBtn);
+   actions.appendChild(viewBtn); 
       actions.appendChild(shareBtn);
 
       div.appendChild(actions);
