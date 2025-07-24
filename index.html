@@ -1,9 +1,15 @@
 <html lang="en">
-<head><link rel="icon" type="image/x-icon" href="https://i.ibb.co/HDNMpNL5/clidder-new-icon.png">
+<head><link rel="icon" type="image/x-icon" href="https://i.ibb.co/tP3DmRxS/clidder-new-icon.webp">
   <meta charset="utf-8" />
   <meta content="width=device-width, initial-scale=1" name="viewport" />
 <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@600&display=swap" rel="stylesheet">
+<link rel="preload" as="image" href="https://i.ibb.co/tP3DmRxS/clidder-new-icon.webp" type="image/webp">
 
+
+
+<!-- Highlight.js -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/github-dark.min.css">
+<script defer src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
 
 
 <!-- ——— Open Graph ——— -->
@@ -1709,7 +1715,7 @@ body.dark-mode ::selection {
 ">
 
   <!-- Logo -->
-  <img src="https://i.ibb.co/HDNMpNL5/clidder-new-icon.png"
+  <img src="https://i.ibb.co/tP3DmRxS/clidder-new-icon.webp"
        alt="Clidder Logo"
        style="width: 100px; height: 100px;" />
 
@@ -1748,7 +1754,7 @@ body.dark-mode ::selection {
 <!-- Facebook-Style Pinned Top Header -->
 <header id="facebookStyleHeader" class="hidden md:flex fixed top-0 left-0 w-full bg-white dark:bg-black border-b border-gray-200 dark:border-gray-700 shadow z-[60] h-14 items-center px-4 justify-between">
   <div class="flex items-center space-x-4">
-    <img src="https://i.ibb.co/HDNMpNL5/clidder-new-icon.png" alt="Logo" class="w-8 h-8" />
+    <img src="https://i.ibb.co/tP3DmRxS/clidder-new-icon.webp" alt="Logo" class="w-8 h-8" />
     <span class="text-lg font-bold text-gray-800 dark:text-white">Clidder</span>
   </div>
   <nav class="flex space-x-6 text-gray-700 dark:text-gray-300">
@@ -1864,10 +1870,10 @@ body.dark-mode ::selection {
   <!-- Logo Image (Clickable for scroll + animation) -->
   <img
     id="clidderLogoImage"
-    src="https://i.ibb.co/HDNMpNL5/clidder-new-icon.png"
+    src="https://i.ibb.co/tP3DmRxS/clidder-new-icon.webp"
     alt="Clidder Logo"
     class="w-10 h-10 object-contain cursor-pointer select-none"
-    title="Back to Top"
+    title="Clidder by Induwara Jayasinghe"
   />
 
   <!-- Search Bar -->
@@ -2182,7 +2188,7 @@ body.dark-mode ::selection {
 
     <!-- Center: Clidder GPT Logo -->
     <div class="flex-1 flex justify-center">
-      <img src="https://i.ibb.co/HDNMpNL5/clidder-new-icon.png" alt="Clidder GPT" class="w-10 h-10" />
+      <img src="https://i.ibb.co/tP3DmRxS/clidder-new-icon.webp" alt="Clidder GPT" class="w-10 h-10" />
     </div>
 
 
@@ -2238,6 +2244,10 @@ body.dark-mode ::selection {
 
   <i class="fas fa-chart-bar cursor-pointer hover:text-[#e6680f]" title="Poll"></i>
   <i id="emojiToggle" class="fas fa-smile cursor-pointer hover:text-[#e6680f]" title="Emoji"></i>
+<button id="pasteBtn" class="tweet-action-btn text-[#FF7D1E] hover:text-orange-600" title="Paste from clipboard">
+  <i class="fas fa-paste"></i>
+</button>
+
 
 <img
   src="https://i.ibb.co/zVgvTJRF/clidder-ai.png"
@@ -2370,7 +2380,7 @@ body.dark-mode ::selection {
   </h1>
 
   <img id="clidderLogo"
-       src="https://i.ibb.co/HDNMpNL5/clidder-new-icon.png"
+       src="https://i.ibb.co/tP3DmRxS/clidder-new-icon.webp"
        width="100"
        alt="Clidder Icon"
        class="mx-auto cursor-pointer transition-transform duration-[2000ms]" />
@@ -2592,33 +2602,51 @@ body.dark-mode ::selection {
     </aside>
   </main>
 
-  <div aria-labelledby="modalTitle" aria-modal="true" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4 z-50 hidden" id="modalAddPost" role="dialog">
-    <div class="bg-white shadow-lg max-w-md w-full p-6 relative" style="">
-      <h2 class="text-xl font-semibold mb-4 text-center" id="modalTitle">Add New Hat Post</h2>
-      <form class="flex flex-col space-y-4" id="formAddPost">
-        <label class="flex flex-col text-gray-700 font-medium">
-  Media URL
-  <div class="flex items-center gap-2 mt-1">
-    <input id="postImageUrl" placeholder="Paste Your Media URL" required type="url"
-           class="flex-1 p-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-[#FF7D1E]">
-    <button type="button" onclick="pasteMediaUrl()" title="Paste from clipboard"
-            class="px-3 py-2 bg-[#FF7D1E] text-white rounded hover:bg-[#e6680f]">
-      📋
+  <div aria-labelledby="modalTitle" aria-modal="true"
+     class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4 z-50 hidden"
+     id="modalAddPost" role="dialog">
+
+  <div class="bg-white shadow-lg max-w-md w-full p-6 relative dark:bg-[#111827] dark:text-white rounded-lg">
+    <h2 class="text-xl font-semibold mb-4 text-center" id="modalTitle">Add New Hat Post</h2>
+
+    <form class="flex flex-col space-y-4" id="formAddPost">
+      <!-- Media URL Input -->
+      <label class="flex flex-col text-gray-700 font-medium dark:text-white">
+        Media URL
+        <div class="flex items-center gap-2 mt-1">
+          <input id="postImageUrl" placeholder="Paste Your Media URL" required type="url"
+                 class="flex-1 p-2 border border-gray-300 dark:border-gray-600 dark:bg-[#1e293b] rounded focus:outline-none focus:ring-2 focus:ring-[#FF7D1E]">
+          <button type="button" onclick="pasteMediaUrl()" title="Paste from clipboard"
+                  class="px-3 py-2 bg-[#FF7D1E] text-white rounded hover:bg-[#e6680f]">
+            📋
+          </button>
+        </div>
+      </label>
+
+      <!-- Caption Area -->
+      <label class="flex flex-col text-gray-700 font-medium dark:text-white">
+        Caption
+        <textarea id="postCaption"
+                  placeholder="What’s going on? You can also add a code block using clidder:blackhatdocs ... clidder:blackhatdocs:end"
+                  rows="4"
+                  class="mt-1 p-2 border border-gray-300 dark:border-gray-600 dark:bg-[#1e293b] rounded resize-none focus:outline-none focus:ring-2 focus:ring-[#FF7D1E]"></textarea>
+      </label>
+
+      <!-- Submit Button -->
+      <button type="submit"
+              class="bg-[#e6680f] text-white py-2 rounded font-semibold hover:bg-[#cc5900] transition">
+        Clide Post
+      </button>
+    </form>
+
+    <!-- Close Button -->
+    <button aria-label="Close modal" id="btnCloseModal"
+            class="absolute top-3 right-3 text-gray-500 hover:text-gray-700 dark:hover:text-gray-200 focus:outline-none">
+      <i class="fas fa-times fa-lg"></i>
     </button>
   </div>
-</label>
+</div>
 
-        <label class="flex flex-col text-gray-700 font-medium">
-          Caption
-          <textarea id="postCaption" placeholder="What’s going on ? " rows="3" class="mt-1 p-2 border border-gray-300 rounded resize-none focus:outline-none focus:ring-2 focus:ring-[#FF7D1E]"></textarea>
-        </label>
-        <button type="submit" class="bg-[#e6680f] text-white py-2 rounded font-semibold hover:bg-[#cc5900] transition">Clide Post</button>
-      </form>
-      <button aria-label="Close modal" id="btnCloseModal" class="absolute top-3 right-3 text-gray-500 hover:text-gray-700 focus:outline-none">
-        <i class="fas fa-times fa-lg"></i>
-      </button>
-    </div>
-  </div>
 
 
 
@@ -2684,12 +2712,12 @@ body.dark-mode ::selection {
     <!-- Left panel -->
     <div class="hidden md:flex flex-col items-center justify-center w-1/2 bg-black text-center px-4 space-y-8">
       <h1 class="text-5xl font-extrabold leading-tight text-orange-500">It's what's going</h1>
-      <img src="https://i.ibb.co/HDNMpNL5/clidder-new-icon.png" alt="Clidder Logo" class="w-52 h-52" />
+      <img src="https://i.ibb.co/tP3DmRxS/clidder-new-icon.webp" alt="Clidder Logo" class="w-52 h-52" />
     </div>
 
     <!-- Right panel -->
-    <div class="flex flex-col justify-center items-center w-full md:w-1/2 px-6 sm:px-10 py-10 relative">
-      <div id="authForms" class="w-full max-w-md space-y-8">
+<div class="flex flex-col justify-center items-center w-full md:w-1/2 px-6 sm:px-10 py-10 relative bg-black text-white">
+  <div id="authForms" class="w-full max-w-md space-y-8">
 
         <!-- 🔐 Sign In Form -->
         <div id="signInForm" class="flex flex-col space-y-5">
@@ -3758,10 +3786,10 @@ function timeAgo(date) {
   menu.innerHTML = `
     <ul class="divide-y divide-gray-100">
       <li><button class="w-full text-left px-4 py-2 hover:bg-gray-100">Not interested in this post</button></li>
-      <li><button class="w-full text-left px-4 py-2 hover:bg-gray-100">Follow @${post.userName}</button></li>
-      <li><button class="w-full text-left px-4 py-2 hover:bg-gray-100">Add/remove @${post.userName} from Lists</button></li>
-      <li><button class="w-full text-left px-4 py-2 hover:bg-gray-100">Mute @${post.userName}</button></li>
-      <li><button class="w-full text-left px-4 py-2 hover:bg-gray-100">Block @${post.userName}</button></li>
+      <li><button class="w-full text-left px-4 py-2 hover:bg-gray-100">Follow 𝓬𝓹${post.userName}</button></li>
+      <li><button class="w-full text-left px-4 py-2 hover:bg-gray-100">Add/remove 𝓬𝓹${post.userName} from Lists</button></li>
+      <li><button class="w-full text-left px-4 py-2 hover:bg-gray-100">Mute 𝓬𝓹${post.userName}</button></li>
+      <li><button class="w-full text-left px-4 py-2 hover:bg-gray-100">Block 𝓬𝓹${post.userName}</button></li>
       <li><button class="w-full text-left px-4 py-2 hover:bg-gray-100">View post engagements</button></li>
       <li><button class="w-full text-left px-4 py-2 hover:bg-gray-100">Embed post</button></li>
       <li><button class="w-full text-left px-4 py-2 hover:bg-gray-100">Report post</button></li>
@@ -6676,10 +6704,10 @@ tweetInput.addEventListener("input", () => {
     // Set image and background based on theme
     if (isDark) {
       splash.style.backgroundColor = "#000";
-      splashImage.src = "https://i.ibb.co/HDNMpNL5/clidder-new-icon.png";
+      splashImage.src = "https://i.ibb.co/tP3DmRxS/clidder-new-icon.webp";
     } else {
       splash.style.backgroundColor = "#fff";
-      splashImage.src = "https://i.ibb.co/HDNMpNL5/clidder-new-icon.png";
+      splashImage.src = "https://i.ibb.co/tP3DmRxS/clidder-new-icon.webp";
     }
 
     // Hide splash after 3 seconds
@@ -8757,20 +8785,69 @@ async function showTab(tab) {
 </div>
 
 <script>
-  // 🌐 Format links, hashtags, mentions
   function parseContentWithLinks(text) {
     if (!text) return "";
 
-    return text
+    const escapeHtml = str =>
+      str.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
+
+    const safeText = escapeHtml(text);
+
+    return safeText
       .replace(/(https?:\/\/[^\s]+)/g,
         '<a href="$1" target="_blank" class="text-orange-500 underline break-words">$1</a>')
       .replace(/(^|\s)#(\w+)/g,
-        '$1<span class="text-orange-500">#$2</span>')
+        '$1<span class="text-orange-500 cursor-pointer hover:underline">#$2</span>')
       .replace(/(^|\s)@(\w+)/g,
-        '$1<span class="text-orange-500">@$2</span>');
+        '$1<span class="text-orange-500 cursor-pointer hover:underline">@$2</span>');
   }
 
-  // 📤 Open Post Popup
+  function formatCodeFromCaption(text) {
+    const start = "clidder:blackhatdocs";
+    const end = "clidder:blackhatdocs:end";
+
+    const escapeHtml = str =>
+      str.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
+
+    const safeText = escapeHtml(text);
+
+    if (safeText.includes(start) && safeText.includes(end)) {
+      const before = safeText.split(start)[0]?.trim();
+      const code = safeText.split(start)[1].split(end)[0]?.trim();
+      const after = safeText.split(end)[1]?.trim();
+
+      let output = "";
+
+      if (before) {
+        output += `<div class="post-extra-text mt-2">${parseContentWithLinks(before)}</div>`;
+      }
+
+      if (code) {
+        output += `
+          <pre class="code-container mt-3 mb-3">
+            <code class="language-javascript">${hljs.highlight(code, { language: 'javascript' }).value}</code>
+            <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+          </pre>`;
+      }
+
+      if (after) {
+        output += `<div class="post-extra-text mt-2">${parseContentWithLinks(after)}</div>`;
+      }
+
+      return output;
+    }
+
+    return `<div class="post-extra-text">${parseContentWithLinks(safeText)}</div>`;
+  }
+
+  function copyCode(btn) {
+    const code = btn.previousElementSibling.innerText;
+    navigator.clipboard.writeText(code).then(() => {
+      btn.textContent = "Copied!";
+      setTimeout(() => btn.textContent = "Copy", 2000);
+    });
+  }
+
   function openPostPopup(post) {
     const modal = document.getElementById("postPopupModal");
     const content = document.getElementById("postPopupContent");
@@ -8778,23 +8855,19 @@ async function showTab(tab) {
     const postedDate = post.createdAt?.toDate?.() || new Date(post.createdAt || Date.now());
     const dateString = postedDate.toLocaleString();
 
-    const captionHTML = parseContentWithLinks(post.caption || "(No content)");
+    const captionHTML = formatCodeFromCaption(post.caption || "(No content)");
 
-    // 🔁 Reposted banner if applicable
     const repostBannerHTML = (post.reposted && post.repostedBy?.name)
       ? `<div class="text-sm text-gray-500 mb-2 px-2">🔁 Reposted by ${post.repostedBy.name}</div>`
       : "";
 
-    // 🖼 Media (responsive fix)
     const mediaHTML = post.imageUrl
-      ? `
-      <div class="mt-4 w-full max-h-[60vh] overflow-hidden rounded-lg">
-        <img src="${post.imageUrl}" alt="Post Media"
-             class="w-full h-auto rounded-md object-contain max-h-[60vh] mx-auto" />
-      </div>`
+      ? `<div class="mt-4 w-full max-h-[60vh] overflow-hidden rounded-lg">
+           <img src="${post.imageUrl}" alt="Post Media"
+                class="w-full h-auto rounded-md object-contain max-h-[60vh] mx-auto" />
+         </div>`
       : "";
 
-    // 🧱 Build full modal content
     content.innerHTML = `
       ${repostBannerHTML}
 
@@ -8827,17 +8900,17 @@ async function showTab(tab) {
       <!-- 📅 Timestamp + Clidder -->
       <div class="flex justify-between items-center mt-4 px-2 text-xs">
         <span class="text-gray-500 dark:text-gray-400">Posted on: ${dateString}</span>
-        <span class="flex items-center gap-1 text-orange-500 font-semibold">
-          Clidder | 
+        <a href="https://clidder.dev" target="_blank"
+           class="flex items-center gap-1 text-orange-500 font-semibold hover:underline">
+          Clidder.dev
           <img src="https://i.ibb.co/zVgvTJRF/clidder-ai.png" alt="Clidder AI" class="w-4 h-4" />
-        </span>
+        </a>
       </div>
     `;
 
     modal.classList.remove("hidden");
   }
 
-  // ❎ Close popup if clicking outside the box
   function hidePopupOnOutsideClick(event) {
     const box = document.getElementById("popupBox");
     if (!box.contains(event.target)) {
@@ -9192,7 +9265,7 @@ window.addEventListener('DOMContentLoaded', () => {
   // Example signed-in user (replace with real data)
   const signedInUser = {
     name: "Jane Doe",
-    profilePicURL: "https://i.ibb.co/HDNMpNL5/clidder-new-icon.png"
+    profilePicURL: "https://i.ibb.co/tP3DmRxS/clidder-new-icon.webp"
   };
 
   window.addEventListener("DOMContentLoaded", () => {
@@ -9255,27 +9328,26 @@ window.addEventListener('DOMContentLoaded', () => {
 
 <div id="logoBarAnimation" style="
   position: fixed;
-  top: 56px; /* 👈 exactly below your header (h-14 = 56px) */
+  top: 0;
   left: 0;
   height: 3px;
   width: 0%;
   background-color: #FF7D1E;
   z-index: 9999;
   pointer-events: none;
-  transition: width 2s ease;
 "></div>
+
 
 <script>
   function scrollCenterContentToTopWithBar() {
     const bar = document.getElementById("logoBarAnimation");
     const centerContent = document.getElementById("centerContent");
 
-    // Animate the orange bar
     if (bar) {
       bar.style.transition = "none";
       bar.style.width = "0%";
-      bar.offsetHeight; // Force reflow
-      bar.style.transition = "width 2s ease"; // 👈 slow speed
+      bar.offsetHeight; // force reflow
+      bar.style.transition = "width 2s ease";
       bar.style.width = "100%";
     }
 
@@ -9287,30 +9359,27 @@ window.addEventListener('DOMContentLoaded', () => {
       });
     }
 
-    // Also scroll window if needed
-    window.scrollTo({
-      top: 0,
-      behavior: "smooth"
-    });
+    // Scroll window too (for mobile or cases where centerContent is short)
+    window.scrollTo({ top: 0, behavior: "smooth" });
 
-    // Hide bar again after animation
+    // Reset bar
     setTimeout(() => {
       if (bar) {
         bar.style.transition = "none";
         bar.style.width = "0%";
       }
-    }, 2200);
+    }, 1400);
   }
 
   document.addEventListener("DOMContentLoaded", () => {
-    const desktop = document.getElementById("clidderLogoDesktop");
-    const mobile = document.getElementById("clidderLogoMobile");
-    const image = document.getElementById("clidderLogoImage");
+    const imgLogo = document.getElementById("clidderLogoImage");
+    const mobileTextBtn = document.getElementById("clidderLogoMobile");
+    const desktopTextBtn = document.getElementById("clidderLogoDesktop");
 
-    [desktop, mobile, image].forEach(el => {
-      if (el) {
-        el.style.cursor = "pointer";
-        el.addEventListener("click", scrollCenterContentToTopWithBar);
+    [imgLogo, mobileTextBtn, desktopTextBtn].forEach(btn => {
+      if (btn) {
+        btn.style.cursor = "pointer";
+        btn.addEventListener("click", scrollCenterContentToTopWithBar);
       }
     });
   });
@@ -9319,6 +9388,226 @@ window.addEventListener('DOMContentLoaded', () => {
 
 
 
+
+<script>
+  document.getElementById('pasteBtn').addEventListener('click', async () => {
+    try {
+      const text = await navigator.clipboard.readText();
+      const tweetInput = document.getElementById('tweetInput'); // adjust if your textarea has a different ID
+      if (tweetInput) {
+        const start = tweetInput.selectionStart;
+        const end = tweetInput.selectionEnd;
+        const currentText = tweetInput.value;
+        tweetInput.value = currentText.slice(0, start) + text + currentText.slice(end);
+        tweetInput.setSelectionRange(start + text.length, start + text.length);
+        tweetInput.focus();
+      }
+    } catch (err) {
+      alert("Failed to read clipboard. Please allow permission.");
+    }
+  });
+</script>
+
+
+
+<script>
+document.addEventListener("DOMContentLoaded", () => {
+  const feed = document.getElementById("feed");
+  if (!feed) return;
+
+  const formatCodePosts = () => {
+    document.querySelectorAll(".post-content").forEach(el => {
+      const rawText = el.textContent.trim();
+      const startTag = "clidder:blackhatdocs";
+      const endTag = "clidder:blackhatdocs:end";
+
+      if (el.dataset.processed === "true") return;
+
+      if (rawText.includes(startTag) && rawText.includes(endTag)) {
+        const before = rawText.split(startTag)[0]?.trim();
+        const code = rawText.split(startTag)[1].split(endTag)[0]?.trim();
+        const after = rawText.split(endTag)[1]?.trim();
+
+        // Code Block
+        const pre = document.createElement("pre");
+        const codeEl = document.createElement("code");
+        codeEl.className = "language-javascript";
+        codeEl.textContent = code;
+        hljs.highlightElement(codeEl);
+
+        const copyBtn = document.createElement("button");
+        copyBtn.textContent = "Copy";
+        copyBtn.className = "copy-btn";
+
+        pre.className = "code-container";
+        pre.appendChild(codeEl);
+        pre.appendChild(copyBtn);
+
+        // Before and After Text
+        const container = document.createElement("div");
+
+        if (before) {
+          const beforeDiv = document.createElement("div");
+          beforeDiv.className = "post-extra-text";
+          beforeDiv.innerHTML = enhanceText(before);
+          container.appendChild(beforeDiv);
+        }
+
+        container.appendChild(pre);
+
+        if (after) {
+          const afterDiv = document.createElement("div");
+          afterDiv.className = "post-extra-text";
+          afterDiv.innerHTML = enhanceText(after);
+          container.appendChild(afterDiv);
+        }
+
+        el.innerHTML = "";
+        el.appendChild(container);
+        el.dataset.processed = "true";
+      } else {
+        // No code block, just enhance text
+        el.innerHTML = enhanceText(rawText);
+        el.dataset.processed = "true";
+      }
+    });
+
+    // Copy button logic
+    document.querySelectorAll(".copy-btn").forEach(btn => {
+      btn.onclick = () => {
+        const code = btn.previousElementSibling.innerText;
+        navigator.clipboard.writeText(code).then(() => {
+          btn.textContent = "Copied!";
+          setTimeout(() => btn.textContent = "Copy", 2000);
+        });
+      };
+    });
+  };
+
+  // Format hashtags, mentions, Clidder.dev
+  const enhanceText = (text) => {
+    const escapeHtml = (str) =>
+      str.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
+
+    const safe = escapeHtml(text);
+
+    return safe
+      .replace(/#(\w+)/g, `<span class="highlight-hashtag text-orange-500">#$1</span>`)
+      .replace(/@(\w+)/g, `<span class="highlight-mention text-orange-500">@$1</span>`)
+      .replace(/https:\/\/clidder\.dev/gi, `<a href="https://clidder.dev" target="_blank" class="highlight-link text-orange-500 underline">clidder.dev</a>`)
+      .replace(/\n/g, "<br>");
+  };
+
+  const observer = new MutationObserver(formatCodePosts);
+  observer.observe(feed, { childList: true, subtree: true });
+
+  formatCodePosts();
+});
+</script>
+
+
+<style>
+
+.code-container {
+  background: #0d1117;
+  color: #c9d1d9;
+  padding: 1rem 1.25rem;
+  border-radius: 0.75rem;
+  overflow-x: auto;
+  margin-top: 1rem;
+  margin-bottom: 1rem;
+  position: relative;
+  font-family: 'Fira Code', Consolas, monospace;
+  font-size: 0.95rem;
+  line-height: 1.5;
+  border: 1px solid #30363d;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.4);
+}
+.copy-btn {
+  position: absolute;
+  top: 10px;
+  right: 12px;
+  background: #FF7D1E;
+  color: white;
+  border: none;
+  padding: 6px 12px;
+  font-size: 0.75rem;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: 600;
+  transition: background 0.2s ease;
+  z-index: 10;
+}
+.copy-btn:hover {
+  background: #e6680f;
+}
+.post-extra-text {
+  margin-top: 0.5rem;
+  padding-left: 0.5rem;
+  white-space: pre-wrap;
+  font-size: 1rem;
+  line-height: 1.6;
+  color: inherit;
+}
+.highlight-hashtag,
+.highlight-mention,
+.highlight-link {
+  color: #FF7D1E;
+  font-weight: 600;
+  cursor: pointer;
+}
+.highlight-link {
+  text-decoration: none;
+}
+.highlight-link:hover {
+  text-decoration: underline;
+}
+
+
+</style>
+
+<style>
+.code-container {
+  background: #0d1117;
+  color: #c9d1d9;
+  padding: 1rem 1.25rem;
+  border-radius: 0.75rem;
+  overflow-x: auto;
+  margin-top: 1rem;
+  margin-bottom: 1rem;
+  position: relative;
+  font-family: 'Fira Code', monospace;
+  font-size: 0.95rem;
+  line-height: 1.5;
+  border: 1px solid #30363d;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.4);
+}
+.copy-btn {
+  position: absolute;
+  top: 10px;
+  right: 12px;
+  background: #FF7D1E;
+  color: white;
+  border: none;
+  padding: 6px 12px;
+  font-size: 0.75rem;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: 600;
+  transition: background 0.2s ease;
+}
+.copy-btn:hover {
+  background: #e6680f;
+}
+.post-extra-text {
+  margin-top: 0.5rem;
+  white-space: pre-wrap;
+  font-size: 1rem;
+  line-height: 1.6;
+  color: inherit;
+}
+
+</style>
 
 
 </body>
