@@ -12,19 +12,21 @@
 <script defer src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
 
 
-<!-- ——— Open Graph ——— -->
-<meta property="og:type"        content="website">
-<meta property="og:url"         content="https://clidder.example.com/">
-<meta property="og:title"       content="Clidder – It's what’s going on">
-<meta property="og:description" content="Join Clidder, the fast, fun way to share what’s going in your world.">
-<meta property="og:image"       content="https://i.ibb.co/T6n1yfk/Clidder-preview.png">
+<!-- ——— Open Graph Meta Tags ——— -->
+<meta property="og:type" content="website">
+<meta property="og:url" content="Clidder">
+<meta property="og:title" content="Clidder. It's what’s going on">
+<meta property="og:description" content="Join today — the fast, fun way to share what’s going on in your world.">
+<meta property="og:image" content="https://i.ibb.co/tP3DmRxS/clidder-new-icon.webp">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
 
-<!-- ——— Twitter Card (uses the same image) ——— -->
-<meta name="twitter:card"        content="summary_large_image">
-<meta name="twitter:site"        content="@ClidderApp">  <!-- optional -->
-<meta name="twitter:title"       content="Clidder – What’s going on">
-<meta name="twitter:description" content="Join Clidder, the fast, fun way to share what’s going in your world.">
-<meta name="twitter:image"       content="https://i.ibb.co/T6n1yfk/Clidder-preview.png">
+<!-- ——— Twitter Card Meta Tags ——— -->
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:site" content="@ClidderApp"> <!-- Optional -->
+<meta name="twitter:title" content="Clidder. It's what’s going on">
+<meta name="twitter:description" content="Join today — the fast, fun way to share what’s going on in your world.">
+<meta name="twitter:image" content="https://i.ibb.co/tP3DmRxS/clidder-new-icon.webp">
 
 
 
@@ -35,7 +37,8 @@
     rel="stylesheet"
   />
   <link
-    href="https://fonts.googleapis.com/css2?family=Roboto:wght𝓬𝓹400;700&display=swap"
+    href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap"
+
     rel="stylesheet"
   />
   <style>
@@ -1681,6 +1684,18 @@ body.dark-mode ::selection {
   margin-left: 2px !important;
 }
 
+/* Font size boost (no sidebar changes) */
+body,
+#centerContent,
+#feed,
+#feed .post-content,
+#feed .reply-item,
+#feed .tweet-action-btn,
+#feed .read-more,
+#feed .post-actions button {
+  font-size: 19px !important;
+  line-height: 1.5 !important;
+}
 
 
 
@@ -3847,7 +3862,7 @@ timeSpan.textContent = "· " + timeAgo(createdAtDate);
 
 // Name (with badges, clickable)
 const nameText = document.createElement("span");
-nameText.className = "font-semibold text-gray-900 dark:text-white inline-flex items-center gap-1 text-unique-user";
+nameText.className = "font-semibold text-gray-900 dark:text-white inline-flex items-center gap-1 text-unique-user ";
 nameText.innerHTML = `
   ${post.userName || "HatUser"}
   ${getPremiumHTML(post.premium)}
@@ -3862,12 +3877,21 @@ nameText.addEventListener("click", () => openProfileCard(post));
 // Handle (clickable)
 const userHandle = document.createElement("span");
 userHandle.className = "text-gray-500 dark:text-gray-400 font-normal cursor-pointer";
-userHandle.textContent = post.userHandle.replace(/^@/, "");
+
+// Remove any variation of 'cp' or '𝓬𝓹' at the start
+const rawHandle = post.userHandle || "";
+const cleanedHandle = rawHandle
+  .replace(/^@/, "")           // remove leading @ if present
+  .replace(/^𝓬𝓹/, "")         // remove stylized '𝓬𝓹'
+  .replace(/^cp/i, "");        // remove plain 'cp' (case-insensitive)
+
+userHandle.textContent = `@${cleanedHandle}`;
 userHandle.addEventListener("click", () => openProfileCard(post));
+
 
 // Final one-line row: name + handle + time
 const nameRow = document.createElement("div");
-nameRow.className = "flex flex-wrap items-center gap-1 text-sm leading-tight";
+nameRow.className = "flex flex-wrap items-center gap-1 text-[17px] leading-tight";
 nameRow.appendChild(nameText);
 nameRow.appendChild(userHandle);
 nameRow.appendChild(timeSpan);
@@ -6312,7 +6336,7 @@ function getAIHTML(isAI) {
 
 function getClidderHTML(isClidder) {
   return isClidder === true
-    ? `<img src="https://upload.wikimedia.org/wikipedia/commons/4/49/Clidder.svg" class="clidder-badge" alt="Clidder">`
+    ? `<img src="https://upload.wikimedia.org/wikipedia/commons/f/f5/Logo_with_gradient_circle.svg" class="clidder-badge" alt="Clidder">`
     : "";
 }
 
@@ -8902,7 +8926,7 @@ async function showTab(tab) {
         <span class="text-gray-500 dark:text-gray-400">Posted on: ${dateString}</span>
         <a href="https://clidder.dev" target="_blank"
            class="flex items-center gap-1 text-orange-500 font-semibold hover:underline">
-          Clidder.dev
+          Clidder | 
           <img src="https://i.ibb.co/zVgvTJRF/clidder-ai.png" alt="Clidder AI" class="w-4 h-4" />
         </a>
       </div>
